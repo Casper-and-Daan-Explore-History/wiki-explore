@@ -325,70 +325,19 @@ function runQuery() {
     }
 
     var endpointUrl = 'https://query.wikidata.org/sparql',
-        sparqlQuery = "#defaultView:Map\n" +
-            "SELECT DISTINCT ?item ?itemLabel ?itemDescription ?geo ?img ?commons ?instanceOfLabel ?sitelink WHERE {\n" +
-            "  # \"instance of\" \"Roman amphitheatre\" or(UNION) \"Greek theatre\" or one of it's subclasses(/wdt:P279*)\n" +
-            "  {?item wdt:P31/wdt:P279* wd:Q7362268.} #Roman amphitheatre\n" +
-            "  UNION {?item wdt:P31/wdt:P279* wd:Q2860319} #Greek Theater\n" +
-            "  UNION {?item wdt:P31/wdt:P279* wd:Q69391739} #Greek colony\n" +
-            "  UNION {?item wdt:P31/wdt:P279* wd:Q24933318} #Galo-roman amphiteaters\n" +
-            "  UNION {?item wdt:P31/wdt:P279* wd:Q6581615} #Thermae\n" +
-            "  UNION {?item wdt:P31/wdt:P279* wd:Q19757} #Roman theatre\n" +
-            "  UNION {?item wdt:P31/wdt:P279* wd:Q867143} #Roman temple\n" +
-            "  UNION {?item wdt:P31/wdt:P279* wd:Q918230} #Roman villa\n" +
-            "  UNION {?item wdt:P31/wdt:P279* wd:Q2202509} #Roman city\n" +
-            "  UNION {?item wdt:P31/wdt:P279* wd:Q782970} #domus \n" +
-            "  UNION {?item wdt:P31/wdt:P279* wd:Q252021} #villa rustica\n" +
-            "  UNION {?item wdt:P31/wdt:P279* wd:Q180927} #mastaba \n" +
-            "  UNION {?item wdt:P31/wdt:P279* wd:Q2270185} #Mesoamerican pyramids \n" +
-            "  UNION {?item wdt:P31/wdt:P279* wd:Q1456099} #step pyramid\n" +
-            "  UNION {?item wdt:P31/wdt:P279* wd:Q731966} #nymphaeum \n" +
-            "  UNION {?item wdt:P361/wdt:P279* wd:Q38888} #Olympia \n" +
-            "  UNION {?item wdt:P361/wdt:P279* wd:Q43332} #Pompeii \n" +
-            "  UNION {?item wdt:P31/wdt:P279* wd:Q6581615} #thermae  \n" +
-            "  UNION {?item wdt:P31/wdt:P279* wd:Q1473950} #stepwell \n" +
-            "  UNION {?item wdt:P31/wdt:P279* wd:Q3411290} #smooth-sided pyramid\n" +
-            "  UNION {?item wdt:P31/wdt:P279* wd:Q200141} #necropolis v\n" +
-            // "  UNION {?item wdt:P31/wdt:P279* wd:Q427287} #Wat \n" +   //To many modern results
-            "  UNION {?item wdt:P31/wdt:P279* wd:Q877152} #White elephant\n" +
-            "  UNION {?item wdt:P31/wdt:P279* wd:Q12223988} #sphinx \n" +
-            "  UNION {?item wdt:P31/wdt:P279* wd:Q66108498} #Wonder of the Ancient World\n" +
-            "  UNION {?item wdt:P31/wdt:P279* wd:Q13466456} #house of millions of years\n" +
-            "  UNION {?item wdt:P31/wdt:P279* wd:Q665247} #hypogeum \n" +
-            "  UNION {?item wdt:P179/wdt:P279* wd:Q458082} #list of burials in the Valley of the Kings\n" +
-            "  UNION {?item wdt:P179/wdt:P279* wd:Q690551} #list of Theban Tombs\n" +
-            "  UNION {?item wdt:P136/wdt:P279* wd:Q6611811} #list of colossal sculpture in situ\n" +
-            "  UNION {?item wdt:P31/wdt:P279* wd:Q855747} #Egyptian temple \n" +
-            "  UNION {?item wdt:P31/wdt:P279* wd:Q15661340} #ancient city \n" +
-            "  UNION {?item wdt:P361/wdt:P279* wd:Q5788} #Petra  \n" +
-            "  UNION {?item wdt:P5008/wdt:P279* wd:Q68074438} #WikiProject Livius \n" +
-            "  UNION {?item wdt:P2596/wdt:P279* wd:Q220594} #Nabataeans  \n" +
-            "  UNION {?item wdt:P361/wdt:P279* wd:Q163607} #Angkor \n" +
-            "  UNION {?item wdt:P361/wdt:P279* wd:Q1493784} #Chemtou, archaeological site in Tunisia \n" +
-            "  UNION {?item wdt:P361/wdt:P279* wd:Q3378708} #Pheradi Majius \n" +
-            // "  UNION {?item wdt:P31/wdt:P279* wd:Q665247} #hypogeum \n" +
-            // "  UNION {?item wdt:P31/wdt:P279* wd:Q665247} #hypogeum \n" +
-            "  UNION {\n" +
-            "    ?romanArchio wdt:P2596 wd:Q1747689. #everything Ancient Rome\n" +
-            "    ?romanArchio wdt:P625 ?notRelavant. #Only keep thing with a location\n" +
-            "    ?item wd:* ?romanArchio. #add them to item\n" +
-            "  } # Anicent Roman Locations\n" +
-            "    UNION {\n" +
-            "    ?romanCity wdt:P31/wdt:P279* wd:Q2202509. #everything Ancient Rome\n" +
-            "    ?romanCity wdt:P625 ?notRelavant. #Only keep archiological site\n" +
-            "    ?item wd:* ?romanCity. #add them to item\n" +
-            "  }  \n" +
-            "  ?item wdt:P625 ?geo . #Filter on \"has a location\"\n" +
-            "  OPTIONAL {?item wdt:P18 ?img}. # if result has a location, get it\n" +
-            "  OPTIONAL {?item wdt:P373 ?commons}. # wiki commons img categorie\n" +
-            "  OPTIONAL {?item wdt:P31 ?instanceOf}. #Hat is it part of?\n" +
-            "  OPTIONAL { ?sitelink schema:about ?item.\n" +
-            "    ?sitelink schema:isPartOf <https://en.wikipedia.org/>. }\n" +
-            "\n" +
-            "  SERVICE wikibase:label { bd:serviceParam wikibase:language \"[AUTO_LANGUAGE],en\". }\n" +
-            "\n" +
-            "}\n" +
-            "";
+    // "SELECT DISTINCT ?item ?itemLabel ?itemDescription ?geo ?img ?commons ?instanceOfLabel ?sitelink WHERE {\n" +
+    sparqlQuery = "select ?item ?itemLabel ?itemDescription ?geo ?img ?PointInTime {  \n" +
+    "  ?item wdt:P31/wdt:P279* wd:Q645883;\n" +
+    "        wdt:P18 ?img;\n" +
+    "        wdt:P625 ?geo;\n" +
+    "        wdt:P585 ?PointInTime\n" +
+    "\n" +
+    "    #filter (?PointInTime > \"1939-01-01\"^^xsd:dateTime && ?PointInTime < \"1946-01-01\"^^xsd:dateTime)\n" +
+    "\n" +
+    "    SERVICE wikibase:label { bd:serviceParam wikibase:language \"[AUTO_LANGUAGE],en,nl,fr\". }\n" +
+    "}\n" +
+    "\n" +
+    "LIMIT 10000";
 
     makeSPARQLQuery(endpointUrl, sparqlQuery, function (data) {
         // $('body').append($('<pre>').text(JSON.stringify(data)));
