@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8" />
+    <title>Visit the Past</title>
+    <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no" />
+
+    <!-- CSS -->
+    <link rel="stylesheet" type="text/css" href="index.css">
+
+    <!-- jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    <!-- Mapbox -->
+    <script src="https://api.mapbox.com/mapbox-gl-js/v1.7.0/mapbox-gl.js"></script>
+    <link href="https://api.mapbox.com/mapbox-gl-js/v1.7.0/mapbox-gl.css" rel="stylesheet" />
+
+    <!-- geocoder from mapbox -->
+    <script
+        src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.4.2/mapbox-gl-geocoder.min.js"></script>
+    <link rel="stylesheet"
+        href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.4.2/mapbox-gl-geocoder.css"
+        type="text/css" />
+
+    <!-- required to use Mapbox Geocoder in IE 11 -->
+    <script src="https://cdn.jsdelivr.net/npm/es6-promise@4/dist/es6-promise.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/es6-promise@4/dist/es6-promise.auto.min.js"></script>
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css?family=Raleway:200,300,400,500,600&display=swap" rel="stylesheet">
+
+</head>
+
+<body>
+    <div class="bluredCoverImgBackground" style="filter: blur(0px); -webkit-filter: blur(0px);"></div>
+    <div class="bluredCoverImgBackground"></div>
+    <div id="coverContainer">
+        <h1 class="MegaTitle coverText">visitthepast.org</h1>
+        <div class="coverTextContainer">
+            <div class="textCollum">
+                <H2 class="textCollumTitle coverText">Visit the past</H2>
+                <p class="textCollumContent coverText">Explore places of bygone areas that remain to this day. Here you
+                    can
+                    experience
+                    the digital traces and maybe one day you can experience it in real life.</p>
+            </div>
+            <div class="textCollum">
+                <H2 class="textCollumTitle coverText">Wikidata</H2>
+                <p class="textCollumContent coverText">This is powered by the free and open knowledge base of the
+                    Internet.
+                    Wikidata is the data structure behind Wikipedia.</p>
+            </div>
+            <div class="textCollum">
+                <H2 class="textCollumTitle coverText">Help</H2>
+                <p class="textCollumContent coverText">Wikidata is open and can be edited by anyone. By exploring you
+                    might find
+                    inconsistencies or information gaps. Feel empowered to edit wikidata and improve it.</p>
+            </div>
+        </div>
+        <h2 class="coverButton coverText">Start exploring</h2>
+    </div>
+
+    <div id="loadingBox" class="loadingBox">
+        <H1 class="loadingText">Loading content from wikidata...</H1>
+    </div>
+
+    <div id="websiteInfoBackground">
+        <h2
+            style="text-align: right; font-weight: 200; border: solid 2px white; border-radius: 5px; width: fit-content; float:right; padding: 3px 10px; cursor: pointer;">
+            sluit</h2>
+        <h1 style="margin: 60px 0 0 0;">De bereikbaarheidsfacor van de e-bike</h1>
+        <h2>What is it?</h2>
+        <p>It is toole to explore historic places you can visit today. In a way these are places you can visit and go
+            back in time, hens the name.</p>
+
+    </div>
+
+    <div id="map" class="">
+        <!-- <div id="topRight"></div> -->
+        <!-- <div id="bottomTray"></div> -->
+        <div id="itemBottomPositioner">
+            <H1 class="bottomTitle">Photos from visible map points:</H1>
+            <div id="horisontalScrollcontainer"></div>
+        </div>
+
+        <!-- Selected item with slideshow -->
+        <div id="selectionContainer">
+            <img class="singleImgSelection"
+                src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e9/Chedworth_Roman_Villa_2012_-_North_bath_house.jpg/300px-Chedworth_Roman_Villa_2012_-_North_bath_house.jpg"
+                alt="img" style="display: none;">
+
+            <div id="slideshow-container" class="slideshow-container" style="display:none;">
+                <div class="imgCarouselImgsContainer"></div>
+                <a class="prev" onclick="plusSlides(-1)"></a>
+                <a class="next" onclick="plusSlides(1)"></a>
+                <div id="imgDotContainer" class="imgDotContainer"></div>
+            </div>
+        </div>
+
+        <div id="LeftBtnContainer">
+            <!-- <div id="closeGal" onclick="openGalleryVieuw(false)"></div> -->
+            <div id="webBtnsGal" class="vertical-center">
+                <div id="wikidata" class="LeftPortrudingBtns" onclick="openInNewWindow('wikidata')"
+                    style="display: none;"></div>
+                <!-- <div id="wikipedia" class="LeftPortrudingBtns" onclick="openInNewWindow('wikipedia')" style="display: none;"></div> -->
+                <div id="commons" class="LeftPortrudingBtns" onclick="openInNewWindow('commonsGallery')"
+                    style="display: none;"></div>
+                <div id="googleMaps" class="LeftPortrudingBtns" onclick="openInNewWindow('googleMaps')"></div>
+                <div id="flickr" class="LeftPortrudingBtns" onclick="openInNewWindow('flickr')"></div>
+                <div id="" class="LeftPortrudingBtns" onclick="openInNewWindow('wikishootme')"></div>
+            </div>
+        </div>
+
+        <!-- Gallery Vieuw -->
+        <div id="clickForClose" style="display: none;"></div>
+        <div id="galleryContainer" style="display: none;">
+            <div id="leftContainerGal" class="">
+                <div class="leftInfoContainer">
+                    <h1 id="titelGal" class="zeroMarg">label of Q</h1>
+                    <h2 id="categoryGal" class="zeroMarg">instance of - test -castel</h2>
+                    <p id="descriptionGal" class="zeroMarg">This is a lot of text. This is a lot of text. This is a lot
+                        of text. This
+                        is a lot of text.</p>
+                    <span id="qnbrGal">
+                        Q82759301
+                    </span>
+                </div>
+                <div id="leftImgContainer" class="">
+                </div>
+            </div>
+            <div id="rightContainer">
+                <div id="rightpPhotoContainer" class="">
+                    <div class="bigImgPositionerGal vertical-center">
+                        <img class="bigImgGal" src="" alt="">
+                        <!-- <a class="prev" onclick="plusSlides(-1)"></a> -->
+                        <!-- <a class="next" onclick="plusSlides(1)"></a> -->
+                        <span class="bigImgInfoTextGal" onclick="openInNewWindow('commons')">This image is form
+                            commons.wikimedia.org | copier right
+                            information | original
+                            file | different sizes | meta data</span>
+                    </div>
+                </div>
+                <div id="rightBtnContainer">
+                    <div id="closeGal" onclick="openGalleryVieuw(false)"></div>
+                    <div id="webBtnsGal" class="vertical-center">
+                        <div id="wikidata" class="rightPortrudingBtns" onclick="openInNewWindow('wikidata')"></div>
+                        <!-- <div id="wikipedia" class="rightPortrudingBtns" onclick="openInNewWindow('wikipedia')"></div> -->
+                        <div id="commons" class="rightPortrudingBtns" onclick="openInNewWindow('commonsGallery')"></div>
+                        <div id="googleMaps" class="rightPortrudingBtns" onclick="openInNewWindow('googleMaps')"></div>
+                        <div id="flickr" class="rightPortrudingBtns" onclick="openInNewWindow('flickr')"></div>
+                        <div id="" class="rightPortrudingBtns" onclick="openInNewWindow('wikishootme')"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+
+    <!-- Javascript file -->
+    <script type="text/javascript" src="index.js"></script>
+
+</body>
+
+</html>
