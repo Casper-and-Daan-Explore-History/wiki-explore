@@ -179,9 +179,9 @@ map.on('load', function () {
                 ["linear"],
                 ["zoom"],
                 8,
-                4,
-                22,
-                20
+                7,
+                40,
+                40
             ],
             "circle-color": "hsla(108, 0%, 100%, 0.63)",
             "circle-stroke-color": "hsla(350, 0%, 0%, 0.52)",

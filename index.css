@@ -14,7 +14,7 @@ h1, h2 {
 
 h1 {
     font-weight: 500;
-    font-size: 7rem;
+    font-size: 6rem;
 }
 
 p {
@@ -63,15 +63,29 @@ body {
 
 #selectionContainer {
     position: absolute;
-    top: 30px;
+    top: 130px;
     left: 30px;
-    height: 80%;
-    width: 30%;
+    height: 85%;
+    width: 25%;
     z-index: 100;
     background-color: var(--white);
     display: none;
-    padding: 40px;
     border-radius: 10px;
+}
+
+.MainContent {
+    padding-left: 40px;
+    padding-right: 40px;
+}
+
+#selectionContainerHeader {
+    margin-top: 40px;
+    margin-bottom: 40px;
+}
+
+#selectionContainerSummary {
+    margin-top: 40px;
+    margin-bottom: 40px;
 }
 
 #singleImgSelection {
@@ -81,12 +95,11 @@ body {
 }
 
 #slideshow-container {
-    max-width: 300px;
-    /* margin: auto; */
     border-radius: 5px;
     overflow: hidden;
     background-color: lightgrey;
     display: none;
+    max-height: 40%;
 }
 
 #bottomTray {
