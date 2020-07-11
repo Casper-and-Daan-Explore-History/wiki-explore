@@ -30,7 +30,7 @@
     <script src="https://cdn.jsdelivr.net/npm/es6-promise@4/dist/es6-promise.auto.min.js"></script>
 
     <!-- Google Font -->
-    <link href="https://fonts.googleapis.com/css?family=Raleway:200,300,400,500,600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Karla:ital,wght@0,400;0,700;1,400;1,700&family=Rubik:wght@300;400;500;700;900&display=swap" rel="stylesheet"" rel="stylesheet">
 
 </head>
 
@@ -64,39 +64,40 @@
     </div>
 
     <div id="loadingBox" class="loadingBox">
-        <H1 class="loadingText">Loading content from wikidata...</H1>
+        <h1 class="loadingText">Loading content from wikidata...</h1>
     </div>
 
-    <div id="websiteInfoBackground">
-        <h2
-            style="text-align: right; font-weight: 200; border: solid 2px white; border-radius: 5px; width: fit-content; float:right; padding: 3px 10px; cursor: pointer;">
-            sluit</h2>
-        <h1 style="margin: 60px 0 0 0;">De bereikbaarheidsfacor van de e-bike</h1>
-        <h2>What is it?</h2>
-        <p>It is toole to explore historic places you can visit today. In a way these are places you can visit and go
-            back in time, hens the name.</p>
-
-    </div>
 
     <div id="map" class="">
+            <div id="header">
+    </div>
         <!-- <div id="topRight"></div> -->
         <!-- <div id="bottomTray"></div> -->
         <div id="itemBottomPositioner">
-            <H1 class="bottomTitle">Photos from visible map points:</H1>
+            <h1 class="bottomTitle">Photos from visible map points:</h1>
             <div id="horisontalScrollcontainer"></div>
         </div>
 
         <!-- Selected item with slideshow -->
         <div id="selectionContainer">
+            <div id="selectionContainerHeader"/>
+            <h1>Title Placeholder</h1>
+            <p>Date</p>
+            <p>Location</p>
+        </div>
             <img class="singleImgSelection"
                 src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e9/Chedworth_Roman_Villa_2012_-_North_bath_house.jpg/300px-Chedworth_Roman_Villa_2012_-_North_bath_house.jpg"
-                alt="img" style="display: none;">
+                alt="img">
 
-            <div id="slideshow-container" class="slideshow-container" style="display:none;">
+            <div id="slideshow-container" class="slideshow-container">
                 <div class="imgCarouselImgsContainer"></div>
                 <a class="prev" onclick="plusSlides(-1)"></a>
                 <a class="next" onclick="plusSlides(1)"></a>
                 <div id="imgDotContainer" class="imgDotContainer"></div>
+            </div>
+
+            <div id="selectionContainerSummary">
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus in velit in risus porta ultrices. Nam in tortor vitae felis tempor sodales. Integer id turpis vitae velit hendrerit dictum non sodales metus. Aliquam ullamcorper diam in facilisis bibendum. Vestibulum efficitur, risus ac maximus maximus, nunc nunc accumsan risus, at elementum tortor felis vitae nisl. Donec magna felis, venenatis sed quam laoreet, suscipit sagittis diam. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Etiam tristique finibus urna, a convallis erat pretium ac.
             </div>
         </div>
 
