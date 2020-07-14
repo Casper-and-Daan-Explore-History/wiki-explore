@@ -5,34 +5,19 @@
 
 html {
     font-family: 'Karla', sans-serif;
-    font-size: 10px;
+    font-size: 100%;
 }
 
 h1, h2 {
     font-family: 'Rubik', sans-serif;
 }
 
-h1 {
-    font-weight: 500;
-    font-size: 3rem;
-}
-
 p {
     font-family: 'Karla', sans-serif;
-    font-size: 1.5rem;
-    line-height: 1.5;
 }
 
 
-
-body {
-    margin: 0;
-    padding: 0;
-    background-color: black;
-}
 #header {
-    width: 100%;
-    height: 10%;
     background-color: var(--blue);
 }
 
@@ -62,53 +47,24 @@ body {
 }
 
 #selectionContainer {
-    position: absolute;
-    top: 12%;
-    left: 30px;
-    height: 85%;
-    width: 25%;
     z-index: 100;
     background-color: var(--white);
     display: none;
     border-radius: 10px;
 }
 
-#ContainerDate {
-    float: left;
-}
-
-#ContainerLocation {
-    float: right;
-}
-
-.MainContent {
-    padding-left: 40px;
-    padding-right: 40px;
-}
-
-#selectionContainerHeader {
-    margin-top: 40px;
-    margin-bottom: 5px;
-    display: inline-block
-}
-
-#selectionContainerSummary {
-    margin-top: 40px;
-    margin-bottom: 40px;
-}
-
 #singleImgSelection {
-    max-width: 300px;
-    border-radius: 5px;
     display:none;
 }
 
 #slideshow-container {
-    border-radius: 5px;
     overflow: hidden;
     background-color: lightgrey;
     display: none;
-    max-height: 40%;
+}
+
+#selectionContainerLinks {
+    background-color: var(--blue);
 }
 
 #bottomTray {
