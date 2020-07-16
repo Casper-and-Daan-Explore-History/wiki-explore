@@ -22,8 +22,8 @@ p {
 }
 
 #map {
-    position: fixed;
-    top: 0;
+    position: absolute;
+    top: 3rem;
     bottom: 0;
     width: 100%;
     transition: 0.5s;
