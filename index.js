@@ -106,6 +106,7 @@ var popup = new mapboxgl.Popup({
 });
 
 function buildAllVisibleItems() {
+    console.log("@5");
     $('#itemBottomPositioner').animate({
         scrollLeft: 0
     }, 250);
@@ -276,16 +277,19 @@ function scrollToItem(gid) {
 // };
 
 function buildGeojsonFromQueryResults() {
+    console.log("@2");
     for (i in resultsFromQuery) {
         addPointToQnbrGeojson(resultsFromQuery[i].geo, resultsFromQuery[i].qnumber)
     }
     if (mapIsActive) {
+        console.log("@3");
         map.getSource('QnbrSource').setData(QnbrGeojson);
         $("#loadingBox").hide();
         setTimeout(function () {
             buildAllVisibleItems()
         }, 500);
     } else {
+        console.log("@4");
         map.on('load', function () {
             map.getSource('QnbrSource').setData(QnbrGeojson);
             $("#loadingBox").hide();
@@ -372,6 +376,7 @@ function processQueryResults(data) {
     }
     console.log(ResultsObject);
     // console.log(resultsFromQuery);
+    console.log("@1");
     buildGeojsonFromQueryResults();
 }
 function buildResultsObject(result) {
