@@ -24,15 +24,15 @@ map.addControl(
     new MapboxGeocoder({
         accessToken: "pk.eyJ1IjoiY2Fza2VzIiwiYSI6ImNqYW1tNGdwdjN3MW8yeWp1cWNsaXZveDYifQ.MNpL7SYvoVgR4s_4ma5iyg",
         mapboxgl: mapboxgl,
-        position: 'top-left'
-    }), 'top-left'
+        position: 'top-right'
+    }), 'top-right'
 );
 
 // Zoom and rotation constroles.
-map.addControl(new mapboxgl.NavigationControl(), 'top-left');
+map.addControl(new mapboxgl.NavigationControl(), 'top-right');
 
 // Fullscreen constroles.
-map.addControl(new mapboxgl.FullscreenControl(), 'top-left');
+map.addControl(new mapboxgl.FullscreenControl(), 'top-right');
 
 // Add geolocate control to the map.
 // map.addControl(
