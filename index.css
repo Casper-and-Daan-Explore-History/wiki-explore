@@ -53,8 +53,11 @@ p {
     border-radius: 10px;
 }
 
-#singleImgSelection {
-    display:none;
+.singleImgSelection {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+
 }
 
 #slideshow-container {
