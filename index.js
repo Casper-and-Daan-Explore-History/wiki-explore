@@ -366,7 +366,7 @@ function processQueryResults(data) {
         if (data.results.bindings[d].sitelink != undefined) { result.wikipedia = data.results.bindings[d].sitelink.value; }
         if (data.results.bindings[d].geo != undefined) { result.geo = extractLngLat(data.results.bindings[d].geo.value); }
         if (data.results.bindings[d].img != undefined) { result.img = data.results.bindings[d].img.value; }
-        if (data.results.bindings[d].img != undefined) { result.imgthum = data.results.bindings[d].img.value + "?width=300px"; }
+        if (data.results.bindings[d].img != undefined) { result.imgthum = data.results.bindings[d].img.value + "?width=600px"; }
         if (data.results.bindings[d].commons != undefined) { result.commons = data.results.bindings[d].commons.value; }
         if (data.results.bindings[d].commons != undefined) { result.commonsurl = "https://commons.wikimedia.org/wiki/Category:" + encodeURIComponent(data.results.bindings[d].commons.value); }
         if (data.results.bindings[d].itemLabel != undefined) { result.label = data.results.bindings[d].itemLabel.value; }
