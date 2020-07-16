@@ -10,10 +10,10 @@ var results; // results form commons.wikimedia img search from category
 var imgSlideIndex = 1;
 var mapIsActive = false;
 
-mapboxgl.accessToken = 'pk.eyJ1IjoiZGFhbnZyIiwiYSI6ImNpdTJmczN3djAwMHEyeXBpNGVndWtuYXEifQ.GYZf7r9gTfQL3W-GpmmJ3A';
+mapboxgl.accessToken = 'pk.eyJ1IjoiY2Fza2VzIiwiYSI6ImNqYW1tNGdwdjN3MW8yeWp1cWNsaXZveDYifQ.MNpL7SYvoVgR4s_4ma5iyg';
 var map = new mapboxgl.Map({
     container: 'map', // container id
-    style: 'mapbox://styles/daanvr/ck6w0ou1w0a1f1ipltfr1cx6k', // stylesheet location
+    style: 'mapbox://styles/caskes/ckcp1vx6301im1jpcd6nkwryh', // stylesheet location
     center: [14, 40], // starting position [lng, lat]
     zoom: 4,
     hash: true
@@ -22,7 +22,7 @@ var map = new mapboxgl.Map({
 //location search
 map.addControl(
     new MapboxGeocoder({
-        accessToken: "pk.eyJ1IjoiZGFhbnZyIiwiYSI6ImNpdTJmczN3djAwMHEyeXBpNGVndWtuYXEifQ.GYZf7r9gTfQL3W-GpmmJ3A",
+        accessToken: "pk.eyJ1IjoiY2Fza2VzIiwiYSI6ImNqYW1tNGdwdjN3MW8yeWp1cWNsaXZveDYifQ.MNpL7SYvoVgR4s_4ma5iyg",
         mapboxgl: mapboxgl,
         position: 'top-left'
     }), 'top-left'
