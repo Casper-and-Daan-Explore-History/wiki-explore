@@ -130,6 +130,9 @@ function buildAllVisibleItems() {
     $("#horisontalScrollcontainer").html("");
     var QnbrDone = {};
     for (i in features) {
+        if (i > 50) {
+            break;
+        }
         var Q = features[i].properties.Qnbr;
         if (QnbrDone[ResultsObject[Q].imgthum] === undefined) {
             QnbrDone[ResultsObject[Q].imgthum] = true;
