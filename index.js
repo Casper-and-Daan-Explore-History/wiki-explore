@@ -13,7 +13,7 @@ var mapIsActive = false;
 mapboxgl.accessToken = 'pk.eyJ1IjoiY2Fza2VzIiwiYSI6ImNqYW1tNGdwdjN3MW8yeWp1cWNsaXZveDYifQ.MNpL7SYvoVgR4s_4ma5iyg';
 var map = new mapboxgl.Map({
     container: 'map', // container id
-    style: 'mapbox://styles/caskes/ckcp1vx6301im1jpcd6nkwryh', // stylesheet location
+    style: 'mapbox://styles/caskes/ckcrp1ojv12bd1jmg5u49xaec', // stylesheet location
     center: [14, 40], // starting position [lng, lat]
     zoom: 4,
     hash: true
