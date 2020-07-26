@@ -19,14 +19,19 @@ var map = new mapboxgl.Map({
     hash: true
 });
 
+var geocoder = new MapboxGeocoder({
+    accessToken: mapboxgl.accessToken,
+});
+ 
+document.getElementById('geocoder').appendChild(geocoder.onAdd(map));
+
 //location search
-map.addControl(
-    new MapboxGeocoder({
-        accessToken: "pk.eyJ1IjoiY2Fza2VzIiwiYSI6ImNqYW1tNGdwdjN3MW8yeWp1cWNsaXZveDYifQ.MNpL7SYvoVgR4s_4ma5iyg",
-        mapboxgl: mapboxgl,
-        position: 'top-right'
-    }), 'top-right'
-);
+// map.addControl(
+//     new MapboxGeocoder({
+//         accessToken: "pk.eyJ1IjoiY2Fza2VzIiwiYSI6ImNqYW1tNGdwdjN3MW8yeWp1cWNsaXZveDYifQ.MNpL7SYvoVgR4s_4ma5iyg",
+//         mapboxgl: mapboxgl,
+//     }), 
+// );
 
 // Zoom and rotation constroles.
 map.addControl(new mapboxgl.NavigationControl(), 'top-right');

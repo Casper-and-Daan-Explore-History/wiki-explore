@@ -67,20 +67,19 @@
     <div id="loadingBox" class="loadingBox">
         <h1 class="loadingText">Loading content from wikidata...</h1>
     </div>
-
-
-    <div id="header" class="w-100 h3"></div>
+    <div class="w-100 db h3">
+        <div id="logo" class="w-10-ns h4 fr db mr6 z-999 relative shadow-4"> 
+            <img src="./img/logo.svg" alt="Logo" class="h4 fixed z-max">
+        </div>
+    </div>
     
     <div id="map" class="">
-        <!-- <div id="topRight"></div> -->
-        <!-- <div id="bottomTray"></div> -->
-        <div id="itemBottomPositioner" class="w-70">
-            <div id="horisontalScrollcontainer"></div>
+        <div id="header" class="w-100-ns h3 dt">
+            <div id="geocoder" class="geocoder absolute w-30-ns v-mid ml2 mt3"></div>
         </div>
 
-        <!-- Selected item with slideshow -->
-        <div id="selectionContainer" class="mt3 mb3 h-auto ml3 w-30 br3 fixed">
-            <div id="selectionContainerHeader" class="db mt4 mb2 dib ph4" />
+        <div id="selectionContainer" class="box fixed mt2-ns mb2-ns ml2-ns w-30-ns w-100 br3-ns shadow-5">
+            <div id="selectionContainerHeader" class="mt4 mb2 ph4 row header" />
                 <h1 class="f3 mb0">Title Placeholder</h1>
                 <div class="lh-copy f6 fl" id="ContainerDate">
                     <p>Date</p>
@@ -95,13 +94,13 @@
                 alt="img">
             </div>
 
-            <div id="selectionContainerSummary" class="db ph4 mv3 h-25">
+            <div id="selectionContainerSummary" class="ph4 mv3 row content">
                 <p class="lh-copy f6">The Battle of Paris was fought on March 30–31, 1814 between the Sixth Coalition,
                     consisting of Russia, Austria, and Prussia, against the French Empire. After a day of fighting in the
                     suburbs of Paris, the French surrendered on March 31, ending the War of the Sixth Coalition and forcing
                     Emperor Napoleon to abdicate and go into exile.</p>
             </div>
-            <div id="selectionContainerLinks" class="db pb mb0 h3 v-mid ph5 br-bottom-3">
+            <div id="selectionContainerLinks" class="mb0 ph4 bottomradius row footer">
                 <div id="wikipedialink" class="v-mid pv3">
                     <a href="www.wikipedia.org" class="f6 lh-copy pv2 white link underline-hover hover-blue">Read more on
                         Wikipedia</a>
@@ -111,6 +110,10 @@
                         original data on Wikidata</a>
                 </div>
             </div>
+        </div>
+
+        <div id="itemBottomPositioner" class="w-70">
+            <div id="horisontalScrollcontainer"></div>
         </div>
 
         <div id="LeftBtnContainer">
