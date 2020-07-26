@@ -183,20 +183,38 @@ map.on('load', function () {
         // "source-layer": "QnbrSource",
         "layout": {},
         "paint": {
-            "circle-radius": [
-                "interpolate",
-                ["linear"],
-                ["zoom"],
-                8,
-                7,
-                40,
-                40
-            ],
-            "circle-color": "hsla(108, 0%, 100%, 0.63)",
-            "circle-stroke-color": "hsla(350, 0%, 0%, 0.52)",
-            "circle-stroke-width": 0.5
+            "circle-radius": {
+                'base': 2,
+                'stops': [
+                [12, 4],
+                [22, 180]
+                ]
+            },
+            "circle-color": "hsla(220, 27%, 98%, 0.3)",
+            "circle-stroke-color": "hsla(220, 27%, 98%, 0.7)",
+            "circle-stroke-width": 2
         }
     });
+
+    // map.addLayer({
+    //     "id": "bg-Layer",
+    //     "type": "circle",
+    //     "source": "QnbrSource",
+    //     // "source-layer": "QnbrSource",
+    //     "layout": {},
+    //     "paint": {
+    //         "circle-radius": {
+    //             'base': 3,
+    //             'stops': [
+    //             [12, 6],
+    //             [22, 180]
+    //             ]
+    //         },
+    //         "circle-opacity": 0,
+    //         "circle-stroke-color": "#f8f9fb",
+    //         "circle-stroke-width": 2
+    //     }
+    // });
 
     map.on('mousemove', 'QnbrLayer', function (e) {
         var hoverdQID = e.features[0].properties.Qnbr;
