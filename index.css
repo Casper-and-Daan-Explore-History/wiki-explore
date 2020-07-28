@@ -1,6 +1,6 @@
 :root {
   --white: #f8f9fb;
-  --prim1: #456672;
+  --prim1: #234C5A;
   --prim2: #E3B587;
 }
 
@@ -19,6 +19,47 @@ p {
     font-family: 'Karla', sans-serif;
 }
 
+/*THIS IS THE COVER DIV
+---------------------------------------------
+*/
+.bluredCoverImgBackground {
+    background-color: var(--prim1);
+    position: fixed;
+    z-index: 1000;
+}
+
+.bgimage {
+    background-image: url("/img/map.png");
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+#coverContainer {
+    -webkit-transition: 0.5s;
+    -o-transition: 0.5s;
+    transition: 0.5s;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1001;
+    width: 100%;
+    margin: 10vh 0 0 0;
+}
+
+#bluredCoverImgBackground, #coverContainer {
+    cursor: pointer;
+}
+
+.coverButton {
+    background-color: var(--prim2);
+    color: var(--prim1);
+}
+
+
+
+
+/*HERE THE WEBSITE STARTS
+------------------------------*/
 
 #header {
     background-color: var(--prim1);
@@ -371,86 +412,16 @@ ul {
     background-color: rgba(255, 255, 255, 0.9);
 }
 
-.bluredCoverImgBackground {
-    background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/f/fc/Antiphellus_Ancient_Theatre_-_2014.10_-_panoramio.jpg/300px-Antiphellus_Ancient_Theatre_-_2014.10_-_panoramio.jpg');
-    background-size: cover;
-    background-position: center center;
-    position: fixed;
-    left: 0;
-    top: 0;
-    width: 100vw;
-    height: 100vh;
-    z-index: 1000;
-    filter: blur(5px) brightness(85%);
-    -webkit-filter: blur(5px) brightness(85%);
-    -webkit-transition: 0.5s;
-    -o-transition: 0.5s;
-    transition: 0.5s;
-}
 
-#coverContainer {
-    -webkit-transition: 0.5s;
-    -o-transition: 0.5s;
-    transition: 0.5s;
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: 1001;
-    width: 100%;
-    margin: 10vh 0 0 0;
-}
+
+
 
 .transparent {
     opacity: 0;
 }
 
-#bluredCoverImgBackground, #coverContainer {
-    cursor: pointer;
-}
 
-.coverText {
-    color: white;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-}
 
-.MegaTitle {
-    text-align: center;
-    margin: 90px 0 30px 0;
-}
-
-.coverTextContainer {
-    text-align: center;
-}
-
-.textCollum {
-    text-align: left;
-    display: inline-block;
-    vertical-align: top;
-    width: 400px;
-    margin: 40px;
-}
-
-.textCollumTitle {
-    font-size: 60px;
-    font-weight: 300;
-    margin: 0 0 20px 0;
-}
-
-.textCollumContent {
-    font-size: 25px;
-    font-weight: 300;
-    margin: 0 0 0 0;
-}
-
-.coverButton {
-    font-weight: 200;
-    font-size: 60px;
-    border: solid white 2px;
-    width: fit-content;
-    margin: auto;
-    padding: 15px 60px;
-    border-radius: 10px;
-}
 
 .GalleryVieuwDownwards {}
 
