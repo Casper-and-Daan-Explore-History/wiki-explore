@@ -98,101 +98,102 @@
         <div id="header" class="w-100-ns h3 dt">
             <div id="geocoder" class="geocoder absolute w-30-ns v-mid ml2 mt3"></div>
         </div>
-
-        <div id="selectionContainer" class="box fixed mt2-ns mb2-ns ml2-ns w-30-ns w-100 br3-ns shadow-5">
-            <div id="selectionContainerHeader" class="mt4 mb2 ph4 row header" />
-                <h1 class="f3 mb0">Title Placeholder</h1>
-                <div class="lh-copy f6 fl" id="ContainerDate">
-                    <p>Date</p>
-                </div>
-                <div class="lh-copy f6 fr" id="ContainerLocation">
-                    <p>Location</p>
-                </div>
-            </div>
-            <div class="mw-100 vh-25">
-                <img id="" class="singleImgSelection w-100"
-                src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e9/Chedworth_Roman_Villa_2012_-_North_bath_house.jpg/300px-Chedworth_Roman_Villa_2012_-_North_bath_house.jpg"
-                alt="img">
-            </div>
-
-            <div id="selectionContainerSummary" class="ph4 mv3 row content">
-                <p class="lh-copy f6">The Battle of Paris was fought on March 30–31, 1814 between the Sixth Coalition,
-                    consisting of Russia, Austria, and Prussia, against the French Empire. After a day of fighting in the
-                    suburbs of Paris, the French surrendered on March 31, ending the War of the Sixth Coalition and forcing
-                    Emperor Napoleon to abdicate and go into exile.</p>
-            </div>
-            <div id="selectionContainerLinks" class="mb0 ph4 bottomradius row footer">
-                <div id="wikipedialink" class="v-mid pv3">
-                    <a href="www.wikipedia.org" class="f6 lh-copy pv2 white link underline-hover hover-blue">Read more on
-                        Wikipedia</a>
-                </div>
-                <div id="wikidatalink" class="v-mid pv3">
-                    <a href="www.wikidata.org" class="f6 lh-copy pv2 white link underline-hover hover-blue">See and edit the
-                        original data on Wikidata</a>
-                </div>
-            </div>
-        </div>
-
-        <div id="itemBottomPositioner" class="w-70 fixed z-99">
-            <div id="horisontalScrollcontainer"></div>
-        </div>
-
-        <div id="LeftBtnContainer">
-            <!-- <div id="closeGal" onclick="openGalleryVieuw(false)"></div> -->
-            <div id="webBtnsGal" class="vertical-center">
-                <div id="wikidata" class="LeftPortrudingBtns" onclick="openInNewWindow('wikidata')" style="display: none;">
-                </div>
-                <!-- <div id="wikipedia" class="LeftPortrudingBtns" onclick="openInNewWindow('wikipedia')" style="display: none;"></div> -->
-                <div id="commons" class="LeftPortrudingBtns" onclick="openInNewWindow('commonsGallery')"
-                    style="display: none;"></div>
-                <div id="googleMaps" class="LeftPortrudingBtns" onclick="openInNewWindow('googleMaps')"></div>
-                <div id="flickr" class="LeftPortrudingBtns" onclick="openInNewWindow('flickr')"></div>
-                <div id="" class="LeftPortrudingBtns" onclick="openInNewWindow('wikishootme')"></div>
-            </div>
-        </div>
-
-        <!-- Gallery Vieuw -->
-        <div id="clickForClose" style="display: none;"></div>
-        <div id="galleryContainer" style="display: none;">
-            <div id="leftContainerGal" class="">
-                <div class="leftInfoContainer">
-                    <h1 id="titelGal" class="zeroMarg">label of Q</h1>
-                    <h2 id="categoryGal" class="zeroMarg">instance of - test -castel</h2>
-                    <p id="descriptionGal" class="zeroMarg">This is a lot of text. This is a lot of text. This is a lot
-                        of text. This
-                        is a lot of text.</p>
-                    <span id="qnbrGal">
-                        Q82759301
-                    </span>
-                </div>
-                <div id="leftImgContainer" class="">
-                </div>
-            </div>
-            <div id="rightContainer">
-                <div id="rightpPhotoContainer" class="">
-                    <div class="bigImgPositionerGal vertical-center">
-                        <img class="bigImgGal" src="" alt="">
-                        <!-- <a class="prev" onclick="plusSlides(-1)"></a> -->
-                        <!-- <a class="next" onclick="plusSlides(1)"></a> -->
-                        <span class="bigImgInfoTextGal" onclick="openInNewWindow('commons')">This image is form
-                            commons.wikimedia.org | copier right
-                            information | original
-                            file | different sizes | meta data</span>
+<!--         <div id="MapContent" class="w-100 h-auto absolute">
+ -->
+            <div id="selectionContainer" class="box absolute mt2-ns mb2-ns ml2-ns w-30-ns w-100 br3-ns shadow-5 bottom-1">
+                <div id="selectionContainerHeader" class="mt4 mb2 ph4 row header" />
+                    <h1 class="f3 mb0">Title Placeholder</h1>
+                    <div class="lh-copy f6 fl" id="ContainerDate">
+                        <p>Date</p>
+                    </div>
+                    <div class="lh-copy f6 fr" id="ContainerLocation">
+                        <p>Location</p>
                     </div>
                 </div>
-                <div id="rightBtnContainer">
-                    <div id="closeGal" onclick="openGalleryVieuw(false)"></div>
-                    <div id="webBtnsGal" class="vertical-center">
-                        <div id="wikidata" class="rightPortrudingBtns" onclick="openInNewWindow('wikidata')"></div>
-                        <!-- <div id="wikipedia" class="rightPortrudingBtns" onclick="openInNewWindow('wikipedia')"></div> -->
-                        <div id="commons" class="rightPortrudingBtns" onclick="openInNewWindow('commonsGallery')"></div>
-                        <div id="googleMaps" class="rightPortrudingBtns" onclick="openInNewWindow('googleMaps')"></div>
-                        <div id="flickr" class="rightPortrudingBtns" onclick="openInNewWindow('flickr')"></div>
-                        <div id="" class="rightPortrudingBtns" onclick="openInNewWindow('wikishootme')"></div>
+                <div class="mw-100 vh-25">
+                    <img id="" class="singleImgSelection w-100"
+                    src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e9/Chedworth_Roman_Villa_2012_-_North_bath_house.jpg/300px-Chedworth_Roman_Villa_2012_-_North_bath_house.jpg"
+                    alt="img">
+                </div>
+
+                <div id="selectionContainerSummary" class="ph4 mv3 row content">
+                    <p class="lh-copy f6">The Battle of Paris was fought on March 30–31, 1814 between the Sixth Coalition,
+                        consisting of Russia, Austria, and Prussia, against the French Empire. After a day of fighting in the
+                        suburbs of Paris, the French surrendered on March 31, ending the War of the Sixth Coalition and forcing
+                        Emperor Napoleon to abdicate and go into exile.</p>
+                </div>
+                <div id="selectionContainerLinks" class="mb0 ph4 bottomradius row footer">
+                    <div id="wikipedialink" class="v-mid pv3">
+                        <a href="www.wikipedia.org" class="f6 lh-copy pv2 white link underline-hover hover-blue">Read more on
+                            Wikipedia</a>
+                    </div>
+                    <div id="wikidatalink" class="v-mid pv3">
+                        <a href="www.wikidata.org" class="f6 lh-copy pv2 white link underline-hover hover-blue">See and edit the
+                            original data on Wikidata</a>
                     </div>
                 </div>
             </div>
-        </div>
+
+            <div id="itemBottomPositioner" class="w-70 fixed z-99">
+                <div id="horisontalScrollcontainer"></div>
+            </div>
+
+            <div id="LeftBtnContainer">
+                <!-- <div id="closeGal" onclick="openGalleryVieuw(false)"></div> -->
+                <div id="webBtnsGal" class="vertical-center">
+                    <div id="wikidata" class="LeftPortrudingBtns" onclick="openInNewWindow('wikidata')" style="display: none;">
+                    </div>
+                    <!-- <div id="wikipedia" class="LeftPortrudingBtns" onclick="openInNewWindow('wikipedia')" style="display: none;"></div> -->
+                    <div id="commons" class="LeftPortrudingBtns" onclick="openInNewWindow('commonsGallery')"
+                        style="display: none;"></div>
+                    <div id="googleMaps" class="LeftPortrudingBtns" onclick="openInNewWindow('googleMaps')"></div>
+                    <div id="flickr" class="LeftPortrudingBtns" onclick="openInNewWindow('flickr')"></div>
+                    <div id="" class="LeftPortrudingBtns" onclick="openInNewWindow('wikishootme')"></div>
+                </div>
+            </div>
+
+            <!-- Gallery Vieuw -->
+            <!-- <div id="clickForClose" style="display: none;"></div>
+            <div id="galleryContainer" style="display: none;">
+                <div id="leftContainerGal" class="">
+                    <div class="leftInfoContainer">
+                        <h1 id="titelGal" class="zeroMarg">label of Q</h1>
+                        <h2 id="categoryGal" class="zeroMarg">instance of - test -castel</h2>
+                        <p id="descriptionGal" class="zeroMarg">This is a lot of text. This is a lot of text. This is a lot
+                            of text. This
+                            is a lot of text.</p>
+                        <span id="qnbrGal">
+                            Q82759301
+                        </span>
+                    </div>
+                    <div id="leftImgContainer" class="">
+                    </div>
+                </div>
+                <div id="rightContainer">
+                    <div id="rightpPhotoContainer" class="">
+                        <div class="bigImgPositionerGal vertical-center">
+                            <img class="bigImgGal" src="" alt=""> -->
+                            <!-- <a class="prev" onclick="plusSlides(-1)"></a> -->
+                            <!-- <a class="next" onclick="plusSlides(1)"></a> -->
+                            <!-- <span class="bigImgInfoTextGal" onclick="openInNewWindow('commons')">This image is form
+                                commons.wikimedia.org | copier right
+                                information | original
+                                file | different sizes | meta data</span>
+                        </div>
+                    </div>
+                    <div id="rightBtnContainer">
+                        <div id="closeGal" onclick="openGalleryVieuw(false)"></div>
+                        <div id="webBtnsGal" class="vertical-center">
+                            <div id="wikidata" class="rightPortrudingBtns" onclick="openInNewWindow('wikidata')"></div> -->
+                            <!-- <div id="wikipedia" class="rightPortrudingBtns" onclick="openInNewWindow('wikipedia')"></div> -->
+                            <!-- <div id="commons" class="rightPortrudingBtns" onclick="openInNewWindow('commonsGallery')"></div>
+                            <div id="googleMaps" class="rightPortrudingBtns" onclick="openInNewWindow('googleMaps')"></div>
+                            <div id="flickr" class="rightPortrudingBtns" onclick="openInNewWindow('flickr')"></div>
+                            <div id="" class="rightPortrudingBtns" onclick="openInNewWindow('wikishootme')"></div>
+                        </div>
+                    </div>
+                </div>
+            </div> -->
 
 
 
