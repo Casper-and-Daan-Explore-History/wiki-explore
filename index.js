@@ -13,9 +13,9 @@ var mapIsActive = false;
 mapboxgl.accessToken = 'pk.eyJ1IjoiY2Fza2VzIiwiYSI6ImNqYW1tNGdwdjN3MW8yeWp1cWNsaXZveDYifQ.MNpL7SYvoVgR4s_4ma5iyg';
 var map = new mapboxgl.Map({
     container: 'map', // container id
-    style: 'mapbox://styles/caskes/ckd37doai2vlo1imrbe5mn7u0', // stylesheet location
-    center: [14, 40], // starting position [lng, lat]
-    zoom: 4,
+    style: 'mapbox://styles/caskes/ckfe8z5vq028519ovap041fj6', // stylesheet location
+    center: [2.32008, 48.85578], // starting position [lng, lat]
+    zoom: 13,
     hash: true
 });
 

@@ -94,28 +94,16 @@ p {
     left: 30px;
 }
 
-.box {
-    display: flex !important; /* jQuery show/hide uses display:block so this needs to be !important */
-    flex-flow: column;
-    height: 90%;
-}
-
-.box .row.header{
-    flex: 0 1 auto;
-}
-
-.box .row.content {
-    flex: 1 1 auto;
-}
-
-.box .row.footer {
-    flex: 0 1 20%;
-}
-
 #selectionContainer {
     z-index: 100;
     background-color: var(--white);
     display: none;
+}
+
+
+.autoheight {
+    flex-grow : 1;
+    background-color: red;
 }
 
 .bottomradius {
