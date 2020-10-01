@@ -413,7 +413,7 @@ function processQueryResults(data) {
         if (data.results.bindings[d].commons != undefined) { result.commonsurl = "https://commons.wikimedia.org/wiki/Category:" + encodeURIComponent(data.results.bindings[d].commons.value); }
         if (data.results.bindings[d].itemLabel != undefined) { result.label = data.results.bindings[d].itemLabel.value; }
         if (data.results.bindings[d].itemDescription != undefined) { result.description = data.results.bindings[d].itemDescription.value; }
-        if (data.results.bindings[d].instanceOfLabel != undefined) { result.instanceof = data.results.bindings[d].instanceOfLabel.value; }
+        if (data.results.bindings[d].instanceLabel != undefined) { result.instanceof = data.results.bindings[d].instanceOfLabel.value; }
 
         resultsFromQuery.push(result);//pushes every result into the array
         ResultsObject[result.qnumber] = result;
