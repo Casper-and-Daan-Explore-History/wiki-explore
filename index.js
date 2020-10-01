@@ -23,7 +23,7 @@ var geocoder = new MapboxGeocoder({
     accessToken: mapboxgl.accessToken,
 });
  
-document.getElementById('geocoder').appendChild(geocoder.onAdd(map));
+// document.getElementById('geocoder').appendChild(geocoder.onAdd(map));
 
 //location search
 // map.addControl(
@@ -356,18 +356,37 @@ function runQuery() {
 
     var endpointUrl = 'https://query.wikidata.org/sparql',
     // "SELECT DISTINCT ?item ?itemLabel ?itemDescription ?geo ?img ?commons ?instanceOfLabel ?sitelink WHERE {\n" +
-    sparqlQuery = "select ?item ?itemLabel ?itemDescription ?geo ?img ?PointInTime {  \n" +
-    "  ?item wdt:P31/wdt:P279* wd:Q645883;\n" +
-    "        wdt:P18 ?img;\n" +
-    "        wdt:P625 ?geo;\n" +
-    "        wdt:P585 ?PointInTime\n" +
-    "\n" +
-    "    #filter (?PointInTime > \"1939-01-01\"^^xsd:dateTime && ?PointInTime < \"1946-01-01\"^^xsd:dateTime)\n" +
-    "\n" +
-    "    SERVICE wikibase:label { bd:serviceParam wikibase:language \"[AUTO_LANGUAGE],en,nl,fr\". }\n" +
-    "}\n" +
-    "\n" +
-    "LIMIT 10000";
+    // sparqlQuery = "select ?item ?itemLabel ?itemDescription ?geo ?img ?PointInTime {  \n" +
+    // "  ?item wdt:P31/wdt:P279* wd:Q645883;\n" +
+    // "        wdt:P18 ?img;\n" +
+    // "        wdt:P625 ?geo;\n" +
+    // "        wdt:P585 ?PointInTime\n" +
+    // "\n" +
+    // "    #filter (?PointInTime > \"1939-01-01\"^^xsd:dateTime && ?PointInTime < \"1946-01-01\"^^xsd:dateTime)\n" +
+    // "\n" +
+    // "    SERVICE wikibase:label { bd:serviceParam wikibase:language \"[AUTO_LANGUAGE],en,nl,fr\". }\n" +
+    // "}\n" +
+    // "\n" +
+    // "LIMIT 10000";
+
+    sparqlQuery = "#defaultView:ImageGrid\n" +
+    "SELECT ?item ?itemLabel ?itemDescription ?geo ?instanceLabel ?img\n" +
+    "WHERE\n" +
+    "{\n" +
+    "  wd:Q243 wdt:P625 ?loc .\n" +
+    "  SERVICE wikibase:around {\n" +
+    "      ?item wdt:P625 ?geo .\n" +
+    "      bd:serviceParam wikibase:center ?loc .\n" +
+    "      bd:serviceParam wikibase:radius \"1\" .\n" +
+    "  }\n" +
+    "  OPTIONAL {    ?item wdt:P31 ?instance  }\n" +
+    "  SERVICE wikibase:label { bd:serviceParam wikibase:language \"en\" }\n" +
+    "  BIND(geof:distance(?loc, ?geo) as ?dist)\n" +
+    "  \n" +
+    "  ?item wdt:P18 ?img .\n" +
+    "  MINUS {?item wdt:P31/wdt:P279* wd:Q376799.}.\n" +
+    "  \n" +
+    "} ORDER BY ?dist";
 
     makeSPARQLQuery(endpointUrl, sparqlQuery, function (data) {
         // $('body').append($('<pre>').text(JSON.stringify(data)));
@@ -756,7 +775,8 @@ function openGalleryVieuw(Q) {
 function selectNew(Q) {
     if (Q === undefined) {
         selectedQ = undefined;
-        $("#selectionContainer").hide();
+        // $("#selectionContainer").hide();
+        $("#selectionContainer").css({'display' : 'none'});
         $(".singleImgSelection").hide();
         $("#slideshow-container").hide();
         $("#wikidata").hide();
@@ -770,10 +790,11 @@ function selectNew(Q) {
         $("#wikidata").show();
         $("#commons").show();
         $("#slideshow-container").hide();
-        $("#selectionContainer").show();
+        // $("#selectionContainer").show();
+        $("#selectionContainer").css({'display' : 'flex'});
         $(".singleImgSelection").attr("src", data.imgthum);
         $(".singleImgSelection").show();
-        getCommonsCategoryImgs(data.commons, selectedQ, "carousel");
+        // getCommonsCategoryImgs(data.commons, selectedQ, "carousel");
     };
 
     // if (data != undefined && lat != undefined) {
