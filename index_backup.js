@@ -111,10 +111,44 @@ var popup = new mapboxgl.Popup({
 });
 
 function buildAllVisibleItems() {
-
+    console.log("@5");
+    $('#itemBottomPositioner').animate({
+        scrollLeft: 0
+    }, 250);
     var features = map.queryRenderedFeatures({ layers: ['QnbrLayer'] });
 
+    // function compare(a, b) {
+    //     if (a.properties.toename < b.properties.toename) {
+    //         return 1;
+    //     }
+    //     if (a.properties.toename > b.properties.toename) {
+    //         return -1;
+    //     }
+    //     return 0;
+    // }
+
+    // features.sort(compare);
+
     console.log(features);
+
+
+    $("#horisontalScrollcontainer").html("");
+    var QnbrDone = {};
+    for (i in features) {
+        if (i > 50) {
+            break;
+        }
+        var Q = features[i].properties.Qnbr;
+        if (QnbrDone[ResultsObject[Q].imgthum] === undefined) {
+            QnbrDone[ResultsObject[Q].imgthum] = true;
+            if (ResultsObject[Q].imgthum != undefined) {
+                var html = '<img ondblclick="openGalleryVieuw(\'' + ResultsObject[Q].qnumber + '\');" onclick="selectNew(\'' + ResultsObject[Q].qnumber + '\');" onmouseover="setMarker(' + ResultsObject[Q].geo + ')" onmouseout="setMarker()" src="' + ResultsObject[Q].imgthum + '" alt="' + ResultsObject[Q].label + '" class="itemImg">';
+                $("#horisontalScrollcontainer").append(html);
+            }
+        } else {
+            console.log("duplicate prevented");
+        }
+    }
     console.log(QnbrDone);
 }
 
@@ -168,6 +202,26 @@ map.on('load', function () {
         }
     });
 
+    // map.addLayer({
+    //     "id": "bg-Layer",
+    //     "type": "circle",
+    //     "source": "QnbrSource",
+    //     // "source-layer": "QnbrSource",
+    //     "layout": {},
+    //     "paint": {
+    //         "circle-radius": {
+    //             'base': 3,
+    //             'stops': [
+    //             [12, 6],
+    //             [22, 180]
+    //             ]
+    //         },
+    //         "circle-opacity": 0,
+    //         "circle-stroke-color": "#f8f9fb",
+    //         "circle-stroke-width": 2
+    //     }
+    // });
+
     map.on('mousemove', 'QnbrLayer', function (e) {
         var hoverdQID = e.features[0].properties.Qnbr;
         if (ResultsObject[hoverdQID].imgthum != undefined) {
@@ -216,6 +270,43 @@ map.on('load', function () {
 });
 
 
+
+
+function scrollToItem(gid) {
+    // console.log("test@2");
+    // var offset = $(".city-" + gid).offset(); // Contains .top and .left
+    // offset.left -= 20;
+    // console.log(offset.left);
+    // $('#horisontalScrollcontainer').animate({ //scroles higlited item into vieuw
+    //     scrollRight: offset.left
+    // });
+
+    // console.log($(".city-" + gid).offsetParent());
+    // console.log("positon: " + $(".city-" + gid).position().left);
+    // console.log("get: " + $(".city-" + gid).get(0).offsetLeft);
+    // console.log("offset: " + $(".city-" + gid).offset().left);
+    // console.log("horisontalScrollcontainer offset: " + $("#horisontalScrollcontainer").offset().left);
+    // console.log("Calc: " + Math.abs($("#horisontalScrollcontainer").offset().left) + $(".city-" + gid).offset().left);
+
+    // var position = $(".city-" + gid).get(0).offsetLeft;
+    // var position = Math.abs($("#horisontalScrollcontainer").offset().left) + $(".city-" + gid).offset().left;
+    // $('#itemBottomPositioner').animate({
+    //     scrollLeft: position
+    // }, 1000);
+
+    // $(".city-" + gid)[0].scrollIntoView({
+    //     behavior: "smooth", // or "auto" or "instant"
+    //     block: "start" // or "end"
+    // });
+
+}
+
+// function showEbikeRange(gid) {
+//     var filterVal = ["all", ["match", ["get", "Name"], [gid], true, false]];
+//     map.setFilter("zone-polygonen-border", filterVal);
+//     map.setFilter("ebike-polygonen", filterVal);
+//     map.setFilter("bike-polygonen", filterVal);
+// };
 
 function buildGeojsonFromQueryResults() {
     console.log("@2");
@@ -270,6 +361,19 @@ function runQuery() {
     }
 
     var endpointUrl = 'https://query.wikidata.org/sparql',
+    // "SELECT DISTINCT ?item ?itemLabel ?itemDescription ?geo ?img ?commons ?instanceOfLabel ?sitelink WHERE {\n" +
+    // sparqlQuery = "select ?item ?itemLabel ?itemDescription ?geo ?img ?PointInTime {  \n" +
+    // "  ?item wdt:P31/wdt:P279* wd:Q645883;\n" +
+    // "        wdt:P18 ?img;\n" +
+    // "        wdt:P625 ?geo;\n" +
+    // "        wdt:P585 ?PointInTime\n" +
+    // "\n" +
+    // "    #filter (?PointInTime > \"1939-01-01\"^^xsd:dateTime && ?PointInTime < \"1946-01-01\"^^xsd:dateTime)\n" +
+    // "\n" +
+    // "    SERVICE wikibase:label { bd:serviceParam wikibase:language \"[AUTO_LANGUAGE],en,nl,fr\". }\n" +
+    // "}\n" +
+    // "\n" +
+    // "LIMIT 10000";
 
     sparqlQuery = "#defaultView:ImageGrid\n" +
     "SELECT ?item ?itemLabel ?itemDescription ?geo ?instanceLabel ?img\n" +
@@ -448,6 +552,83 @@ function resultsFromCommonsReady(Q, vieuwDestination) {
     // return results;
 }
 
+function buildCarouselContent(Q) {
+    var imgs = ResultsObject[Q].commonsImgs;
+    $(".imgCarouselImgsContainer").html("");
+    // $(".singleImgSelection").hide()
+    var nbrOfSlides = imgs.length;
+    for (r in imgs) {
+        var slideNbr = r;
+        slideNbr++;
+        var imgHtml = "";
+        imgHtml += '<div class="imgSlides">';
+        imgHtml += '<div class="numbertext">' + slideNbr + ' / ' + nbrOfSlides + '</div>';
+        imgHtml += '<img onclick="openGalleryVieuw(\'' + Q + '\');" class="carouselImg" src="';
+        imgHtml += imgs[r].thumurl;
+        imgHtml += '">';
+        // html += '<div class="text">Caption Text</div>';
+        imgHtml += '</div>';
+        // html += '';
+
+
+        var dotHtml = "";
+        dotHtml += '<span class="imgDot" onclick="currentSlide(';
+        dotHtml += slideNbr;
+        dotHtml += ')"></span>';
+
+        $(".imgCarouselImgsContainer").append(imgHtml);
+        // $("#imgDotContainer").append(dotHtml);
+    }
+    currentSlide(1);
+    $("#slideshow-container").show();
+    $(".singleImgSelection").hide();
+}
+
+var marker = new mapboxgl.Marker()
+function setMarker(lng, lat) {
+    if (lng != undefined && lat != undefined) {
+        marker.setLngLat([lng, lat])
+            .addTo(map);
+    } else {
+        marker.remove();
+    }
+}
+
+function plusSlides(n) {
+    showSlides(imgSlideIndex += n);
+}
+
+function currentSlide(n) {
+    showSlides(imgSlideIndex = n);
+}
+
+function showSlides(n) {
+    // var i;
+    var slides = $(".imgSlides");
+    // var dots = $(".imgDot");
+    if (n > slides.length) { imgSlideIndex = 1 } //after last go to first    
+    if (n < 1) { imgSlideIndex = slides.length } //befor first go to last
+    slides.hide(); //hide all images
+    // dots.removeClass("active"); // deactivate all dots
+    slides[imgSlideIndex - 1].style.display = "block"; //show relevant img
+    // dots[imgSlideIndex - 1].className += " active"; // acctivate relavent dot
+}
+
+$(document).keydown(function (e) {
+    // console.log(e.keyCode);
+    switch (e.keyCode) {
+        case 37:
+            plusSlides(-1);
+            break;
+        case 39:
+            plusSlides(1);
+            break;
+        default: return;
+    }
+    e.preventDefault();
+
+});
+
 
 function openInNewWindow(url) {
     if (selectedQ === undefined) {
@@ -491,6 +672,55 @@ function openInNewWindow(url) {
     window.open(url); //This will open the url in a new window.
 }
 
+// function getQueryVariable(variable) { // queries the content of the URL bare for the specified variable
+//     var query = window.location.search.substring(1);
+//     var vars = query.split('&');
+//     console.log(vars);
+//     for (var i = 0; i < vars.length; i++) {
+//         var pair = vars[i].split('=');
+//         if (pair[0] == variable) {
+//             return pair[1];
+//         }
+//     }
+
+//     return false;
+// }
+
+// // console.log(window.location.search.substring(1));
+// // console.log(window.location.href);
+// // // console.log(new Url);
+// // console.log(getUrlVars());
+
+// // function setUrlVariables() {
+// //     var currentUrl = 'http://www.example.com/hello.png?w=100&h=100&bg=white';
+// //     var url = new URL(currentUrl);
+// //     url.searchParams.set("w", "200"); // setting your param
+// //     var newUrl = url.href;
+// //     console.log(newUrl);
+// // }
+
+// function setUrlVariables() {
+//     var currentUrl = window.location.href;
+//     var url = new URL(currentUrl);
+//     url.searchParams.set("w", "200"); // setting your param
+//     var newUrl = url.href;
+//     console.log(newUrl);
+// }
+
+
+// function getUrlVars() { //returns an object of all cureent URL variables
+//     var vars = {};
+//     var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function (m, key, value) {
+//         vars[key] = value;
+//     });
+//     return vars;
+// }
+
+// function setOrUpdateMapPossitionInUrl() {
+
+// }
+
+// openGalleryVieuw("Q179656");
 
 function openGalleryVieuw(Q) {
     console.log("open gallery: " + Q)
