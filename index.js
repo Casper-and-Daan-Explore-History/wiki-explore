@@ -79,8 +79,6 @@ function closeFullscreen() {
 }
 
 
-$("#topRight").click(toggleInfoBackground);
-$("#websiteInfoBackground").click(toggleInfoBackground);
 
 
 $(".bluredCoverImgBackground").click(
@@ -98,11 +96,6 @@ function hideWelcomCoverPage() {
         $(".bluredCoverImgBackground").hide();
         $("#coverContainer").hide();
     }, 500);
-}
-
-function toggleInfoBackground() {
-    $("#map").toggleClass("squished");
-    closeFullscreen();
 }
 
 var popup = new mapboxgl.Popup({
@@ -133,6 +126,7 @@ function flyTo(lon, lat, zoom) {
 map.on('load', function () {
     mapIsActive = true;
 
+    // create a data source for layers to use
     map.addSource('QnbrSource', {
         'type': 'geojson',
         'data': {
@@ -142,6 +136,7 @@ map.on('load', function () {
         }
     });
 
+    // add layer to the map
     map.addLayer({
         "id": "QnbrLayer",
         "type": "circle",
@@ -168,6 +163,7 @@ map.on('load', function () {
         }
     });
 
+    // hover popup
     map.on('mousemove', 'QnbrLayer', function (e) {
         var hoverdQID = e.features[0].properties.Qnbr;
         if (ResultsObject[hoverdQID].imgthum != undefined) {
@@ -183,21 +179,20 @@ map.on('load', function () {
         }
         // console.log(e);
     });
-
     map.on('mouseleave', 'QnbrLayer', function () {
         map.getCanvas().style.cursor = '';
         popup.remove();
     });
 
-    map.on('click', function (e) {
+    // click
+    map.on('click', function (e) { //cancel selection
         // var lng = e.lngLat.lng;
         // var lat = e.lngLat.lat;
         // var zoom = 10;
         // var gid = e.features[0].properties.gid;
         selectNew(undefined);
-        console.log("test332211")
     });
-    map.on('click', 'QnbrLayer', function (e) {
+    map.on('click', 'QnbrLayer', function (e) { // select point and open "window"
         // var lng = e.lngLat.lng;
         // var lat = e.lngLat.lat;
         // var zoom = 10;
@@ -205,62 +200,16 @@ map.on('load', function () {
         selectNew(e.features[0].properties.Qnbr);
     });
 
-
+    // Map panning ends
     map.on('moveend', function () {
         buildAllVisibleItems()
     });
-
-
-
-
 });
-
-
-
-function buildGeojsonFromQueryResults() {
-    console.log("@2");
-    for (i in resultsFromQuery) {
-        addPointToQnbrGeojson(resultsFromQuery[i].geo, resultsFromQuery[i].qnumber)
-    }
-    if (mapIsActive) {
-        console.log("@3");
-        map.getSource('QnbrSource').setData(QnbrGeojson);
-        $("#loadingBox").hide();
-        setTimeout(function () {
-            buildAllVisibleItems()
-        }, 500);
-    } else {
-        console.log("@4");
-        map.on('load', function () {
-            map.getSource('QnbrSource').setData(QnbrGeojson);
-            $("#loadingBox").hide();
-            buildAllVisibleItems()
-        });
-    }
-}
-
-function addPointToQnbrGeojson(LngLat, Qnbr) {
-    // console.log("show point");
-    // for (i in LngLat) {
-    var point = {
-        "type": "Feature",
-        "properties": {
-            'Qnbr': Qnbr
-        },
-        "geometry": {
-            "type": "Point",
-            "coordinates": LngLat
-        }
-    };
-
-
-    QnbrGeojson.features.push(point)
-    // }
-}
 
 
 runQuery();
 function runQuery() {
+    // the function that process the query
     function makeSPARQLQuery(endpointUrl, sparqlQuery, doneCallback) {
         var settings = {
             headers: { Accept: 'application/sparql-results+json' },
@@ -269,8 +218,10 @@ function runQuery() {
         return $.ajax(endpointUrl, settings).then(doneCallback);
     }
 
+    // Query destination
     var endpointUrl = 'https://query.wikidata.org/sparql',
 
+    // Query
     sparqlQuery = "#defaultView:ImageGrid\n" +
     "SELECT ?item ?itemLabel ?itemDescription ?geo ?instanceLabel ?img\n" +
     "WHERE\n" +
@@ -290,15 +241,12 @@ function runQuery() {
     "  \n" +
     "} ORDER BY ?dist";
 
+    // initiate query and catch the data 
     makeSPARQLQuery(endpointUrl, sparqlQuery, function (data) {
-        // $('body').append($('<pre>').text(JSON.stringify(data)));
-        // console.log(data);
         processQueryResults(data);
-
-    }
-    );
-
+    });
 }
+
 function processQueryResults(data) {
     //remove duplicates
 
@@ -326,6 +274,8 @@ function processQueryResults(data) {
     console.log("@1");
     buildGeojsonFromQueryResults();
 }
+
+// Helper - organising query results to a usefull object
 function buildResultsObject(result) {
     var Q = result.qnumber;
     if (ResultsObject[Q] != undefined) {
@@ -359,6 +309,50 @@ function buildResultsObject(result) {
     }
 }
 
+// Processing - Data from wikidata to Geojson
+function buildGeojsonFromQueryResults() {
+    console.log("@2");
+    for (i in resultsFromQuery) {
+        addPointToQnbrGeojson(resultsFromQuery[i].geo, resultsFromQuery[i].qnumber)
+    }
+    if (mapIsActive) {
+        console.log("@3");
+        map.getSource('QnbrSource').setData(QnbrGeojson);
+        $("#loadingBox").hide();
+        setTimeout(function () {
+            buildAllVisibleItems()
+        }, 500);
+    } else {
+        console.log("@4");
+        map.on('load', function () {
+            map.getSource('QnbrSource').setData(QnbrGeojson);
+            $("#loadingBox").hide();
+            buildAllVisibleItems()
+        });
+    }
+}
+
+// Helper - Add point to geojson object
+function addPointToQnbrGeojson(LngLat, Qnbr) {
+    // console.log("show point");
+    // for (i in LngLat) {
+    var point = {
+        "type": "Feature",
+        "properties": {
+            'Qnbr': Qnbr
+        },
+        "geometry": {
+            "type": "Point",
+            "coordinates": LngLat
+        }
+    };
+
+
+    QnbrGeojson.features.push(point)
+    // }
+}
+
+// Helper - procesing String
 function extractLngLat(dirtyGeo) {
     var cleanLongLat = dirtyGeo.replace("Point(", "");
     cleanLongLat = cleanLongLat.replace(")", "");
@@ -368,12 +362,13 @@ function extractLngLat(dirtyGeo) {
     return lonlat;
 }
 
+// Helper - procesing String
 function qnumberExtraction(QURL) {
     var value = QURL.replace("http://www.wikidata.org/entity/", "");
     return value;
 }
 
-
+// Query - for images from Wiki commons
 function getCommonsCategoryImgs(pageTitle, Qdestination, vieuwDestination) {
     if (ResultsObject[Qdestination].commonsImgs != undefined) {
         resultsFromCommonsReady(Qdestination, vieuwDestination);
@@ -430,6 +425,7 @@ function getCommonsCategoryImgs(pageTitle, Qdestination, vieuwDestination) {
     };
 }
 
+// Processing Commons images
 function resultsFromCommonsReady(Q, vieuwDestination) {
     console.log(ResultsObject[Q]);
     switch (vieuwDestination) {
@@ -448,7 +444,7 @@ function resultsFromCommonsReady(Q, vieuwDestination) {
     // return results;
 }
 
-
+// Helper - open link in new window
 function openInNewWindow(url) {
     if (selectedQ === undefined) {
         var lngLat = map.getCenter();
@@ -491,63 +487,7 @@ function openInNewWindow(url) {
     window.open(url); //This will open the url in a new window.
 }
 
-
-function openGalleryVieuw(Q) {
-    console.log("open gallery: " + Q)
-    if (!Q) { //"false" measn close vieuw
-
-
-        $("#clickForClose").addClass("transparent");
-        $("#galleryContainer").addClass("transparent");
-        $("#itemBottomPositioner").removeClass("transparent");
-        $("#selectionContainer").removeClass("transparent");
-        $("#LeftBtnContainer").removeClass("transparent");
-        $(".mapboxgl-control-container").removeClass("transparent");
-        toggleBlur(".mapboxgl-canvas-container", 0);
-
-        setTimeout(function () {
-            $("#clickForClose").hide();
-            $("#galleryContainer").hide();
-            $("#itemBottomPositioner").show();
-            $("#selectionContainer").show();
-            $("#LeftBtnContainer").show();
-            $(".mapboxgl-control-container").show();
-        }, 500);
-    } else {
-        if (Q === undefined && selectedQ != undefined) {
-            Q = selectedQ;
-        }
-        selectedQ = Q;
-        $("#clickForClose").removeClass("transparent");
-        $("#galleryContainer").removeClass("transparent");
-        $("#itemBottomPositioner").addClass("transparent");
-        $("#selectionContainer").addClass("transparent");
-        $("#LeftBtnContainer").addClass("transparent");
-        $(".mapboxgl-control-container").addClass("transparent");
-        toggleBlur(".mapboxgl-canvas-container", 3);
-
-        setTimeout(function () {
-            $("#clickForClose").show();
-            $("#galleryContainer").show();
-            $("#itemBottomPositioner").hide();
-            $("#selectionContainer").hide();
-            $("#LeftBtnContainer").hide();
-            $(".mapboxgl-control-container").hide();
-        }, 500);
-
-
-        // $("#clickForClose").show();
-        // $("#galleryContainer").show();
-        // $("#itemBottomPositioner").hide();
-        // $("#selectionContainer").hide();
-        // $(".mapboxgl-control-container").hide();
-        // toggleBlur(".mapboxgl-canvas-container", 3);
-        // populateGalleryVieuw();
-        getCommonsCategoryImgs(ResultsObject[Q].commons, Q, "gallery");
-    }
-}
-
-
+// Interaction - Selection processing
 function selectNew(Q) {
     if (Q === undefined) {
         selectedQ = undefined;
@@ -580,47 +520,4 @@ function selectNew(Q) {
     //     flyTo(lng, lat, zoom); //camera flyes to selection
     //     showPoint(lng, lat); // highlight map point
     // };
-}
-
-
-function populateGalleryVieuw(Q) {
-    var imgs = ResultsObject[Q].commonsImgs;
-    selectGalleryImg(imgs[0].imgurl)
-    console.log(imgs);
-    $("#leftImgContainer").html("");
-    for (r in imgs) {
-        console.log(imgs.thumurl);
-        var imgHtml = "";
-        imgHtml += '<img class="smallImgGal" onclick="selectGalleryImg(\'';
-        imgHtml += imgs[r].imgurl;
-        imgHtml += '\')" src="';
-        imgHtml += imgs[r].thumurl;
-        imgHtml += '">';
-        // html += '<div class="text">Caption Text</div>';
-        // imgHtml += '</div>';
-        // html += '';
-
-
-        // var dotHtml = "";
-        // dotHtml += '<span class="imgDot" onclick="currentSlide(';
-        // dotHtml += slideNbr;
-        // dotHtml += ')"></span>';
-
-        $("#leftImgContainer").append(imgHtml);
-        // $("#imgDotContainer").append(dotHtml);
-    }
-}
-
-function selectGalleryImg(url) {
-    $(".bigImgGal").attr('src', url)
-}
-
-function toggleBlur(element, blurFactor) {
-    var filterVal = 'blur(' + blurFactor + 'px)';
-    $(element)
-        .css('filter', filterVal)
-        .css('webkitFilter', filterVal)
-        .css('mozFilter', filterVal)
-        .css('oFilter', filterVal)
-        .css('msFilter', filterVal);
 }
