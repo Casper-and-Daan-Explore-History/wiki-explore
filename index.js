@@ -210,41 +210,45 @@ map.on('load', function () {
 runQuery();
 function runQuery() {
     // the function that process the query
-    function makeSPARQLQuery(endpointUrl, sparqlQuery, doneCallback) {
-        var settings = {
-            headers: { Accept: 'application/sparql-results+json' },
-            data: { query: sparqlQuery }
-        };
-        return $.ajax(endpointUrl, settings).then(doneCallback);
+    function makeSPARQLQuery( endpointUrl, sparqlQuery, doneCallback ) {
+    var settings = {
+        headers: { Accept: 'application/sparql-results+json' },
+        data: { query: sparqlQuery }
+    };
+    return $.ajax( endpointUrl, settings ).then( doneCallback );
+}
+
+var endpointUrl = 'https://query.wikidata.org/sparql',
+    sparqlQuery = "#defaultView:ImageGride\n" +
+        "SELECT ?itemNew ?itemNewLabel ?itemNewDescription ?article (SAMPLE(?geo) AS ?geo) (SAMPLE(?img) AS ?img) (SAMPLE(?categorie) AS ?categorie) (GROUP_CONCAT(?instanceLabel; SEPARATOR = \", \") AS ?instancesof) WHERE {\n" +
+        "  wd:Q243 wdt:P625 ?loc.\n" +
+        "  SERVICE wikibase:around {\n" +
+        "    ?itemNew wdt:P625 ?geo.\n" +
+        "    bd:serviceParam wikibase:center ?loc;\n" +
+        "      wikibase:radius \"1\".\n" +
+        "  }\n" +
+        "  ?itemNew wdt:P18 ?img.\n" +
+        "  MINUS { ?itemNew (wdt:P31/(wdt:P279*)) wd:Q376799. }\n" +
+        "  BIND(IF(EXISTS { ?itemNew (wdt:P31/(wdt:P279*)) wd:Q811979. }, \"Architectural\", IF(EXISTS { ?itemNew (wdt:P31/(wdt:P279*)) wd:Q1656682. }, \"Event\", \"Other\")) AS ?categorie)\n" +
+        "  OPTIONAL { ?itemNew wdt:P31 ?instance. }\n" +
+        "  OPTIONAL {\n" +
+        "    ?article schema:about ?itemNew;\n" +
+        "      schema:isPartOf <https://en.wikipedia.org/>.\n" +
+        "  }\n" +
+        "  SERVICE wikibase:label {\n" +
+        "    bd:serviceParam wikibase:language \"en\".\n" +
+        "    ?instance rdfs:label ?instanceLabel.\n" +
+        "    ?itemNew rdfs:label ?itemNewLabel;\n" +
+        "      schema:description ?itemNewDescription.\n" +
+        "  }\n" +
+        "}\n" +
+        "GROUP BY ?itemNew ?itemNewLabel ?itemNewDescription ?article";
+
+makeSPARQLQuery( endpointUrl, sparqlQuery, function( data ) {
+        $( 'body' ).append( $( '<pre>' ).text( JSON.stringify( data ) ) );
+        console.log( data );
     }
-
-    // Query destination
-    var endpointUrl = 'https://query.wikidata.org/sparql',
-
-    // Query
-    sparqlQuery = "#defaultView:ImageGrid\n" +
-    "SELECT ?item ?itemLabel ?itemDescription ?geo ?instanceLabel ?img\n" +
-    "WHERE\n" +
-    "{\n" +
-    "  wd:Q243 wdt:P625 ?loc .\n" +
-    "  SERVICE wikibase:around {\n" +
-    "      ?item wdt:P625 ?geo .\n" +
-    "      bd:serviceParam wikibase:center ?loc .\n" +
-    "      bd:serviceParam wikibase:radius \"1\" .\n" +
-    "  }\n" +
-    "  OPTIONAL {    ?item wdt:P31 ?instance  }\n" +
-    "  SERVICE wikibase:label { bd:serviceParam wikibase:language \"en\" }\n" +
-    "  BIND(geof:distance(?loc, ?geo) as ?dist)\n" +
-    "  \n" +
-    "  ?item wdt:P18 ?img .\n" +
-    "  MINUS {?item wdt:P31/wdt:P279* wd:Q376799.}.\n" +
-    "  \n" +
-    "} ORDER BY ?dist";
-
-    // initiate query and catch the data 
-    makeSPARQLQuery(endpointUrl, sparqlQuery, function (data) {
-        processQueryResults(data);
-    });
+);
 }
 
 function processQueryResults(data) {
