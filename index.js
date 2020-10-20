@@ -162,6 +162,7 @@ map.on('load', function () {
                 "#e76f51",
                 "#2a9d90"
               ],
+            "circle-opacity": 0.6,
             "circle-stroke-color": "hsl(0, 0%, 100%)",
             "circle-stroke-width": 1,
             "circle-stroke-opacity": 0.5
