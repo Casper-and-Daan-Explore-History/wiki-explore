@@ -73,7 +73,7 @@
             <div class="db ml5-ns ml1 mr3-ns mr1 mt6-ns mt2 pa3">
                 <h1 class="mw-100 white">Big Header which explains the service in one sentence</h1>
                 <p class="mw-100 white">Smaller subhead text with a little more information</p>
-            	<div id="geocoder" class="geocoder absolute w-30-ns v-mid ml2 mt3"></div>
+                <div id="geocoder" class="geocoder absolute w-30-ns v-mid ml2 mt3"></div>
             </div>
             <div class="db w-100 absolute static-ns bottom-2 cf border-box">
                 <div class="coverButton tc pa4 shadow-3 w-80 w-40-ns db mh6-ns mt6 f6 link grow br3 ph3 pv2 mb2 pointer center  ">
@@ -97,58 +97,58 @@
     
     <div id="map" class="">
 
-		    <div id="selectionContainer" class="absolute mv3 ml2-ns w-30-l w-50-m ml-25-m w-100 br3 shadow-5 flex flex-column" style="height:95vh">
+            <div id="selectionContainer" class="absolute mv3 ml2-ns w-30-l w-50-m ml-25-m w-100 br3 shadow-5 flex flex-column" style="height:95vh">
                 <div class="absolute right-0 mt1 mr1 o-20">
                     <img src="./img/close.svg" alt="Close" class="h2 shadow-hover pointer red">
                 </div>
-		        <div id="selectionContainerHeader" class="mt4 mb2 ph4" style="flex-grow:0;"/>
-		            <h1 class="f3 mb0" id="slectedItemTitle">Title Placeholder</h1>
-		            <div class="lh-copy f6 dt--fixed w-100 mv3" id="">
-		                <p class="lh-copy dtc w-50">Date</p>
-		                <p class="lh-copy dtc w-50" dtc>Location</p>
-		            </div>
-		        </div>
+                <div id="selectionContainerHeader" class="mt4 mb2 ph4" style="flex-grow:0;"/>
+                    <h1 class="f3 mb0" id="slectedItemTitle">Title Placeholder</h1>
+                    <div class="lh-copy f6 dt--fixed w-100 mv3" id="">
+                        <p class="lh-copy dtc w-50 dtc" id="slectedItemDate">Date</p>
+                        <p class="lh-copy dtc w-50 dtc" id="slectedItemCategory">Category</p>
+                    </div>
+                </div>
 
-		        <div class="mw-100 vh-25" style="flex-grow:0;">
-		            <img id="" class="singleImgSelection w-100"
-		            src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e9/Chedworth_Roman_Villa_2012_-_North_bath_house.jpg/300px-Chedworth_Roman_Villa_2012_-_North_bath_house.jpg"
-		            alt="img">
-		        </div>
+                <div class="mw-100 vh-25" style="flex-grow:0;">
+                    <img id="" class="singleImgSelection w-100"
+                    src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e9/Chedworth_Roman_Villa_2012_-_North_bath_house.jpg/300px-Chedworth_Roman_Villa_2012_-_North_bath_house.jpg"
+                    alt="img">
+                </div>
 
-		        <div class="ph4 mv3" id="selectionContainerSummary" style="flex-grow:1;">
-		            <p id="slectedItemDescription" class="lh-copy f6">The Battle of Paris was fought on March 30–31, 1814 between the Sixth Coalition,
-		                consisting of Russia, Austria, and Prussia, against the French Empire. After a day of fighting in the
-		                suburbs of Paris, the French surrendered on March 31, ending the War of the Sixth Coalition and forcing
-		                Emperor Napoleon to abdicate and go into exile.</p>
-		        </div>
-		        <div id="selectionContainerLinks" class="mb0 ph4 bottomradius vh-20 bottom-1" style="flex-grow:0; min-height: 20%;">
-		            <div id="wikipedialink" class="v-mid pv3">
-		                <a href="www.wikipedia.org" class="f6 lh-copy pv2 white link underline-hover hover-blue">Read more on
-		                    Wikipedia</a>
-		            </div>
-		            <div id="wikidatalink" class="v-mid pv3">
-		                <a href="www.wikidata.org" class="f6 lh-copy pv2 white link underline-hover hover-blue">See and edit the
-		                    original data on Wikidata</a>
-		            </div>
-		        </div>
-		    </div>
+                <div class="ph4 mv3" id="selectionContainerSummary" style="flex-grow:1;">
+                    <p id="slectedItemDescription" class="lh-copy f6">The Battle of Paris was fought on March 30–31, 1814 between the Sixth Coalition,
+                        consisting of Russia, Austria, and Prussia, against the French Empire. After a day of fighting in the
+                        suburbs of Paris, the French surrendered on March 31, ending the War of the Sixth Coalition and forcing
+                        Emperor Napoleon to abdicate and go into exile.</p>
+                </div>
+                <div id="selectionContainerLinks" class="mb0 ph4 bottomradius vh-20 bottom-1" style="flex-grow:0; min-height: 20%;">
+                    <div id="wikipedialink" class="v-mid pv3">
+                        <a href="www.wikipedia.org" class="f6 lh-copy pv2 white link underline-hover hover-blue">Read more on
+                            Wikipedia</a>
+                    </div>
+                    <div id="wikidatalink" class="v-mid pv3">
+                        <a href="www.wikidata.org" class="f6 lh-copy pv2 white link underline-hover hover-blue">See and edit the
+                            original data on Wikidata</a>
+                    </div>
+                </div>
+            </div>
 
-		    <!-- <div id="itemBottomPositioner" class="w-70 fixed z-99">
-		        <div id="horisontalScrollcontainer"></div>
-		    </div> -->
+            <!-- <div id="itemBottomPositioner" class="w-70 fixed z-99">
+                <div id="horisontalScrollcontainer"></div>
+            </div> -->
 
-		    <!-- <div id="LeftBtnContainer">
-		        <div id="webBtnsGal" class="vertical-center">
-		            <div id="wikidata" class="LeftPortrudingBtns" onclick="openInNewWindow('wikidata')" style="display: none;">
-		            </div>
-		            <div id="wikipedia" class="LeftPortrudingBtns" onclick="openInNewWindow('wikipedia')" style="display: none;"></div>
-		            <div id="commons" class="LeftPortrudingBtns" onclick="openInNewWindow('commonsGallery')"
-		                style="display: none;"></div>
-		            <div id="googleMaps" class="LeftPortrudingBtns" onclick="openInNewWindow('googleMaps')"></div>
-		            <div id="flickr" class="LeftPortrudingBtns" onclick="openInNewWindow('flickr')"></div>
-		            <div id="" class="LeftPortrudingBtns" onclick="openInNewWindow('wikishootme')"></div>
-		        </div>
-		    </div> -->
+            <!-- <div id="LeftBtnContainer">
+                <div id="webBtnsGal" class="vertical-center">
+                    <div id="wikidata" class="LeftPortrudingBtns" onclick="openInNewWindow('wikidata')" style="display: none;">
+                    </div>
+                    <div id="wikipedia" class="LeftPortrudingBtns" onclick="openInNewWindow('wikipedia')" style="display: none;"></div>
+                    <div id="commons" class="LeftPortrudingBtns" onclick="openInNewWindow('commonsGallery')"
+                        style="display: none;"></div>
+                    <div id="googleMaps" class="LeftPortrudingBtns" onclick="openInNewWindow('googleMaps')"></div>
+                    <div id="flickr" class="LeftPortrudingBtns" onclick="openInNewWindow('flickr')"></div>
+                    <div id="" class="LeftPortrudingBtns" onclick="openInNewWindow('wikishootme')"></div>
+                </div>
+            </div> -->
 
             <!-- Gallery Vieuw -->
             <!-- <div id="clickForClose" style="display: none;"></div>

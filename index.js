@@ -575,6 +575,7 @@ function selectNew(Q) {
         $(".singleImgSelection").attr("src", data.imgthum);
         $("#slectedItemTitle").text(data.label);
         $("#slectedItemDescription").text(data.description);
+        $("#slectedItemCategory").text(data.categorie);
         // $(".singleImgSelection").attr("src", data.imgthum);
         $(".singleImgSelection").show();
         // getCommonsCategoryImgs(data.commons, selectedQ, "carousel");
