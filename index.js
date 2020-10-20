@@ -5,6 +5,7 @@ var QnbrGeojson = {
     ]
 };
 var resultsFromQuery = [];
+var allQnbrs = [];
 var ResultsObject = {};
 var results; // results form commons.wikimedia img search from category
 var imgSlideIndex = 1;
@@ -22,7 +23,7 @@ var map = new mapboxgl.Map({
 var geocoder = new MapboxGeocoder({
     accessToken: mapboxgl.accessToken,
 });
- 
+
 // document.getElementById('geocoder').appendChild(geocoder.onAdd(map));
 
 //location search
@@ -152,7 +153,7 @@ map.on('load', function () {
                 3,
                 22,
                 55
-              ],
+            ],
             'circle-color': [
                 "match",
                 ["get", "cat"],
@@ -161,7 +162,7 @@ map.on('load', function () {
                 ["Event"],
                 "#e76f51",
                 "#2a9d90"
-              ],
+            ],
             "circle-opacity": 0.6,
             "circle-stroke-color": "hsl(0, 0%, 100%)",
             "circle-stroke-width": 1,
@@ -208,89 +209,97 @@ map.on('load', function () {
 
     // Map panning ends
     map.on('moveend', function () {
-        buildAllVisibleItems()
+        // buildAllVisibleItems()
+        runQuery();
     });
 });
 
 
 runQuery();
 function runQuery() {
+    let canvas = map.getCanvas()
+    let w = canvas.width
+    let h = canvas.height
+    let cUL = map.unproject ([0,0]).toArray()
+    let cLR = map.unproject ([w,h]).toArray()
+
+
     // the function that process the query
-    function makeSPARQLQuery( endpointUrl, sparqlQuery, doneCallback ) {
-    var settings = {
-        headers: { Accept: 'application/sparql-results+json' },
-        data: { query: sparqlQuery }
-    };
-    return $.ajax( endpointUrl, settings ).then( doneCallback );
-}
+    function makeSPARQLQuery(endpointUrl, sparqlQuery, doneCallback) {
+        var settings = {
+            headers: { Accept: 'application/sparql-results+json' },
+            data: { query: sparqlQuery }
+        };
+        return $.ajax(endpointUrl, settings).then(doneCallback);
+    }
 
-var endpointUrl = 'https://query.wikidata.org/sparql',
-sparqlQuery = "#defaultView:ImageGride\n" +
-"SELECT\n" +
-"  ?item ?itemLabel ?itemDescription\n" +
-"  ?geo ?img ?categorie\n" +
-"  (GROUP_CONCAT(?instanceLabel; SEPARATOR = \", \") AS ?instancesof) # a nices String with the labels of the different instances of related to the item\n" +
-"WITH\n" +
-"{\n" +
-"  SELECT \n" +
-"    ?item \n" +
-"    (SAMPLE(?geo_) AS ?geo) # The SAMPLE code is needed to inform the GROUP BY code what to do when there are more than one.\n" +
-"    (SAMPLE(?img_) AS ?img)\n" +
-"  WHERE\n" +
-"  {\n" +
-"    #### Selection based on location ####   \n" +
-"    SERVICE wikibase:box\n" +
-"    {\n" +
-"      ?item wdt:P625 ?geo_.\n" +
-"      bd:serviceParam wikibase:cornerWest \"Point(2.30 48.87)\"^^geo:wktLiteral. \n" +
-"      bd:serviceParam wikibase:cornerEast \"Point(2.32 48.86)\"^^geo:wktLiteral.\n" +
-"    }\n" +
-"\n" +
-"    MINUS { ?item (wdt:P31/(wdt:P279*)) wd:Q376799. } # Remove everything related to roads\n" +
-"    ?item wdt:P18 ?img_. # Only keep items with pictures\n" +
-"  }\n" +
-"  GROUP BY ?item\n" +
-"} AS %get_items\n" +
-"WHERE\n" +
-"{\n" +
-"  INCLUDE %get_items\n" +
-"\n" +
-"  #### Categorise items ####\n" +
-"  BIND(\n" +
-"    IF(EXISTS {?item (wdt:P31/(wdt:P279*)) wd:Q811979},\n" +
-"       \"Architectural\",\n" +
-"       IF(EXISTS {?item (wdt:P31/(wdt:P279*)) wd:Q1656682},\n" +
-"          \"Event\",\n" +
-"          \"Other\"\n" +
-"         )\n" +
-"      )\n" +
-"  AS ?categorie)\n" +
-"  \n" +
-"  OPTIONAL { ?item wdt:P31 ?instance. } # Get instances\n" +
-"   \n" +
-"  #### Wikipedia link ####\n" +
-"  OPTIONAL {\n" +
-"    ?article schema:about ?item . # Get wikipedia link\n" +
-"    ?article schema:isPartOf <https://en.wikipedia.org/>. # Only keep EN language\n" +
-"  }\n" +
-"  \n" +
-"  #### Labels & discription #### \n" +
-"  SERVICE wikibase:label { # Get labels\n" +
-"    bd:serviceParam wikibase:language \"en\". \n" +
-"    ?instance rdfs:label ?instanceLabel.      # The specification of the variables to be labeld is needed for grouping the instances of correctly\n" +
-"    ?item rdfs:label ?itemLabel.\n" +
-"    ?item schema:description ?itemDescription.\n" +
-"  }\n" +
-"}\n" +
-"GROUP BY ?item ?itemLabel ?itemDescription ?geo ?img ?categorie ?article";
+    var endpointUrl = 'https://query.wikidata.org/sparql',
+        sparqlQuery = "#defaultView:ImageGride\n" +
+            "SELECT\n" +
+            "  ?item ?itemLabel ?itemDescription\n" +
+            "  ?geo ?img ?categorie\n" +
+            "  (GROUP_CONCAT(?instanceLabel; SEPARATOR = \", \") AS ?instancesof) # a nices String with the labels of the different instances of related to the item\n" +
+            "WITH\n" +
+            "{\n" +
+            "  SELECT \n" +
+            "    ?item \n" +
+            "    (SAMPLE(?geo_) AS ?geo) # The SAMPLE code is needed to inform the GROUP BY code what to do when there are more than one.\n" +
+            "    (SAMPLE(?img_) AS ?img)\n" +
+            "  WHERE\n" +
+            "  {\n" +
+            "    #### Selection based on location ####   \n" +
+            "    SERVICE wikibase:box\n" +
+            "    {\n" +
+            "      ?item wdt:P625 ?geo_.\n" +
+            "      bd:serviceParam wikibase:cornerWest \"Point("+cUL[0]+" "+cUL[1]+")\"^^geo:wktLiteral. \n" +
+            "      bd:serviceParam wikibase:cornerEast \"Point("+cLR[0]+" "+cLR[1]+")\"^^geo:wktLiteral.\n" +
+            "    }\n" +
+            "\n" +
+            "    MINUS { ?item (wdt:P31/(wdt:P279*)) wd:Q376799. } # Remove everything related to roads\n" +
+            "    ?item wdt:P18 ?img_. # Only keep items with pictures\n" +
+            "  }\n" +
+            "  GROUP BY ?item\n" +
+            "} AS %get_items\n" +
+            "WHERE\n" +
+            "{\n" +
+            "  INCLUDE %get_items\n" +
+            "\n" +
+            "  #### Categorise items ####\n" +
+            "  BIND(\n" +
+            "    IF(EXISTS {?item (wdt:P31/(wdt:P279*)) wd:Q811979},\n" +
+            "       \"Architectural\",\n" +
+            "       IF(EXISTS {?item (wdt:P31/(wdt:P279*)) wd:Q1656682},\n" +
+            "          \"Event\",\n" +
+            "          \"Other\"\n" +
+            "         )\n" +
+            "      )\n" +
+            "  AS ?categorie)\n" +
+            "  \n" +
+            "  OPTIONAL { ?item wdt:P31 ?instance. } # Get instances\n" +
+            "   \n" +
+            "  #### Wikipedia link ####\n" +
+            "  OPTIONAL {\n" +
+            "    ?article schema:about ?item . # Get wikipedia link\n" +
+            "    ?article schema:isPartOf <https://en.wikipedia.org/>. # Only keep EN language\n" +
+            "  }\n" +
+            "  \n" +
+            "  #### Labels & discription #### \n" +
+            "  SERVICE wikibase:label { # Get labels\n" +
+            "    bd:serviceParam wikibase:language \"en\". \n" +
+            "    ?instance rdfs:label ?instanceLabel.      # The specification of the variables to be labeld is needed for grouping the instances of correctly\n" +
+            "    ?item rdfs:label ?itemLabel.\n" +
+            "    ?item schema:description ?itemDescription.\n" +
+            "  }\n" +
+            "}\n" +
+            "GROUP BY ?item ?itemLabel ?itemDescription ?geo ?img ?categorie ?article";
 
 
-makeSPARQLQuery( endpointUrl, sparqlQuery, function( data ) {
+    makeSPARQLQuery(endpointUrl, sparqlQuery, function (data) {
         // $( 'body' ).append( $( '<pre>' ).text( JSON.stringify( data ) ) );
         // console.log( data );
         processQueryResults(data);
     }
-);
+    );
 }
 
 function processQueryResults(data) {
@@ -312,10 +321,13 @@ function processQueryResults(data) {
         if (data.results.bindings[d].instancesof != undefined) { result.instanceof = data.results.bindings[d].instancesof.value; }
         if (data.results.bindings[d].categorie != undefined) { result.categorie = data.results.bindings[d].categorie.value; }
 
-        resultsFromQuery.push(result);//pushes every result into the array
+        // resultsFromQuery.push(result);//pushes every result into the array
         ResultsObject[result.qnumber] = result;
         // buildResultsObject(result);
     }
+    allQnbrs = Object.keys(ResultsObject);
+
+
     console.log(ResultsObject);
     // console.log(resultsFromQuery);
     console.log("@1");
@@ -362,8 +374,9 @@ function buildResultsObject(result) {
 // Processing - Data from wikidata to Geojson
 function buildGeojsonFromQueryResults() {
     console.log("@2");
-    for (i in resultsFromQuery) {
-        addPointToQnbrGeojson(resultsFromQuery[i].geo, resultsFromQuery[i].qnumber, resultsFromQuery[i].categorie)
+    QnbrGeojson.features = [];
+    for (i in allQnbrs) {
+        addPointToQnbrGeojson(ResultsObject[allQnbrs[i]].geo, ResultsObject[allQnbrs[i]].qnumber, ResultsObject[allQnbrs[i]].categorie)
     }
     if (mapIsActive) {
         console.log("@3");
@@ -390,7 +403,7 @@ function addPointToQnbrGeojson(LngLat, Qnbr, categorie) {
         "type": "Feature",
         "properties": {
             'Qnbr': Qnbr,
-            'cat':categorie
+            'cat': categorie
         },
         "geometry": {
             "type": "Point",
@@ -543,7 +556,7 @@ function selectNew(Q) {
     if (Q === undefined) {
         selectedQ = undefined;
         // $("#selectionContainer").hide();
-        $("#selectionContainer").css({'display' : 'none'});
+        $("#selectionContainer").css({ 'display': 'none' });
         $(".singleImgSelection").hide();
         $("#slideshow-container").hide();
         $("#wikidata").hide();
@@ -558,7 +571,7 @@ function selectNew(Q) {
         $("#commons").show();
         $("#slideshow-container").hide();
         // $("#selectionContainer").show();
-        $("#selectionContainer").css({'display' : 'flex'});
+        $("#selectionContainer").css({ 'display': 'flex' });
         $(".singleImgSelection").attr("src", data.imgthum);
         $("#slectedItemTitle").text(data.label);
         $("#slectedItemDescription").text(data.description);
