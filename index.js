@@ -310,7 +310,7 @@ function processQueryResults(data) {
         var result = {};
         result.qnumber = qnumberExtraction(data.results.bindings[d].item.value);
         result.qnumberURL = data.results.bindings[d].item.value;
-        if (data.results.bindings[d].sitelink != undefined) { result.wikipedia = data.results.bindings[d].sitelink.value; }
+        if (data.results.bindings[d].article != undefined) { result.wikipedia = data.results.bindings[d].article.value; }
         if (data.results.bindings[d].geo != undefined) { result.geo = extractLngLat(data.results.bindings[d].geo.value); }
         if (data.results.bindings[d].img != undefined) { result.img = data.results.bindings[d].img.value; }
         if (data.results.bindings[d].img != undefined) { result.imgthum = data.results.bindings[d].img.value + "?width=600px"; }
@@ -526,7 +526,7 @@ function openInNewWindow(url) {
             url = "https://www.wikidata.org/wiki/" + selectedQ;
             break;
         case "wikipedia":
-            url = "url-wikipedia";
+            url = ResultsObject[selectedQ].wikipedia;
             break;
         case "commons":
             url = "url-commons";
