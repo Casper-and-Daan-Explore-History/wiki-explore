@@ -1,0 +1,2091 @@
+{
+    "type": "FeatureCollection",
+    "features": [
+        {
+            "type": "Feature",
+            "properties": {
+                "Qnbr": "Q22924726",
+                "cat": "Architectural"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.30191,
+                    48.86748
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Qnbr": "Q23305619",
+                "cat": "Architectural"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.3011,
+                    48.862
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Qnbr": "Q63323633",
+                "cat": "Architectural"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.311486,
+                    48.865633
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Qnbr": "Q193582",
+                "cat": "Other"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.318611111,
+                    48.862222222
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Qnbr": "Q195532",
+                "cat": "Architectural"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.3008333,
+                    48.8675
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Qnbr": "Q217708",
+                "cat": "Architectural"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.300586,
+                    48.868917
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Qnbr": "Q274537",
+                "cat": "Other"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.30252778,
+                    48.86261111
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Qnbr": "Q457318",
+                "cat": "Architectural"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.3125,
+                    48.866111
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Qnbr": "Q614450",
+                "cat": "Architectural"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.310833333,
+                    48.866111111
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Qnbr": "Q677543",
+                "cat": "Architectural"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.31287,
+                    48.8689
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Qnbr": "Q726531",
+                "cat": "Architectural"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.3029,
+                    48.86584
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Qnbr": "Q820892",
+                "cat": "Architectural"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.31455278,
+                    48.86603333
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Qnbr": "Q936633",
+                "cat": "Architectural"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.318681,
+                    48.862072
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Qnbr": "Q1114964",
+                "cat": "Event"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.31305556,
+                    48.86666667
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Qnbr": "Q1139243",
+                "cat": "Architectural"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.30166667,
+                    48.86583333
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Qnbr": "Q1384763",
+                "cat": "Event"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.31361,
+                    48.8636
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Qnbr": "Q2180254",
+                "cat": "Other"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.3197,
+                    48.8613
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Qnbr": "Q2193276",
+                "cat": "Other"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.30188889,
+                    48.86436111
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Qnbr": "Q2375304",
+                "cat": "Architectural"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.304369,
+                    48.866203
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Qnbr": "Q2407691",
+                "cat": "Architectural"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.300833333,
+                    48.8675
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Qnbr": "Q2654419",
+                "cat": "Other"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.302528,
+                    48.862611
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Qnbr": "Q2832101",
+                "cat": "Architectural"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.3176,
+                    48.8677
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Qnbr": "Q2880369",
+                "cat": "Architectural"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.30755,
+                    48.868
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Qnbr": "Q2942526",
+                "cat": "Architectural"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.30701,
+                    48.8658
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Qnbr": "Q2974260",
+                "cat": "Architectural"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.3119,
+                    48.8692
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Qnbr": "Q3036228",
+                "cat": "Architectural"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.300833,
+                    48.864167
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Qnbr": "Q3088872",
+                "cat": "Architectural"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.314166666,
+                    48.866944444
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Qnbr": "Q3094695",
+                "cat": "Other"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.311561111,
+                    48.866566666
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Qnbr": "Q3145635",
+                "cat": "Architectural"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.304681,
+                    48.865893
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Qnbr": "Q3145797",
+                "cat": "Architectural"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.31886,
+                    48.8692
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Qnbr": "Q3145932",
+                "cat": "Architectural"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.31944444,
+                    48.86916667
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Qnbr": "Q3146044",
+                "cat": "Architectural"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.30758056,
+                    48.86926111
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Qnbr": "Q3218349",
+                "cat": "Architectural"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.309921,
+                    48.866324
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Qnbr": "Q3279689",
+                "cat": "Architectural"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.316837,
+                    48.860056
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Qnbr": "Q3361034",
+                "cat": "Architectural"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.3,
+                    48.8617
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Qnbr": "Q3375668",
+                "cat": "Architectural"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.3025,
+                    48.8692
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Qnbr": "Q3408708",
+                "cat": "Architectural"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.306571,
+                    48.86222
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Qnbr": "Q3427911",
+                "cat": "Architectural"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.31641667,
+                    48.86608333
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Qnbr": "Q3434524",
+                "cat": "Architectural"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.311,
+                    48.8678
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Qnbr": "Q3498379",
+                "cat": "Architectural"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.30764,
+                    48.8668
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Qnbr": "Q3527516",
+                "cat": "Architectural"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.31367,
+                    48.8686
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Qnbr": "Q3551353",
+                "cat": "Other"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.31512,
+                    48.8602
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Qnbr": "Q3576150",
+                "cat": "Architectural"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.30201,
+                    48.8638
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Qnbr": "Q7799924",
+                "cat": "Architectural"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.31367,
+                    48.8686
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Qnbr": "Q14955143",
+                "cat": "Architectural"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.30058611,
+                    48.86891667
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Qnbr": "Q15950484",
+                "cat": "Architectural"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.3199,
+                    48.8692
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Qnbr": "Q18794353",
+                "cat": "Architectural"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.31884,
+                    48.8692
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Qnbr": "Q19753116",
+                "cat": "Other"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.31444,
+                    48.8661
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Qnbr": "Q20639219",
+                "cat": "Architectural"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.30876,
+                    48.86858
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Qnbr": "Q60291654",
+                "cat": "Architectural"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.31959,
+                    48.86085
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Qnbr": "Q60848328",
+                "cat": "Architectural"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.3098,
+                    48.8674
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Qnbr": "Q61972004",
+                "cat": "Architectural"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.308638888,
+                    48.865916666
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Qnbr": "Q84730452",
+                "cat": "Architectural"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.3044,
+                    48.8663
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Qnbr": "Q536880",
+                "cat": "Architectural"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.31186,
+                    48.8695
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Qnbr": "Q1165249",
+                "cat": "Architectural"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.31722222,
+                    48.86222222
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Qnbr": "Q2391616",
+                "cat": "Architectural"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.30777778,
+                    48.86208333
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Qnbr": "Q2841610",
+                "cat": "Architectural"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.311389,
+                    48.862222
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Qnbr": "Q2841823",
+                "cat": "Architectural"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.307831,
+                    48.867372
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Qnbr": "Q2841850",
+                "cat": "Architectural"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.31,
+                    48.862139
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Qnbr": "Q2841885",
+                "cat": "Architectural"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.30701389,
+                    48.86180556
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Qnbr": "Q2887588",
+                "cat": "Architectural"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.31401389,
+                    48.86517222
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Qnbr": "Q2901367",
+                "cat": "Other"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.31861111,
+                    48.86194444
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Qnbr": "Q2956582",
+                "cat": "Architectural"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.306027777,
+                    48.865555555
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Qnbr": "Q3076034",
+                "cat": "Architectural"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.31166667,
+                    48.86680556
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Qnbr": "Q3076128",
+                "cat": "Architectural"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.31695,
+                    48.8659
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Qnbr": "Q3076190",
+                "cat": "Architectural"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.318,
+                    48.8674
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Qnbr": "Q3076214",
+                "cat": "Architectural"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.30781,
+                    48.8662
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Qnbr": "Q3076221",
+                "cat": "Architectural"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.318,
+                    48.8674
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Qnbr": "Q3076259",
+                "cat": "Architectural"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.31293,
+                    48.869
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Qnbr": "Q3087550",
+                "cat": "Other"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.3139,
+                    48.8675
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Qnbr": "Q3145544",
+                "cat": "Architectural"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.30453,
+                    48.8649
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Qnbr": "Q3145556",
+                "cat": "Architectural"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.31011,
+                    48.8661
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Qnbr": "Q3145636",
+                "cat": "Architectural"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.30072,
+                    48.8688
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Qnbr": "Q3145775",
+                "cat": "Architectural"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.3176,
+                    48.8691
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Qnbr": "Q3145861",
+                "cat": "Architectural"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.3167,
+                    48.8688
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Qnbr": "Q3146306",
+                "cat": "Architectural"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.31608,
+                    48.8622
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Qnbr": "Q3162286",
+                "cat": "Architectural"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.31112,
+                    48.8652
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Qnbr": "Q3279632",
+                "cat": "Other"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.30575,
+                    48.87
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Qnbr": "Q3323366",
+                "cat": "Architectural"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.309814,
+                    48.864411
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Qnbr": "Q3323414",
+                "cat": "Architectural"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.30493057,
+                    48.86434445
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Qnbr": "Q3494876",
+                "cat": "Architectural"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.310668,
+                    48.86715
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Qnbr": "Q3497616",
+                "cat": "Architectural"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.31186,
+                    48.8645
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Qnbr": "Q3497628",
+                "cat": "Architectural"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.31421,
+                    48.8645
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Qnbr": "Q10272264",
+                "cat": "Architectural"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.30503889,
+                    48.86498333
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Qnbr": "Q15732665",
+                "cat": "Architectural"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.311278,
+                    48.861333
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Qnbr": "Q15950518",
+                "cat": "Architectural"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.3147,
+                    48.8694
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Qnbr": "Q15953187",
+                "cat": "Architectural"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.30968,
+                    48.8661
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Qnbr": "Q16009498",
+                "cat": "Architectural"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.30331,
+                    48.8617
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Qnbr": "Q16303664",
+                "cat": "Architectural"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.30575,
+                    48.8649
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Qnbr": "Q16303708",
+                "cat": "Architectural"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.30497,
+                    48.8679
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Qnbr": "Q17346971",
+                "cat": "Architectural"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.30111,
+                    48.8664
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Qnbr": "Q18168592",
+                "cat": "Architectural"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.3183,
+                    48.8646
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Qnbr": "Q18168650",
+                "cat": "Architectural"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.3131,
+                    48.864211111
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Qnbr": "Q18168651",
+                "cat": "Architectural"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.3138,
+                    48.864211111
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Qnbr": "Q18168648",
+                "cat": "Architectural"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.313625,
+                    48.863014
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Qnbr": "Q18168649",
+                "cat": "Architectural"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.3133,
+                    48.863088888
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Qnbr": "Q18168655",
+                "cat": "Architectural"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.313,
+                    48.8652
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Qnbr": "Q18168656",
+                "cat": "Architectural"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.3132,
+                    48.8671
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Qnbr": "Q18168657",
+                "cat": "Architectural"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.3108,
+                    48.8644
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Qnbr": "Q18560548",
+                "cat": "Architectural"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.3125,
+                    48.8662
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Qnbr": "Q18575148",
+                "cat": "Architectural"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.3131,
+                    48.86516
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Qnbr": "Q19359348",
+                "cat": "Architectural"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.3072,
+                    48.8663
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Qnbr": "Q19843704",
+                "cat": "Architectural"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.30099,
+                    48.8602
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Qnbr": "Q19951337",
+                "cat": "Architectural"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.301,
+                    48.8662
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Qnbr": "Q19969042",
+                "cat": "Architectural"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.3143,
+                    48.866
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Qnbr": "Q20127462",
+                "cat": "Architectural"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.30099,
+                    48.8602
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Qnbr": "Q20669717",
+                "cat": "Architectural"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.30314,
+                    48.8694
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Qnbr": "Q20723061",
+                "cat": "Other"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.30497,
+                    48.86788
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Qnbr": "Q20971124",
+                "cat": "Architectural"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.31861,
+                    48.86194
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Qnbr": "Q21263904",
+                "cat": "Architectural"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.3147,
+                    48.8621
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Qnbr": "Q22924655",
+                "cat": "Architectural"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.318156,
+                    48.860061
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Qnbr": "Q22924666",
+                "cat": "Architectural"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.317814,
+                    48.860678
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Qnbr": "Q22924667",
+                "cat": "Architectural"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.317958,
+                    48.860669
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Qnbr": "Q22924665",
+                "cat": "Architectural"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.318781,
+                    48.860606
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Qnbr": "Q22924670",
+                "cat": "Architectural"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.318544,
+                    48.860394
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Qnbr": "Q22924671",
+                "cat": "Architectural"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.318111,
+                    48.860286
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Qnbr": "Q22924668",
+                "cat": "Architectural"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.318661,
+                    48.860553
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Qnbr": "Q22924669",
+                "cat": "Architectural"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.318008,
+                    48.860467
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Qnbr": "Q22924672",
+                "cat": "Architectural"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.318475,
+                    48.8603
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Qnbr": "Q22924700",
+                "cat": "Architectural"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.31416,
+                    48.86946
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Qnbr": "Q22975816",
+                "cat": "Architectural"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.30393,
+                    48.86608
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Qnbr": "Q23639904",
+                "cat": "Architectural"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.3045,
+                    48.8625
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Qnbr": "Q23639956",
+                "cat": "Architectural"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.3193,
+                    48.8623
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Qnbr": "Q23639970",
+                "cat": "Architectural"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.3186,
+                    48.8625
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Qnbr": "Q23639993",
+                "cat": "Architectural"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.3191,
+                    48.8623
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Qnbr": "Q23640011",
+                "cat": "Architectural"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.3061,
+                    48.8626
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Qnbr": "Q23640092",
+                "cat": "Architectural"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.3183,
+                    48.8606
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Qnbr": "Q23640105",
+                "cat": "Architectural"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.3191,
+                    48.8622
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Qnbr": "Q23640115",
+                "cat": "Architectural"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.3186,
+                    48.8624
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Qnbr": "Q23640124",
+                "cat": "Architectural"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.3185,
+                    48.8615
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Qnbr": "Q23641878",
+                "cat": "Architectural"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.3196,
+                    48.8648
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Qnbr": "Q23641884",
+                "cat": "Architectural"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.3196,
+                    48.8651
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Qnbr": "Q23641898",
+                "cat": "Architectural"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.3136,
+                    48.8675
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Qnbr": "Q23641896",
+                "cat": "Architectural"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.314,
+                    48.8653
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Qnbr": "Q23641902",
+                "cat": "Architectural"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.3107,
+                    48.8651
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Qnbr": "Q23641903",
+                "cat": "Architectural"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.311,
+                    48.8653
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Qnbr": "Q23641901",
+                "cat": "Architectural"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.3106,
+                    48.865
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Qnbr": "Q23641904",
+                "cat": "Architectural"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.3029,
+                    48.8649
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Qnbr": "Q23641905",
+                "cat": "Architectural"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.3143,
+                    48.867
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Qnbr": "Q25271218",
+                "cat": "Architectural"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.30268,
+                    48.86545
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Qnbr": "Q25915500",
+                "cat": "Architectural"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.3105,
+                    48.8663
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Qnbr": "Q25915501",
+                "cat": "Architectural"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.3105,
+                    48.8661
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Qnbr": "Q41791154",
+                "cat": "Architectural"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.304597222,
+                    48.862758333
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Qnbr": "Q48748404",
+                "cat": "Architectural"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.302747,
+                    48.869095
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Qnbr": "Q54661689",
+                "cat": "Architectural"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.30634,
+                    48.8673
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Qnbr": "Q56884924",
+                "cat": "Architectural"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.304722222,
+                    48.865277777
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Qnbr": "Q60291632",
+                "cat": "Architectural"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.31667,
+                    48.86093
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Qnbr": "Q60291644",
+                "cat": "Architectural"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.31808,
+                    48.86083
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Qnbr": "Q60291650",
+                "cat": "Architectural"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.31563,
+                    48.86279
+                ]
+            }
+        }
+    ]
+}

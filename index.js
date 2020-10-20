@@ -144,22 +144,27 @@ map.on('load', function () {
         // "source-layer": "QnbrSource",
         "layout": {},
         "paint": {
-            "circle-radius": {
-                'base': 2,
-                'stops': [
-                [12, 4],
-                [22, 180]
-                ]
-            },
+            "circle-radius": [
+                "interpolate",
+                ["linear"],
+                ["zoom"],
+                14,
+                3,
+                22,
+                55
+              ],
             'circle-color': [
-                'match',
-                ['get', 'heritage designation'],
-                'registered historic monument',
-                '#fbb03b',
-                /* other */ '#ccc'
-                ],
-            "circle-stroke-color": "hsla(220, 27%, 98%, 0.7)",
-            "circle-stroke-width": 2
+                "match",
+                ["get", "cat"],
+                ["Architectural"],
+                "hsl(43, 80%, 60%)",
+                ["Event"],
+                "#e76f51",
+                "#2a9d90"
+              ],
+            "circle-stroke-color": "hsl(0, 0%, 100%)",
+            "circle-stroke-width": 1,
+            "circle-stroke-opacity": 0.5
         }
     });
 
@@ -303,7 +308,8 @@ function processQueryResults(data) {
         if (data.results.bindings[d].commons != undefined) { result.commonsurl = "https://commons.wikimedia.org/wiki/Category:" + encodeURIComponent(data.results.bindings[d].commons.value); }
         if (data.results.bindings[d].itemLabel != undefined) { result.label = data.results.bindings[d].itemLabel.value; }
         if (data.results.bindings[d].itemDescription != undefined) { result.description = data.results.bindings[d].itemDescription.value; }
-        if (data.results.bindings[d].instanceLabel != undefined) { result.instanceof = data.results.bindings[d].instanceLabel.value; }
+        if (data.results.bindings[d].instancesof != undefined) { result.instanceof = data.results.bindings[d].instancesof.value; }
+        if (data.results.bindings[d].categorie != undefined) { result.categorie = data.results.bindings[d].categorie.value; }
 
         resultsFromQuery.push(result);//pushes every result into the array
         ResultsObject[result.qnumber] = result;
@@ -343,6 +349,9 @@ function buildResultsObject(result) {
         if (ResultsObject[Q].instanceof != results.instanceof) {
             ResultsObject[Q].instanceof = "";
         };
+        if (ResultsObject[Q].categorie != results.categorie) {
+            ResultsObject[Q].categorie = "";
+        };
 
     } else {
         ResultsObject[Q] = result;
@@ -353,7 +362,7 @@ function buildResultsObject(result) {
 function buildGeojsonFromQueryResults() {
     console.log("@2");
     for (i in resultsFromQuery) {
-        addPointToQnbrGeojson(resultsFromQuery[i].geo, resultsFromQuery[i].qnumber)
+        addPointToQnbrGeojson(resultsFromQuery[i].geo, resultsFromQuery[i].qnumber, resultsFromQuery[i].categorie)
     }
     if (mapIsActive) {
         console.log("@3");
@@ -373,13 +382,14 @@ function buildGeojsonFromQueryResults() {
 }
 
 // Helper - Add point to geojson object
-function addPointToQnbrGeojson(LngLat, Qnbr) {
+function addPointToQnbrGeojson(LngLat, Qnbr, categorie) {
     // console.log("show point");
     // for (i in LngLat) {
     var point = {
         "type": "Feature",
         "properties": {
-            'Qnbr': Qnbr
+            'Qnbr': Qnbr,
+            'cat':categorie
         },
         "geometry": {
             "type": "Point",
