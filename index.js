@@ -150,7 +150,7 @@ map.on('load', function () {
                 ["linear"],
                 ["zoom"],
                 14,
-                3,
+                7,
                 22,
                 55
             ],
