@@ -16,7 +16,7 @@ var map = new mapboxgl.Map({
     container: 'map', // container id
     style: 'mapbox://styles/caskes/ckfe8z5vq028519ovap041fj6', // stylesheet location
     center: [2.32008, 48.85578], // starting position [lng, lat]
-    zoom: 13,
+    zoom: 14,
     hash: true
 });
 
@@ -127,6 +127,7 @@ function flyTo(lon, lat, zoom) {
 map.on('load', function () {
     mapIsActive = true;
 
+
     // create a data source for layers to use
     map.addSource('QnbrSource', {
         'type': 'geojson',
@@ -138,37 +139,79 @@ map.on('load', function () {
     });
 
     // add layer to the map
-    map.addLayer({
+
+
+        map.addLayer({
+        "id": "QnbrLayerbg",
+        "type": "circle",
+        "source": "QnbrSource",
+        // "source-layer": "QnbrSource",
+        "layout": {},
+        "paint": {
+            'circle-radius': {
+                stops: [[8, 2], [11, 8], [16, 20]]
+                },   
+            'circle-color': '#000000',
+            'circle-blur': 1,
+            'circle-opacity': 0.8,
+
+        }
+    });
+
+
+        map.addLayer({
         "id": "QnbrLayer",
         "type": "circle",
         "source": "QnbrSource",
         // "source-layer": "QnbrSource",
         "layout": {},
         "paint": {
-            "circle-radius": [
-                "interpolate",
-                ["linear"],
-                ["zoom"],
-                14,
-                3,
-                22,
-                55
-            ],
+            'circle-radius': {
+                stops: [[8, 1], [11, 4], [16, 15]]
+                },   
             'circle-color': [
                 "match",
                 ["get", "cat"],
                 ["Architectural"],
-                "hsl(43, 80%, 60%)",
+                "#D08770",
                 ["Event"],
-                "#e76f51",
-                "#2a9d90"
+                "#BF616A",
+                "#EBCB8B"
             ],
-            "circle-opacity": 0.6,
-            "circle-stroke-color": "hsl(0, 0%, 100%)",
-            "circle-stroke-width": 1,
-            "circle-stroke-opacity": 0.5
+            'circle-stroke-color': '#000000',
+            'circle-stroke-opacity': 0.2,
+
         }
     });
+
+    map.loadImage(
+        'https://raw.githubusercontent.com/google/material-design-icons/master/png/places/apartment/materialicons/24dp/1x/baseline_apartment_black_24dp.png',
+        function (error, image) {
+        if (error) throw error;
+        map.addImage('star', image);
+  
+
+    map.addLayer({
+        "id": "QnbrLayerIcon",
+        "type": "symbol",
+        "source": "QnbrSource",
+        // "source-layer": "gp_registered_patients",
+        // "filter": ["in", "stack", "two","three","five","nine","one"],
+        // "minzoom": 11,
+        // "interactive": true,
+        "layout": {
+
+            // "icon-offset": [14,-154],
+            "icon-image": "star",
+            "icon-allow-overlap": true,
+            "icon-ignore-placement": true,
+            "icon-padding": 0,
+            "icon-size": 0.6,
+        },
+        });
+        }
+    );
+
 
     // hover popup
     map.on('mousemove', 'QnbrLayer', function (e) {
