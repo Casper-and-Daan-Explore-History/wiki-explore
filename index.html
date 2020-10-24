@@ -37,6 +37,32 @@
 </head>
 
 <body>
+    <!-- <div class="bluredCoverImgBackground" style="filter: blur(0px); -webkit-filter: blur(0px);"></div>
+    <div class="bluredCoverImgBackground"></div>
+    <div id="coverContainer">
+        <h1 class="MegaTitle coverText">visitthepast.org</h1>
+        <div class="coverTextContainer">
+            <div class="textCollum">
+                <H2 class="textCollumTitle coverText">Visit the past</H2>
+                <p class="textCollumContent coverText">
+                    Explore places of bygone areas that remain to this day. Here you
+                    can experience the digital traces and maybe one day you can experience it in real life.</p>
+            </div>
+            <div class="textCollum">
+                <H2 class="textCollumTitle coverText">Wikidata</H2>
+                <p class="textCollumContent coverText">This is powered by the free and open knowledge base of the
+                    Internet.
+                    Wikidata is the data structure behind Wikipedia.</p>
+            </div>
+            <div class="textCollum">
+                <H2 class="textCollumTitle coverText">Help</H2>
+                <p class="textCollumContent coverText">Wikidata is open and can be edited by anyone. By exploring you
+                    might find
+                    inconsistencies or information gaps. Feel empowered to edit wikidata and improve it.</p>
+            </div>
+        </div>
+        <h2 class="coverButton coverText">Start exploring</h2>
+    </div> -->
 
     <div class="bluredCoverImgBackground w-100 mw-100 h-100 cf overflow-hidden">
         <div id="coverimg" class="fr-ns w-100-ns mw-100 h-100 tr absolute flex items-center">
@@ -55,6 +81,7 @@
                 </div>
             </div>
         </div>
+        
     </div>
 
 
@@ -63,14 +90,14 @@
         <h1 class="loadingText">Loading content from wikidata...</h1>
     </div>
     <div class="w-100 db h3">
-        <div id="logo" class="w-10-ns h4 fr db mr6 relative shadow-4" style="z-index: 1;" > 
-            <img src="./img/logo.svg" alt="Logo" class="h4 fixed center">
+        <div id="logo" class="w-10-ns h4 fr db mr6 z-999 relative shadow-4"> 
+            <img src="./img/logo.svg" alt="Logo" class="h4 fixed z-max center">
         </div>
     </div>
     
     <div id="map" class="">
 
-            <div id="selectionContainer" class="absolute ml2-ns w-30-l w-50-m ml-25-m w-95 br3 shadow-5 flex flex-column topradius" style="height:95vh; width:95vw; margin-left:2.5vw; bottom:0;">
+            <div id="selectionContainer" class="absolute mv3 ml2-ns w-30-l w-50-m ml-25-m w-100 br3 shadow-5 flex flex-column" style="height:95vh">
                 <div class="absolute right-0 mt1 mr1 o-20" onclick="selectNew()">
                     <img src="./img/close.svg" alt="Close" class="h2 shadow-hover pointer red">
                 </div>
@@ -94,7 +121,7 @@
                         suburbs of Paris, the French surrendered on March 31, ending the War of the Sixth Coalition and forcing
                         Emperor Napoleon to abdicate and go into exile.</p>
                 </div>
-                <div id="selectionContainerLinks" class="mb0 ph4  vh-20 bottom-1" style="flex-grow:0; min-height: 20%;">
+                <div id="selectionContainerLinks" class="mb0 ph4 bottomradius vh-20 bottom-1" style="flex-grow:0; min-height: 20%;">
                     <div id="wikipedialink" class="v-mid pv3" onclick="openInNewWindow('wikipedia')">
                         <a href="www.wikipedia.org" class="f6 lh-copy pv2 white link underline-hover hover-blue">Read more on
                             Wikipedia</a>
