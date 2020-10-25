@@ -16,7 +16,7 @@ var map = new mapboxgl.Map({
     container: 'map', // container id
     style: 'mapbox://styles/caskes/ckfe8z5vq028519ovap041fj6', // stylesheet location
     center: [2.32008, 48.85578], // starting position [lng, lat]
-    zoom: 14,
+    zoom: 15,
     hash: true
 });
 
@@ -178,6 +178,7 @@ map.on('load', function () {
                 "#BF616A",
                 "#EBCB8B"
             ],
+            'circle-stroke-width': 1,
             'circle-stroke-color': '#000000',
             'circle-stroke-opacity': 0.2,
 

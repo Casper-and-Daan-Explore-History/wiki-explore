@@ -127,6 +127,15 @@ p {
     background-color: var(--prim1);
 }
 
+.bluebackground {
+    background-color: var(--prim1);
+}
+
+.bluebackground:hover {
+    opacity: 0.5;
+    transition: all 0.3s;
+}
+
 #bottomTray {
     width: calc(100vw - 20px);
     max-width: 300px;
@@ -245,11 +254,6 @@ ul {
     width: content;
     border-radius: 5px;
     z-index: 900;
-}
-
-.loadingText {
-    margin: 0;
-    font-weight: 200;
 }
 
 .itemRow {
