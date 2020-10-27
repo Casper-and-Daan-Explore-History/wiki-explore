@@ -26,19 +26,20 @@ var geocoder = new MapboxGeocoder({
 
 // document.getElementById('geocoder').appendChild(geocoder.onAdd(map));
 
-//location search
-// map.addControl(
-//     new MapboxGeocoder({
-//         accessToken: "pk.eyJ1IjoiY2Fza2VzIiwiYSI6ImNqYW1tNGdwdjN3MW8yeWp1cWNsaXZveDYifQ.MNpL7SYvoVgR4s_4ma5iyg",
-//         mapboxgl: mapboxgl,
-//     }), 
-// );
 
 // Zoom and rotation constroles.
 map.addControl(new mapboxgl.NavigationControl(), 'top-right');
 
 // Fullscreen constroles.
 map.addControl(new mapboxgl.FullscreenControl(), 'top-right');
+
+// location search
+map.addControl(
+    new MapboxGeocoder({
+        accessToken: "pk.eyJ1IjoiY2Fza2VzIiwiYSI6ImNqYW1tNGdwdjN3MW8yeWp1cWNsaXZveDYifQ.MNpL7SYvoVgR4s_4ma5iyg",
+        mapboxgl: mapboxgl,
+    }), 
+);
 
 // Add geolocate control to the map.
 // map.addControl(
@@ -141,81 +142,102 @@ map.on('load', function () {
     // add layer to the map
 
 
-        map.addLayer({
-        "id": "QnbrLayerbg",
-        "type": "circle",
-        "source": "QnbrSource",
-        // "source-layer": "QnbrSource",
-        "layout": {},
-        "paint": {
-            'circle-radius': {
-                stops: [[8, 2], [11, 8], [16, 20]]
-                },   
-            'circle-color': '#000000',
-            'circle-blur': 1,
-            'circle-opacity': 0.8,
+    // map.addLayer({
+    //     "id": "QnbrLayerbg",
+    //     "type": "circle",
+    //     "source": "QnbrSource",
+    //     // "source-layer": "QnbrSource",
+    //     "layout": {},
+    //     "paint": {
+    //         'circle-radius': {
+    //             stops: [[8, 2], [11, 8], [16, 20]]
+    //         },
+    //         'circle-color': '#000000',
+    //         'circle-blur': 1,
+    //         'circle-opacity': 0.8,
+    //     }
+    // });
 
-        }
-    });
 
-
-        map.addLayer({
-        "id": "QnbrLayer",
-        "type": "circle",
-        "source": "QnbrSource",
-        // "source-layer": "QnbrSource",
-        "layout": {},
-        "paint": {
-            'circle-radius': {
-                stops: [[8, 1], [11, 4], [16, 15]]
-                },   
-            'circle-color': [
-                "match",
-                ["get", "cat"],
-                ["Architectural"],
-                "#D08770",
-                ["Event"],
-                "#BF616A",
-                "#EBCB8B"
-            ],
-            'circle-stroke-width': 1,
-            'circle-stroke-color': '#000000',
-            'circle-stroke-opacity': 0.2,
-
-        }
-    });
+    // map.addLayer({
+    //     "id": "QnbrLayer",
+    //     "type": "circle",
+    //     "source": "QnbrSource",
+    //     // "source-layer": "QnbrSource",
+    //     "layout": {},
+    //     "paint": {
+    //         'circle-radius': {
+    //             stops: [[8, 1], [11, 4], [16, 15]]
+    //         },
+    //         'circle-color': [
+    //             "match",
+    //             ["get", "cat"],
+    //             ["Architectural"],
+    //             "#D08770",
+    //             ["Event"],
+    //             "#BF616A",
+    //             "#EBCB8B"
+    //         ],
+    //         'circle-stroke-width': 1,
+    //         'circle-stroke-color': '#000000',
+    //         'circle-stroke-opacity': 0.2,
+    //     }
+    // });
 
     map.loadImage(
-        'https://raw.githubusercontent.com/google/material-design-icons/master/png/places/apartment/materialicons/24dp/1x/baseline_apartment_black_24dp.png',
+        'https://cdn2.iconfinder.com/data/icons/picons-basic-2/57/basic2-179_bank_building-32.png',
         function (error, image) {
-        if (error) throw error;
-        map.addImage('star', image);
-  
-
-    map.addLayer({
-        "id": "QnbrLayerIcon",
-        "type": "symbol",
-        "source": "QnbrSource",
-        // "source-layer": "gp_registered_patients",
-        // "filter": ["in", "stack", "two","three","five","nine","one"],
-        // "minzoom": 11,
-        // "interactive": true,
-        "layout": {
-
-            // "icon-offset": [14,-154],
-            "icon-image": "star",
-            "icon-allow-overlap": true,
-            "icon-ignore-placement": true,
-            "icon-padding": 0,
-            "icon-size": 0.6,
-        },
-        });
+            if (error) throw error;
+            map.addImage('archi', image);
+            map.loadImage(
+                'https://cdn3.iconfinder.com/data/icons/simple-microphone-icon/512/Clock_Icon-3-32.png',
+                function (error, image) {
+                    if (error) throw error;
+                    map.addImage('event', image);
+                    map.loadImage(
+                        'https://cdn1.iconfinder.com/data/icons/christmas-flat-4/58/020_-_Star-64.png',
+                        function (error, image) {
+                            if (error) throw error;
+                            map.addImage('other', image);
+                            addLayerWithIcons() // All images are now loaded, add layer that uses the images
+                        }
+                    );
+                }
+            );
         }
     );
+    
+    function addLayerWithIcons() {
+        map.addLayer({
+            "id": "QnbrLayerIcon",
+            "type": "symbol",
+            "source": "QnbrSource",
+            // "source-layer": "gp_registered_patients",
+            // "filter": ["in", "stack", "two","three","five","nine","one"],
+            // "minzoom": 11,
+            // "interactive": true,
+            "layout": {
+                // "icon-offset": [14,-154],
+                "icon-image": [
+                    "match",
+                    ["get", "cat"],
+                    ["Architectural"],
+                    "archi",
+                    ["Event"],
+                    "event",
+                    "other"
+                ],
+                "icon-allow-overlap": true,
+                "icon-ignore-placement": true,
+                "icon-padding": 0,
+                "icon-size": 0.6,
+            },
+        });
+    }
 
 
     // hover popup
-    map.on('mousemove', 'QnbrLayer', function (e) {
+    map.on('mousemove', 'QnbrLayerIcon', function (e) {
         var hoverdQID = e.features[0].properties.Qnbr;
         if (ResultsObject[hoverdQID].imgthum != undefined) {
             var html = '<img src="' + ResultsObject[hoverdQID].imgthum + '" alt="' + ResultsObject[hoverdQID].label + '" class="popupImg">';
@@ -230,7 +252,7 @@ map.on('load', function () {
         }
         // console.log(e);
     });
-    map.on('mouseleave', 'QnbrLayer', function () {
+    map.on('mouseleave', 'QnbrLayerIcon', function () {
         map.getCanvas().style.cursor = '';
         popup.remove();
     });
@@ -243,7 +265,7 @@ map.on('load', function () {
         // var gid = e.features[0].properties.gid;
         selectNew(undefined);
     });
-    map.on('click', 'QnbrLayer', function (e) { // select point and open "window"
+    map.on('click', 'QnbrLayerIcon', function (e) { // select point and open "window"
         // var lng = e.lngLat.lng;
         // var lat = e.lngLat.lat;
         // var zoom = 10;
@@ -264,8 +286,8 @@ function runQuery() {
     let canvas = map.getCanvas()
     let w = canvas.width
     let h = canvas.height
-    let cUL = map.unproject ([0,0]).toArray()
-    let cLR = map.unproject ([w,h]).toArray()
+    let cUL = map.unproject([0, 0]).toArray()
+    let cLR = map.unproject([w, h]).toArray()
 
 
     // the function that process the query
@@ -295,8 +317,8 @@ function runQuery() {
             "    SERVICE wikibase:box\n" +
             "    {\n" +
             "      ?item wdt:P625 ?geo_.\n" +
-            "      bd:serviceParam wikibase:cornerWest \"Point("+cUL[0]+" "+cUL[1]+")\"^^geo:wktLiteral. \n" +
-            "      bd:serviceParam wikibase:cornerEast \"Point("+cLR[0]+" "+cLR[1]+")\"^^geo:wktLiteral.\n" +
+            "      bd:serviceParam wikibase:cornerWest \"Point(" + cUL[0] + " " + cUL[1] + ")\"^^geo:wktLiteral. \n" +
+            "      bd:serviceParam wikibase:cornerEast \"Point(" + cLR[0] + " " + cLR[1] + ")\"^^geo:wktLiteral.\n" +
             "    }\n" +
             "\n" +
             "    MINUS { ?item (wdt:P31/(wdt:P279*)) wd:Q376799. } # Remove everything related to roads\n" +
