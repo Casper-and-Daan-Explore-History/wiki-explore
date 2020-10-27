@@ -185,17 +185,17 @@ map.on('load', function () {
     // });
 
     map.loadImage(
-        'https://cdn2.iconfinder.com/data/icons/picons-basic-2/57/basic2-179_bank_building-32.png',
+        'https://casper-and-daan-explore-history.github.io/wiki-battle-map/img/architecture.png',
         function (error, image) {
             if (error) throw error;
             map.addImage('archi', image);
             map.loadImage(
-                'https://cdn3.iconfinder.com/data/icons/simple-microphone-icon/512/Clock_Icon-3-32.png',
+                'https://casper-and-daan-explore-history.github.io/wiki-battle-map/img/event.png',
                 function (error, image) {
                     if (error) throw error;
                     map.addImage('event', image);
                     map.loadImage(
-                        'https://cdn1.iconfinder.com/data/icons/christmas-flat-4/58/020_-_Star-64.png',
+                        'https://casper-and-daan-explore-history.github.io/wiki-battle-map/img/other.png',
                         function (error, image) {
                             if (error) throw error;
                             map.addImage('other', image);
