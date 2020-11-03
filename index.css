@@ -1,8 +1,21 @@
 :root {
   --white: #f8f9fb;
   --prim1: #234C5A;
-  --prim2: #E3B587;
+  --prim2: #F4C095;
+
+  
 }
+
+/*
+D7AF70
+E0E0E2
+DBD3AD
+D6CBC1
+F7B267
+EDF4ED
+C6AD94
+
+*/
 
 html, body{
     font-family: 'Karla', sans-serif;
