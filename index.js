@@ -185,7 +185,7 @@ map.on('load', function () {
     // });
 
     map.loadImage(
-        'https://casper-and-daan-explore-history.github.io/wiki-battle-map/img/architecture.png',
+        'https://casper-and-daan-explore-history.github.io/wiki-battle-map/img/architecture_small.png',
         function (error, image) {
             if (error) throw error;
             map.addImage('archi', image);
