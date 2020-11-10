@@ -75,7 +75,7 @@ p {
 }
 
 #logo {
-    background-color: var(--prim2);
+    /*background-color: var(--prim2);*/
 }
 
 #map {
