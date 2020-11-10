@@ -1,8 +1,21 @@
 :root {
   --white: #f8f9fb;
   --prim1: #234C5A;
-  --prim2: #E3B587;
+  --prim2: #F4C095;
+
+  
 }
+
+/*
+D7AF70
+E0E0E2
+DBD3AD
+D6CBC1
+F7B267
+EDF4ED
+C6AD94
+
+*/
 
 html, body{
     font-family: 'Karla', sans-serif;
@@ -22,7 +35,7 @@ p {
 /*THIS IS THE COVER DIV
 ---------------------------------------------
 */
-.bluredCoverImgBackground {
+.WelcomeDiv {
     background-color: var(--prim1);
     position: fixed;
     z-index: 1000;
@@ -46,11 +59,7 @@ p {
     margin: 10vh 0 0 0;
 }
 
-#bluredCoverImgBackground, #coverContainer {
-    cursor: pointer;
-}
-
-.coverButton {
+.startButton {
     background-color: var(--prim2);
     color: var(--prim1);
 }
@@ -215,6 +224,7 @@ p {
 .mapboxgl-ctrl-geocoder {
     width: 100% !important;
     max-width: 500px !important;
+    border-radius: 10px;
 }
 
 ul {

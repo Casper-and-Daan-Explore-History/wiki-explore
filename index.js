@@ -21,8 +21,10 @@ var map = new mapboxgl.Map({
 });
 
 var geocoder = new MapboxGeocoder({
-    accessToken: mapboxgl.accessToken,
+  accessToken: mapboxgl.accessToken
 });
+
+document.getElementById('geocoder').appendChild(geocoder.onAdd(map))
 
 // document.getElementById('geocoder').appendChild(geocoder.onAdd(map));
 
@@ -40,6 +42,7 @@ map.addControl(
         mapboxgl: mapboxgl,
     }), 
 );
+
 
 // Add geolocate control to the map.
 // map.addControl(
@@ -81,21 +84,21 @@ function closeFullscreen() {
 }
 
 
-
-
-$(".bluredCoverImgBackground").click(
+$(".startButton").click(
     hideWelcomCoverPage
 );
-$("#coverContainer").click(
-    hideWelcomCoverPage
-);
+// $("#coverContainer").click(
+//     hideWelcomCoverPage
+// );
 
 function hideWelcomCoverPage() {
-    $(".bluredCoverImgBackground").toggleClass("transparent");
+    $(".WelcomeDiv").toggleClass("transparent");
     $("#coverContainer").toggleClass("transparent");
+    runQuery();
+
 
     setTimeout(function () {
-        $(".bluredCoverImgBackground").hide();
+        $(".WelcomeDiv").hide();
         $("#coverContainer").hide();
     }, 500);
 }
@@ -114,7 +117,7 @@ function buildAllVisibleItems() {
 }
 
 function flyTo(lon, lat, zoom) {
-    if (zoom === undefined) { zoom = 10 };
+    if (zoom === undefined) { zoom = 14 };
     map.flyTo({
         center: [
             lon,
@@ -185,7 +188,7 @@ map.on('load', function () {
     // });
 
     map.loadImage(
-        'https://casper-and-daan-explore-history.github.io/wiki-battle-map/img/architecture.png',
+        'https://casper-and-daan-explore-history.github.io/wiki-battle-map/img/architecture_small.png',
         function (error, image) {
             if (error) throw error;
             map.addImage('archi', image);
@@ -281,7 +284,7 @@ map.on('load', function () {
 });
 
 
-runQuery();
+// runQuery();
 function runQuery() {
     let canvas = map.getCanvas()
     let w = canvas.width
