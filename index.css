@@ -612,10 +612,9 @@ ul {
 }
 
 
-
-
-
-
+.disabled {
+    opacity: 25%;
+}
 
 #LeftBtnContainer {
     position: fixed;

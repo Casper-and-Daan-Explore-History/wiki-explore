@@ -306,7 +306,7 @@ function runQuery() {
         sparqlQuery = "#defaultView:ImageGride\n" +
             "SELECT\n" +
             "  ?item ?itemLabel ?itemDescription\n" +
-            "  ?geo ?img ?categorie\n" +
+            "  ?geo ?img ?categorie ?wikiMediaCategory\n" +
             "  (GROUP_CONCAT(?instanceLabel; SEPARATOR = \", \") AS ?instancesof) # a nices String with the labels of the different instances of related to the item\n" +
             "WITH\n" +
             "{\n" +
@@ -346,6 +346,8 @@ function runQuery() {
             "  \n" +
             "  OPTIONAL { ?item wdt:P31 ?instance. } # Get instances\n" +
             "   \n" +
+            "  OPTIONAL { ?item wdt:P373 ?wikiMediaCategory. }\n" +
+            "   \n" +
             "  #### Wikipedia link ####\n" +
             "  OPTIONAL {\n" +
             "    ?article schema:about ?item . # Get wikipedia link\n" +
@@ -360,7 +362,7 @@ function runQuery() {
             "    ?item schema:description ?itemDescription.\n" +
             "  }\n" +
             "}\n" +
-            "GROUP BY ?item ?itemLabel ?itemDescription ?geo ?img ?categorie ?article";
+            "GROUP BY ?item ?itemLabel ?itemDescription ?geo ?img ?categorie ?article ?wikiMediaCategory";
 
 
     makeSPARQLQuery(endpointUrl, sparqlQuery, function (data) {
@@ -383,8 +385,8 @@ function processQueryResults(data) {
         if (data.results.bindings[d].geo != undefined) { result.geo = extractLngLat(data.results.bindings[d].geo.value); }
         if (data.results.bindings[d].img != undefined) { result.img = data.results.bindings[d].img.value; }
         if (data.results.bindings[d].img != undefined) { result.imgthum = data.results.bindings[d].img.value + "?width=600px"; }
-        if (data.results.bindings[d].commons != undefined) { result.commons = data.results.bindings[d].commons.value; }
-        if (data.results.bindings[d].commons != undefined) { result.commonsurl = "https://commons.wikimedia.org/wiki/Category:" + encodeURIComponent(data.results.bindings[d].commons.value); }
+        if (data.results.bindings[d].wikiMediaCategory != undefined) { result.commons = data.results.bindings[d].wikiMediaCategory.value; }
+        if (data.results.bindings[d].wikiMediaCategory != undefined) { result.commonsurl = "https://commons.wikimedia.org/wiki/Category:" + encodeURIComponent(data.results.bindings[d].wikiMediaCategory.value); }
         if (data.results.bindings[d].itemLabel != undefined) { result.label = data.results.bindings[d].itemLabel.value; }
         if (data.results.bindings[d].itemDescription != undefined) { result.description = data.results.bindings[d].itemDescription.value; }
         if (data.results.bindings[d].instancesof != undefined) { result.instanceof = data.results.bindings[d].instancesof.value; }
@@ -600,7 +602,7 @@ function openInNewWindow(url) {
         case "commons":
             url = "url-commons";
             break;
-        case "commonsGallery":
+        case "wikimedia":
             url = ResultsObject[selectedQ].commonsurl;
             break;
         case "googleMaps":
