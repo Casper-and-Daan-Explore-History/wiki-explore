@@ -24,24 +24,26 @@ var geocoder = new MapboxGeocoder({
   accessToken: mapboxgl.accessToken
 });
 
-document.getElementById('geocoder').appendChild(geocoder.onAdd(map))
+document.getElementById('geocoderWelcome').appendChild(geocoder.onAdd(map))
 
 // document.getElementById('geocoder').appendChild(geocoder.onAdd(map));
 
 
 // Zoom and rotation constroles.
-map.addControl(new mapboxgl.NavigationControl(), 'top-right');
+map.addControl(new mapboxgl.NavigationControl(), 'bottom-right');
 
 // Fullscreen constroles.
-map.addControl(new mapboxgl.FullscreenControl(), 'top-right');
+map.addControl(new mapboxgl.FullscreenControl(), 'bottom-right');
 
 // location search
-map.addControl(
-    new MapboxGeocoder({
-        accessToken: "pk.eyJ1IjoiY2Fza2VzIiwiYSI6ImNqYW1tNGdwdjN3MW8yeWp1cWNsaXZveDYifQ.MNpL7SYvoVgR4s_4ma5iyg",
-        mapboxgl: mapboxgl,
-    }), 
-);
+
+
+var geocoder2 = new MapboxGeocoder({
+  accessToken: mapboxgl.accessToken
+});
+
+document.getElementById('geocoderMap').appendChild(geocoder2.onAdd(map))
+
 
 
 // Add geolocate control to the map.

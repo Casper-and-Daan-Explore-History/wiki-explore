@@ -75,7 +75,7 @@ p {
 }
 
 #logo {
-    background-color: var(--prim2);
+    /*background-color: var(--prim2);*/
 }
 
 #map {
@@ -223,8 +223,17 @@ p {
 
 .mapboxgl-ctrl-geocoder {
     width: 100% !important;
-    max-width: 500px !important;
-    border-radius: 10px;
+    max-width: 100% !important;
+    font-family: 'Rubik', sans-serif !important;
+    border-radius: 0.5rem !important;
+    vertical-align: middle;
+    padding: 5px;
+    font-size: 100% !important;
+
+}
+
+.mapboxgl-ctrl-geocoder--icon {
+    display:none !important;
 }
 
 ul {
