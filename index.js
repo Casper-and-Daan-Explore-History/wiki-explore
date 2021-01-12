@@ -11,6 +11,9 @@ var results; // results form commons.wikimedia img search from category
 var imgSlideIndex = 1;
 var mapIsActive = false;
 
+var ajaxQueue = new Array();
+
+
 mapboxgl.accessToken = 'pk.eyJ1IjoiY2Fza2VzIiwiYSI6ImNqYW1tNGdwdjN3MW8yeWp1cWNsaXZveDYifQ.MNpL7SYvoVgR4s_4ma5iyg';
 var map = new mapboxgl.Map({
     container: 'map', // container id
@@ -659,3 +662,56 @@ function selectNew(Q) {
     //     showPoint(lng, lat); // highlight map point
     // };
 }
+
+
+
+requestData();
+// Wikipedia query from here:
+function requestData(){
+    let canvas = map.getCanvas()
+    let w = canvas.width
+    let h = canvas.height
+    let cUL = map.unproject([0, 0]).toArray()
+    let cLR = map.unproject([w, h]).toArray()
+
+    requestURL = 'https://en.wikipedia.org/w/api.php?action=query&format=json&list=geosearch&utf8=1&gsbbox=' + cUL[0] + '|' + cUL[1] + '|' + cLR[0] + '|' + cLR[1] + '&gslimit=500&gsprimary=all';
+    console.log('Request is for '+requestURL);
+    ajaxQueue.push($.getJSON(requestURL,function( data ) {
+        parseJSONResponse(data);
+    }));
+}
+
+
+function parseJSONResponse(jsonData)
+{
+    console.log(jsonData);
+    
+    // $.each(jsonData.query.geosearch,function(index,value){
+    //     //console.log( index + ": " + value.title );
+    //     var id = value.pageid;
+    //     var title = value.title;
+       
+    //     if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+    //          var url = 'https://en.m.wikipedia.org/?curid='+id;
+    //     }else{
+    //         var url = 'https://en.wikipedia.org/?curid='+id;
+    //     }
+        
+    //     var lat = value.lat;
+    //     var lng = value.lon;
+    //     var distance = value.dist;
+        
+    //     console.log("Found Article "+index+": "+title);
+    //     addArticle(id, lat, lng, title, url, distance);
+    // });
+}
+
+function stopAllAjax(){
+    $.each( ajaxQueue, function( index, item ){
+        item.abort();
+        item = null;
+    });
+    ajaxQueue = new Array();
+}
+
+
