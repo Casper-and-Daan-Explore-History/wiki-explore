@@ -674,7 +674,7 @@ function requestData(){
     let cUL = map.unproject([0, 0]).toArray()
     let cLR = map.unproject([w, h]).toArray()
 
-    requestURL = 'https://en.wikipedia.org/w/api.php?action=query&format=json&list=geosearch&utf8=1&gsbbox=' + cUL[0] + '|' + cUL[1] + '|' + cLR[0] + '|' + cLR[1] + '&gslimit=500&gsprimary=all';
+    requestURL = 'https://en.wikipedia.org/w/api.php?action=query&format=json&list=geosearch&utf8=1&gsbbox=' + cUL[1] + '|' + cUL[0] + '|' + cLR[1] + '|' + cLR[0] + '&gslimit=500&gsprimary=all';
     console.log('Request is for '+requestURL);
     ajaxQueue.push($.getJSON(requestURL,function( data ) {
         parseJSONResponse(data);
