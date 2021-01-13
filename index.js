@@ -24,7 +24,7 @@ var map = new mapboxgl.Map({
 });
 
 var geocoder = new MapboxGeocoder({
-  accessToken: mapboxgl.accessToken
+    accessToken: mapboxgl.accessToken
 });
 
 document.getElementById('geocoderWelcome').appendChild(geocoder.onAdd(map))
@@ -42,7 +42,7 @@ map.addControl(new mapboxgl.FullscreenControl(), 'bottom-right');
 
 
 var geocoder2 = new MapboxGeocoder({
-  accessToken: mapboxgl.accessToken
+    accessToken: mapboxgl.accessToken
 });
 
 document.getElementById('geocoderMap').appendChild(geocoder2.onAdd(map))
@@ -214,7 +214,7 @@ map.on('load', function () {
             );
         }
     );
-    
+
     function addLayerWithIcons() {
         map.addLayer({
             "id": "QnbrLayerIcon",
@@ -667,7 +667,7 @@ function selectNew(Q) {
 
 requestData();
 // Wikipedia query from here:
-function requestData(){
+function requestData_old() {
     let canvas = map.getCanvas()
     let w = canvas.width
     let h = canvas.height
@@ -675,39 +675,38 @@ function requestData(){
     let cLR = map.unproject([w, h]).toArray()
 
     requestURL = 'https://en.wikipedia.org/w/api.php?action=query&format=json&list=geosearch&utf8=1&gsbbox=' + cUL[1] + '|' + cUL[0] + '|' + cLR[1] + '|' + cLR[0] + '&gslimit=500&gsprimary=all';
-    console.log('Request is for '+requestURL);
-    ajaxQueue.push($.getJSON(requestURL,function( data ) {
+    console.log('Request is for ' + requestURL);
+    ajaxQueue.push($.getJSON(requestURL, function (data) {
         parseJSONResponse(data);
     }));
 }
 
 
-function parseJSONResponse(jsonData)
-{
+function parseJSONResponse(jsonData) {
     console.log(jsonData);
-    
+
     // $.each(jsonData.query.geosearch,function(index,value){
     //     //console.log( index + ": " + value.title );
     //     var id = value.pageid;
     //     var title = value.title;
-       
+
     //     if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
     //          var url = 'https://en.m.wikipedia.org/?curid='+id;
     //     }else{
     //         var url = 'https://en.wikipedia.org/?curid='+id;
     //     }
-        
+
     //     var lat = value.lat;
     //     var lng = value.lon;
     //     var distance = value.dist;
-        
+
     //     console.log("Found Article "+index+": "+title);
     //     addArticle(id, lat, lng, title, url, distance);
     // });
 }
 
-function stopAllAjax(){
-    $.each( ajaxQueue, function( index, item ){
+function stopAllAjax() {
+    $.each(ajaxQueue, function (index, item) {
         item.abort();
         item = null;
     });
@@ -715,3 +714,47 @@ function stopAllAjax(){
 }
 
 
+function requestData() {
+    let canvas = map.getCanvas()
+    let w = canvas.width
+    let h = canvas.height
+    let cUL = map.unproject([0, 0]).toArray()
+    let cLR = map.unproject([w, h]).toArray()
+
+    requestURL = 'https://en.wikipedia.org/w/api.php?action=query&format=json&list=geosearch&origin=*&utf8=1&gsbbox=' + cUL[1] + '|' + cUL[0] + '|' + cLR[1] + '|' + cLR[0] + '&gslimit=500&gsprimary=all';
+    console.log('Request is for ' + requestURL);
+    ajaxQueue.push($.getJSON(requestURL, function (data) {
+        parseJSONResponse(data);
+    }));
+}
+
+function requestData22() {
+    let canvas = map.getCanvas()
+    let w = canvas.width
+    let h = canvas.height
+    let cUL = map.unproject([0, 0]).toArray()
+    let cLR = map.unproject([w, h]).toArray()
+
+    var endpointUrl = 'http://en.wikipedia.org/w/api.php';
+
+    // the function that process the query
+    function makeSPARQLQuery(endpointUrl, doneCallback) {
+        var settings = {
+            "action": "query",
+            "format": "json",
+            // "origin": "*",
+            "list": "geosearch",
+            "utf8": 1,
+            "gsbbox": "48.86|2.28|48.85|2.30",
+            "gslimit": "500",
+            "gsprimary": "all"
+        };
+        return $.ajax(endpointUrl, settings).then(doneCallback);
+    }
+
+    makeSPARQLQuery(endpointUrl, function (data) {
+        console.log(data);
+        processQueryResults(data);
+    }
+    );
+}
