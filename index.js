@@ -7,14 +7,14 @@ var QnbrGeojson = {
 var wikipediaGeojson = {
     'type': 'FeatureCollection',
     'features': [
-    //     { 
-    //     "type": "Feature",
-    //     "properties": {}, 
-    //     "geometry": {
-    //         "type": "Point",
-    //         "coordinates": [0, 0]
-    //     }
-    // }
+        //     { 
+        //     "type": "Feature",
+        //     "properties": {}, 
+        //     "geometry": {
+        //         "type": "Point",
+        //         "coordinates": [0, 0]
+        //     }
+        // }
     ]
 };
 var resultsFromQuery = [];
@@ -168,7 +168,7 @@ map.on('load', function () {
             ]
         }
     });
-    map.addLayer({
+    map.addLayer({ // wikipediaLayer
         "id": "wikipediaLayer",
         "type": "circle",
         "source": "wikipediaSource",
@@ -301,6 +301,7 @@ map.on('load', function () {
     map.on('moveend', function () {
         // buildAllVisibleItems()
         runQuery();
+        wikipdiaAPIrequest();
     });
 });
 
@@ -681,10 +682,10 @@ function selectNew(Q) {
 
 
 
-requestData();
+wikipdiaAPIrequest();
 // Wikipedia query from here:
 
-function requestData() {
+function wikipdiaAPIrequest() {
     let canvas = map.getCanvas()
     let w = canvas.width
     let h = canvas.height
