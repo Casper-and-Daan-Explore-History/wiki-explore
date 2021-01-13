@@ -149,8 +149,7 @@ function flyTo(lon, lat, zoom) {
 map.on('load', function () {
     mapIsActive = true;
 
-
-    // create a data source for layers to use
+    // create data sources for layers to use
     map.addSource('QnbrSource', {
         'type': 'geojson',
         'data': {
@@ -168,6 +167,8 @@ map.on('load', function () {
             ]
         }
     });
+
+    //ad layers to bring data sources to map
     map.addLayer({ // wikipediaLayer
         "id": "wikipediaLayer",
         "type": "circle",
@@ -299,7 +300,6 @@ map.on('load', function () {
 
     // Map panning ends
     map.on('moveend', function () {
-        // buildAllVisibleItems()
         runQuery();
         wikipdiaAPIrequest();
     });
