@@ -150,7 +150,7 @@ map.on('load', function () {
     mapIsActive = true;
 
 
- 
+
 
     // create data sources for layers to use
     map.addSource('QnbrSource', {
@@ -172,13 +172,13 @@ map.on('load', function () {
     });
 
     //ad layers to bring data sources to map
-        map.addLayer({ // wikipediaLayer
+    map.addLayer({ // wikipediaLayer
         "id": "wikipediaLayer",
         "type": "symbol",
         "source": "wikipediaSource",
         'layout': {
             'icon-image': 'wikipedia',
-}
+        }
     });
 
 
@@ -210,29 +210,29 @@ map.on('load', function () {
 
 
 
- // map.loadImage(
- //        'https://casper-and-daan-explore-history.github.io/wiki-battle-map/img/architecture_small.png',
- //        function (error, image) {
- //            if (error) throw error;
- //            map.addImage('archi', image);
- //            map.loadImage(
- //                'https://casper-and-daan-explore-history.github.io/wiki-battle-map/img/event.png',
- //                function (error, image) {
- //                    if (error) throw error;
- //                    map.addImage('event', image);
- //                    map.loadImage(
- //                        'https://casper-and-daan-explore-history.github.io/wiki-battle-map/img/other.png',
- //                        function (error, image) {
- //                            if (error) throw error;
- //                            map.addImage('other', image);
- //                            addLayerWithIcons() // All images are now loaded, add layer that uses the images
- //                        }
- //                    );
- //                }
- //            );
- //        }
- //    );
-       map.loadImage(
+    // map.loadImage(
+    //        'https://casper-and-daan-explore-history.github.io/wiki-battle-map/img/architecture_small.png',
+    //        function (error, image) {
+    //            if (error) throw error;
+    //            map.addImage('archi', image);
+    //            map.loadImage(
+    //                'https://casper-and-daan-explore-history.github.io/wiki-battle-map/img/event.png',
+    //                function (error, image) {
+    //                    if (error) throw error;
+    //                    map.addImage('event', image);
+    //                    map.loadImage(
+    //                        'https://casper-and-daan-explore-history.github.io/wiki-battle-map/img/other.png',
+    //                        function (error, image) {
+    //                            if (error) throw error;
+    //                            map.addImage('other', image);
+    //                            addLayerWithIcons() // All images are now loaded, add layer that uses the images
+    //                        }
+    //                    );
+    //                }
+    //            );
+    //        }
+    //    );
+    map.loadImage(
         'https://casper-and-daan-explore-history.github.io/wiki-battle-map/img/architecture_small.png',
         function (error, image) {
             if (error) throw error;
@@ -249,11 +249,11 @@ map.on('load', function () {
                             map.addImage('other', image);
                             map.loadImage(
                                 'https://casper-and-daan-explore-history.github.io/wiki-battle-map/img/wikipedia.png',
-                            function (error, image) {
-                                if (error) throw error;
-                                map.addImage('wikipedia', image);
-                                addLayerWithIcons() // All images are now loaded, add layer that uses the images
-                                
+                                function (error, image) {
+                                    if (error) throw error;
+                                    map.addImage('wikipedia', image);
+                                    addLayerWithIcons() // All images are now loaded, add layer that uses the images
+
                                 }
                             );
 
@@ -328,6 +328,10 @@ map.on('load', function () {
         // var zoom = 10;
         // var gid = e.features[0].properties.gid;
         selectNew(e.features[0].properties.Qnbr);
+    });
+
+    map.on('click', 'wikipediaLayer', function (e) { // select point and open "window"
+        window.open(e.features[0].properties.url);
     });
 
     // Map panning ends
