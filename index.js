@@ -149,6 +149,9 @@ function flyTo(lon, lat, zoom) {
 map.on('load', function () {
     mapIsActive = true;
 
+
+ 
+
     // create data sources for layers to use
     map.addSource('QnbrSource', {
         'type': 'geojson',
@@ -169,18 +172,13 @@ map.on('load', function () {
     });
 
     //ad layers to bring data sources to map
-    map.addLayer({ // wikipediaLayer
+        map.addLayer({ // wikipediaLayer
         "id": "wikipediaLayer",
-        "type": "circle",
+        "type": "symbol",
         "source": "wikipediaSource",
-        "layout": {},
-        "paint": {
-            'circle-radius': {
-                stops: [[8, 2], [11, 8], [16, 20]]
-            },
-            'circle-color': '#000000',
-            'circle-opacity': 1,
-        }
+        'layout': {
+            'icon-image': 'wikipedia',
+}
     });
 
 
@@ -209,7 +207,32 @@ map.on('load', function () {
     //     }
     // });
 
-    map.loadImage(
+
+
+
+ // map.loadImage(
+ //        'https://casper-and-daan-explore-history.github.io/wiki-battle-map/img/architecture_small.png',
+ //        function (error, image) {
+ //            if (error) throw error;
+ //            map.addImage('archi', image);
+ //            map.loadImage(
+ //                'https://casper-and-daan-explore-history.github.io/wiki-battle-map/img/event.png',
+ //                function (error, image) {
+ //                    if (error) throw error;
+ //                    map.addImage('event', image);
+ //                    map.loadImage(
+ //                        'https://casper-and-daan-explore-history.github.io/wiki-battle-map/img/other.png',
+ //                        function (error, image) {
+ //                            if (error) throw error;
+ //                            map.addImage('other', image);
+ //                            addLayerWithIcons() // All images are now loaded, add layer that uses the images
+ //                        }
+ //                    );
+ //                }
+ //            );
+ //        }
+ //    );
+       map.loadImage(
         'https://casper-and-daan-explore-history.github.io/wiki-battle-map/img/architecture_small.png',
         function (error, image) {
             if (error) throw error;
@@ -224,7 +247,16 @@ map.on('load', function () {
                         function (error, image) {
                             if (error) throw error;
                             map.addImage('other', image);
-                            addLayerWithIcons() // All images are now loaded, add layer that uses the images
+                            map.loadImage(
+                                'https://casper-and-daan-explore-history.github.io/wiki-battle-map/img/wikipedia.png',
+                            function (error, image) {
+                                if (error) throw error;
+                                map.addImage('wikipedia', image);
+                                addLayerWithIcons() // All images are now loaded, add layer that uses the images
+                                
+                                }
+                            );
+
                         }
                     );
                 }
