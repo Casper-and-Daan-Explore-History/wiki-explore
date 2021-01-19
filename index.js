@@ -149,6 +149,9 @@ function flyTo(lon, lat, zoom) {
 map.on('load', function () {
     mapIsActive = true;
 
+
+ 
+
     // create data sources for layers to use
     map.addSource('QnbrSource', {
         'type': 'geojson',
@@ -168,8 +171,68 @@ map.on('load', function () {
         }
     });
 
-    // add images to map for usage in map layers as icons
-    map.loadImage(
+    //ad layers to bring data sources to map
+        map.addLayer({ // wikipediaLayer
+        "id": "wikipediaLayer",
+        "type": "symbol",
+        "source": "wikipediaSource",
+        'layout': {
+            'icon-image': 'wikipedia',
+}
+    });
+
+
+    // map.addLayer({
+    //     "id": "QnbrLayer",
+    //     "type": "circle",
+    //     "source": "QnbrSource",
+    //     // "source-layer": "QnbrSource",
+    //     "layout": {},
+    //     "paint": {
+    //         'circle-radius': {
+    //             stops: [[8, 1], [11, 4], [16, 15]]
+    //         },
+    //         'circle-color': [
+    //             "match",
+    //             ["get", "cat"],
+    //             ["Architectural"],
+    //             "#D08770",
+    //             ["Event"],
+    //             "#BF616A",
+    //             "#EBCB8B"
+    //         ],
+    //         'circle-stroke-width': 1,
+    //         'circle-stroke-color': '#000000',
+    //         'circle-stroke-opacity': 0.2,
+    //     }
+    // });
+
+
+
+
+ // map.loadImage(
+ //        'https://casper-and-daan-explore-history.github.io/wiki-battle-map/img/architecture_small.png',
+ //        function (error, image) {
+ //            if (error) throw error;
+ //            map.addImage('archi', image);
+ //            map.loadImage(
+ //                'https://casper-and-daan-explore-history.github.io/wiki-battle-map/img/event.png',
+ //                function (error, image) {
+ //                    if (error) throw error;
+ //                    map.addImage('event', image);
+ //                    map.loadImage(
+ //                        'https://casper-and-daan-explore-history.github.io/wiki-battle-map/img/other.png',
+ //                        function (error, image) {
+ //                            if (error) throw error;
+ //                            map.addImage('other', image);
+ //                            addLayerWithIcons() // All images are now loaded, add layer that uses the images
+ //                        }
+ //                    );
+ //                }
+ //            );
+ //        }
+ //    );
+       map.loadImage(
         'https://casper-and-daan-explore-history.github.io/wiki-battle-map/img/architecture_small.png',
         function (error, image) {
             if (error) throw error;
@@ -184,7 +247,16 @@ map.on('load', function () {
                         function (error, image) {
                             if (error) throw error;
                             map.addImage('other', image);
-                            addLayerWithIcons() // All images are now loaded, add layer that uses the images
+                            map.loadImage(
+                                'https://casper-and-daan-explore-history.github.io/wiki-battle-map/img/wikipedia.png',
+                            function (error, image) {
+                                if (error) throw error;
+                                map.addImage('wikipedia', image);
+                                addLayerWithIcons() // All images are now loaded, add layer that uses the images
+                                
+                                }
+                            );
+
                         }
                     );
                 }
@@ -192,23 +264,7 @@ map.on('load', function () {
         }
     );
 
-    // add layers to bring data sources to map
-    map.addLayer({ // wikipediaLayer
-        "id": "wikipediaLayer",
-        "type": "circle",
-        "source": "wikipediaSource",
-        "layout": {},
-        "paint": {
-            'circle-radius': {
-                stops: [[8, 2], [11, 8], [16, 20]]
-            },
-            'circle-color': '#000000',
-            'circle-opacity': 1,
-        }
-    });
-
-
-    function addLayerWithIcons() { // this function is called when icons are ready
+    function addLayerWithIcons() {
         map.addLayer({
             "id": "QnbrLayerIcon",
             "type": "symbol",
@@ -235,6 +291,7 @@ map.on('load', function () {
             },
         });
     }
+
 
     // hover popup
     map.on('mousemove', 'QnbrLayerIcon', function (e) {
@@ -271,10 +328,6 @@ map.on('load', function () {
         // var zoom = 10;
         // var gid = e.features[0].properties.gid;
         selectNew(e.features[0].properties.Qnbr);
-    });
-
-    map.on('click', 'wikipediaLayer', function (e) { // select point and open "window"
-        window.open(e.features[0].properties.url);
     });
 
     // Map panning ends
