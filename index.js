@@ -816,4 +816,5 @@ function updateWikipediaGeojsonSource() {
 
 
 // wikipedia API query: from page Id get intro text, img, cathegories, wikidata Qnumbr
-// https://en.wikipedia.org/wiki/Special:ApiSandbox#action=query&format=json&prop=extracts%7Cpageprops%7Cpageimages%7Ccategories&pageids=11101591&utf8=1&formatversion=latest&exintro=1
+// sandbox: https://en.wikipedia.org/wiki/Special:ApiSandbox#action=query&format=json&prop=extracts%7Cpageprops%7Cpageimages%7Ccategories&pageids=11101591&utf8=1&formatversion=latest&exintro=1
+// Json: https://en.wikipedia.org/w/api.php?action=query&format=json&prop=extracts%7Cpageprops%7Cpageimages%7Ccategories&pageids=11101591&utf8=1&formatversion=latest&exintro=1
