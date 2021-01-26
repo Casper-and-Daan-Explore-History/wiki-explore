@@ -331,7 +331,7 @@ map.on('load', function () {
         // }
         // console.log(e);
     });
-    map.on('mouseleave', 'QnbrLayerIcon', function () {
+    map.on('mouseleave', 'wikipediaLayer', function () {
         map.getCanvas().style.cursor = '';
         popup.remove();
     });
