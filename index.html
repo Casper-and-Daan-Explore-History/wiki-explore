@@ -31,9 +31,8 @@
     <script src="https://cdn.jsdelivr.net/npm/es6-promise@4/dist/es6-promise.auto.min.js"></script>
 
     <!-- Google Font -->
-    <link
-        href="https://fonts.googleapis.com/css2?family=Karla:ital,wght@0,400;0,700;1,400;1,700&family=Rubik:wght@300;400;500;700;900&display=swap"
-        rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com"> 
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 
 </head>
 
@@ -65,25 +64,29 @@
         <h2 class="coverButton coverText">Start exploring</h2>
     </div> -->
 
-    <div class="WelcomeDiv w-100 mw-100 h-100 cf overflow-hidden">
-        <div id="coverimg" class="fr-ns w-100-ns mw-100 h-100 tr absolute flex items-center">
+    <div class="WelcomeDiv w-100 mw-100 vh-100 cf overflow-hidden flex justify-center items-center">
+        <!-- <div id="coverimg" class="fr-ns w-100-ns mw-100 h-100 tr absolute flex items-center">
             <img src="./img/map.png" alt="cover" class="w-70 h-auto ml-auto">
         </div>
-        
-        <div id="contentdiv" class="fl w-50-ns w-100 h-100 cf z-2 absolute relative-ns">
-            <div class="db ml5-ns ml1 mr3-ns mr1 mt6-ns mt2 pa3">
-                <h1 class="mw-100 white">Big Header which explains the service in one sentence</h1>
-                <p class="mw-100 white">Smaller subhead text with a little more information</p>
-                <div id="geocoderWelcome" class="geocoder v-mid  mt3 w-100"></div>
-            </div>
-            <div class="db w-100 static-ns bottom-2 cf border-box">
-                <div class="startButton tc pa4 shadow-3 w-80 w-40-ns db mh6-ns mt6 f6 link grow br3 ph3 pv2 mb2 pointer center  ">
-                    <h2 class="">Start exploring</h2>
+ -->        
+        <div id="contentdiv" class="w-100 w-50-ns cf z-2">
+            <div class="db">
+                <h1 class="mw-100 tc mb5">Wikimap</h1>
+                <div id="geocoderWelcome" class="geocoder dib v-mid w-70-ns mr3">
                 </div>
+                <div class="dib startButton tc w-100 w-20-ns f6 link grow br3 pointer center">
+                    <p class="white fw4">Search</p>
+                </div>
+
+
             </div>
         </div>
         
     </div>
+
+
+
+    
 
 
 

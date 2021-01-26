@@ -1,7 +1,7 @@
 :root {
   --white: #f8f9fb;
   --prim1: #234C5A;
-  --prim2: #F4C095;
+  --prim2: #1A63F3;
 
   
 }
@@ -18,27 +18,35 @@ C6AD94
 */
 
 html, body{
-    font-family: 'Karla', sans-serif;
+    font-family: 'Inter', sans-serif;
     font-size: 100%;
     height: 100%;
     margin: 0;
 }
 
 h1, h2 {
-    font-family: 'Rubik', sans-serif;
+    font-family: 'Inter', sans-serif;
 }
 
 p {
-    font-family: 'Karla', sans-serif;
+    font-family: 'Inter', sans-serif;
 }
 
 /*THIS IS THE COVER DIV
 ---------------------------------------------
 */
 .WelcomeDiv {
-    background-color: var(--prim1);
+    background: rgba(249, 250, 253);
     position: fixed;
     z-index: 1000;
+}
+
+
+
+.WelcomeDiv .mapboxgl-ctrl-geocoder {
+    text-align: left;
+    box-shadow: 0px 16px 40px rgba(112, 144, 176, 0.25);
+    border-radius: 20px;
 }
 
 .bgimage {
@@ -62,6 +70,7 @@ p {
 .startButton {
     background-color: var(--prim2);
     color: var(--prim1);
+    box-shadow: 0px 16px 40px rgba(112, 144, 176, 0.49);
 }
 
 
