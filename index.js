@@ -293,7 +293,7 @@ map.on('load', function () {
     }
 
 
-    // hover popup
+    // hover popup QnumberLayer
     map.on('mousemove', 'QnbrLayerIcon', function (e) {
         var hoverdQID = e.features[0].properties.Qnbr;
         if (ResultsObject[hoverdQID].imgthum != undefined) {
@@ -307,6 +307,28 @@ map.on('load', function () {
         } else {
             var html = '<p class="popupText">No image</p>';
         }
+        // console.log(e);
+    });
+    map.on('mouseleave', 'QnbrLayerIcon', function () {
+        map.getCanvas().style.cursor = '';
+        popup.remove();
+    });
+
+    // hover popup Wikipedia Layer
+    map.on('mousemove', 'wikipediaLayer', function (e) {
+        var articleTitle = e.features[0].properties.title;
+        // if (ResultsObject[hoverdQID].imgthum != undefined) {
+        // var html = '<img src="' + ResultsObject[hoverdQID].imgthum + '" alt="' + ResultsObject[hoverdQID].label + '" class="popupImg">';
+        var html = '<h1 class="wikipediaHoverPopupTitle">' + articleTitle + '</h1>';
+        popup
+            .setLngLat(e.lngLat)
+            .setHTML(html)
+            .addTo(map);
+
+        map.getCanvas().style.cursor = 'pointer';
+        // } else {
+        // var html = '<p class="popupText">No image</p>';
+        // }
         // console.log(e);
     });
     map.on('mouseleave', 'QnbrLayerIcon', function () {
@@ -331,13 +353,14 @@ map.on('load', function () {
     });
 
     map.on('click', 'wikipediaLayer', function (e) { // select point and open "window"
-        window.open(e.features[0].properties.url);
+        // window.open(e.features[0].properties.url);
+        WikipediaApiRequestArticleDetails(e.features[0].properties.pageId);
     });
 
     // Map panning ends
     map.on('moveend', function () {
         runQuery();
-        wikipdiaAPIrequest();
+        wikipdiaApiGeoRequest();
     });
 });
 
@@ -718,10 +741,10 @@ function selectNew(Q) {
 
 
 
-wikipdiaAPIrequest();
+wikipdiaApiGeoRequest();
 // Wikipedia query from here:
 
-function wikipdiaAPIrequest() {
+function wikipdiaApiGeoRequest() {
     let canvas = map.getCanvas()
     let w = canvas.width
     let h = canvas.height
@@ -752,8 +775,8 @@ function parseJSONResponse(jsonData) {
             article.url = 'https://en.wikipedia.org/?curid=' + value.pageid;
         }
 
-        console.log("Found Article " + index + ": " + article.title);
-        console.log(article);
+        // console.log("Found Article " + index + ": " + article.title);
+        // console.log(article);
         addWikipadiaPage(article)
     });
 }
@@ -818,3 +841,40 @@ function updateWikipediaGeojsonSource() {
 // wikipedia API query: from page Id get intro text, img, cathegories, wikidata Qnumbr
 // sandbox: https://en.wikipedia.org/wiki/Special:ApiSandbox#action=query&format=json&prop=extracts%7Cpageprops%7Cpageimages%7Ccategories&pageids=11101591&utf8=1&formatversion=latest&exintro=1
 // Json: https://en.wikipedia.org/w/api.php?action=query&format=json&prop=extracts%7Cpageprops%7Cpageimages%7Ccategories&pageids=11101591&utf8=1&formatversion=latest&exintro=1
+
+WikipediaApiRequestArticleDetails(11101591);
+function WikipediaApiRequestArticleDetails(pageID) {
+    requestURL = 'https://en.wikipedia.org/w/api.php?action=query&origin=*&format=json&prop=extracts%7Cpageprops%7Cpageimages%7Ccategories&pageids=' + pageID + '&utf8=1&formatversion=latest&exintro=1';
+    console.log('Request is for ' + requestURL);
+    ajaxQueue.push($.getJSON(requestURL, function (data) {
+        parseJSONResponseArticleDetails(data);
+    }));
+}
+
+function parseJSONResponseArticleDetails(jsonData) {
+    console.log(jsonData);
+    var articleInfo = jsonData.query.pages[0];
+
+    //console.log( index + ": " + value.title );
+    var article = {
+        "pageId": articleInfo.pageid,
+        "title": articleInfo.title,
+        "intro": articleInfo.extract,
+        "imgTitle": articleInfo.pageimage,
+        "Qnumber": articleInfo.pageprops.wikibase_item,
+        // "imgThumbnailUrl": articleInfo.thumbnail.source, // later the size is changed from 50px to 500px
+        "imgurl": "http://commons.wikimedia.org/wiki/Special:FilePath/" + articleInfo.pageimage,
+        "categories": []
+    }
+    if (articleInfo.thumbnail != undefined) {
+        var url = articleInfo.thumbnail.source;
+        url.replace("50px", "500px"); // changing thmbnail size
+        article.imgThumbnailUrl = url;
+    }
+    for (i in articleInfo.categories) {
+        article.categories.push(articleInfo.categories[i].title); // adding all article cathegories.
+    }
+    console.log("Article details: " + article.title);
+    console.log(article);
+    // add code of function to proces receaved data here
+}

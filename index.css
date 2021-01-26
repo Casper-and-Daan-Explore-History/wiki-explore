@@ -637,6 +637,15 @@ ul {
 }
 
 
+.wikipediaHoverPopupTitle {
+    color: white;
+    text-shadow: 3px 2px 2px rgba(0,0,0,0.25);
+    font-weight: 400;
+    text-align: center;
+
+}
+
+
 /* On smaller screens, decrease text size */
 
 @media only screen and (max-width: 300px) {
