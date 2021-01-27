@@ -168,7 +168,10 @@ map.on('load', function () {
             'type': 'FeatureCollection',
             'features': [
             ]
-        }
+        },
+        cluster: true,
+        clusterMaxZoom: 14, // Max zoom to cluster points on
+        clusterRadius: 50,
     });
 
     //ad layers to bring data sources to map
@@ -180,6 +183,138 @@ map.on('load', function () {
             'icon-image': 'wikipedia',
         }
     });
+
+
+
+
+
+    map.addLayer({
+        id: 'clusters',
+        type: 'circle',
+        source: 'wikipediaSource',
+        filter: ['has', 'point_count'],
+        paint: {
+        // Use step expressions (https://docs.mapbox.com/mapbox-gl-js/style-spec/#expressions-step)
+        // with three steps to implement three types of circles:
+        //   * Blue, 20px circles when point count is less than 100
+        //   * Yellow, 30px circles when point count is between 100 and 750
+        //   * Pink, 40px circles when point count is greater than or equal to 750
+            'circle-color': [
+            'step',
+            ['get', 'point_count'],
+            '#51bbd6',
+            100,
+            '#f1f075',
+            750,
+            '#f28cb1'
+            ],
+            'circle-radius': [
+            'step',
+            ['get', 'point_count'],
+            20,
+            100,
+            30,
+            750,
+            40
+        ]
+        }
+    });
+     
+    map.addLayer({
+    id: 'cluster-count',
+    type: 'symbol',
+    source: 'wikipediaSource',
+    filter: ['has', 'point_count'],
+    layout: {
+    'text-field': '{point_count_abbreviated}',
+    'text-font': ['DIN Offc Pro Medium', 'Arial Unicode MS Bold'],
+    'text-size': 12
+    }
+    });
+     
+    map.addLayer({
+    id: 'unclustered-point',
+    type: 'circle',
+    source: 'wikipediaSource',
+    filter: ['!', ['has', 'point_count']],
+    paint: {
+    'circle-color': '#11b4da',
+    'circle-radius': 10,
+    'circle-stroke-width': 1,
+    'circle-stroke-color': '#fff'
+    }
+    });
+     
+    // inspect a cluster on click
+    map.on('click', 'clusters', function (e) {
+        var features = map.queryRenderedFeatures(e.point, {
+            layers: ['clusters']
+        });
+        var clusterId = features[0].properties.cluster_id;
+        map.getSource('wikipediaSource').getClusterExpansionZoom(
+            clusterId,
+            function (err, zoom) {
+            if (err) return;
+         
+        map.easeTo({
+            center: features[0].geometry.coordinates,
+            zoom: zoom
+        });
+        }
+        );
+    });
+     
+    // When a click event occurs on a feature in
+    // the unclustered-point layer, open a popup at
+    // the location of the feature, with
+    // description HTML from its properties.
+    map.on('click', 'unclustered-point', function (e) {
+    var coordinates = e.features[0].geometry.coordinates.slice();
+     
+    // Ensure that if the map is zoomed out such that
+    // multiple copies of the feature are visible, the
+    // popup appears over the copy being pointed to.
+    while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
+    coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
+    }
+    });
+
+    map.on('mouseenter', 'clusters', function (e) {
+        var articleTitle = e.features[0].properties.title;
+        // if (ResultsObject[hoverdQID].imgthum != undefined) {
+        // var html = '<img src="' + ResultsObject[hoverdQID].imgthum + '" alt="' + ResultsObject[hoverdQID].label + '" class="popupImg">';
+        var html = '<h1 class="wikipediaHoverPopupTitle">' + articleTitle + '</h1>';
+
+
+        var coordinates = e.features[0].geometry.coordinates.slice();
+        // Ensure that if the map is zoomed out such that multiple
+        // copies of the feature are visible, the popup appears
+        // over the copy being pointed to.
+        while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
+        coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
+        }
+
+        popup
+            .setLngLat(coordinates)
+            .setHTML(html)
+            .addTo(map);
+
+        map.getCanvas().style.cursor = 'pointer';
+        // } else {
+        // var html = '<p class="popupText">No image</p>';
+        // }
+        // console.log(e);
+    });
+    map.on('mouseleave', 'clusters', function () {
+        map.getCanvas().style.cursor = '';
+        popup.remove();
+    });
+ 
+
+
+
+
+
 
 
     // map.addLayer({
@@ -315,13 +450,23 @@ map.on('load', function () {
     });
 
     // hover popup Wikipedia Layer
-    map.on('mousemove', 'wikipediaLayer', function (e) {
+    map.on('mouseenter', 'wikipediaLayer', function (e) {
         var articleTitle = e.features[0].properties.title;
         // if (ResultsObject[hoverdQID].imgthum != undefined) {
         // var html = '<img src="' + ResultsObject[hoverdQID].imgthum + '" alt="' + ResultsObject[hoverdQID].label + '" class="popupImg">';
         var html = '<h1 class="wikipediaHoverPopupTitle">' + articleTitle + '</h1>';
+
+
+        var coordinates = e.features[0].geometry.coordinates.slice();
+        // Ensure that if the map is zoomed out such that multiple
+        // copies of the feature are visible, the popup appears
+        // over the copy being pointed to.
+        while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
+        coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
+        }
+
         popup
-            .setLngLat(e.lngLat)
+            .setLngLat(coordinates)
             .setHTML(html)
             .addTo(map);
 
@@ -367,91 +512,91 @@ map.on('load', function () {
 
 // runQuery();
 function runQuery() {
-    let canvas = map.getCanvas()
-    let w = canvas.width
-    let h = canvas.height
-    let cUL = map.unproject([0, 0]).toArray()
-    let cLR = map.unproject([w, h]).toArray()
+    // let canvas = map.getCanvas()
+    // let w = canvas.width
+    // let h = canvas.height
+    // let cUL = map.unproject([0, 0]).toArray()
+    // let cLR = map.unproject([w, h]).toArray()
 
 
-    // the function that process the query
-    function makeSPARQLQuery(endpointUrl, sparqlQuery, doneCallback) {
-        var settings = {
-            headers: { Accept: 'application/sparql-results+json' },
-            data: { query: sparqlQuery }
-        };
-        return $.ajax(endpointUrl, settings).then(doneCallback);
-    }
+    // // the function that process the query
+    // function makeSPARQLQuery(endpointUrl, sparqlQuery, doneCallback) {
+    //     var settings = {
+    //         headers: { Accept: 'application/sparql-results+json' },
+    //         data: { query: sparqlQuery }
+    //     };
+    //     return $.ajax(endpointUrl, settings).then(doneCallback);
+    // }
 
-    var endpointUrl = 'https://query.wikidata.org/sparql',
-        sparqlQuery = "#defaultView:ImageGride\n" +
-            "SELECT\n" +
-            "  ?item ?itemLabel ?itemDescription\n" +
-            "  ?geo ?img ?categorie ?wikiMediaCategory\n" +
-            "  (GROUP_CONCAT(?instanceLabel; SEPARATOR = \", \") AS ?instancesof) # a nices String with the labels of the different instances of related to the item\n" +
-            "WITH\n" +
-            "{\n" +
-            "  SELECT \n" +
-            "    ?item \n" +
-            "    (SAMPLE(?geo_) AS ?geo) # The SAMPLE code is needed to inform the GROUP BY code what to do when there are more than one.\n" +
-            "    (SAMPLE(?img_) AS ?img)\n" +
-            "  WHERE\n" +
-            "  {\n" +
-            "    #### Selection based on location ####   \n" +
-            "    SERVICE wikibase:box\n" +
-            "    {\n" +
-            "      ?item wdt:P625 ?geo_.\n" +
-            "      bd:serviceParam wikibase:cornerWest \"Point(" + cUL[0] + " " + cUL[1] + ")\"^^geo:wktLiteral. \n" +
-            "      bd:serviceParam wikibase:cornerEast \"Point(" + cLR[0] + " " + cLR[1] + ")\"^^geo:wktLiteral.\n" +
-            "    }\n" +
-            "\n" +
-            "    MINUS { ?item (wdt:P31/(wdt:P279*)) wd:Q376799. } # Remove everything related to roads\n" +
-            "    ?item wdt:P18 ?img_. # Only keep items with pictures\n" +
-            "  }\n" +
-            "  GROUP BY ?item\n" +
-            "} AS %get_items\n" +
-            "WHERE\n" +
-            "{\n" +
-            "  INCLUDE %get_items\n" +
-            "\n" +
-            "  #### Categorise items ####\n" +
-            "  BIND(\n" +
-            "    IF(EXISTS {?item (wdt:P31/(wdt:P279*)) wd:Q811979},\n" +
-            "       \"Architectural\",\n" +
-            "       IF(EXISTS {?item (wdt:P31/(wdt:P279*)) wd:Q1656682},\n" +
-            "          \"Event\",\n" +
-            "          \"Other\"\n" +
-            "         )\n" +
-            "      )\n" +
-            "  AS ?categorie)\n" +
-            "  \n" +
-            "  OPTIONAL { ?item wdt:P31 ?instance. } # Get instances\n" +
-            "   \n" +
-            "  OPTIONAL { ?item wdt:P373 ?wikiMediaCategory. }\n" +
-            "   \n" +
-            "  #### Wikipedia link ####\n" +
-            "  OPTIONAL {\n" +
-            "    ?article schema:about ?item . # Get wikipedia link\n" +
-            "    ?article schema:isPartOf <https://en.wikipedia.org/>. # Only keep EN language\n" +
-            "  }\n" +
-            "  \n" +
-            "  #### Labels & discription #### \n" +
-            "  SERVICE wikibase:label { # Get labels\n" +
-            "    bd:serviceParam wikibase:language \"en\". \n" +
-            "    ?instance rdfs:label ?instanceLabel.      # The specification of the variables to be labeld is needed for grouping the instances of correctly\n" +
-            "    ?item rdfs:label ?itemLabel.\n" +
-            "    ?item schema:description ?itemDescription.\n" +
-            "  }\n" +
-            "}\n" +
-            "GROUP BY ?item ?itemLabel ?itemDescription ?geo ?img ?categorie ?article ?wikiMediaCategory";
+    // var endpointUrl = 'https://query.wikidata.org/sparql',
+    //     sparqlQuery = "#defaultView:ImageGride\n" +
+    //         "SELECT\n" +
+    //         "  ?item ?itemLabel ?itemDescription\n" +
+    //         "  ?geo ?img ?categorie ?wikiMediaCategory\n" +
+    //         "  (GROUP_CONCAT(?instanceLabel; SEPARATOR = \", \") AS ?instancesof) # a nices String with the labels of the different instances of related to the item\n" +
+    //         "WITH\n" +
+    //         "{\n" +
+    //         "  SELECT \n" +
+    //         "    ?item \n" +
+    //         "    (SAMPLE(?geo_) AS ?geo) # The SAMPLE code is needed to inform the GROUP BY code what to do when there are more than one.\n" +
+    //         "    (SAMPLE(?img_) AS ?img)\n" +
+    //         "  WHERE\n" +
+    //         "  {\n" +
+    //         "    #### Selection based on location ####   \n" +
+    //         "    SERVICE wikibase:box\n" +
+    //         "    {\n" +
+    //         "      ?item wdt:P625 ?geo_.\n" +
+    //         "      bd:serviceParam wikibase:cornerWest \"Point(" + cUL[0] + " " + cUL[1] + ")\"^^geo:wktLiteral. \n" +
+    //         "      bd:serviceParam wikibase:cornerEast \"Point(" + cLR[0] + " " + cLR[1] + ")\"^^geo:wktLiteral.\n" +
+    //         "    }\n" +
+    //         "\n" +
+    //         "    MINUS { ?item (wdt:P31/(wdt:P279*)) wd:Q376799. } # Remove everything related to roads\n" +
+    //         "    ?item wdt:P18 ?img_. # Only keep items with pictures\n" +
+    //         "  }\n" +
+    //         "  GROUP BY ?item\n" +
+    //         "} AS %get_items\n" +
+    //         "WHERE\n" +
+    //         "{\n" +
+    //         "  INCLUDE %get_items\n" +
+    //         "\n" +
+    //         "  #### Categorise items ####\n" +
+    //         "  BIND(\n" +
+    //         "    IF(EXISTS {?item (wdt:P31/(wdt:P279*)) wd:Q811979},\n" +
+    //         "       \"Architectural\",\n" +
+    //         "       IF(EXISTS {?item (wdt:P31/(wdt:P279*)) wd:Q1656682},\n" +
+    //         "          \"Event\",\n" +
+    //         "          \"Other\"\n" +
+    //         "         )\n" +
+    //         "      )\n" +
+    //         "  AS ?categorie)\n" +
+    //         "  \n" +
+    //         "  OPTIONAL { ?item wdt:P31 ?instance. } # Get instances\n" +
+    //         "   \n" +
+    //         "  OPTIONAL { ?item wdt:P373 ?wikiMediaCategory. }\n" +
+    //         "   \n" +
+    //         "  #### Wikipedia link ####\n" +
+    //         "  OPTIONAL {\n" +
+    //         "    ?article schema:about ?item . # Get wikipedia link\n" +
+    //         "    ?article schema:isPartOf <https://en.wikipedia.org/>. # Only keep EN language\n" +
+    //         "  }\n" +
+    //         "  \n" +
+    //         "  #### Labels & discription #### \n" +
+    //         "  SERVICE wikibase:label { # Get labels\n" +
+    //         "    bd:serviceParam wikibase:language \"en\". \n" +
+    //         "    ?instance rdfs:label ?instanceLabel.      # The specification of the variables to be labeld is needed for grouping the instances of correctly\n" +
+    //         "    ?item rdfs:label ?itemLabel.\n" +
+    //         "    ?item schema:description ?itemDescription.\n" +
+    //         "  }\n" +
+    //         "}\n" +
+    //         "GROUP BY ?item ?itemLabel ?itemDescription ?geo ?img ?categorie ?article ?wikiMediaCategory";
 
 
-    makeSPARQLQuery(endpointUrl, sparqlQuery, function (data) {
-        // $( 'body' ).append( $( '<pre>' ).text( JSON.stringify( data ) ) );
-        // console.log( data );
-        processQueryResults(data);
-    }
-    );
+    // makeSPARQLQuery(endpointUrl, sparqlQuery, function (data) {
+    //     // $( 'body' ).append( $( '<pre>' ).text( JSON.stringify( data ) ) );
+    //     // console.log( data );
+    //     processQueryResults(data);
+    // }
+    // );
 }
 
 function processQueryResults(data) {

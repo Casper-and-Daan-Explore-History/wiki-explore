@@ -647,11 +647,16 @@ ul {
 
 
 .wikipediaHoverPopupTitle {
-    color: white;
-    text-shadow: 3px 2px 2px rgba(0,0,0,0.25);
+    color: black;
     font-weight: 400;
+    font-size: 0.9rem;
     text-align: center;
-
+    background-color: white;
+    box-shadow: 0px 16px 40px rgba(0, 0, 0, 0.25);
+    padding: 10px;
+    border-radius: 8px;
+    margin-top: 0px;
+    margin-bottom: 0px;
 }
 
 
