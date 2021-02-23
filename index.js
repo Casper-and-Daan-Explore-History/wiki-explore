@@ -175,14 +175,14 @@ map.on('load', function () {
     });
 
     //ad layers to bring data sources to map
-    map.addLayer({ // wikipediaLayer
-        "id": "wikipediaLayer",
-        "type": "symbol",
-        "source": "wikipediaSource",
-        'layout': {
-            'icon-image': 'wikipedia',
-        }
-    });
+    // map.addLayer({ // wikipediaLayer
+    //     "id": "wikipediaLayer",
+    //     "type": "symbol",
+    //     "source": "wikipediaSource",
+    //     'layout': {
+    //         'icon-image': 'wikipedia',
+    //     }
+    // });
 
 
 
