@@ -268,16 +268,16 @@ map.on('load', function () {
     // the unclustered-point layer, open a popup at
     // the location of the feature, with
     // description HTML from its properties.
-    map.on('click', 'unclustered-point', function (e) {
-    var coordinates = e.features[0].geometry.coordinates.slice();
+    // map.on('click', 'unclustered-point', function (e) {
+    // var coordinates = e.features[0].geometry.coordinates.slice();
      
-    // Ensure that if the map is zoomed out such that
-    // multiple copies of the feature are visible, the
-    // popup appears over the copy being pointed to.
-    while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
-    coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
-    }
-    });
+    // // Ensure that if the map is zoomed out such that
+    // // multiple copies of the feature are visible, the
+    // // popup appears over the copy being pointed to.
+    // while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
+    // coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
+    // }
+    // });
 
     map.on('mouseenter', 'clusters', function (e) {
         var articleTitle = e.features[0].properties.title;
@@ -450,7 +450,7 @@ map.on('load', function () {
     });
 
     // hover popup Wikipedia Layer
-    map.on('mouseenter', 'wikipediaLayer', function (e) {
+    map.on('mouseenter', 'unclustered-point', function (e) {
         var articleTitle = e.features[0].properties.title;
         // if (ResultsObject[hoverdQID].imgthum != undefined) {
         // var html = '<img src="' + ResultsObject[hoverdQID].imgthum + '" alt="' + ResultsObject[hoverdQID].label + '" class="popupImg">';
@@ -476,7 +476,7 @@ map.on('load', function () {
         // }
         // console.log(e);
     });
-    map.on('mouseleave', 'wikipediaLayer', function () {
+    map.on('mouseleave', 'unclustered-point', function () {
         map.getCanvas().style.cursor = '';
         popup.remove();
     });
@@ -497,8 +497,8 @@ map.on('load', function () {
         selectNew(e.features[0].properties.Qnbr);
     });
 
-    map.on('click', 'wikipediaLayer', function (e) { // select point and open "window"
-        // window.open(e.features[0].properties.url);
+    map.on('click', 'unclustered-point', function (e) { // select point and open "window"
+        window.open(e.features[0].properties.url);
         WikipediaApiRequestArticleDetails(e.features[0].properties.pageId);
     });
 
