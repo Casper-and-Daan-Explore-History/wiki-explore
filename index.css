@@ -1,7 +1,7 @@
 :root {
   --white: #f8f9fb;
   --prim1: #234C5A;
-  --prim2: #1A63F3;
+  --prim2: #4B7982;
 
   
 }
@@ -18,27 +18,28 @@ C6AD94
 */
 
 html, body{
-    font-family: 'Inter', sans-serif;
+    font-family: 'Karla', sans-serif;
     font-size: 100%;
     height: 100%;
     margin: 0;
 }
 
 h1, h2 {
-    font-family: 'Inter', sans-serif;
+    font-family: 'Karla', sans-serif;
 }
 
 p {
-    font-family: 'Inter', sans-serif;
+    font-family: 'Karla', sans-serif;
 }
 
 /*THIS IS THE COVER DIV
 ---------------------------------------------
 */
 .WelcomeDiv {
-    background: rgba(249, 250, 253);
+    background: rgba(255, 255, 255);
     position: fixed;
     z-index: 1000;
+    font-family: 'Karla', sans-serif;
 }
 
 .WelcomeDiv .mapboxgl-ctrl-geocoder {
@@ -49,19 +50,18 @@ p {
 
 .WelcomeDivContent {
     background: rgba(248, 250, 252, 0.65);
+    -webkit-backdrop-filter: blur(100px);
     backdrop-filter: blur(100px);
 /* Note: backdrop-filter has minimal browser support */
-
-transform: matrix(-1, 0, 0, 1, 0, 0);
 }
 
 .bgimage {
-    background-image: url("/img/bgimage.png");
+    background-image: url("https://raw.githubusercontent.com/Casper-and-Daan-Explore-History/wiki-battle-map/master/img/bgimage.png");
     background-position: center;
     background-repeat: no-repeat;
 }
 
-#coverContainer {
+/*#coverContainer {
     -webkit-transition: 0.5s;
     -o-transition: 0.5s;
     transition: 0.5s;
@@ -71,7 +71,7 @@ transform: matrix(-1, 0, 0, 1, 0, 0);
     z-index: 1001;
     width: 100%;
     margin: 10vh 0 0 0;
-}
+}*/
 
 .startButton {
     background-color: var(--prim2);
