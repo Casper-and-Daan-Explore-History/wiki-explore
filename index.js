@@ -194,57 +194,57 @@ map.on('load', function () {
         source: 'wikipediaSource',
         filter: ['has', 'point_count'],
         paint: {
-        // Use step expressions (https://docs.mapbox.com/mapbox-gl-js/style-spec/#expressions-step)
-        // with three steps to implement three types of circles:
-        //   * Blue, 20px circles when point count is less than 100
-        //   * Yellow, 30px circles when point count is between 100 and 750
-        //   * Pink, 40px circles when point count is greater than or equal to 750
+            // Use step expressions (https://docs.mapbox.com/mapbox-gl-js/style-spec/#expressions-step)
+            // with three steps to implement three types of circles:
+            //   * Blue, 20px circles when point count is less than 100
+            //   * Yellow, 30px circles when point count is between 100 and 750
+            //   * Pink, 40px circles when point count is greater than or equal to 750
             'circle-color': [
-            'step',
-            ['get', 'point_count'],
-            '#51bbd6',
-            100,
-            '#f1f075',
-            750,
-            '#08415C'
+                'step',
+                ['get', 'point_count'],
+                '#51bbd6',
+                100,
+                '#f1f075',
+                750,
+                '#08415C'
             ],
             'circle-radius': [
-            'step',
-            ['get', 'point_count'],
-            20,
-            100,
-            30,
-            750,
-            40
-        ]
+                'step',
+                ['get', 'point_count'],
+                20,
+                100,
+                30,
+                750,
+                40
+            ]
         }
     });
-     
+
     map.addLayer({
-    id: 'cluster-count',
-    type: 'symbol',
-    source: 'wikipediaSource',
-    filter: ['has', 'point_count'],
-    layout: {
-    'text-field': '{point_count_abbreviated}',
-    'text-font': ['DIN Offc Pro Medium', 'Arial Unicode MS Bold'],
-    'text-size': 12
-    }
+        id: 'cluster-count',
+        type: 'symbol',
+        source: 'wikipediaSource',
+        filter: ['has', 'point_count'],
+        layout: {
+            'text-field': '{point_count_abbreviated}',
+            'text-font': ['DIN Offc Pro Medium', 'Arial Unicode MS Bold'],
+            'text-size': 12
+        }
     });
-     
+
     map.addLayer({
-    id: 'unclustered-point',
-    type: 'circle',
-    source: 'wikipediaSource',
-    filter: ['!', ['has', 'point_count']],
-    paint: {
-    'circle-color': '#497983',
-    'circle-radius': 10,
-    'circle-stroke-width': 1,
-    'circle-stroke-color': '#fff'
-    }
+        id: 'unclustered-point',
+        type: 'circle',
+        source: 'wikipediaSource',
+        filter: ['!', ['has', 'point_count']],
+        paint: {
+            'circle-color': '#497983',
+            'circle-radius': 10,
+            'circle-stroke-width': 1,
+            'circle-stroke-color': '#fff'
+        }
     });
-     
+
     // inspect a cluster on click
     map.on('click', 'clusters', function (e) {
         var features = map.queryRenderedFeatures(e.point, {
@@ -254,23 +254,23 @@ map.on('load', function () {
         map.getSource('wikipediaSource').getClusterExpansionZoom(
             clusterId,
             function (err, zoom) {
-            if (err) return;
-         
-        map.easeTo({
-            center: features[0].geometry.coordinates,
-            zoom: zoom
-        });
-        }
+                if (err) return;
+
+                map.easeTo({
+                    center: features[0].geometry.coordinates,
+                    zoom: zoom
+                });
+            }
         );
     });
-     
+
     // When a click event occurs on a feature in
     // the unclustered-point layer, open a popup at
     // the location of the feature, with
     // description HTML from its properties.
     // map.on('click', 'unclustered-point', function (e) {
     // var coordinates = e.features[0].geometry.coordinates.slice();
-     
+
     // // Ensure that if the map is zoomed out such that
     // // multiple copies of the feature are visible, the
     // // popup appears over the copy being pointed to.
@@ -291,7 +291,7 @@ map.on('load', function () {
         // copies of the feature are visible, the popup appears
         // over the copy being pointed to.
         while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
-        coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
+            coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
         }
 
         popup
@@ -309,7 +309,7 @@ map.on('load', function () {
         map.getCanvas().style.cursor = '';
         popup.remove();
     });
- 
+
 
 
 
@@ -462,7 +462,7 @@ map.on('load', function () {
         // copies of the feature are visible, the popup appears
         // over the copy being pointed to.
         while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
-        coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
+            coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
         }
 
         popup
@@ -990,6 +990,7 @@ function updateWikipediaGeojsonSource() {
 WikipediaApiRequestArticleDetails(11101591);
 function WikipediaApiRequestArticleDetails(pageID) {
     requestURL = 'https://en.wikipedia.org/w/api.php?action=query&origin=*&format=json&prop=extracts%7Cpageprops%7Cpageimages%7Ccategories&pageids=' + pageID + '&utf8=1&formatversion=latest&exintro=1';
+    // API sandox link: https://en.wikipedia.org/wiki/Special:ApiSandbox#action=query&format=json&origin=*&prop=extracts%7Cpageprops%7Cpageimages%7Ccategories&pageids=58387057&utf8=1&formatversion=latest&exintro=1
     console.log('Request is for ' + requestURL);
     ajaxQueue.push($.getJSON(requestURL, function (data) {
         parseJSONResponseArticleDetails(data);
@@ -1023,3 +1024,13 @@ function parseJSONResponseArticleDetails(jsonData) {
     console.log(article);
     // add code of function to proces receaved data here
 }
+
+
+// on map movement queries: wikipedia API, Wikidata query, Wiki commons API (toggle for all 3)
+
+// plaatje, title, intro, Wikipedia link, Wikidata link, mini discription, (list of related categories: quality?)
+// extra from Qnbr: instance of, official website, inception, part of, pronunciation audio, date of official opening, commons ategorie, significant event, 
+    // audio, visitors per year, height, area, Google Maps Customer ID, Insta Location, Mapillary ID, Facebook ID, Freebase ID (Google Search), Instagram username, Twitter username
+// extra LonLat: Google maps link, Bing maps, WikiShootMe
+// extra form commons: photo album, hi qualit images, image locator tool
+// options: see images arround this location
