@@ -41,16 +41,22 @@ p {
     z-index: 1000;
 }
 
-
-
 .WelcomeDiv .mapboxgl-ctrl-geocoder {
     text-align: left;
     box-shadow: 0px 16px 40px rgba(112, 144, 176, 0.25);
     border-radius: 20px;
 }
 
+.WelcomeDivContent {
+    background: rgba(248, 250, 252, 0.65);
+    backdrop-filter: blur(100px);
+/* Note: backdrop-filter has minimal browser support */
+
+transform: matrix(-1, 0, 0, 1, 0, 0);
+}
+
 .bgimage {
-    background-image: url("/img/map.png");
+    background-image: url("/img/bgimage.png");
     background-position: center;
     background-repeat: no-repeat;
 }
