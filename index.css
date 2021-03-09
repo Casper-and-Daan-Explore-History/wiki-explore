@@ -55,6 +55,12 @@ p {
 /* Note: backdrop-filter has minimal browser support */
 }
 
+.WelcomeDivContent2 {
+    background-color: #F4E9D3;
+    background-image: url("https://raw.githubusercontent.com/Casper-and-Daan-Explore-History/wiki-battle-map/master/Textures/water64.svg");
+    background-size: 128px 128px;
+}
+
 .bgimage {
     background-image: url("https://raw.githubusercontent.com/Casper-and-Daan-Explore-History/wiki-battle-map/master/img/bgimage.png");
     background-position: center;
