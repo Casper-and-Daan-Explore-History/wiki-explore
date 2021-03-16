@@ -26,6 +26,20 @@ var mapIsActive = false;
 
 var ajaxQueue = new Array();
 
+var detailsPannelData = {
+    "wikipediaApiOngoing": false,   // current status of API resquest
+    "wikimediaApiOngoing": false,   // current status of API resquest
+    "wikidataApiOngoing": false,    // current status of API resquest
+    "wikidataQueryDone": false,     // Data collection status
+    "wikimediaQueryDone": false,    // Data collection status
+    "wikidataQueryDone": false      // Data collection status
+};
+
+// var wikipediaApiOngoing = false;    // current status of API resquest
+// var wikimediaApiOngoing = false;    // current status of API resquest
+// var wikidataApiOngoing = false;     // current status of API resquest
+
+
 
 mapboxgl.accessToken = 'pk.eyJ1IjoiY2Fza2VzIiwiYSI6ImNqYW1tNGdwdjN3MW8yeWp1cWNsaXZveDYifQ.MNpL7SYvoVgR4s_4ma5iyg';
 var map = new mapboxgl.Map({
@@ -487,24 +501,25 @@ map.on('load', function () {
         // var lat = e.lngLat.lat;
         // var zoom = 10;
         // var gid = e.features[0].properties.gid;
-        selectNew(undefined);
+        // selectNew(undefined);
     });
     map.on('click', 'QnbrLayerIcon', function (e) { // select point and open "window"
         // var lng = e.lngLat.lng;
         // var lat = e.lngLat.lat;
         // var zoom = 10;
         // var gid = e.features[0].properties.gid;
-        selectNew(e.features[0].properties.Qnbr);
+        // selectNew(e.features[0].properties.Qnbr);
     });
 
     map.on('click', 'unclustered-point', function (e) { // select point and open "window"
-        window.open(e.features[0].properties.url);
-        WikipediaApiRequestArticleDetails(e.features[0].properties.pageId);
+        // window.open(e.features[0].properties.url);
+        openDetailPannel(e.features[0].properties);
+        
     });
 
     // Map panning ends
     map.on('moveend', function () {
-        runQuery();
+        // runQuery();
         wikipdiaApiGeoRequest();
     });
 });
@@ -897,14 +912,14 @@ function wikipdiaApiGeoRequest() {
     let cLR = map.unproject([w, h]).toArray()
 
     requestURL = 'https://en.wikipedia.org/w/api.php?action=query&format=json&list=geosearch&origin=*&utf8=1&gsbbox=' + cUL[1] + '|' + cUL[0] + '|' + cLR[1] + '|' + cLR[0] + '&gslimit=500&gsprimary=all';
-    console.log('Request is for ' + requestURL);
+    // console.log('Request is for ' + requestURL);
     ajaxQueue.push($.getJSON(requestURL, function (data) {
         parseJSONResponse(data);
     }));
 }
 
 function parseJSONResponse(jsonData) {
-    console.log(jsonData);
+    // console.log(jsonData);
 
     $.each(jsonData.query.geosearch, function (index, value) {
         //console.log( index + ": " + value.title );
@@ -983,47 +998,69 @@ function updateWikipediaGeojsonSource() {
 }
 
 
-// wikipedia API query: from page Id get intro text, img, cathegories, wikidata Qnumbr
-// sandbox: https://en.wikipedia.org/wiki/Special:ApiSandbox#action=query&format=json&prop=extracts%7Cpageprops%7Cpageimages%7Ccategories&pageids=11101591&utf8=1&formatversion=latest&exintro=1
-// Json: https://en.wikipedia.org/w/api.php?action=query&format=json&prop=extracts%7Cpageprops%7Cpageimages%7Ccategories&pageids=11101591&utf8=1&formatversion=latest&exintro=1
+function openDetailPannel(selectionInfo) {
+    detailsPannelData.title = selectionInfo.title;
+    detailsPannelData.wikipediaID = selectionInfo.pageId;
+    detailsPannelData.lonLat = selectionInfo.lonLat;
 
-WikipediaApiRequestArticleDetails(11101591);
-function WikipediaApiRequestArticleDetails(pageID) {
-    requestURL = 'https://en.wikipedia.org/w/api.php?action=query&origin=*&format=json&prop=extracts%7Cpageprops%7Cpageimages%7Ccategories&pageids=' + pageID + '&utf8=1&formatversion=latest&exintro=1';
+    WikipediaApiRequestDetails(detailsPannelData.wikipediaID);
+
+    // pageId
+    // title
+    // "lonLat": [value.lon, value.lat]
+}
+
+
+
+
+function WikipediaApiRequestDetails(pageID) {
+    detailsPannelData.wikipediaApiOngoing = true;
+    requestURL =       'https://en.wikipedia.org/w/api.php?action=query&origin=*&format=json&prop=extracts%7Cpageprops%7Cpageimages%7Ccategories&pageids=' + pageID + '&utf8=1&formatversion=latest&exintro=1';
     // API sandox link: https://en.wikipedia.org/wiki/Special:ApiSandbox#action=query&format=json&origin=*&prop=extracts%7Cpageprops%7Cpageimages%7Ccategories&pageids=58387057&utf8=1&formatversion=latest&exintro=1
-    console.log('Request is for ' + requestURL);
     ajaxQueue.push($.getJSON(requestURL, function (data) {
-        parseJSONResponseArticleDetails(data);
+        parseJSONResponseDetails(data);
     }));
 }
 
-function parseJSONResponseArticleDetails(jsonData) {
-    console.log(jsonData);
-    var articleInfo = jsonData.query.pages[0];
+function parseJSONResponseDetails(jsonData) {
+    var wikipediaApiRespons = jsonData.query.pages[0];
 
-    //console.log( index + ": " + value.title );
-    var article = {
-        "pageId": articleInfo.pageid,
-        "title": articleInfo.title,
-        "intro": articleInfo.extract,
-        "imgTitle": articleInfo.pageimage,
-        "Qnumber": articleInfo.pageprops.wikibase_item,
-        // "imgThumbnailUrl": articleInfo.thumbnail.source, // later the size is changed from 50px to 500px
-        "imgurl": "http://commons.wikimedia.org/wiki/Special:FilePath/" + articleInfo.pageimage,
-        "categories": []
+    detailsPannelData.wikipediaIntro = wikipediaApiRespons.extract;
+    detailsPannelData.wikipediaImgTitle = wikipediaApiRespons.pageimage;
+    detailsPannelData.Qnumber = wikipediaApiRespons.pageprops.wikibase_item;
+    detailsPannelData.wikipediaImgUrl = "http://commons.wikimedia.org/wiki/Special:FilePath/" + wikipediaApiRespons.pageimage;
+    detailsPannelData.wikipediaCategories = [];
+
+    //ToDo: get a desent thumnail. Maibe by transforming img url?
+
+        // if (wikipediaApiRespons.thumbnail != undefined) {
+        //     var url = wikipediaApiRespons.thumbnail.source;
+        //     url.replace("50px", "500px"); // changing thmbnail size
+        //     detailsPannelData.imgThumbnailUrl = url;
+        // }
+
+    for (i in wikipediaApiRespons.categories) {
+        detailsPannelData.wikipediaCategories.push(wikipediaApiRespons.categories[i].title); // adding all wikipediaApiRespons cathegories.
     }
-    if (articleInfo.thumbnail != undefined) {
-        var url = articleInfo.thumbnail.source;
-        url.replace("50px", "500px"); // changing thmbnail size
-        article.imgThumbnailUrl = url;
+
+    detailsPannelData.wikipediaApiOngoing = false; // change status to no API call ongoing.
+    console.log(detailsPannelData);
+
+    // If new Qnumber, and no data jet, then get Wikidata data:
+    if (!detailsPannelData.wikidataApiOngoing && !detailsPannelData.wikidataQueryDone && detailsPannelData.Qnumber != undefined) {
+        console.log("should call Wikidata API");
+        WikidataApiRequestDetails()
     }
-    for (i in articleInfo.categories) {
-        article.categories.push(articleInfo.categories[i].title); // adding all article cathegories.
-    }
-    console.log("Article details: " + article.title);
-    console.log(article);
-    // add code of function to proces receaved data here
 }
+
+function WikidataApiRequestDetails() {
+    
+    
+    //detailsPannelData.Qnumber
+}
+
+
+
 
 
 // on map movement queries: wikipedia API, Wikidata query, Wiki commons API (toggle for all 3)
