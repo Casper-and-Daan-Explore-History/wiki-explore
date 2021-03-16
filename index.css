@@ -52,8 +52,13 @@ p {
 /* Note: backdrop-filter has minimal browser support */
 }
 
+.logo {
+    width: 75px;
+    height: 75px;
+}
+
 .WelcomeDivContent2 {
-    background: rgba(244, 233, 211, 0.6);
+    background: rgba(244, 233, 211, 1);
     -webkit-backdrop-filter: blur(100px);
     backdrop-filter: blur(100px);
     background-image: url("./img/asfalt-dark.png");
@@ -92,10 +97,6 @@ p {
 
 #header {
     background-color: var(--prim1);
-}
-
-#logo {
-    /*background-color: var(--prim2);*/
 }
 
 #map {
