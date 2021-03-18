@@ -40,6 +40,14 @@ var detailsPannelData = {
 // var wikidataApiOngoing = false;     // current status of API resquest
 
 
+function hideAboutpanel() {
+    document.getElementById("about").style.display = "none";
+}
+  
+  function openAboutpanel() {
+    document.getElementById("about").style.display = "block";
+}
+
 
 mapboxgl.accessToken = 'pk.eyJ1IjoiY2Fza2VzIiwiYSI6ImNqYW1tNGdwdjN3MW8yeWp1cWNsaXZveDYifQ.MNpL7SYvoVgR4s_4ma5iyg';
 var map = new mapboxgl.Map({
