@@ -39,26 +39,40 @@
 </head>
 
 <body>
-    <div class="about absolute dn w-100 h-100 pa4-l z-9999 border-box cf" id="about"> 
-        <div class="aboutcontainer relative flex flex-row-l flex-column  bg-white w-100 min-h-100 center cf v-mid">
+    <div class="about absolute dn w-100 h-100 pa4-l z-9999 border-box cf lh-copy" id="about"> 
+        <div class="aboutcontainer relative flex flex-row-l flex-column bg-white w-100 min-h-100 center cf v-mid">
           <div class="closebutton" onclick="hideAboutpanel()">
             <img src="./img/close.svg" alt="Close" class="closeicon">
           </div>
-          <div class="aboutcontent w-two-thirds-l w-100 tc pa4">
+          <div class="aboutcontent w-two-thirds-l w-100 tc pv4 ph0-l ph4 flex flex-column">
             <h1>About Wiki Map</h1>
-            <p>I like car design. I struggle to place the right designer at the right studio. I wanted to create this data vizualization to show that, and celebrate and give an insight in the evolution of car design.</p>
-            <p>Next on my list is to add cars from 1975 - 1980. Reach out if you have more ideas!</p>
+            <div class="flex-auto items-center content-center tl w-50-l center">
+  
+                <p>I like car design. I struggle to place the right designer at the right studio. I wanted to create this data vizualization to show that, and celebrate and give an insight in the evolution of car design.</p>
+                <h3 class="lh-title mb0">Where the data comes from</h3>
+                <p class="mt1">Wikipedia</p>
+                <h3 class="lh-title mb0">Roadmap</h3>
+                <p class="mt1">Next on my list is to add cars from 1975 - 1980. Reach out if you have more ideas!</p>
+  
+            </div>
           </div>
           <div class="aboutcontact flex-auto w-third-l w-100 tc pa4">
-            <h1>Contact</h1>
-            <p>Is there data missing or incorrect, feel free to reach out!</p>
-            <p>Twitter</p>
-            <p>Email</p>
-            <p>LinkedIn</p>
+            <h1>About Us</h1>
+            <div class="ph3">
+              <h3 class="lh-title mb0">Check out my other projects too:</h3>
+              <p class="mt1">The Turn Signal Blog, a blog about automotive UX design</p>
+              <p>Wiki map thing, Wikipedia meets Google Earth</p>
+              <h3 class="lh-title mb0">Contact</h3>
+              <p class="mt1">Twitter</p>
+              <p>Email</p>
+              <p>LinkedIn</p>
+              <p>Design Portfolio</p>
+            </div>
           </div>
         </div>
-    </div>
-    <div class="WelcomeDiv w-100 mw-100 vh-100 cf overflow-hidden z-999 absolute top-0">
+      </div>
+
+    <div class="WelcomeDiv dn w-100 mw-100 vh-100 cf overflow-hidden z-999 absolute top-0">
         <div class="bgimage w-100 h-100">
             <div class="WelcomeDivContent2 w-60-l w-100 h-100 flex flex-column justify-between-l justify-center">
                 <div class="welcomeheader pa4-ns pa3">
@@ -86,17 +100,25 @@
     </div>
 
 
-
-    
-
-
-
     <div id="loadingBox" class="loadingBox">
         <h1 class="ma0 ">Loading content from wikidata...</h1>
     </div>
-    <div class="w-100 db h3 absolute flex flex-row-ns flex-column">
-        <div id="geocoderMap" class="geocoder v-mid w-30-ns w-100 h4 mh2 z-1 mt3 w-100"></div>
-        <div class="Button bg-white dib pv3 ph4 br3 mt3 tc z-1 v-mid" onclick="openAboutpanel()">About</div>
+
+
+    <div class="w-100 db h3 absolute fixed z-3 top-0 flex flex-row-ns cf">
+        <div class="hamburgerclosed pa3 db dn-ns br3 ml2 mt3" onclick="openHamburger()">
+            <img src="./img/hamburger.svg" alt="Menu" class="hamburgericon w2 h2">
+          </div>
+        <div id="geocoderMap" class="geocoder v-mid w-30-l w-50-m w-100 h4 mh2 z-1 mt3 w-100"></div>
+        <div class="Button aboutbutton bg-white dib-ns dn pv3 ph4 br3 mt3 tc z-1 v-mid" onclick="openAboutpanel()">About</div>
+    </div>
+  
+    <div class="hamburger dn w-100 pa2 absolute min-h-100 z-999" id="hamburgermenu">
+    <div class="closebutton" onclick="closeHamburger()">
+        <img src="./img/close.svg" alt="Close" class="closeicon">
+    </div>
+    <div class="tc f3 pv3 mt5 bt bb pointer" onclick="openAboutpanel(); closeHamburger()">About</div>
+    <div class="tc f4 pv3 mt5">Other info</div>
     </div>
     
     <div id="map" class="">
