@@ -36,6 +36,22 @@ var detailsPannelData = {
 };
 
 
+function hideAboutpanel() {
+    document.getElementById("about").style.display = "none";
+}
+  
+  function openAboutpanel() {
+    document.getElementById("about").style.display = "block";
+}
+
+function openHamburger() {
+    document.getElementById("hamburgermenu").style.display = "block";
+  }
+  
+function closeHamburger() {
+document.getElementById("hamburgermenu").style.display = "none";
+}
+
 
 mapboxgl.accessToken = 'pk.eyJ1IjoiY2Fza2VzIiwiYSI6ImNqYW1tNGdwdjN3MW8yeWp1cWNsaXZveDYifQ.MNpL7SYvoVgR4s_4ma5iyg';
 var map = new mapboxgl.Map({

@@ -39,83 +39,41 @@
 </head>
 
 <body>
-    <!-- <div class="bluredCoverImgBackground" style="filter: blur(0px); -webkit-filter: blur(0px);"></div>
-    <div class="bluredCoverImgBackground"></div>
-    <div id="coverContainer">
-        <h1 class="MegaTitle coverText">visitthepast.org</h1>
-        <div class="coverTextContainer">
-            <div class="textCollum">
-                <H2 class="textCollumTitle coverText">Visit the past</H2>
-                <p class="textCollumContent coverText">
-                    Explore places of bygone areas that remain to this day. Here you
-                    can experience the digital traces and maybe one day you can experience it in real life.</p>
+    <div class="about absolute dn w-100 h-100 pa4-l z-9999 border-box cf lh-copy" id="about"> 
+        <div class="aboutcontainer relative flex flex-row-l flex-column bg-white w-100 min-h-100 center cf v-mid">
+          <div class="closebutton" onclick="hideAboutpanel()">
+            <img src="./img/close.svg" alt="Close" class="closeicon">
+          </div>
+          <div class="aboutcontent w-two-thirds-l w-100 tc pv4 ph0-l ph4 flex flex-column">
+            <h1>About Wiki Map</h1>
+            <div class="flex-auto items-center content-center tl w-50-l center">
+  
+                <p>I like car design. I struggle to place the right designer at the right studio. I wanted to create this data vizualization to show that, and celebrate and give an insight in the evolution of car design.</p>
+                <h3 class="lh-title mb0">Where the data comes from</h3>
+                <p class="mt1">Wikipedia</p>
+                <h3 class="lh-title mb0">Roadmap</h3>
+                <p class="mt1">Next on my list is to add cars from 1975 - 1980. Reach out if you have more ideas!</p>
+  
             </div>
-            <div class="textCollum">
-                <H2 class="textCollumTitle coverText">Wikidata</H2>
-                <p class="textCollumContent coverText">This is powered by the free and open knowledge base of the
-                    Internet.
-                    Wikidata is the data structure behind Wikipedia.</p>
+          </div>
+          <div class="aboutcontact flex-auto w-third-l w-100 tc pa4">
+            <h1>About Us</h1>
+            <div class="ph3">
+              <h3 class="lh-title mb0">Check out my other projects too:</h3>
+              <p class="mt1">The Turn Signal Blog, a blog about automotive UX design</p>
+              <p>Wiki map thing, Wikipedia meets Google Earth</p>
+              <h3 class="lh-title mb0">Contact</h3>
+              <p class="mt1">Twitter</p>
+              <p>Email</p>
+              <p>LinkedIn</p>
+              <p>Design Portfolio</p>
             </div>
-            <div class="textCollum">
-                <H2 class="textCollumTitle coverText">Help</H2>
-                <p class="textCollumContent coverText">Wikidata is open and can be edited by anyone. By exploring you
-                    might find
-                    inconsistencies or information gaps. Feel empowered to edit wikidata and improve it.</p>
-            </div>
+          </div>
         </div>
-        <h2 class="coverButton coverText">Start exploring</h2>
-    </div> -->
+      </div>
 
-    <!-- <div class="WelcomeDiv w-100 mw-100 vh-100 cf overflow-hidden">
-        <div class="bgimage">
-            <div class="contentdiv w-30 absolute">
-                <h1 class="mw-100 tc mb5">Wiki map that has no name yet</h1>
-                <div id="geocoderWelcome" class="geocoder dib v-mid w-70-ns mr3">
-                </div>
-                <div class="dib startButton tc w-100 w-20-ns f6 link grow br3 pointer center">
-                    <p class="white fw4">Search</p>
-                </div>
-            </div>
-        </div> -->
-        <!-- <div id="coverimg" class="fr-ns w-100-ns mw-100 h-100 tr absolute flex items-center">
-            <img src="./img/map.png" alt="cover" class="w-70 h-auto ml-auto">
-        </div>
- -->        
-       <!--  <div id="contentdiv" class="w-100 w-50-ns cf z-2">
-            <div class="db">
-                <h1 class="mw-100 tc mb5">Wiki map that has no name yet</h1>
-                <div id="geocoderWelcome" class="geocoder dib v-mid w-70-ns mr3">
-                </div>
-                <div class="dib startButton tc w-100 w-20-ns f6 link grow br3 pointer center">
-                    <p class="white fw4">Search</p>
-                </div>
-
-
-            </div>
-        </div>
-        
-    </div> -->
-
-
-    <div class="WelcomeDiv w-100 mw-100 vh-100 cf overflow-hidden z-999 absolute top-0">
+    <div class="WelcomeDiv dn w-100 mw-100 vh-100 cf overflow-hidden z-999 absolute top-0">
         <div class="bgimage w-100 h-100">
-           <!--  <div class="WelcomeDivContent w-40 h-100 flex flex-column justify-end pa4">
-                <div class="mb5">
-                    <h1 class="mw-100 f1 mb0 tracked-tight">Wiki map that has no name yet</h1>
-                    <p>Very interesting subtitle</p>
-                </div>
-                <div class="mb5">
-                    <div id="geocoderWelcome" class="geocoder dib v-mid w-100 mr3 mb2">
-                    </div>
-                    <div class="dib startButton tc w-100 w-100 f6 link grow br3 pointer center">
-                        <p class="white fw4">Search</p>
-                    </div>
-                </div>
-                <div>
-                    <p>This will be a div with more info</p>
-                </div>
-            </div> -->
-
             <div class="WelcomeDivContent2 w-60-l w-100 h-100 flex flex-column justify-between-l justify-center">
                 <div class="welcomeheader pa4-ns pa3">
                     <img class="logo" src="./img/logo.png">
@@ -134,7 +92,7 @@
                     </div>
                 </div>
                 <div class="welcomefooter ph6-l pa5-m pa3">
-                    <p>This will be a div with more info</p>
+                    <p class="link" onclick="openAboutpanel()">About Wiki data map</p>
                 </div>
             </div>
         </div>
@@ -142,20 +100,25 @@
     </div>
 
 
-
-    
-
-
-
     <div id="loadingBox" class="loadingBox">
         <h1 class="ma0 ">Loading content from wikidata...</h1>
     </div>
-    <div class="w-100 db h3">
-        <div id="logo" class="w-30-ns w-100 h4 fr-ns db mr4-ns mh2 relative" style="z-index: 1;"> 
-                    <div id="geocoderMap" class="geocoder v-mid  mt3 w-100"></div>
 
-            <!-- <img src="./img/logo.svg" alt="Logo" class="h4 fixed z-max center"> -->
-        </div>
+
+    <div class="w-100 db h3 absolute fixed z-3 top-0 flex flex-row-ns cf">
+        <div class="hamburgerclosed pa3 db dn-ns br3 ml2 mt3" onclick="openHamburger()">
+            <img src="./img/hamburger.svg" alt="Menu" class="hamburgericon w2 h2">
+          </div>
+        <div id="geocoderMap" class="geocoder v-mid w-30-l w-50-m w-100 h4 mh2 z-1 mt3 w-100"></div>
+        <div class="Button aboutbutton bg-white dib-ns dn pv3 ph4 br3 mt3 tc z-1 v-mid" onclick="openAboutpanel()">About</div>
+    </div>
+  
+    <div class="hamburger dn w-100 pa2 absolute min-h-100 z-999" id="hamburgermenu">
+    <div class="closebutton" onclick="closeHamburger()">
+        <img src="./img/close.svg" alt="Close" class="closeicon">
+    </div>
+    <div class="tc f3 pv3 mt5 bt bb pointer" onclick="openAboutpanel(); closeHamburger()">About</div>
+    <div class="tc f4 pv3 mt5">Other info</div>
     </div>
     
     <div id="map" class="">
