@@ -86,8 +86,6 @@ var geocoder2 = new MapboxGeocoder({
 
 document.getElementById('geocoderMap').appendChild(geocoder2.onAdd(map))
 
-
-
 // Add geolocate control to the map.
 // map.addControl(
 //     new mapboxgl.GeolocateControl({
@@ -149,6 +147,11 @@ function hideWelcomCoverPage() {
 
 var popup = new mapboxgl.Popup({
     closeButton: false,
+    closeOnClick: false
+});
+
+var contentpopup = new mapboxgl.Popup({
+    closeButton: true,
     closeOnClick: false
 });
 
@@ -526,6 +529,35 @@ map.on('load', function () {
     map.on('click', 'unclustered-point', function (e) { // select point and open "window"
         // window.open(e.features[0].properties.url);
         openDetailPannel(e.features[0].properties);
+
+        var x, txt = "";
+        var popupdata = e.features[0].properties;
+
+
+        for (x in popupdata) {
+            txt += popupdata[x] + " ";
+        };
+
+        var popupcontent = '<h1 class="popuptitle">' + txt + '</h1>';
+
+        var popupcoordinates = e.features[0].geometry.coordinates.slice();
+        console.log("text = " + txt)
+
+        // Ensure that if the map is zoomed out such that multiple
+        // copies of the feature are visible, the popup appears
+        // over the copy being pointed to.
+        while (Math.abs(e.lngLat.lng - popupcoordinates[0]) > 180) {
+            popupcoordinates[0] += e.lngLat.lng > popupcoordinates[0] ? 360 : -360;
+            }
+
+        contentpopup
+            .setLngLat(popupcoordinates)
+            .setHTML(popupcontent)
+            .addTo(map);
+
+        
+
+        
 
     });
 
