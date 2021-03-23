@@ -556,8 +556,11 @@ map.on('load', function () {
             .setHTML(popuphtml())
             .addTo(map);
 
-
-
+            map.on('mouseleave', 'clusters', function () {
+                map.getCanvas().style.cursor = '';
+            });
+        
+        popup.closeButton = true;
 
 
     });
@@ -1339,7 +1342,7 @@ function WikidataApiRequestDetails() {
                 }
             }
             console.log(detailsPannelData);
-            contentpopup.setHTML(popuphtml())
+            popup.setHTML(popuphtml())
         }
 
     }
