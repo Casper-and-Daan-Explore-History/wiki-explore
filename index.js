@@ -551,7 +551,7 @@ map.on('load', function () {
             popupcoordinates[0] += e.lngLat.lng > popupcoordinates[0] ? 360 : -360;
         }
 
-        contentpopup
+        popup
             .setLngLat(popupcoordinates)
             .setHTML(popuphtml())
             .addTo(map);
