@@ -39,17 +39,17 @@ var detailsPannelData = {
 function hideAboutpanel() {
     document.getElementById("about").style.display = "none";
 }
-  
-  function openAboutpanel() {
+
+function openAboutpanel() {
     document.getElementById("about").style.display = "block";
 }
 
 function openHamburger() {
     document.getElementById("hamburgermenu").style.display = "block";
-  }
-  
+}
+
 function closeHamburger() {
-document.getElementById("hamburgermenu").style.display = "none";
+    document.getElementById("hamburgermenu").style.display = "none";
 }
 
 
@@ -538,7 +538,8 @@ map.on('load', function () {
             txt += popupdata[x] + " ";
         };
 
-        var popupcontent = '<h1 class="popuptitle">' + txt + '</h1>';
+        // var popupcontent = '<h1 class="popuptitle">' + txt + '</h1>';
+        var popupcontent = popuphtml();
 
         var popupcoordinates = e.features[0].geometry.coordinates.slice();
         console.log("text = " + txt)
@@ -548,16 +549,16 @@ map.on('load', function () {
         // over the copy being pointed to.
         while (Math.abs(e.lngLat.lng - popupcoordinates[0]) > 180) {
             popupcoordinates[0] += e.lngLat.lng > popupcoordinates[0] ? 360 : -360;
-            }
+        }
 
         contentpopup
             .setLngLat(popupcoordinates)
-            .setHTML(popupcontent)
+            .setHTML(popuphtml())
             .addTo(map);
 
-        
 
-        
+
+
 
     });
 
@@ -1338,6 +1339,7 @@ function WikidataApiRequestDetails() {
                 }
             }
             console.log(detailsPannelData);
+            contentpopup.setHTML(popuphtml())
         }
 
     }
@@ -1348,8 +1350,8 @@ function WikidataApiRequestDetails() {
 
 function bigNumberFormater(num) {
     // if (num >= 1000000000) {
-        // return (num / 1000000000).toFixed(0) + 'G';
-        // return (num / 1000000000).toFixed(1).replace(/\.0$/, '') + 'G';
+    // return (num / 1000000000).toFixed(0) + 'G';
+    // return (num / 1000000000).toFixed(1).replace(/\.0$/, '') + 'G';
     // }
     if (num >= 1000000) {
         return (num / 1000000).toFixed(0) + ' million';
@@ -1362,7 +1364,27 @@ function bigNumberFormater(num) {
     return num;
 }
 
+function popuphtml() {
+    var html = "";
+    html += "<table>";
+    var keys = Object.keys(detailsPannelData);
+    for (i in keys) {
+        html += "<tr><td>";
+        html += keys[i];
+        html += "</td><td>";
+        html += detailsPannelData[keys[i]];
+        html += "</td></tr>";
+    }
 
+    // <table>
+    //     <tr>
+    //         <td>Alfreds Futterkiste</td>
+    //         <td>Maria Anders</td>
+    //     </tr>
+    // </table>
+    console.log(html);
+    return html;
+}
 
 // on map movement queries: wikipedia API, Wikidata query, Wiki commons API (toggle for all 3)
 
