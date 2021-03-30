@@ -505,10 +505,10 @@ map.on('load', function () {
         // }
         // console.log(e);
     });
-    map.on('mouseleave', 'unclustered-point', function () {
-        map.getCanvas().style.cursor = '';
-        popup.remove();
-    });
+
+    // function hoverPopupOn(e) {}
+    // function hoverPopupOff(e) {}
+    map.on('mouseleave', 'unclustered-point', hoverPopupOff);
 
     // click
     map.on('click', function (e) { //cancel selection
@@ -551,6 +551,8 @@ map.on('load', function () {
             popupcoordinates[0] += e.lngLat.lng > popupcoordinates[0] ? 360 : -360;
         }
 
+        map.off('mouseleave', 'unclustered-point', hoverPopupOff);
+
         popup
             .setLngLat(popupcoordinates)
             .setHTML(popuphtml())
@@ -573,6 +575,14 @@ map.on('load', function () {
     });
 });
 
+
+function hoverPopupOn(e) { }
+function hoverPopupOff(e) {
+
+    map.getCanvas().style.cursor = '';
+    popup.remove();
+
+}
 
 // runQuery();
 function runQuery() {
