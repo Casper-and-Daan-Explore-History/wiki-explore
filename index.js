@@ -556,10 +556,11 @@ map.on('load', function () {
             .setHTML(popuphtml())
             .addTo(map);
 
-            map.on('mouseleave', 'clusters', function () {
-                map.getCanvas().style.cursor = '';
-            });
-        
+        map.on('mouseleave', 'clusters', function () {
+            map.getCanvas().style.cursor = '';
+            console.log("TEST")
+        });
+
         popup.closeButton = true;
 
 
