@@ -62,11 +62,6 @@ var map = new mapboxgl.Map({
     hash: true
 });
 
-var geocoder = new MapboxGeocoder({
-    accessToken: mapboxgl.accessToken
-});
-
-document.getElementById('geocoderWelcome').appendChild(geocoder.onAdd(map))
 
 // document.getElementById('geocoder').appendChild(geocoder.onAdd(map));
 
@@ -80,11 +75,6 @@ map.addControl(new mapboxgl.FullscreenControl(), 'bottom-right');
 // location search
 
 
-var geocoder2 = new MapboxGeocoder({
-    accessToken: mapboxgl.accessToken
-});
-
-document.getElementById('geocoderMap').appendChild(geocoder2.onAdd(map))
 
 // Add geolocate control to the map.
 // map.addControl(
@@ -146,7 +136,7 @@ function hideWelcomCoverPage() {
 }
 
 var popup = new mapboxgl.Popup({
-    closeButton: false,
+    closeButton: true,
     closeOnClick: false
 });
 
@@ -178,6 +168,21 @@ function flyTo(lon, lat, zoom) {
 map.on('load', function () {
     mapIsActive = true;
 
+
+
+    // adding geocoer search box one welkom screen
+    var geocoder = new MapboxGeocoder({
+        accessToken: mapboxgl.accessToken,
+        mapboxgl: mapboxgl
+    });
+    document.getElementById('geocoderWelcome').appendChild(geocoder.onAdd(map))
+
+    //adding geocoder
+    var geocoder2 = new MapboxGeocoder({
+        accessToken: mapboxgl.accessToken,
+        mapboxgl: mapboxgl
+    });
+    document.getElementById('geocoderMap').appendChild(geocoder2.onAdd(map))
 
 
 
@@ -479,94 +484,14 @@ map.on('load', function () {
     });
 
     // hover popup Wikipedia Layer
-    map.on('mouseenter', 'unclustered-point', function (e) {
-        var articleTitle = e.features[0].properties.title;
-        // if (ResultsObject[hoverdQID].imgthum != undefined) {
-        // var html = '<img src="' + ResultsObject[hoverdQID].imgthum + '" alt="' + ResultsObject[hoverdQID].label + '" class="popupImg">';
-        var html = '<h1 class="wikipediaHoverPopupTitle">' + articleTitle + '</h1>';
-
-
-        var coordinates = e.features[0].geometry.coordinates.slice();
-        // Ensure that if the map is zoomed out such that multiple
-        // copies of the feature are visible, the popup appears
-        // over the copy being pointed to.
-        while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
-            coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
-        }
-
-        popup
-            .setLngLat(coordinates)
-            .setHTML(html)
-            .addTo(map);
-
-        map.getCanvas().style.cursor = 'pointer';
-        // } else {
-        // var html = '<p class="popupText">No image</p>';
-        // }
-        // console.log(e);
-    });
-
-    // function hoverPopupOn(e) {}
-    // function hoverPopupOff(e) {}
+    map.on('mouseenter', 'unclustered-point', hoverPopupOn);
     map.on('mouseleave', 'unclustered-point', hoverPopupOff);
+    popup.on('close', popupClose);
 
     // click
-    map.on('click', function (e) { //cancel selection
-        // var lng = e.lngLat.lng;
-        // var lat = e.lngLat.lat;
-        // var zoom = 10;
-        // var gid = e.features[0].properties.gid;
-        // selectNew(undefined);
-    });
-    map.on('click', 'QnbrLayerIcon', function (e) { // select point and open "window"
-        // var lng = e.lngLat.lng;
-        // var lat = e.lngLat.lat;
-        // var zoom = 10;
-        // var gid = e.features[0].properties.gid;
-        // selectNew(e.features[0].properties.Qnbr);
-    });
+    map.on('click', function (e) { });
 
-    map.on('click', 'unclustered-point', function (e) { // select point and open "window"
-        // window.open(e.features[0].properties.url);
-        openDetailPannel(e.features[0].properties);
-
-        var x, txt = "";
-        var popupdata = e.features[0].properties;
-
-
-        for (x in popupdata) {
-            txt += popupdata[x] + " ";
-        };
-
-        // var popupcontent = '<h1 class="popuptitle">' + txt + '</h1>';
-        var popupcontent = popuphtml();
-
-        var popupcoordinates = e.features[0].geometry.coordinates.slice();
-        console.log("text = " + txt)
-
-        // Ensure that if the map is zoomed out such that multiple
-        // copies of the feature are visible, the popup appears
-        // over the copy being pointed to.
-        while (Math.abs(e.lngLat.lng - popupcoordinates[0]) > 180) {
-            popupcoordinates[0] += e.lngLat.lng > popupcoordinates[0] ? 360 : -360;
-        }
-
-        map.off('mouseleave', 'unclustered-point', hoverPopupOff);
-
-        popup
-            .setLngLat(popupcoordinates)
-            .setHTML(popuphtml())
-            .addTo(map);
-
-        map.on('mouseleave', 'clusters', function () {
-            map.getCanvas().style.cursor = '';
-            console.log("TEST")
-        });
-
-        popup.closeButton = true;
-
-
-    });
+    map.on('click', 'unclustered-point', popupOpen);
 
     // Map panning ends
     map.on('moveend', function () {
@@ -576,13 +501,61 @@ map.on('load', function () {
 });
 
 
-function hoverPopupOn(e) { }
+function hoverPopupOn(e) {
+
+    var articleTitle = e.features[0].properties.title;
+    // if (ResultsObject[hoverdQID].imgthum != undefined) {
+    // var html = '<img src="' + ResultsObject[hoverdQID].imgthum + '" alt="' + ResultsObject[hoverdQID].label + '" class="popupImg">';
+    var html = '<h1 class="wikipediaHoverPopupTitle">' + articleTitle + '</h1>';
+
+
+    var coordinates = e.features[0].geometry.coordinates.slice();
+    // Ensure that if the map is zoomed out such that multiple
+    // copies of the feature are visible, the popup appears
+    // over the copy being pointed to.
+    while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
+        coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
+    }
+
+    popup
+        .setLngLat(coordinates)
+        .setHTML(html)
+        .addTo(map);
+
+    map.getCanvas().style.cursor = 'pointer';
+    // } else {
+    // var html = '<p class="popupText">No image</p>';
+    // }
+    // console.log(e);
+
+}
+
 function hoverPopupOff(e) {
 
     map.getCanvas().style.cursor = '';
     popup.remove();
 
 }
+
+function popupOpen(e) {
+
+    map.off('mouseleave', 'unclustered-point', hoverPopupOff);
+
+    openDetailPannel(e.features[0].properties); //Starts API calls
+
+    popup
+        .setLngLat(e.features[0].geometry.coordinates.slice())
+        .setHTML(popuphtml())
+        .addTo(map);
+
+}
+
+function popupClose(e) {
+    map.on('mouseleave', 'unclustered-point', hoverPopupOff);
+}
+
+
+
 
 // runQuery();
 function runQuery() {
