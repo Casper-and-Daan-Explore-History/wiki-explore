@@ -72,7 +72,7 @@
         </div>
       </div>
 
-    <div class="WelcomeDiv w-100 mw-100 vh-100 cf overflow-hidden z-999 absolute top-0">
+    <div class="WelcomeDiv dn w-100 mw-100 vh-100 cf overflow-hidden z-999 absolute top-0">
         <div class="bgimage w-100 h-100">
             <div class="WelcomeDivContent2 w-60-l w-100 h-100 flex flex-column justify-between-l justify-center">
                 <div class="welcomeheader pa4-ns pa3">
@@ -123,106 +123,47 @@
     
     <div id="map" class="">
 
-            <div id="selectionContainer" class="absolute mv3 ml2-ns w-30-l w-50-m ml-25-m w-100 br3 shadow-5 flex flex-column" style="height:95vh">
-                <div class="absolute right-0 mt1 mr1 o-20" onclick="selectNew()">
-                    <img src="./img/close.svg" alt="Close" class="h2 shadow-hover pointer red">
-                </div>
-                <div id="selectionContainerHeader" class="mt4 mb2 ph4" style="flex-grow:0;"/>
-                    <h1 class="f3 mb0" id="slectedItemTitle">Title Placeholder</h1>
-                    <div class="lh-copy f6 dt--fixed w-100 mt3" id="">
-                        <p class="lh-copy dtc w-50 dtc" id="slectedItemCategory">Category</p>
-                    </div>
-                </div>
-
-                <div class="ph4 mb1 vh-10" id="selectionContainerSummary" style="flex-grow:0;">
-                    <p id="slectedItemDescription" class="lh-copy f6 mt0">No descrption added</p>
-                </div>
-
-                <div class="mw-100 vh-50 overflow-hidden" style="flex-grow:1;">
-                    <img id="" class="singleImgSelection w-100"
-                    src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e9/Chedworth_Roman_Villa_2012_-_North_bath_house.jpg/300px-Chedworth_Roman_Villa_2012_-_North_bath_house.jpg"
-                    alt="img">
-                </div>
-                <table id="selectionContainerLinks" class="w-100 mb0 bottomradius vh-25 bottom-1 pv3 ph4 overflow-hidden" style="flex-grow:0; min-height: 20%;">
-                    <tr id="wikipedialink" class="bluebackground pv2 bb b--white-70 highlight pointer disabled" onclick="openInNewWindow('wikipedia')">
-                        <td class="w-80"><a href="www.wikipedia.org" class="f6 lh-copy pv2 white link">Read more on Wikipedia</a></td>
-                        <td class="w-20"><svg class="fr" style="width:24px;height:24px;color:white;" viewBox="0 0 24 24"><path fill="currentColor" d="M21,4H3A2,2 0 0,0 1,6V19A2,2 0 0,0 3,21H21A2,2 0 0,0 23,19V6A2,2 0 0,0 21,4M3,19V6H11V19H3M21,19H13V6H21V19M14,9.5H20V11H14V9.5M14,12H20V13.5H14V12M14,14.5H20V16H14V14.5Z" /></svg></td>
-                    </tr>
-                    <tr id="wikidatalink" class="bluebackground pv2 ba bw5 b--white-70 pointer" onclick="openInNewWindow('wikidata')">
-                        <td class="w-80"><a href="www.wikidata.org" class="f6 lh-copy pv2 white link">Edit the original data on Wikidata</a></td>
-                        <td class="w-20"><svg class="fr" style="width:24px;height:24px;color:white;" viewBox="0 0 24 24"><path fill="currentColor" d="M2,6V8H14V6H2M2,10V12H14V10H2M20.04,10.13C19.9,10.13 19.76,10.19 19.65,10.3L18.65,11.3L20.7,13.35L21.7,12.35C21.92,12.14 21.92,11.79 21.7,11.58L20.42,10.3C20.31,10.19 20.18,10.13 20.04,10.13M18.07,11.88L12,17.94V20H14.06L20.12,13.93L18.07,11.88M2,14V16H10V14H2Z" /></svg></td>
-                    </tr>
-                    <tr id="wikipedialink" class="bluebackground pv2 bb b--white-70 highlight pointer" onclick="openInNewWindow('wikimedia')">
-                        <td class="w-80"><a href="www.wikipedia.org" class="f6 lh-copy pv2 white link">See the image on Wikimedia</a></td>
-                        <td class="w-20"><svg class="fr" style="width:24px;height:24px;color:white;" viewBox="0 0 24 24"><path fill="currentColor" d="M14,2L20,8V20A2,2 0 0,1 18,22H6A2,2 0 0,1 4,20V4A2,2 0 0,1 6,2H14M18,20V9H13V4H6V20H18M17,13V19H7L12,14L14,16M10,10.5A1.5,1.5 0 0,1 8.5,12A1.5,1.5 0 0,1 7,10.5A1.5,1.5 0 0,1 8.5,9A1.5,1.5 0 0,1 10,10.5Z" /></svg></td>
-                    </tr>
-                    <tr id="wikidatalink" class="bluebackground pv2 bb b--white-70 highlight pointer"  onclick="openInNewWindow('googleMaps')">
-                        <td class="w-80"><a href="www.wikidata.org" class="f6 lh-copy pv2 white link">See the location on Google Maps</a></td>
-                        <td class="w-20"><svg class="fr" style="width:24px;height:24px;color:white;" viewBox="0 0 24 24"><path fill="currentColor" d="M12,11.5A2.5,2.5 0 0,1 9.5,9A2.5,2.5 0 0,1 12,6.5A2.5,2.5 0 0,1 14.5,9A2.5,2.5 0 0,1 12,11.5M12,2A7,7 0 0,0 5,9C5,14.25 12,22 12,22C12,22 19,14.25 19,9A7,7 0 0,0 12,2Z" /></svg></td>
-                    </tr>
-                </table>
-            </div>
-
-            <!-- <div id="itemBottomPositioner" class="w-70 fixed z-99">
-                <div id="horisontalScrollcontainer"></div>
-            </div> -->
-
-            <!-- <div id="LeftBtnContainer">
-                <div id="webBtnsGal" class="vertical-center">
-                    <div id="wikidata" class="LeftPortrudingBtns" onclick="openInNewWindow('wikidata')" style="display: none;">
-                    </div>
-                    <div id="wikipedia" class="LeftPortrudingBtns" onclick="openInNewWindow('wikipedia')" style="display: none;"></div>
-                    <div id="commons" class="LeftPortrudingBtns" onclick="openInNewWindow('commonsGallery')"
-                        style="display: none;"></div>
-                    <div id="googleMaps" class="LeftPortrudingBtns" onclick="openInNewWindow('googleMaps')"></div>
-                    <div id="flickr" class="LeftPortrudingBtns" onclick="openInNewWindow('flickr')"></div>
-                    <div id="" class="LeftPortrudingBtns" onclick="openInNewWindow('wikishootme')"></div>
-                </div>
-            </div> -->
-
-            <!-- Gallery Vieuw -->
-            <!-- <div id="clickForClose" style="display: none;"></div>
-            <div id="galleryContainer" style="display: none;">
-                <div id="leftContainerGal" class="">
-                    <div class="leftInfoContainer">
-                        <h1 id="titelGal" class="zeroMarg">label of Q</h1>
-                        <h2 id="categoryGal" class="zeroMarg">instance of - test -castel</h2>
-                        <p id="descriptionGal" class="zeroMarg">This is a lot of text. This is a lot of text. This is a lot
-                            of text. This
-                            is a lot of text.</p>
-                        <span id="qnbrGal">
-                            Q82759301
-                        </span>
-                    </div>
-                    <div id="leftImgContainer" class="">
-                    </div>
-                </div>
-                <div id="rightContainer">
-                    <div id="rightpPhotoContainer" class="">
-                        <div class="bigImgPositionerGal vertical-center">
-                            <img class="bigImgGal" src="" alt=""> -->
-                            <!-- <a class="prev" onclick="plusSlides(-1)"></a> -->
-                            <!-- <a class="next" onclick="plusSlides(1)"></a> -->
-                            <!-- <span class="bigImgInfoTextGal" onclick="openInNewWindow('commons')">This image is form
-                                commons.wikimedia.org | copier right
-                                information | original
-                                file | different sizes | meta data</span>
-                        </div>
-                    </div>
-                    <div id="rightBtnContainer">
-                        <div id="closeGal" onclick="openGalleryVieuw(false)"></div>
-                        <div id="webBtnsGal" class="vertical-center">
-                            <div id="wikidata" class="rightPortrudingBtns" onclick="openInNewWindow('wikidata')"></div> -->
-                            <!-- <div id="wikipedia" class="rightPortrudingBtns" onclick="openInNewWindow('wikipedia')"></div> -->
-                            <!-- <div id="commons" class="rightPortrudingBtns" onclick="openInNewWindow('commonsGallery')"></div>
-                            <div id="googleMaps" class="rightPortrudingBtns" onclick="openInNewWindow('googleMaps')"></div>
-                            <div id="flickr" class="rightPortrudingBtns" onclick="openInNewWindow('flickr')"></div>
-                            <div id="" class="rightPortrudingBtns" onclick="openInNewWindow('wikishootme')"></div>
-                        </div>
-                    </div>
-                </div>
-            </div> -->
+    <div class="popup absolute w-30 z-9999 bg-white">
+        <div class="image">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/3/3a/Louvre_aile_Richelieu.jpg" alt="louvre">
         </div>
+        <div class="title">
+            <h1>The Louvre Palace</h1>
+        </div>
+        
+        <div class="description">
+            <p>Description</p>
+            <p>Inception</p>
+            <p>Height width length</p>
+            <p>visitors per year</p>
+            <p>Instance of label</p>
+        </div>
+
+        <div class="wiki-intro">
+            <p>Wiki intro</p>
+        </div>
+
+        <div class="wiki-links">
+            <p>Wikidata link</p>
+            <p>Wikipedia link</p>
+             <p>Wikicommons link</p>
+        </div>
+
+        <div class="google-links">
+            <p>Google search</p>
+            <p>Google maps</p>
+        </div>
+        <div class="social-links">
+            <p>Facebook - Instagram - Twitter - Youtube - Yelp - Foursquare - IMDB</p>
+        </div>
+        <div class="contactinfo">
+            <p>www.website.com</p>
+            <p>Email</p>
+            <p>Phone number</p>
+        </div>
+    </div>
+            
+    </div>
 
     <!-- Javascript file -->
     <script type="text/javascript" src="index.js"></script>
