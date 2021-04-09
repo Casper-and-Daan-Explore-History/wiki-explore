@@ -38,7 +38,7 @@
 
 </head>
 
-<body>
+<body onresize="hideInfopanel()">
     <div class="about absolute dn w-100 h-100 pa4-l z-9999 border-box cf lh-copy" id="about"> 
         <div class="aboutcontainer relative flex flex-row-l flex-column bg-white w-100 min-h-100 center cf v-mid">
           <div class="closebutton" onclick="hideAboutpanel()">
@@ -105,12 +105,12 @@
     </div>
 
 
-    <div class="w-100 db h3 absolute fixed z-3 top-0 flex flex-row-ns cf">
-        <div class="hamburgerclosed pa3 db dn-ns br3 ml2 mt3" onclick="openHamburger()">
+    <div class="w-third h3 absolute fixed z-5 top-0 flex flex-row-ns cf">
+        <!-- <div class="hamburgerclosed pa3 db dn-ns br3 ml2 mt3" onclick="openHamburger()">
             <img src="./img/hamburger.svg" alt="Menu" class="hamburgericon w2 h2">
-          </div>
-        <div id="geocoderMap" class="geocoder v-mid w-30-l w-50-m w-100 h4 mh2 z-1 mt3 w-100"></div>
-        <div class="Button aboutbutton bg-white dib-ns dn pv3 ph4 br3 mt3 tc z-1 v-mid" onclick="openAboutpanel()">About</div>
+          </div> -->
+        <div id="geocoderMap" class="geocoder v-mid w-100 mh2 mt3 w-100"></div>
+        <!-- <div class="Button aboutbutton bg-white dib-ns dn pv3 ph4 br3 mt3 tc v-mid" onclick="openAboutpanel()">About</div> -->
     </div>
   
     <div class="hamburger dn w-100 pa2 absolute min-h-100 z-999" id="hamburgermenu">
@@ -123,43 +123,48 @@
     
     <div id="map" class="">
 
-    <div class="popup absolute w-30 z-9999 bg-white">
+    <div class="info z-4 show w-third-l w-70-m left-33-l w-100">
+        <div class="closebutton" onclick="hideInfopanel()">
+            <img src="./img/close.svg" alt="Close" class="closeicon">
+        </div>
         <div class="image">
             <img src="https://upload.wikimedia.org/wikipedia/commons/3/3a/Louvre_aile_Richelieu.jpg" alt="louvre">
         </div>
-        <div class="title">
-            <h1>The Louvre Palace</h1>
-        </div>
-        
-        <div class="description">
-            <p>Description</p>
-            <p>Inception</p>
-            <p>Height width length</p>
-            <p>visitors per year</p>
-            <p>Instance of label</p>
-        </div>
+        <div class="ph3 overflow-y-scroll">
+            <div class="title">
+                <h1>The Louvre Palace</h1>
+            </div>
+            
+            <div class="description">
+                <p>Description</p>
+                <p>Inception</p>
+                <p>Height width length</p>
+                <p>visitors per year</p>
+                <p>Instance of label</p>
+            </div>
 
-        <div class="wiki-intro">
-            <p>Wiki intro</p>
-        </div>
+            <div class="wiki-intro">
+                <p>Wiki intro</p>
+            </div>
 
-        <div class="wiki-links">
-            <p>Wikidata link</p>
-            <p>Wikipedia link</p>
-             <p>Wikicommons link</p>
-        </div>
+            <div class="wiki-links">
+                <p>Wikidata link</p>
+                <p>Wikipedia link</p>
+                <p>Wikicommons link</p>
+            </div>
 
-        <div class="google-links">
-            <p>Google search</p>
-            <p>Google maps</p>
-        </div>
-        <div class="social-links">
-            <p>Facebook - Instagram - Twitter - Youtube - Yelp - Foursquare - IMDB</p>
-        </div>
-        <div class="contactinfo">
-            <p>www.website.com</p>
-            <p>Email</p>
-            <p>Phone number</p>
+            <div class="google-links">
+                <p>Google search</p>
+                <p>Google maps</p>
+            </div>
+            <div class="social-links">
+                <p>Facebook - Instagram - Twitter - Youtube - Yelp - Foursquare - IMDB</p>
+            </div>
+            <div class="contactinfo">
+                <p>www.website.com</p>
+                <p>Email</p>
+                <p>Phone number</p>
+            </div>
         </div>
     </div>
             
@@ -167,6 +172,7 @@
 
     <!-- Javascript file -->
     <script type="text/javascript" src="index.js"></script>
+    <script type="text/javascript" src="buttons.js"></script>
 
 </body>
 

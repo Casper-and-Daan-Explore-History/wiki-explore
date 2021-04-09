@@ -36,23 +36,6 @@ var detailsPannelData = {
 };
 
 
-function hideAboutpanel() {
-    document.getElementById("about").style.display = "none";
-}
-
-function openAboutpanel() {
-    document.getElementById("about").style.display = "block";
-}
-
-function openHamburger() {
-    document.getElementById("hamburgermenu").style.display = "block";
-}
-
-function closeHamburger() {
-    document.getElementById("hamburgermenu").style.display = "none";
-}
-
-
 mapboxgl.accessToken = 'pk.eyJ1IjoiY2Fza2VzIiwiYSI6ImNqYW1tNGdwdjN3MW8yeWp1cWNsaXZveDYifQ.MNpL7SYvoVgR4s_4ma5iyg';
 var map = new mapboxgl.Map({
     container: 'map', // container id
@@ -529,6 +512,8 @@ map.on('load', function () {
     map.on('click', 'unclustered-point', function (e) { // select point and open "window"
         // window.open(e.features[0].properties.url);
         openDetailPannel(e.features[0].properties);
+        showInfopanel();
+
 
         var x, txt = "";
         var popupdata = e.features[0].properties;
