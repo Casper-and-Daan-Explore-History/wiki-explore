@@ -176,7 +176,15 @@ p {
     display: none !important;
 }
 
-
+.closebuttondiv {
+    right: -30px;
+    top: 100px;
+    width: 30px;
+    height: 80px;
+    display : flex;
+    align-items : center;
+    box-shadow: 4px 0px 20px rgba(0, 0, 0, 0.2);
+}
 
 .hamburgerclosed {
     background-color: var(--white);
