@@ -283,6 +283,7 @@ map.on('load', function () {
         filter: ['!', ['has', 'point_count']],
         paint: {
             'circle-color': '#497983',
+            'circle-opacity':0.5,
             'circle-radius': 10,
             'circle-stroke-width': 1,
             'circle-stroke-color': '#fff'
@@ -332,7 +333,7 @@ map.on('load', function () {
     });
 
     map.on('contextmenu', 'clusters', function (e) {
-        
+
         var features = map.queryRenderedFeatures(e.point, { layers: ['clusters'] });
         var clusterId = features[0].properties.cluster_id,
             point_count = features[0].properties.point_count,
