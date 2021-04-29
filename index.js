@@ -135,9 +135,19 @@ function hideWelcomCoverPage() {
     }, 500);
 }
 
+var hoverPopup = new mapboxgl.Popup({
+    closeButton: false,
+    closeOnClick: true
+});
+
 var popup = new mapboxgl.Popup({
     closeButton: true,
-    closeOnClick: false
+    closeOnClick: true
+});
+
+var listPopup = new mapboxgl.Popup({
+    closeButton: true,
+    closeOnClick: true
 });
 
 var contentpopup = new mapboxgl.Popup({
@@ -237,18 +247,18 @@ map.on('load', function () {
                 'step',
                 ['get', 'point_count'],
                 '#51bbd6',
-                100,
+                10,
                 '#f1f075',
-                750,
+                25,
                 '#08415C'
             ],
             'circle-radius': [
                 'step',
                 ['get', 'point_count'],
                 20,
-                100,
+                10,
                 30,
-                750,
+                25,
                 40
             ]
         }
@@ -314,93 +324,31 @@ map.on('load', function () {
     // });
 
     map.on('mouseenter', 'clusters', function (e) {
-        var articleTitle = e.features[0].properties.title;
-        // if (ResultsObject[hoverdQID].imgthum != undefined) {
-        // var html = '<img src="' + ResultsObject[hoverdQID].imgthum + '" alt="' + ResultsObject[hoverdQID].label + '" class="popupImg">';
-        var html = '<h1 class="wikipediaHoverPopupTitle">' + articleTitle + '</h1>';
-
-
-        var coordinates = e.features[0].geometry.coordinates.slice();
-        // Ensure that if the map is zoomed out such that multiple
-        // copies of the feature are visible, the popup appears
-        // over the copy being pointed to.
-        while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
-            coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
-        }
-
-        popup
-            .setLngLat(coordinates)
-            .setHTML(html)
-            .addTo(map);
-
         map.getCanvas().style.cursor = 'pointer';
-        // } else {
-        // var html = '<p class="popupText">No image</p>';
-        // }
-        // console.log(e);
     });
+
     map.on('mouseleave', 'clusters', function () {
         map.getCanvas().style.cursor = '';
-        popup.remove();
     });
 
+    map.on('contextmenu', 'clusters', function (e) {
+        
+        var features = map.queryRenderedFeatures(e.point, { layers: ['clusters'] });
+        var clusterId = features[0].properties.cluster_id,
+            point_count = features[0].properties.point_count,
+            clusterSource = map.getSource(/* cluster layer data source id */'wikipediaSource');
 
+        // Get all points under a cluster
+        clusterSource.getClusterLeaves(clusterId, point_count, 0, function (err, aFeatures) {
+            var e = {};
+            e.features = aFeatures;
+            
+            openPopupListBelowClick(e);
+        })
 
+        // openPopupListBelowClick(e);
+    });
 
-
-
-
-
-    // map.addLayer({
-    //     "id": "QnbrLayer",
-    //     "type": "circle",
-    //     "source": "QnbrSource",
-    //     // "source-layer": "QnbrSource",
-    //     "layout": {},
-    //     "paint": {
-    //         'circle-radius': {
-    //             stops: [[8, 1], [11, 4], [16, 15]]
-    //         },
-    //         'circle-color': [
-    //             "match",
-    //             ["get", "cat"],
-    //             ["Architectural"],
-    //             "#D08770",
-    //             ["Event"],
-    //             "#BF616A",
-    //             "#EBCB8B"
-    //         ],
-    //         'circle-stroke-width': 1,
-    //         'circle-stroke-color': '#000000',
-    //         'circle-stroke-opacity': 0.2,
-    //     }
-    // });
-
-
-
-
-    // map.loadImage(
-    //        'https://casper-and-daan-explore-history.github.io/wiki-battle-map/img/architecture_small.png',
-    //        function (error, image) {
-    //            if (error) throw error;
-    //            map.addImage('archi', image);
-    //            map.loadImage(
-    //                'https://casper-and-daan-explore-history.github.io/wiki-battle-map/img/event.png',
-    //                function (error, image) {
-    //                    if (error) throw error;
-    //                    map.addImage('event', image);
-    //                    map.loadImage(
-    //                        'https://casper-and-daan-explore-history.github.io/wiki-battle-map/img/other.png',
-    //                        function (error, image) {
-    //                            if (error) throw error;
-    //                            map.addImage('other', image);
-    //                            addLayerWithIcons() // All images are now loaded, add layer that uses the images
-    //                        }
-    //                    );
-    //                }
-    //            );
-    //        }
-    //    );
     map.loadImage(
         'https://casper-and-daan-explore-history.github.io/wiki-battle-map/img/architecture_small.png',
         function (error, image) {
@@ -467,7 +415,7 @@ map.on('load', function () {
         var hoverdQID = e.features[0].properties.Qnbr;
         if (ResultsObject[hoverdQID].imgthum != undefined) {
             var html = '<img src="' + ResultsObject[hoverdQID].imgthum + '" alt="' + ResultsObject[hoverdQID].label + '" class="popupImg">';
-            popup
+            hoverPopup
                 .setLngLat(e.lngLat)
                 .setHTML(html)
                 .addTo(map);
@@ -480,13 +428,12 @@ map.on('load', function () {
     });
     map.on('mouseleave', 'QnbrLayerIcon', function () {
         map.getCanvas().style.cursor = '';
-        popup.remove();
+        hoverPopup.remove();
     });
 
     // hover popup Wikipedia Layer
-    map.on('mouseenter', 'unclustered-point', hoverPopupOn);
+    map.on('mousemove', 'unclustered-point', hoverPopupOn);
     map.on('mouseleave', 'unclustered-point', hoverPopupOff);
-    popup.on('close', popupClose);
 
     // click
     map.on('click', function (e) { });
@@ -503,11 +450,13 @@ map.on('load', function () {
 
 function hoverPopupOn(e) {
 
-    var articleTitle = e.features[0].properties.title;
-    // if (ResultsObject[hoverdQID].imgthum != undefined) {
-    // var html = '<img src="' + ResultsObject[hoverdQID].imgthum + '" alt="' + ResultsObject[hoverdQID].label + '" class="popupImg">';
-    var html = '<h1 class="wikipediaHoverPopupTitle">' + articleTitle + '</h1>';
 
+    if (e.features.length == 1) {
+        var articleTitle = e.features[0].properties.title;
+        var html = '<h1 class="wikipediaHoverPopupTitle">' + articleTitle + '</h1>';
+    } else if (e.features.length > 1) {
+        var html = '<h1 class="wikipediaHoverPopupTitle">' + e.features.length + " articles." + '</h1>'
+    }
 
     var coordinates = e.features[0].geometry.coordinates.slice();
     // Ensure that if the map is zoomed out such that multiple
@@ -517,29 +466,34 @@ function hoverPopupOn(e) {
         coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
     }
 
-    popup
+    hoverPopup
         .setLngLat(coordinates)
         .setHTML(html)
         .addTo(map);
 
-    map.getCanvas().style.cursor = 'pointer';
-    // } else {
-    // var html = '<p class="popupText">No image</p>';
-    // }
-    // console.log(e);
+    $(".mapboxgl-popup-content").css({
+        "background": "transparent",
+        "padding": "0"
+    })
 
+    map.getCanvas().style.cursor = 'pointer';
 }
 
 function hoverPopupOff(e) {
 
     map.getCanvas().style.cursor = '';
-    popup.remove();
+    hoverPopup.remove();
 
 }
 
 function popupOpen(e) {
+    console.log(e.features)
+    if (e.features.length > 1) {
+        openPopupListBelowClick(e);
+        return
+    }
 
-    map.off('mouseleave', 'unclustered-point', hoverPopupOff);
+    // map.off('mouseleave', 'unclustered-point', hoverPopupOff);
 
     openDetailPannel(e.features[0].properties); //Starts API calls
 
@@ -550,8 +504,46 @@ function popupOpen(e) {
 
 }
 
-function popupClose(e) {
-    map.on('mouseleave', 'unclustered-point', hoverPopupOff);
+function openPopupListBelowClick(e) {
+    console.log("list")
+    console.log(e)
+
+    var listData = e.features; // local save of map data for click events that accure alter.
+
+    var html = '';
+    html += '<ul class="articleDropdown">'; //start of list
+
+    for (i in e.features) { // for every list element
+        html += '<li ';
+        html += 'id="';
+        html += e.features[i].properties.title.replace(/[^a-z0-9]/gi, ''); // assign an css #id. make sure the #id is simple clean text
+        html += '">';
+        html += e.features[i].properties.title; // add title
+        html += '</li>';
+    }
+
+    html += '</ul>'; // end of lsit
+
+    // initiate list popup
+    listPopup
+        .setLngLat(e.features[0].geometry.coordinates.slice())
+        .setHTML(html)
+        .addTo(map);
+
+
+    for (i in e.features) { // bind click events to list elements
+        $("#" + e.features[i].properties.title.replace(/[^a-z0-9]/gi, '')) // use the same formating for the #id
+            .click(function () {
+                openDetailPannel(listData[i].properties);
+                listPopup.remove();
+            })
+    }
+
+    // hide standard Mapbox popup CSS
+    $(".mapboxgl-popup-content").has(".articleDropdown").css({
+        "background": "transparent",
+        "padding": "0"
+    })
 }
 
 
@@ -1035,7 +1027,7 @@ function openDetailPannel(selectionInfo) {
         "wikipedia_ApiOngoing": false,   // current status of API resquest
         "wikimedia_ApiOngoing": false,   // current status of API resquest
         "wikidata_ApiOngoing": false,    // current status of API resquest
-        "wikipedia_QueryDone": false,     // Data collection status
+        "wikipedia_QueryDone": false,    // Data collection status
         "wikimedia_QueryDone": false,    // Data collection status
         "wikidata_QueryDone": false      // Data collection status
     };
