@@ -539,10 +539,11 @@ function openPopupListBelowClick(e) {
             .attr("data-list-nbr",i)
             .click(function () {
                 var listNbr = $(this).attr("data-list-nbr")
+                listNbr = Number(listNbr);
                 console.log("List data binded to butons");
-                console.log(listNbr);
-                console.log(clickedListDataGlobalStorage[listNbr].properties);
-                openDetailPannel(clickedListDataGlobalStorage[listNbr].properties);
+                console.log(clickedListDataGlobalStorage[listNbr]);
+                console.log(clickedListDataGlobalStorage[listNbr]);
+                openDetailPannel(clickedListDataGlobalStorage[listNbr]);
                 listPopup.remove();
             })
     }
