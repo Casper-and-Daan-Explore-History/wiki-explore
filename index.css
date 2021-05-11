@@ -197,6 +197,46 @@ p {
     margin-top: 0px;
 }
 
+.square {
+    width: 75px;
+    height: 50px;
+    justify-content: center;
+    align-items: center;
+}
+
+.wide {
+    flex-direction: row;
+    align-items: center;
+    height: 50px;
+}
+
+.wide img {
+    object-fit: cover;
+    max-width: 20%;
+    max-height: 90%;
+    width: auto;
+    height: auto;
+}
+
+.wide p{
+    margin-left: 10px;
+}
+
+.linkbutton {
+    box-shadow: 0 0 10px 2px rgba(0, 0, 0, .1);
+    border-radius: 3px;
+    text-align: center;
+    display: flex;
+    padding: 5px;
+    word-wrap: break-word;
+    cursor: pointer;
+}
+
+.linkbutton:hover {
+    box-shadow: 0 0 10px 2px rgba(0, 0, 0, .2);
+    background-color:#f7f7f7;
+}
+
 .hamburgerclosed {
     background-color: var(--white);
     cursor: pointer;
