@@ -451,33 +451,30 @@ map.on('load', function () {
 
 function hoverPopupOn(e) {
 
-
-    if (e.features.length == 1) {
-        var articleTitle = e.features[0].properties.title;
-        var html = '<h1 class="wikipediaHoverPopupTitle">' + articleTitle + '</h1>';
-    } else if (e.features.length > 1) {
-        var html = '<h1 class="wikipediaHoverPopupTitle">' + e.features.length + " articles." + '</h1>'
+    if (e.features.length == 1) {// one article
+        var articleTitle = e.features[0].properties.title;  // getting article title
+        var html = '<ul class="articleDropdown"><li id="">' + articleTitle + '</li></ul>'; // generate html for one article using artile title
+    } else if (e.features.length > 1) {// mor than one article
+        var html = '<ul class="articleDropdown"><li id="">' + e.features.length + " articles." + '</li></ul>'; // generating html for  more than one article uusing the number of articles as a title.
     }
 
-    var coordinates = e.features[0].geometry.coordinates.slice();
-    // Ensure that if the map is zoomed out such that multiple
-    // copies of the feature are visible, the popup appears
-    // over the copy being pointed to.
-    while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
+    var coordinates = e.features[0].geometry.coordinates.slice(); // latLng to place popup
+    
+    while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) { // avoid missplacinf popup on zomed out world where some part of the mercato projection is visible twice.
         coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
     }
 
-    hoverPopup
+    hoverPopup //popup simple name of article or number of articles under mouse
         .setLngLat(coordinates)
         .setHTML(html)
         .addTo(map);
 
-    $(".mapboxgl-popup-content").css({
+    $(".mapboxgl-popup-content").css({ // styling popup
         "background": "transparent",
         "padding": "0"
     })
 
-    map.getCanvas().style.cursor = 'pointer';
+    map.getCanvas().style.cursor = 'pointer'; // changing mouse signaling the posibility to click
 }
 
 function hoverPopupOff(e) {
@@ -498,10 +495,10 @@ function popupOpen(e) {
 
     openDetailPannel(e.features[0].properties); //Starts API calls
 
-    popup
-        .setLngLat(e.features[0].geometry.coordinates.slice())
-        .setHTML(popuphtml())
-        .addTo(map);
+    // popup
+    //     .setLngLat(e.features[0].geometry.coordinates.slice())
+    //     .setHTML(popuphtml())
+    //     .addTo(map);
 
 }
 
@@ -1033,16 +1030,12 @@ function openDetailPannel(selectionInfo) {
         "wikidata_QueryDone": false      // Data collection status
     };
 
-
-    detailsPannelData.Map_title = selectionInfo.title;
-    detailsPannelData.wikipediaID = selectionInfo.pageId;
-    detailsPannelData.Map_lonLat = selectionInfo.lonLat;
+    detailsPannelData.Map_title = selectionInfo.title; // title
+    detailsPannelData.wikipediaID = selectionInfo.pageId; // pageId
+    detailsPannelData.Map_lonLat = selectionInfo.lonLat; // "lonLat": [value.lon, value.lat]
 
     WikipediaApiRequestDetails(detailsPannelData.wikipediaID);
-
-    // pageId
-    // title
-    // "lonLat": [value.lon, value.lat]
+    $("#article-title").text(detailsPannelData.Map_title);
 }
 
 
@@ -1373,4 +1366,4 @@ function popuphtml() {
     // audio, visitors per year, height, area, Google Maps Customer ID, Insta Location, Mapillary ID, Facebook ID, Freebase ID (Google Search), Instagram username, Twitter username
 // extra LonLat: Google maps link, Bing maps, WikiShootMe
 // extra form commons: photo album, hi qualit images, image locator tool
-// options: see images arround this location
+// options: see images arround this location 
