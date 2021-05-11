@@ -1035,7 +1035,7 @@ function openDetailPannel(selectionInfo) {
     detailsPannelData.Map_lonLat = selectionInfo.lonLat; // "lonLat": [value.lon, value.lat]
 
     WikipediaApiRequestDetails(detailsPannelData.wikipediaID);
-    
+    $("#article-title").text(detailsPannelData.Map_title);
 }
 
 
