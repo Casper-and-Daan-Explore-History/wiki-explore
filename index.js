@@ -485,7 +485,7 @@ function hoverPopupOff(e) {
 }
 
 function popupOpen(e) {
-    console.log(e.features)
+    //console.log(e.features)
     if (e.features.length > 1) {
         openPopupListBelowClick(e);
         return
@@ -505,8 +505,8 @@ function popupOpen(e) {
 var clickedListDataGlobalStorage;
 
 function openPopupListBelowClick(e) {
-    console.log("list")
-    console.log(e)
+    //console.log("list")
+    //console.log(e)
 
     var listData = e.features; // local save of map data for click events that accure alter.
 
@@ -540,9 +540,9 @@ function openPopupListBelowClick(e) {
             .click(function () {
                 var listNbr = $(this).attr("data-list-nbr")
                 listNbr = Number(listNbr);
-                console.log("List data binded to butons");
-                console.log(clickedListDataGlobalStorage[listNbr]);
-                console.log(clickedListDataGlobalStorage[listNbr]);
+                //console.log("List data binded to butons");
+                //console.log(clickedListDataGlobalStorage[listNbr]);
+                //console.log(clickedListDataGlobalStorage[listNbr]);
                 openDetailPannel(clickedListDataGlobalStorage[listNbr]);
                 listPopup.remove();
             })
@@ -673,9 +673,9 @@ function processQueryResults(data) {
     allQnbrs = Object.keys(ResultsObject);
 
 
-    console.log(ResultsObject);
+    //console.log(ResultsObject);
     // console.log(resultsFromQuery);
-    console.log("@1");
+    //console.log("@1");
     buildGeojsonFromQueryResults();
 }
 
@@ -718,20 +718,20 @@ function buildResultsObject(result) {
 
 // Processing - Data from wikidata to Geojson
 function buildGeojsonFromQueryResults() {
-    console.log("@2");
+    //console.log("@2");
     QnbrGeojson.features = [];
     for (i in allQnbrs) {
         addPointToQnbrGeojson(ResultsObject[allQnbrs[i]].geo, ResultsObject[allQnbrs[i]].qnumber, ResultsObject[allQnbrs[i]].categorie)
     }
     if (mapIsActive) {
-        console.log("@3");
+        //console.log("@3");
         map.getSource('QnbrSource').setData(QnbrGeojson);
         $("#loadingBox").hide();
         setTimeout(function () {
             buildAllVisibleItems()
         }, 500);
     } else {
-        console.log("@4");
+        //console.log("@4");
         map.on('load', function () {
             map.getSource('QnbrSource').setData(QnbrGeojson);
             $("#loadingBox").hide();
@@ -836,7 +836,7 @@ function getCommonsCategoryImgs(pageTitle, Qdestination, vieuwDestination) {
 
 // Processing Commons images
 function resultsFromCommonsReady(Q, vieuwDestination) {
-    console.log(ResultsObject[Q]);
+    //console.log(ResultsObject[Q]);
     switch (vieuwDestination) {
         case "gallery":
             populateGalleryVieuw(Q);
@@ -892,7 +892,7 @@ function openInNewWindow(url) {
             console.log("no url recognised")
             break;
     }
-    console.log("open: " + url)
+    //console.log("open: " + url)
     window.open(url); //This will open the url in a new window.
 }
 
@@ -906,11 +906,11 @@ function selectNew(Q) {
         $("#slideshow-container").hide();
         $("#wikidata").hide();
         $("#commons").hide();
-        console.log("unselected");
+        //console.log("unselected");
     } else {
         var data = ResultsObject[Q]
         selectedQ = Q;
-        console.log("selected" + Q);
+        //console.log("selected" + Q);
 
         $("#wikidata").show();
         $("#commons").show();
@@ -1032,8 +1032,8 @@ function updateWikipediaGeojsonSource() {
 
 
 function openDetailPannel(selectionInfo) {
-    console.log("This is selected:");
-    console.log(selectionInfo);
+    //console.log("This is selected:");
+    //console.log(selectionInfo);
     detailsPannelData = {
         "wikipedia_ApiOngoing": false,   // current status of API resquest
         "wikimedia_ApiOngoing": false,   // current status of API resquest
@@ -1084,11 +1084,11 @@ function parseJSONResponseDetails(jsonData) {
     }
 
     detailsPannelData.wikipedia_ApiOngoing = false; // change status to no API call ongoing.
-    console.log(detailsPannelData);
+    //console.log(detailsPannelData);
 
     // If new Qnumber, and no data jet, then get Wikidata data:
     if (!detailsPannelData.wikidata_ApiOngoing && !detailsPannelData.wikidata_QueryDone && detailsPannelData.Qnumber != undefined) {
-        console.log("should call Wikidata API");
+        //console.log("should call Wikidata API");
         WikidataApiRequestDetails()
     }
 
@@ -1175,7 +1175,7 @@ function WikidataApiRequestDetails() {
 
     makeSPARQLQuery(endpointUrl, sparqlQuery, function (data) {
         $('body').append($('<pre>').text(JSON.stringify(data)));
-        console.log(data.results.bindings);
+        //console.log(data.results.bindings);
         WikidataApiResultsProcessingDetails(data.results.bindings)
     }
     );
@@ -1196,7 +1196,7 @@ function WikidataApiRequestDetails() {
                     }
                 }
             }
-            console.log(gatherdResults);
+            //console.log(gatherdResults);
             makeResultsUsefull(gatherdResults)
         }
 
@@ -1325,8 +1325,9 @@ function WikidataApiRequestDetails() {
                     }
                 }
             }
-            console.log(detailsPannelData);
-            popup.setHTML(popuphtml())
+            //console.log(detailsPannelData);
+            // popup.setHTML(popuphtml())
+            updateDetailsPannel()
         }
 
     }
@@ -1375,24 +1376,50 @@ function popuphtml() {
 
 
 function updateDetailsPannel() {
+    console.log(detailsPannelData);
     $("#article-title").text(detailsPannelData.Map_title);
     $("#article-intro").html(detailsPannelData.wikipedia_Intro);
-    if (detailsPannelData.Wikidata_inception != undefined) {
-        $("#article-year").text(detailsPannelData.Wikidata_inception);
-    } else {
-        $("#article-year").text("unknown");
-    } 
-    
+    $("#article-year").text(formatingInseption());
     $("#article-image").attr("src",detailsPannelData.wikipedia_ImgUrl);
-    $("#article-title").text(detailsPannelData.Map_title);
-    $("#article-title").text(detailsPannelData.Map_title);
-    $("#article-title").text(detailsPannelData.Map_title);
-    $("#article-title").text(detailsPannelData.Map_title);
-    $("#article-title").text(detailsPannelData.Map_title);
-    $("#article-title").text(detailsPannelData.Map_title);
-    $("#article-title").text(detailsPannelData.Map_title);
-    $("#article-title").text(detailsPannelData.Map_title);
+    $("#article-image").attr("alt",detailsPannelData.wikipedia_ImgTitle);
+    $("#article-description").html(detailsPannelData.Wikidata_itemDescription);
+    $("#article-visitors").text(formatingVisitors ());
+    $("#article-instance-of").html(formatingInstanceOfList());
+    $("#article-wikidata").attr("href",detailsPannelData.Wikidata_item);
+    $("#article-wikipedia").attr("href",detailsPannelData.Wikidata_WikipediaLink);
+    $("#article-wikicommons").attr("href",detailsPannelData.Wikidata_CommonsCategory);
+    $("#article-google-search").attr("href",detailsPannelData.Wikidata_FreebaseIdGoogleSearch);
+    $("#article-google-maps").attr("href",detailsPannelData.Wikidata_GoogleMapsCustomerId);
     // detailsPannelData
+
+
+    function formatingInseption() {
+        var value = "-";
+        if (detailsPannelData.Wikidata_inception != undefined) {
+            value = detailsPannelData.Wikidata_inception;
+        }
+        return value;
+    }
+    function formatingVisitors() {
+        var visitors = "-";
+        if (detailsPannelData.Wikidata_visitorsPerYear != undefined) {
+            var visitorsString = detailsPannelData.Wikidata_visitorsPerYear.toString() 
+            visitors = visitorsString.replace("visitors per year", " ");
+        }
+        return visitors;
+    }
+
+    function formatingInstanceOfList() {
+        var string = "";
+        var array = detailsPannelData.Wikidata_instanceOfLabel;
+        for (i in array) {
+            string += array[i]
+            if (i < array.length - 1) {
+                string += ", "
+            }
+        }
+        return string
+    }
 }
 // on map movement queries: wikipedia API, Wikidata query, Wiki commons API (toggle for all 3)
 

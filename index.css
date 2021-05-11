@@ -278,7 +278,7 @@ p {
 
 /* List popup styling START */
 
-.articleDropdown, ul {
+.articleDropdown {
     margin: 0;
     padding: 0;
     background: #fff;
@@ -300,12 +300,13 @@ p {
     border-top: 1px solid #ddd;
 }
 
+
 .articleDropdown li:hover{
     background: rgb(235, 235, 235);
     cursor: pointer;
 }
 
-.articleDropdown, ul li:first-child {
+.articleDropdown li:first-child {
     border-top: none;
 }
 
