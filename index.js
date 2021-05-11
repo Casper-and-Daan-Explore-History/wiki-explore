@@ -502,6 +502,8 @@ function popupOpen(e) {
 
 }
 
+var clickedListDataGlobalStorage;
+
 function openPopupListBelowClick(e) {
     console.log("list")
     console.log(e)
@@ -528,11 +530,19 @@ function openPopupListBelowClick(e) {
         .setHTML(html)
         .addTo(map);
 
-
+    clickedListDataGlobalStorage = [];
     for (i in e.features) { // bind click events to list elements
+        clickedListDataGlobalStorage[i] = listData[i].properties
+
+
         $("#" + e.features[i].properties.title.replace(/[^a-z0-9]/gi, '')) // use the same formating for the #id
+            .attr("data-list-nbr",i)
             .click(function () {
-                openDetailPannel(listData[i].properties);
+                var listNbr = $(this).attr("data-list-nbr")
+                console.log("List data binded to butons");
+                console.log(listNbr);
+                console.log(clickedListDataGlobalStorage[listNbr].properties);
+                openDetailPannel(clickedListDataGlobalStorage[listNbr].properties);
                 listPopup.remove();
             })
     }
@@ -1021,6 +1031,8 @@ function updateWikipediaGeojsonSource() {
 
 
 function openDetailPannel(selectionInfo) {
+    console.log("This is selected:");
+    console.log(selectionInfo);
     detailsPannelData = {
         "wikipedia_ApiOngoing": false,   // current status of API resquest
         "wikimedia_ApiOngoing": false,   // current status of API resquest
@@ -1035,7 +1047,6 @@ function openDetailPannel(selectionInfo) {
     detailsPannelData.Map_lonLat = selectionInfo.lonLat; // "lonLat": [value.lon, value.lat]
 
     WikipediaApiRequestDetails(detailsPannelData.wikipediaID);
-    $("#article-title").text(detailsPannelData.Map_title);
 }
 
 
@@ -1079,6 +1090,8 @@ function parseJSONResponseDetails(jsonData) {
         console.log("should call Wikidata API");
         WikidataApiRequestDetails()
     }
+
+    updateDetailsPannel();
 }
 
 function WikidataApiRequestDetails() {
@@ -1355,10 +1368,31 @@ function popuphtml() {
     //         <td>Maria Anders</td>
     //     </tr>
     // </table>
-    console.log(html);
+    // console.log(html);
     return html;
 }
 
+
+function updateDetailsPannel() {
+    $("#article-title").text(detailsPannelData.Map_title);
+    $("#article-intro").html(detailsPannelData.wikipedia_Intro);
+    if (detailsPannelData.Wikidata_inception != undefined) {
+        $("#article-year").text(detailsPannelData.Wikidata_inception);
+    } else {
+        $("#article-year").text("unknown");
+    } 
+    
+    $("#article-image").attr("src",detailsPannelData.wikipedia_ImgUrl);
+    $("#article-title").text(detailsPannelData.Map_title);
+    $("#article-title").text(detailsPannelData.Map_title);
+    $("#article-title").text(detailsPannelData.Map_title);
+    $("#article-title").text(detailsPannelData.Map_title);
+    $("#article-title").text(detailsPannelData.Map_title);
+    $("#article-title").text(detailsPannelData.Map_title);
+    $("#article-title").text(detailsPannelData.Map_title);
+    $("#article-title").text(detailsPannelData.Map_title);
+    // detailsPannelData
+}
 // on map movement queries: wikipedia API, Wikidata query, Wiki commons API (toggle for all 3)
 
 // plaatje, title, intro, Wikipedia link, Wikidata link, mini discription, (list of related categories: quality?)
