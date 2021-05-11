@@ -454,10 +454,13 @@ function hoverPopupOn(e) {
 
     if (e.features.length == 1) {
         var articleTitle = e.features[0].properties.title;
-        var html = '<h1 class="wikipediaHoverPopupTitle">' + articleTitle + '</h1>';
+        var html = '<ul class="articleDropdown"><li id="">' + articleTitle + '</li></ul>';
     } else if (e.features.length > 1) {
-        var html = '<h1 class="wikipediaHoverPopupTitle">' + e.features.length + " articles." + '</h1>'
+        var html = '<ul class="articleDropdown"><li id="">' + e.features.length + " articles." + '</li></ul>';
     }
+
+
+    // '<ul class="articleDropdown"><li id=""></li></ul>'
 
     var coordinates = e.features[0].geometry.coordinates.slice();
     // Ensure that if the map is zoomed out such that multiple
@@ -1373,4 +1376,4 @@ function popuphtml() {
     // audio, visitors per year, height, area, Google Maps Customer ID, Insta Location, Mapillary ID, Facebook ID, Freebase ID (Google Search), Instagram username, Twitter username
 // extra LonLat: Google maps link, Bing maps, WikiShootMe
 // extra form commons: photo album, hi qualit images, image locator tool
-// options: see images arround this location
+// options: see images arround this location 
