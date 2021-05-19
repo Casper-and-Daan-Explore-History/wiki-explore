@@ -103,15 +103,6 @@
     <div id="loadingBox" class="loadingBox">
         <h1 class="ma0 ">Loading content from wikidata...</h1>
     </div>
-
-
-    <div class="w-third h3 absolute fixed z-5 top-0 flex flex-row-ns cf">
-        <!-- <div class="hamburgerclosed pa3 db dn-ns br3 ml2 mt3" onclick="openHamburger()">
-            <img src="./img/hamburger.svg" alt="Menu" class="hamburgericon w2 h2">
-          </div> -->
-        <div id="geocoderMap" class="geocoder v-mid w-100 mh2 mt3 w-100"></div>
-        <!-- <div class="Button aboutbutton bg-white dib-ns dn pv3 ph4 br3 mt3 tc v-mid" onclick="openAboutpanel()">About</div> -->
-    </div>
   
     <div class="hamburger dn w-100 pa2 absolute min-h-100 z-999" id="hamburgermenu">
     <div class="closebutton" onclick="closeHamburger()">
@@ -124,107 +115,112 @@
     <div id="map" class="">
 
     <div class="info z-4 show w-third-l w-70-m left-33-l w-100">
+        <div id="geocoderMap" class="geocoder v-mid w-100 w-100"></div>
+
+        
         <div class="closebuttondiv dn flex-ns absolute bg-white pointer" onclick="hideInfopanel()">
             <img src="./img/close.svg" alt="Close" class="closeicon">
         </div>
         <div class="closebutton" onclick="hideInfopanel()">
             <img src="./img/close.svg" alt="Close" class="closeicon">
         </div>
-        <div class="image">
-            <img id="article-image" src="https://upload.wikimedia.org/wikipedia/commons/3/3a/Louvre_aile_Richelieu.jpg" alt="louvre">
-        </div>
-        <div class="ph3 overflow-y-scroll">
-            <div class="title">
-                <h1 id="article-title">The Louvre Palace</h1>
+        <div class="overflow-y-scroll">
+            <div class="article-image">
+                <img id="article-image" src="https://upload.wikimedia.org/wikipedia/commons/3/3a/Louvre_aile_Richelieu.jpg" alt="louvre">
             </div>
+            <div class="ph3">
+                <div class="title">
+                    <h1 id="article-title">The Louvre Palace</h1>
+                </div>
 
-            <div class="category">
-                <p id="article-description">Museum of the decorative arts and design located in the Louvre's northwest wing</p>
-            </div>
+                <div class="category">
+                    <p id="article-description">Museum of the decorative arts and design located in the Louvre's northwest wing</p>
+                </div>
+                
+                <div class="description w-100 flex flex-row mb3">
+                    <div class="w-25">
+                        <p class="label">Year</p>
+                        <p class="item" id="article-year">1905</p>
+                    </div>
+                    <div class="w-25">
+                        <p class="label">Dimension</p>
+                        <p class="item">-</p>
+                    </div>
+                    <div class="w-25">
+                        <p class="label">Yearly visitors</p>
+                        <p class="item" id="article-visitors">870 000</p>
+                    </div>
+                    <div class="w-25">
+                        <p class="label">Instance of</p>
+                        <p class="item" id="article-instance-of">art museum</p>
+                    </div>
+                </div>
+
+                
+
+                <div class="wiki-intro">
+                    <hr>
+                        <p class="pv4" id="article-intro">The Musée des Arts Décoratifs (Museum of Decorative Arts) is a museum dedicated to the exhibition and preservation of the decorative arts. Located at 107 Rue de Rivoli in the city’s 1st arrondissement, the museum occupies the most north-western wing of the Palais du Louvre, known as the Pavillon de Marsan (Marsan Pavilion).  With over one million objects in its collection, the Musée des Arts Décoratifs is the largest museum of decorative arts in continental Europe.</p>
+                    <hr>
+                </div>
+
             
-            <div class="description w-100 flex flex-row mb3">
-                <div class="w-25">
-                    <p class="label">Year</p>
-                    <p class="item" id="article-year">1905</p>
+                <div class="wikigoogle-links w-100 flex flew-row mb4">
+                    <div class="wikilinks w-50 mr2 flex flex-column">
+                        <a id="article-wikidata" class="linkbutton wide mb2" target="_blank">
+                            <img src="./img/wikidata.png">
+                            <p>Wikidata</p>
+                        </a>
+                        <a id="article-wikipedia" class="linkbutton wide mb2" target="_blank">
+                            <img src="./img/wikipedia.png">
+                            <p>Wikipedia</p>
+                        </a>
+                        <a id="article-wikicommons" class="linkbutton wide" target="_blank">
+                            <img src="./img/wikimedia.png">
+                            <p>wikicommons</p>
+                        </a>
+                    </div>
+                    <div class="googlelinks ml2 w-50 flex flex-column">
+                        <a id="article-google-search" class="linkbutton wide mb2" target="_blank">
+                            <img src="./img/googlesearch.png">
+                            <p>Search</p>
+                        </a>
+                        <a id="article-google-maps" class="linkbutton wide">
+                            <img src="./img/googlemaps.png">
+                            <p>Maps</p>
+                        </a>
+                    </div>
                 </div>
-                <div class="w-25">
-                    <p class="label">Dimension</p>
-                    <p class="item">-</p>
-                </div>
-                <div class="w-25">
-                    <p class="label">Yearly visitors</p>
-                    <p class="item" id="article-visitors">870 000</p>
-                </div>
-                <div class="w-25">
-                    <p class="label">Instance of</p>
-                    <p class="item" id="article-instance-of">art museum</p>
-                </div>
-            </div>
-
-            
-
-            <div class="wiki-intro">
-                <hr>
-                    <p class="pv4" id="article-intro">The Musée des Arts Décoratifs (Museum of Decorative Arts) is a museum dedicated to the exhibition and preservation of the decorative arts. Located at 107 Rue de Rivoli in the city’s 1st arrondissement, the museum occupies the most north-western wing of the Palais du Louvre, known as the Pavillon de Marsan (Marsan Pavilion).  With over one million objects in its collection, the Musée des Arts Décoratifs is the largest museum of decorative arts in continental Europe.</p>
-                <hr>
-            </div>
-
-           
-            <div class="wikigoogle-links w-100 flex flew-row mb4">
-                <div class="wikilinks w-50 mr2 flex flex-column">
-                    <a id="article-wikidata" class="linkbutton wide mb2" target="_blank">
-                        <img src="./img/wikidata.png">
-                        <p>Wikidata</p>
-                    </a>
-                    <a id="article-wikipedia" class="linkbutton wide mb2" target="_blank">
-                        <img src="./img/wikipedia.png">
-                        <p>Wikipedia</p>
-                    </a>
-                    <a id="article-wikicommons" class="linkbutton wide" target="_blank">
-                        <img src="./img/wikimedia.png">
-                        <p>wikicommons</p>
-                    </a>
-                </div>
-                <div class="googlelinks ml2 w-50 flex flex-column">
-                    <a id="article-google-search" class="linkbutton wide mb2" target="_blank">
-                        <img src="./img/googlesearch.png">
-                        <p>Search</p>
-                    </a>
-                    <a id="article-google-maps" class="linkbutton wide">
-                        <img src="./img/googlemaps.png">
-                        <p>Maps</p>
-                    </a>
-                </div>
-            </div>
 
 
-            <div class="social-links w-100 flex flew-row justify-between">
-                <div class="linkbutton square mr2">
-                    <img src="./img/twitter.svg">
+                <div class="social-links w-100 flex flew-row justify-between">
+                    <div class="linkbutton square mr2">
+                        <img src="./img/twitter.svg">
+                    </div>
+                    <div class="linkbutton square mr2">
+                        <img src="./img/instagram.svg">
+                    </div>
+                    <div class="linkbutton square mr2">
+                        <img src="./img/facebook.svg">
+                    </div>
+                    <div class="linkbutton square mr2">
+                        <img src="./img/youtube.svg">
+                    </div>
+                    <div class="linkbutton square mr2">
+                        <img src="./img/yelp.svg">
+                    </div>
+                    <div class="linkbutton square mr2">
+                        <img src="./img/foursquare.svg">
+                    </div>
+                    <div class="linkbutton square">
+                        <img src="./img/imdb.svg">
+                    </div>
                 </div>
-                <div class="linkbutton square mr2">
-                    <img src="./img/instagram.svg">
+                <div class="contactinfo">
+                    <p>http://www.lesartsdecoratifs.fr</p>
+                    <p>Email</p>
+                    <p>Phone number</p>
                 </div>
-                <div class="linkbutton square mr2">
-                    <img src="./img/facebook.svg">
-                </div>
-                <div class="linkbutton square mr2">
-                    <img src="./img/youtube.svg">
-                </div>
-                <div class="linkbutton square mr2">
-                    <img src="./img/yelp.svg">
-                </div>
-                <div class="linkbutton square mr2">
-                    <img src="./img/foursquare.svg">
-                </div>
-                <div class="linkbutton square">
-                    <img src="./img/imdb.svg">
-                </div>
-            </div>
-            <div class="contactinfo">
-                <p>http://www.lesartsdecoratifs.fr</p>
-                <p>Email</p>
-                <p>Phone number</p>
             </div>
         </div>
     </div>
