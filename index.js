@@ -283,7 +283,7 @@ map.on('load', function () {
         filter: ['!', ['has', 'point_count']],
         paint: {
             'circle-color': '#497983',
-            'circle-opacity':0.5,
+            'circle-opacity': 0.5,
             'circle-radius': 10,
             'circle-stroke-width': 1,
             'circle-stroke-color': '#fff'
@@ -343,7 +343,7 @@ map.on('load', function () {
         clusterSource.getClusterLeaves(clusterId, point_count, 0, function (err, aFeatures) {
             var e = {};
             e.features = aFeatures;
-            
+
             openPopupListBelowClick(e);
         })
 
@@ -459,7 +459,7 @@ function hoverPopupOn(e) {
     }
 
     var coordinates = e.features[0].geometry.coordinates.slice(); // latLng to place popup
-    
+
     while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) { // avoid missplacinf popup on zomed out world where some part of the mercato projection is visible twice.
         coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
     }
@@ -536,7 +536,7 @@ function openPopupListBelowClick(e) {
 
 
         $("#" + e.features[i].properties.title.replace(/[^a-z0-9]/gi, '')) // use the same formating for the #id
-            .attr("data-list-nbr",i)
+            .attr("data-list-nbr", i)
             .click(function () {
                 var listNbr = $(this).attr("data-list-nbr")
                 listNbr = Number(listNbr);
@@ -1203,6 +1203,12 @@ function WikidataApiRequestDetails() {
 
         function makeResultsUsefull(data) {
             var keys = Object.keys(data);
+            console.log(keys);
+            console.log(data.img);
+            // https://commons.wikimedia.org/wiki/File:P1050763_Louvre_code_Hammurabi_face_rwk-gradient.jpg
+            // http://commons.wikimedia.org/wiki/Special:FilePath/P1050763%20Louvre%20code%20Hammurabi%20face%20rwk-gradient.jpg
+            // http://commons.wikimedia.org/wiki/Special:FilePath/  Louvre%20chateau%201.jpg
+            // https://commons.wikimedia.org/wiki/File:             Louvre%20chateau%201.jpg
 
             for (k in keys) {
                 for (v in data[keys[k]]) {
@@ -1220,6 +1226,15 @@ function WikidataApiRequestDetails() {
                             value = value.split(" ");
                             value = [Number(value[0]), Number(value[1])]
                             break;
+
+                        // this changes the img url  to the img page 
+                        // case "img":
+                        //     value = data[keys[k]][v];
+                        //     value = value.replace(
+                        //         "http://commons.wikimedia.org/wiki/Special:FilePath/",
+                        //         "https://commons.wikimedia.org/wiki/File:"
+                        //     )
+                        //     break;
 
                         case "TwitterUsername":
                             value = "https://twitter.com/" + data[keys[k]][v];
@@ -1319,9 +1334,9 @@ function WikidataApiRequestDetails() {
 
                     // save enriched value to final object used to display results to UI
                     if (detailsPannelData["Wikidata_" + keys[k]] === undefined) { // does it exist?
-                        detailsPannelData["Wikidata_" + keys[k]] = [value];
+                        detailsPannelData["Wikidata_" + keys[k]] = [value]; // then: replace
                     } else {
-                        detailsPannelData["Wikidata_" + keys[k]].push(value);
+                        detailsPannelData["Wikidata_" + keys[k]].push(value); // then: save as new
                     }
                 }
             }
@@ -1377,21 +1392,68 @@ function popuphtml() {
 
 function updateDetailsPannel() {
     console.log(detailsPannelData);
+
+    resetDetailsPannel();
+    function resetDetailsPannel() {
+        $("#article-title").text("no title");
+        $("#article-intro").html("");
+        $("#article-year").text("-");
+        $("#article-image").attr("src", "img/asfalt-dark.png");
+        $("#article-image").attr("alt", "no image");
+        $("#article-description").html("no discription");
+        $("#article-visitors").text("-");
+        $("#article-instance-of").html("-");
+
+        $("#article-wikidata").hide();
+        $("#article-wikidata").attr("href", "");
+
+        $("#article-wikipedia").hide();
+        $("#article-wikipedia").attr("href", "");
+
+        $("#article-wikicommons").hide();
+        $("#article-wikicommons").attr("href", "");
+
+        $("#article-google-search").hide();
+        $("#article-google-search").attr("href", "");
+
+        $("#article-google-maps").hide();
+        $("#article-google-maps").attr("href", "");
+
+    }
+
     $("#article-title").text(detailsPannelData.Map_title);
     $("#article-intro").html(detailsPannelData.wikipedia_Intro);
     $("#article-year").text(formatingInseption());
-    $("#article-image").attr("src",detailsPannelData.wikipedia_ImgUrl);
-    $("#article-image").attr("alt",detailsPannelData.wikipedia_ImgTitle);
+    $("#article-image").attr("src", detailsPannelData.wikipedia_ImgUrl);
+    $("#article-image").attr("alt", detailsPannelData.wikipedia_ImgTitle);
     $("#article-description").html(detailsPannelData.Wikidata_itemDescription);
-    $("#article-visitors").text(formatingVisitors ());
+    $("#article-visitors").text(formatingVisitors());
     $("#article-instance-of").html(formatingInstanceOfList());
-    $("#article-wikidata").attr("href",detailsPannelData.Wikidata_item);
-    $("#article-wikipedia").attr("href",detailsPannelData.Wikidata_WikipediaLink);
-    $("#article-wikicommons").attr("href",detailsPannelData.Wikidata_CommonsCategory);
-    $("#article-google-search").attr("href",detailsPannelData.Wikidata_FreebaseIdGoogleSearch);
-    $("#article-google-maps").attr("href",detailsPannelData.Wikidata_GoogleMapsCustomerId);
-    // detailsPannelData
 
+    if (detailsPannelData.Wikidata_item != undefined) {
+        $("#article-wikidata").attr("href", detailsPannelData.Wikidata_item);
+        $("#article-wikidata").show();
+    }
+
+    if (detailsPannelData.Wikidata_WikipediaLink != undefined) {
+        $("#article-wikipedia").attr("href", detailsPannelData.Wikidata_WikipediaLink);
+        $("#article-wikipedia").show();
+    }
+
+    if (detailsPannelData.Wikidata_CommonsCategory != undefined) {
+        $("#article-wikicommons").attr("href", detailsPannelData.Wikidata_CommonsCategory);
+        $("#article-wikicommons").show();
+    }
+
+    if (detailsPannelData.Wikidata_FreebaseIdGoogleSearch != undefined) {
+        $("#article-google-search").attr("href", detailsPannelData.Wikidata_FreebaseIdGoogleSearch);
+        $("#article-google-search").show();
+    }
+
+    if (detailsPannelData.Wikidata_GoogleMapsCustomerId != undefined) {
+        $("#article-google-maps").attr("href", detailsPannelData.Wikidata_GoogleMapsCustomerId);
+        $("#article-google-maps").show();
+    }
 
     function formatingInseption() {
         var value = "-";
@@ -1403,7 +1465,7 @@ function updateDetailsPannel() {
     function formatingVisitors() {
         var visitors = "-";
         if (detailsPannelData.Wikidata_visitorsPerYear != undefined) {
-            var visitorsString = detailsPannelData.Wikidata_visitorsPerYear.toString() 
+            var visitorsString = detailsPannelData.Wikidata_visitorsPerYear.toString()
             visitors = visitorsString.replace("visitors per year", " ");
         }
         return visitors;
