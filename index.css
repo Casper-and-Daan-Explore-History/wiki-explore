@@ -281,6 +281,19 @@ p {
     color: var(--black)
 }
 
+.textlink {
+    display: inline-block;
+    color: var(--prim2);
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.textlink:hover {
+    color: var(--prim2);
+    text-decoration: underline;
+    cursor: pointer;
+}
+
 .linkbutton:hover {
     box-shadow: 0 0 10px 2px rgba(0, 0, 0, .1);
     border: 1px solid var(--black);
