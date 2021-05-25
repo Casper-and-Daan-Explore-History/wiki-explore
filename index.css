@@ -286,6 +286,7 @@ p {
     color: var(--prim2);
     text-decoration: none;
     cursor: pointer;
+    margin: 0px;
 }
 
 .textlink:hover {
