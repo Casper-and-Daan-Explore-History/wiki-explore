@@ -33,7 +33,7 @@
     <!-- Google Font -->
     <link rel="preconnect" href="https://fonts.gstatic.com"> 
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=Karla:wght@300;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Karla:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
 
 </head>
@@ -121,59 +121,55 @@
         <div class="closebuttondiv dn flex-ns absolute bg-white pointer" onclick="hideInfopanel()">
             <img src="./img/close.svg" alt="Close" class="closeicon">
         </div>
-        <div class="closebutton" onclick="hideInfopanel()">
-            <img src="./img/close.svg" alt="Close" class="closeicon">
-        </div>
-        <div class="overflow-y-scroll">
+
+        <div class="overflow-y-scroll hidescrollbars">
             <div class="article-image">
                 <img id="article-image" src="https://upload.wikimedia.org/wikipedia/commons/3/3a/Louvre_aile_Richelieu.jpg" alt="louvre">
             </div>
-            <div class="ph3">
-                <div class="title">
+            <div class="">
+                <div class="title ph3 pt3">
                     <h1 id="article-title">The Louvre Palace</h1>
                 </div>
 
-                <div class="category">
+                <div class="category ph3 mb4">
                     <p id="article-description">Museum of the decorative arts and design located in the Louvre's northwest wing</p>
                 </div>
                 
-                <div class="description w-100 flex flex-row mb3">
+                <div class="description w-100 flex flex-row mb3 ph3 pv4">
                     <div class="w-25">
-                        <p class="label">Year</p>
-                        <p class="item" id="article-year">1905</p>
+                        <p class="label f6">Year</p>
+                        <p class="item f5" id="article-year">1905</p>
                     </div>
                     <div class="w-25">
-                        <p class="label">Dimension</p>
-                        <p class="item">-</p>
+                        <p class="label f6">Dimension</p>
+                        <p class="item f5">-</p>
                     </div>
                     <div class="w-25">
-                        <p class="label">Yearly visitors</p>
-                        <p class="item" id="article-visitors">870 000</p>
+                        <p class="label f6">Yearly visitors</p>
+                        <p class="item f5" id="article-visitors">870 000</p>
                     </div>
                     <div class="w-25">
-                        <p class="label">Instance of</p>
-                        <p class="item" id="article-instance-of">art museum</p>
+                        <p class="label f6">Instance of</p>
+                        <p class="item f5" id="article-instance-of">art museum</p>
                     </div>
                 </div>
 
                 
 
-                <div class="wiki-intro">
-                    <hr>
+                <div class="wiki-intro ph3">
                         <p class="pv4" id="article-intro">The Musée des Arts Décoratifs (Museum of Decorative Arts) is a museum dedicated to the exhibition and preservation of the decorative arts. Located at 107 Rue de Rivoli in the city’s 1st arrondissement, the museum occupies the most north-western wing of the Palais du Louvre, known as the Pavillon de Marsan (Marsan Pavilion).  With over one million objects in its collection, the Musée des Arts Décoratifs is the largest museum of decorative arts in continental Europe.</p>
-                    <hr>
                 </div>
 
             
-                <div class="wikigoogle-links w-100 flex flew-row mb4">
+                <div class="wikigoogle-links w-100 flex flew-row ph3 pv4">
                     <div class="wikilinks w-50 mr2 flex flex-column">
-                        <a id="article-wikidata" class="linkbutton wide mb2" target="_blank">
-                            <img src="./img/wikidata.png">
-                            <p>Wikidata</p>
-                        </a>
                         <a id="article-wikipedia" class="linkbutton wide mb2" target="_blank">
                             <img src="./img/wikipedia.png">
                             <p>Wikipedia</p>
+                        </a>
+                        <a id="article-wikidata" class="linkbutton wide mb2" target="_blank">
+                            <img src="./img/wikidata.png">
+                            <p>Wikidata</p>
                         </a>
                         <a id="article-wikicommons" class="linkbutton wide" target="_blank">
                             <img src="./img/wikimedia.png">
@@ -193,7 +189,7 @@
                 </div>
 
 
-                <div class="social-links w-100 flex flew-row justify-between">
+                <div class="social-links w-100 flex flew-row justify-between pa3 mt0">
                     <div class="linkbutton square mr2">
                         <img src="./img/twitter.svg">
                     </div>
@@ -216,7 +212,7 @@
                         <img src="./img/imdb.svg">
                     </div>
                 </div>
-                <div class="contactinfo">
+                <div class="contactinfo pa3 mt0 mb0">
                     <p>http://www.lesartsdecoratifs.fr</p>
                     <p>Email</p>
                     <p>Phone number</p>
