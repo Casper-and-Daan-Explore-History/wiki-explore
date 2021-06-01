@@ -3,7 +3,8 @@
     --prim1: #234C5A;
     --prim2: #4B7982;
     --prim3: #F4E9D3;
-    --prim4: #f0ece4;
+    /* --prim4: #f0ece4; */
+    --prim4: #ECF2F4;
     --black: #272727;
 }
 
@@ -17,7 +18,8 @@ html, body {
 }
 
 h1, h2 {
-    font-family: 'Karla', sans-serif;
+    /* font-family: 'Karla', sans-serif; */
+    font-family: 'Roboto', sans-serif;
 }
 
 p {
@@ -186,6 +188,10 @@ p {
 
 .mapboxgl-ctrl-geocoder--icon {
     display: none !important;
+}
+
+#article-description {
+    color: #595959;
 }
 
 .closebuttondiv {
