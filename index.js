@@ -1482,6 +1482,7 @@ function updateDetailsPannel() {
         }
         return string
     }
+    showInfopanel();
 }
 // on map movement queries: wikipedia API, Wikidata query, Wiki commons API (toggle for all 3)
 
