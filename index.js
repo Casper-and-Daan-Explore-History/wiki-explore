@@ -1340,9 +1340,13 @@ function WikidataApiRequestDetails() {
                     }
                 }
             }
-            //console.log(detailsPannelData);
+            console.log(detailsPannelData);
             // popup.setHTML(popuphtml())
             updateDetailsPannel()
+            if (!detailsPannelData.wikimedia_ApiOngoing && !detailsPannelData.wikimedia_QueryDone && (detailsPannelData.Wikidata_CommonsCategory != undefined || detailsPannelData.Wikidata_commonsLink != undefined )) {
+                console.log("should call Commons API");
+                // WikidataApiRequestDetails()
+            }
         }
 
     }
@@ -1388,7 +1392,6 @@ function popuphtml() {
     // console.log(html);
     return html;
 }
-
 
 function updateDetailsPannel() {
     console.log(detailsPannelData);
@@ -1484,8 +1487,12 @@ function updateDetailsPannel() {
     }
     showInfopanel();
 }
-// on map movement queries: wikipedia API, Wikidata query, Wiki commons API (toggle for all 3)
 
+
+
+
+
+// on map movement queries: wikipedia API, Wikidata query, Wiki commons API (toggle for all 3)
 // plaatje, title, intro, Wikipedia link, Wikidata link, mini discription, (list of related categories: quality?)
 // extra from Qnbr: instance of, official website, inception, part of, pronunciation audio, date of official opening, commons ategorie, significant event, 
     // audio, visitors per year, height, area, Google Maps Customer ID, Insta Location, Mapillary ID, Facebook ID, Freebase ID (Google Search), Instagram username, Twitter username
