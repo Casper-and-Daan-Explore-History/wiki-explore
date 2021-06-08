@@ -1058,11 +1058,54 @@ function WikipediaApiRequestDetails(pageID) {
     requestURL = 'https://en.wikipedia.org/w/api.php?action=query&origin=*&format=json&prop=extracts%7Cpageprops%7Cpageimages%7Ccategories&pageids=' + pageID + '&utf8=1&formatversion=latest&exintro=1';
     // API sandox link: https://en.wikipedia.org/wiki/Special:ApiSandbox#action=query&format=json&origin=*&prop=extracts%7Cpageprops%7Cpageimages%7Ccategories&pageids=58387057&utf8=1&formatversion=latest&exintro=1
     ajaxQueue.push($.getJSON(requestURL, function (data) {
-        parseJSONResponseDetails(data);
+        parseWikipediaApiResponseDetails(data);
     }));
 }
 
-function parseJSONResponseDetails(jsonData) {
+function parseWikipediaApiResponseDetails(jsonData) {
+    var wikipediaApiRespons = jsonData.query.pages[0];
+
+    detailsPannelData.wikipedia_Intro = wikipediaApiRespons.extract;
+    detailsPannelData.wikipedia_ImgTitle = wikipediaApiRespons.pageimage;
+    detailsPannelData.Qnumber = wikipediaApiRespons.pageprops.wikibase_item;
+    detailsPannelData.wikipedia_ImgUrl = "http://commons.wikimedia.org/wiki/Special:FilePath/" + wikipediaApiRespons.pageimage;
+    detailsPannelData.wikipedia_Categories = [];
+
+    //ToDo: get a desent thumnail. Maibe by transforming img url?
+
+    // if (wikipediaApiRespons.thumbnail != undefined) {
+    //     var url = wikipediaApiRespons.thumbnail.source;
+    //     url.replace("50px", "500px"); // changing thmbnail size
+    //     detailsPannelData.imgThumbnailUrl = url;
+    // }
+
+    for (i in wikipediaApiRespons.categories) {
+        detailsPannelData.wikipedia_Categories.push(wikipediaApiRespons.categories[i].title); // adding all wikipediaApiRespons cathegories.
+    }
+
+    detailsPannelData.wikipedia_ApiOngoing = false; // change status to no API call ongoing.
+    //console.log(detailsPannelData);
+
+    // If new Qnumber, and no data jet, then get Wikidata data:
+    if (!detailsPannelData.wikidata_ApiOngoing && !detailsPannelData.wikidata_QueryDone && detailsPannelData.Qnumber != undefined) {
+        //console.log("should call Wikidata API");
+        WikidataApiRequestDetails()
+    }
+
+    updateDetailsPannel();
+}
+
+
+function CommonsApiRequest(pageID) {
+    detailsPannelData.wikipedia_ApiOngoing = true;
+    requestURL = 'https://en.wikipedia.org/w/api.php?action=query&origin=*&format=json&prop=extracts%7Cpageprops%7Cpageimages%7Ccategories&pageids=' + pageID + '&utf8=1&formatversion=latest&exintro=1';
+    // API sandox link: https://en.wikipedia.org/wiki/Special:ApiSandbox#action=query&format=json&origin=*&prop=extracts%7Cpageprops%7Cpageimages%7Ccategories&pageids=58387057&utf8=1&formatversion=latest&exintro=1
+    ajaxQueue.push($.getJSON(requestURL, function (data) {
+        parseCommonsApiResponseDetails(data);
+    }));
+}
+
+function parseCommonsApiResponseDetails(jsonData) {
     var wikipediaApiRespons = jsonData.query.pages[0];
 
     detailsPannelData.wikipedia_Intro = wikipediaApiRespons.extract;
