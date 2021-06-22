@@ -15,6 +15,7 @@ html, body {
     margin: 0;
     box-sizing: border-box;
     overflow: hidden;
+    background-color: var(--prim3); 
 }
 
 h1, h2 {
@@ -151,6 +152,29 @@ p {
 
 /*HERE THE WEBSITE STARTS
 ------------------------------*/
+
+/* ----------- MAP ---------- */
+.maincontent {
+    width: 100vw;
+    height: 100vw;
+    box-sizing: border-box;
+    display: block;
+}
+
+.mapcontainer {
+    position: absolute;
+    width: 66%;
+    bottom:0;
+    top:0;
+    right: 0;
+    border-radius: 16px;
+    overflow: hidden;
+    margin: 16px;
+    box-sizing: border-box;
+    background-color: red;
+    filter: drop-shadow(0px 2px 10px rgba(0, 0, 0, 0.15));    
+}
+
 
 /* ----------- INFO DIV ---------- */
 
