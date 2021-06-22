@@ -121,46 +121,32 @@
     <div class="info z-4 show w-third-l w-70-m left-33-l w-100">
         <div id="geocoderMap" class="geocoder v-mid w-100 w-100"></div>
 
-        
-        <div class="closebuttondiv dn flex-ns absolute bg-white pointer" onclick="hideInfopanel()">
-            <img src="./img/close.svg" alt="Close" class="closeicon">
-        </div>
-
         <div class="overflow-y-scroll hidescrollbars">
-            <div class="article-image">
-                <img id="article-image" src="https://upload.wikimedia.org/wikipedia/commons/3/3a/Louvre_aile_Richelieu.jpg" alt="louvre">
-            </div>
             <div class="">
                 <div class="title ph3 pt3">
                     <h1 class="fw7 mb3 lh-title" id="article-title">The Louvre Palace</h1>
+                    <div class="w-100 flex flex-row mb3">
+                        <div class="w-25">
+                            <p class="label f6">Year</p>
+                            <p class="item f5" id="article-year">1905</p>
+                        </div>
+                        <div class="w-25">
+                            <p class="label f6">Instance of</p>
+                            <p class="item f5" id="article-instance-of">art museum</p>
+                        </div>
+                    </div>
                 </div>
 
-                <div class="category ph3 mb4">
+                <!-- <div class="category ph3 mb4">
                     <p class="mv1 f5 lh-title" id="article-description">Museum of the decorative arts and design located in the Louvre's northwest wing</p>
+                </div> -->
+
+                <div class="article-image">
+                    <img id="article-image" src="https://upload.wikimedia.org/wikipedia/commons/3/3a/Louvre_aile_Richelieu.jpg" alt="louvre">
                 </div>
                 
-                <div class="description w-100 flex flex-row mb3 ph3 pv4">
-                    <div class="w-25">
-                        <p class="label f6">Year</p>
-                        <p class="item f5" id="article-year">1905</p>
-                    </div>
-                    <div class="w-25">
-                        <p class="label f6">Dimension</p>
-                        <p class="item f5">-</p>
-                    </div>
-                    <div class="w-25">
-                        <p class="label f6">Yearly visitors</p>
-                        <p class="item f5" id="article-visitors">870 000</p>
-                    </div>
-                    <div class="w-25">
-                        <p class="label f6">Instance of</p>
-                        <p class="item f5" id="article-instance-of">art museum</p>
-                    </div>
-                </div>
 
-                
-
-                <div class="wiki-intro ph3 pv4">
+                <div class="wiki-intro ph3 pv3 mv4">
                     <p class="mb0" id="article-intro">The Musée des Arts Décoratifs (Museum of Decorative Arts) is a museum dedicated to the exhibition and preservation of the decorative arts. Located at 107 Rue de Rivoli in the city’s 1st arrondissement, the museum occupies the most north-western wing of the Palais du Louvre, known as the Pavillon de Marsan (Marsan Pavilion).  With over one million objects in its collection, the Musée des Arts Décoratifs is the largest museum of decorative arts in continental Europe.</p>
                     <p class="textlink">Read more</p>
                 </div>
