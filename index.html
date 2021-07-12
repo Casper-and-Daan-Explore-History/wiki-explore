@@ -115,18 +115,28 @@
 
     <div class="maincontent">
         <div class="mapcontainer">
+            <div class="pa3 right-0 w-30">
+                <div id="geocoderMap" class="geocoder v-mid w-10 w-100"></div>
+            </div>
             <div id="map" class="map"></div>
         </div>
 
     <div class="info z-4 show w-third-l w-70-m left-33-l w-100">
-        <div id="geocoderMap" class="geocoder v-mid w-100 w-100"></div>
-
         <div class="overflow-y-scroll hidescrollbars">
             <div class="">
                 <div class="title ph3 pt3">
                     <h1 class="fw7 mb3 lh-title" id="article-title">The Louvre Palace</h1>
-                    <div class="w-100 flex flex-row mb3">
-                        <div class="w-25">
+                    <div class="w-100 flex flex-row">
+                        <p class="mv1 f5 lh-copy" id="article-description">Museum of the decorative arts and design located in the Louvre's northwest wing</p>
+                    </div>
+                    <div>
+                        <p class="item dib">From</p>
+                        <p class="item f5 dib" id="article-year">1905</p>
+                    </div>
+
+                        
+
+                        <!-- <div class="w-25">
                             <p class="label f6">Year</p>
                             <p class="item f5" id="article-year">1905</p>
                         </div>
@@ -134,7 +144,9 @@
                             <p class="label f6">Instance of</p>
                             <p class="item f5" id="article-instance-of">art museum</p>
                         </div>
-                    </div>
+                        <div class="category ph3 mb4">
+                            <p class="mv1 f5 lh-title" id="article-description">Museum of the decorative arts and design located in the Louvre's northwest wing</p>
+                        </div> -->
                 </div>
 
                 <!-- <div class="category ph3 mb4">
@@ -152,8 +164,43 @@
                 </div>
 
             
-                <div class="wikigoogle-links w-100 flex flew-row ph3 pv4">
-                    <div class="wikilinks w-50 mr2 flex flex-column">
+                <div class=" w-100 flex flew-row ph3 pv4">
+
+                    <div class="w-25 mh2 flex flex-column items-center">
+                        <a id="article-wikipedia" class=" mb2 flex flex-column items-center pointer grow article-link" target="_blank">
+                            <div class="bg-white br-100 pa3 circlebutton">
+                                <img src="./img/wikipedia.png">
+                            </div>
+                            <p class="tc">Wikipedia</p>
+                        </a>
+                    </div>
+                    <div class="w-25 mh2 flex flex-column items-center">
+                        <a id="article-wikidata" class="mb2 flex flex-column items-center pointer grow article-link" target="_blank">
+                            <div class="bg-white v-mid tc br-100 pa3 circlebutton">
+                                <img src="./img/wikidata.png">
+                            </div>
+                            <p class="tc">Wikidata</p>
+                        </a>
+                    </div>
+                    <div class="w-25 mh2 flex flex-column items-center">
+                        <a id="article-wikicommons" class=" mb2 flex flex-column items-center pointer grow article-link" target="_blank">
+                            <div class="bg-white br-100 pa3 circlebutton">
+                                <img src="./img/wikimedia.png">
+                            </div>
+                            <p class="tc">Wikicommons</p>
+                        </a>
+                    </div>
+                    <div class="w-25 mh2 flex flex-column items-center">
+                        <a id="article-google-maps" class=" mb2 flex flex-column items-center pointer grow article-link" target="_blank">
+                            <div class="bg-white br-100 pa3 circlebutton">
+                                <img src="./img/googlemaps.png">
+                            </div>
+                            <p class="tc">Google Maps</p>
+                        </a>
+                    </div>
+                
+
+                    <!-- <div class="wikilinks w-50 mr2 flex flex-column">
                         <a id="article-wikipedia" class="linkbutton wide mb2" target="_blank">
                             <img src="./img/wikipedia.png">
                             <p>Wikipedia</p>
@@ -176,11 +223,11 @@
                             <img src="./img/googlemaps.png">
                             <p>Maps</p>
                         </a>
-                    </div>
+                    </div> -->
                 </div>
 
 
-                <div class="social-links w-100 flex flew-row justify-between pa3 mt0">
+                <!-- <div class="social-links w-100 flex flew-row justify-between pa3 mt0">
                     <div class="linkbutton square mr2">
                         <img src="./img/twitter.svg">
                     </div>
@@ -207,7 +254,7 @@
                     <p>http://www.lesartsdecoratifs.fr</p>
                     <p>Email</p>
                     <p>Phone number</p>
-                </div>
+                </div> -->
             </div>
         </div>
     </div>

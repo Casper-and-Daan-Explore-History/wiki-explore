@@ -212,10 +212,6 @@ p {
     display: none !important;
 }
 
-#article-description {
-    color: #595959;
-}
-
 .closebuttondiv {
     right: -30px;
     top: 100px;
@@ -268,6 +264,17 @@ p {
 .contactinfo {
     background-color: var(--black);
     color: var(--white);
+}
+
+.circlebutton {
+    width: 60px;
+    height: 60px;
+    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.25);
+}
+
+.article-link{
+    text-decoration: none;
+    color: black;
 }
 
 .square {
