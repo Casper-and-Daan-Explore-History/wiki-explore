@@ -18,7 +18,7 @@ function showInfopanel() {
     if ($(".info").hasClass('hide')) {
       if ($(window).width() > 960) {
         $(".info").animate({
-          left: "+=33.3vw"
+          left: "+=33%"
         }, 200, function () {
           // Animation complete.
         });
@@ -53,7 +53,7 @@ function showInfopanel() {
     if ($(".info").hasClass('show')) {
       if ($(window).width() > 960) {
         $(".info").animate({
-          left: "-=33.3vw"
+          left: "-=33%"
         }, 200, function () {
           // Animation complete.
         });
