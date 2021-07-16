@@ -22,6 +22,11 @@ function showInfopanel() {
         }, 200, function () {
           // Animation complete.
         });
+        $(".mapcontainer").animate({
+          left: "33%"
+        }, 200, function () {
+          // Animation complete.
+        });
         $(".info").removeClass('hide').addClass('show');
       }
       if ($(window).width() < 960 && $(window).width() > 480) {
@@ -49,6 +54,11 @@ function showInfopanel() {
       if ($(window).width() > 960) {
         $(".info").animate({
           left: "-=33.3vw"
+        }, 200, function () {
+          // Animation complete.
+        });
+        $(".mapcontainer").animate({
+          left: "0px"
         }, 200, function () {
           // Animation complete.
         });
