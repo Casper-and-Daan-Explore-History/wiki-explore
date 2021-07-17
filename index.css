@@ -16,6 +16,8 @@ html, body {
     box-sizing: border-box;
     overflow: hidden;
     background-color: var(--prim3); 
+    background-image: url("./img/asfalt-dark.png");
+    background-size: 128px 128px;
 }
 
 h1, h2 {
@@ -30,9 +32,247 @@ p {
     font-weight: 400;
 }
 
-.mapboxgl-popup {
-    /* width: 500px; */
+/* ----------- B U T T O N S ---------- */
+
+.circlebutton {
+    width: 60px;
+    height: 60px;
+    filter: drop-shadow(0px 2px 10px rgba(0, 0, 0, 0.15));    
 }
+
+.link {
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.link:hover {
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.article-link{
+    text-decoration: none;
+    color: black;
+}
+
+.textlink {
+    display: inline-block;
+    color: var(--prim2);
+    text-decoration: none;
+    cursor: pointer;
+    margin: 0px;
+}
+
+.textlink:hover {
+    color: var(--prim2);
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+
+
+/*HERE THE WEBSITE STARTS
+------------------------------*/
+
+/* ----------- MAP ---------- */
+.maincontent {
+    width: 100vw;
+    height: 100vw;
+    box-sizing: border-box;
+    display: block;
+}
+
+.mapcontainer {
+    position: absolute;
+    width: auto;
+    bottom: 0px;
+    top: 0px;
+    right: 0px;
+    left: 0px;
+    border-radius: 0px;
+    overflow: hidden;
+    box-sizing: border-box;
+    z-index: 99; 
+}
+
+@media only screen and (min-width: 600px) {
+    .mapcontainer {
+        bottom: 16px;
+        top: 16px;
+        right: 16px;
+        left: 16px;
+        border-radius: 16px;
+        filter: drop-shadow(0px 2px 10px rgba(0, 0, 0, 0.15));
+    }
+}
+
+/* ----------- MAP ---------- */
+#map {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 100%;
+    transition: 0.5s;
+}
+
+.mapboxgl-ctrl-geocoder {
+    border-radius: 16px !important;
+}
+
+.mapboxgl-ctrl-geocoder--icon {
+    display: none !important;
+}
+
+
+/* ----------- INFO DIV ---------- */
+
+.info {
+	position: fixed; 
+    padding: 16px;
+	top: 0px;
+	bottom: 0px;
+	left: -33%;
+    display: flex;
+	flex-direction: column;
+	/*box-shadow: 0px 0px 10px 4px rgba(0, 0, 0, 0.15);*/
+}
+
+.hidescrollbars::-webkit-scrollbar {
+    display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.hidescrollbars {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
+.article-image {
+    object-fit: cover;
+    position: relative;
+    overflow: hidden;
+    width: auto;
+    display: flex;
+    align-items: center;
+    min-height: 300px;
+    min-width: 100%;
+    background-color: var(--white);
+    border-radius: 16px;
+    filter: drop-shadow(0px 2px 10px rgba(0, 0, 0, 0.15));        
+}
+
+.enlargeIcon {
+	background-color: var(--black);
+	color: var(--white);
+	position: absolute;
+	right:0;
+    top: 0px;
+	width: 30px;
+	margin: 10px;
+	text-align: center;
+	border-radius: 4px;
+	padding: 5px;
+	z-index:5;
+}
+
+.wiki-intro {
+    background-color: var(--white);
+    border-radius: 16px;
+    filter: drop-shadow(0px 2px 10px rgba(0, 0, 0, 0.15));    
+}
+
+.item {
+    margin-top: 0px;
+    color: var(--black);
+    line-height: 1.2;
+}
+
+
+/* List popup styling START */
+
+.articleDropdown {
+    margin: 0;
+    padding: 0;
+    background: #fff;
+    border-radius: 5px;
+    width: fit-content;
+    overflow: hidden;  
+    box-shadow: 1px 2px 5px rgba(0,0,0,0.2);
+    /* transition: .4s height; */
+    max-height: 300px;
+    overflow: auto;
+
+}
+
+.articleDropdown li {
+    margin: 0;
+    font-size: 13px;
+    padding: 7px;
+    list-style: none;
+    border-top: 1px solid #ddd;
+}
+
+
+.articleDropdown li:hover{
+    background: rgb(235, 235, 235);
+    cursor: pointer;
+}
+
+.articleDropdown li:first-child {
+    border-top: none;
+}
+
+/* List popup styling END */
+
+
+
+.loadingBox {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+    padding: 15px 35px;
+    width: content;
+    border-radius: 5px;
+    z-index: 900;
+}
+
+/* ----------- ABOUT DIV ---------- */
+
+.aboutcontainer {
+    background-color: var(--white);
+    color: var(--primary-black);
+}
+
+.aboutcontact {
+    background-color: var(--prim2);
+    color: var(--white);
+}
+
+.about {
+    background-color: var(--black);
+}
+
+.aboutbutton {
+    box-shadow: 0 0 10px 2px rgba(0, 0, 0, .1);
+}
+
+.closebutton {
+    position: absolute;
+    right: 0px;
+    margin-top: 10px;
+    margin-right: 10px;
+    opacity: .2;
+    cursor: pointer;
+    text-align: right;
+}
+
+.closebutton:hover {
+    opacity: .5;
+}
+
 
 /*THIS IS THE COVER DIV
 ---------------------------------------------
@@ -89,340 +329,5 @@ p {
 
 .startButton:hover {
     text-decoration: none!important; 
-}
-
-/* ----------- B U T T O N S ---------- */
-
-.Button {
-    cursor: pointer;
-    background-color: var(--white);
-    color: var(--black);
-}
-
-.Button:hover {
-    cursor: pointer;
-    background-color: var(--prim2);
-    color: var(--white);
-    box-shadow: 0px 16px 40px rgba(112, 144, 176, 0.49);
-}
-
-.link {
-    text-decoration: none;
-    cursor: pointer;
-}
-
-.link:hover {
-    text-decoration: underline;
-    cursor: pointer;
-}
-
-/* ----------- ABOUT DIV ---------- */
-
-.aboutcontainer {
-    background-color: var(--white);
-    color: var(--primary-black);
-}
-
-.aboutcontact {
-    background-color: var(--prim2);
-    color: var(--white);
-}
-
-.about {
-    background-color: var(--black);
-}
-
-.aboutbutton {
-    box-shadow: 0 0 10px 2px rgba(0, 0, 0, .1);
-}
-
-.closebutton {
-    position: absolute;
-    right: 0px;
-    margin-top: 10px;
-    margin-right: 10px;
-    opacity: .2;
-    cursor: pointer;
-    text-align: right;
-}
-
-.closebutton:hover {
-    opacity: .5;
-}
-
-/*HERE THE WEBSITE STARTS
-------------------------------*/
-
-/* ----------- MAP ---------- */
-.maincontent {
-    width: 100vw;
-    height: 100vw;
-    box-sizing: border-box;
-    display: block;
-}
-
-.mapcontainer {
-    position: absolute;
-    width: auto;
-    bottom: 16px;
-    top: 16px;
-    right: 16px;
-    left: 16px;
-    border-radius: 16px;
-    overflow: hidden;
-    box-sizing: border-box;
-    background-color: red;
-    filter: drop-shadow(0px 2px 10px rgba(0, 0, 0, 0.15));   
-    z-index: 99; 
-}
-
-
-/* ----------- INFO DIV ---------- */
-
-.info {
-	position: fixed; 
-    padding: 16px;
-	top: 0px;
-	bottom: 0px;
-	left: -33%;
-    display: flex;
-	flex-direction: column;
-	/*box-shadow: 0px 0px 10px 4px rgba(0, 0, 0, 0.15);*/
-}
-
-.hidescrollbars::-webkit-scrollbar {
-    display: none;
-}
-
-/* Hide scrollbar for IE, Edge and Firefox */
-.hidescrollbars {
-  -ms-overflow-style: none;  /* IE and Edge */
-  scrollbar-width: none;  /* Firefox */
-}
-
-.mapboxgl-ctrl-geocoder {
-    width: 100% !important;
-    max-width: 100% !important;
-    font-family: 'Rubik', sans-serif !important;
-    vertical-align: middle;
-    font-size: 100% !important;
-    z-index: 5;
-}
-
-.mapboxgl-ctrl-geocoder--icon {
-    display: none !important;
-}
-
-.closebuttondiv {
-    right: -30px;
-    top: 100px;
-    width: 30px;
-    height: 80px;
-    display : flex;
-    align-items : center;
-    box-shadow: 4px 0px 20px rgba(0, 0, 0, 0.2);
-}
-
-.article-image {
-    object-fit: cover;
-    overflow: hidden;
-    width: auto;
-    display: flex;
-    align-items: center;
-    min-height: 300px;
-    min-width: 100%;
-    background-color: var(--white);
-    border-radius: 16px;
-    filter: drop-shadow(0px 2px 10px rgba(0, 0, 0, 0.15));        
-}
-
-.wiki-intro {
-    background-color: var(--white);
-    border-radius: 16px;
-    filter: drop-shadow(0px 2px 10px rgba(0, 0, 0, 0.15));    
-}
-
-.label {
-    margin-bottom: 0;
-    color: var(--prim1);
-    font-weight: bold;
-}
-
-.item {
-    margin-top: 0px;
-    color: var(--black);
-    line-height: 1.2;
-}
-
-.wikigoogle-links {
-    background-color: var(--prim4);
-}
-
-.social-links {
-    background-color: var(--prim2);
-}
-
-.contactinfo {
-    background-color: var(--black);
-    color: var(--white);
-}
-
-.circlebutton {
-    width: 60px;
-    height: 60px;
-    filter: drop-shadow(0px 2px 10px rgba(0, 0, 0, 0.15));    
-}
-
-.article-link{
-    text-decoration: none;
-    color: black;
-}
-
-.square {
-    width: 75px;
-    height: 50px;
-    justify-content: center;
-    align-items: center;
-}
-
-.wide {
-    flex-direction: row;
-    align-items: center;
-    height: 50px;
-}
-
-.wide img {
-    object-fit: cover;
-    max-width: 20%;
-    max-height: 90%;
-    width: auto;
-    height: auto;
-}
-
-.wide p{
-    margin-left: 10px;
-}
-
-.linkbutton {
-    box-shadow: 0 0 20px 2px rgba(0, 0, 0, .05);
-    border-radius: 3px;
-    text-align: center;
-    display: flex;
-    padding: 5px;
-    word-wrap: break-word;
-    cursor: pointer;
-    background-color: white;
-    border: 1px solid transparent;
-    text-decoration: none;
-    color: var(--black)
-}
-
-.textlink {
-    display: inline-block;
-    color: var(--prim2);
-    text-decoration: none;
-    cursor: pointer;
-    margin: 0px;
-}
-
-.textlink:hover {
-    color: var(--prim2);
-    text-decoration: underline;
-    cursor: pointer;
-}
-
-.linkbutton:hover {
-    box-shadow: 0 0 10px 2px rgba(0, 0, 0, .1);
-    border: 1px solid var(--black);
-}
-
-.hamburgerclosed {
-    background-color: var(--white);
-    cursor: pointer;
-    box-shadow: 0 0 10px 2px rgba(0, 0, 0, .1);
-    height: 60px;
-    width: 60px;
-}
-
-.hamburger {
-    background-color: var(--white);
-}
-
-#map {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    width: 100%;
-    transition: 0.5s;
-}
-
-.mapboxgl-popup-content {
-    /* min-width: 200px;
-    width: 100%; */
-    /* border-radius: 15px; */
-    /* background-color: transparent !important; */
-    /* box-shadow: none !important; */
-    /* border-top-color: none !important; */
-    /* padding: 0 !important; */
-    /* max-height: 500px;
-    overflow: auto;
-    width: 300%;
-     */
-}
-
-.mapboxgl-popup-content table {
-    /* width: 450px; */
-}
-
-
-/* List popup styling START */
-
-.articleDropdown {
-    margin: 0;
-    padding: 0;
-    background: #fff;
-    border-radius: 5px;
-    width: fit-content;
-    overflow: hidden;  
-    box-shadow: 1px 2px 5px rgba(0,0,0,0.2);
-    /* transition: .4s height; */
-    max-height: 300px;
-    overflow: auto;
-
-}
-
-.articleDropdown li {
-    margin: 0;
-    font-size: 13px;
-    padding: 7px;
-    list-style: none;
-    border-top: 1px solid #ddd;
-}
-
-
-.articleDropdown li:hover{
-    background: rgb(235, 235, 235);
-    cursor: pointer;
-}
-
-.articleDropdown li:first-child {
-    border-top: none;
-}
-
-/* List popup styling END */
-
-
-
-.loadingBox {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background-color: white;
-    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
-    padding: 15px 35px;
-    width: content;
-    border-radius: 5px;
-    z-index: 900;
 }
 

@@ -243,15 +243,9 @@ map.on('load', function () {
             //   * Blue, 20px circles when point count is less than 100
             //   * Yellow, 30px circles when point count is between 100 and 750
             //   * Pink, 40px circles when point count is greater than or equal to 750
-            'circle-color': [
-                'step',
-                ['get', 'point_count'],
-                '#51bbd6',
-                10,
-                '#f1f075',
-                25,
-                '#08415C'
-            ],
+            'circle-color': '#4B7982',
+            'circle-stroke-color': '#fff',
+            'circle-stroke-width': 1,
             'circle-radius': [
                 'step',
                 ['get', 'point_count'],
@@ -272,8 +266,11 @@ map.on('load', function () {
         layout: {
             'text-field': '{point_count_abbreviated}',
             'text-font': ['DIN Offc Pro Medium', 'Arial Unicode MS Bold'],
-            'text-size': 12
-        }
+            'text-size': 12,
+        },
+        paint: {
+            "text-color": "#ffffff"
+          }
     });
 
     map.addLayer({
@@ -282,7 +279,7 @@ map.on('load', function () {
         source: 'wikipediaSource',
         filter: ['!', ['has', 'point_count']],
         paint: {
-            'circle-color': '#497983',
+            'circle-color': '#234C5A',
             'circle-opacity': 0.5,
             'circle-radius': 10,
             'circle-stroke-width': 1,

@@ -35,6 +35,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Karla:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+<script src="https://kit.fontawesome.com/c258b31bf5.js" crossorigin="anonymous"></script>
 
 
 </head>
@@ -125,73 +126,79 @@
 
         <div class="absolute top-0 right-0" onclick="hideInfopanel()"><p>close</p></div>
 
-                <div class="title ph3">
-                    <h1 class="fw7 mb3 lh-title" id="article-title">The Louvre Palace</h1>
-                    <div class="w-100 flex flex-row">
-                        <p class="mv1 f5 lh-copy" id="article-description">Museum of the decorative arts and design located in the Louvre's northwest wing</p>
-                    </div>
-                    <div>
-                        <p class="item dib">From</p>
-                        <p class="item f5 dib" id="article-year">1905</p>
-                    </div>
-
+            <div class="title ph3">
+                <h1 class="fw7 mb3 mt2 lh-title" id="article-title">The Louvre Palace</h1>
+                <div class="w-100 flex flex-row">
+                    <p class="mv1 f5 lh-copy" id="article-description">Museum of the decorative arts and design located in the Louvre's northwest wing</p>
+                </div>
+                <div>
+                    <p class="item dib">From</p>
+                    <p class="item f5 dib" id="article-year">1905</p>
                 </div>
 
-                <div class="article-image mv3">
-                    <img id="article-image" src="https://upload.wikimedia.org/wikipedia/commons/3/3a/Louvre_aile_Richelieu.jpg" alt="louvre">
-                </div>
-                
+            </div>
 
-                <div class="wiki-intro ph3 pv3 mv3">
-                    <p class="mb0" id="article-intro">The Musée des Arts Décoratifs (Museum of Decorative Arts) is a museum dedicated to the exhibition and preservation of the decorative arts. Located at 107 Rue de Rivoli in the city’s 1st arrondissement, the museum occupies the most north-western wing of the Palais du Louvre, known as the Pavillon de Marsan (Marsan Pavilion).  With over one million objects in its collection, the Musée des Arts Décoratifs is the largest museum of decorative arts in continental Europe.</p>
-                    <p class="textlink">Read more</p>
-                </div>
-
+            <div class="article-image mv3 hide" onclick="toggleBiginfopanel()">
+                <div class="enlargeIcon">
+                    <i class="fas fa-expand-alt"></i>
+                  </div>
+                <img id="article-image" class="grow pointer" src="https://upload.wikimedia.org/wikipedia/commons/3/3a/Louvre_aile_Richelieu.jpg" alt="louvre">
+            </div>
             
-                <div class=" w-100 flex flew-row justify-between ph3 mv3">
 
-                    <div class="w-25 mh2 flex flex-column items-center">
-                        <a id="article-wikipedia" class=" mb2 flex flex-column items-center pointer grow article-link" target="_blank">
-                            <div class="bg-white br-100 pa3 circlebutton">
-                                <img src="./img/wikipedia.png">
-                            </div>
-                            <p class="tc f6">Wikipedia</p>
-                        </a>
-                    </div>
-                    <div class="w-25 mh2 flex flex-column items-center">
-                        <a id="article-wikidata" class="mb2 flex flex-column items-center pointer grow article-link" target="_blank">
-                            <div class="bg-white v-mid tc br-100 pa3 circlebutton">
-                                <img src="./img/wikidata.png">
-                            </div>
-                            <p class="tc f6">Wikidata</p>
-                        </a>
-                    </div>
-                    <div class="w-25 mh2 flex flex-column items-center">
-                        <a id="article-wikicommons" class=" mb2 flex flex-column items-center pointer grow article-link" target="_blank">
-                            <div class="bg-white br-100 pa3 circlebutton">
-                                <img src="./img/wikimedia.png">
-                            </div>
-                            <p class="tc f6">Wikicommons</p>
-                        </a>
-                    </div>
-                    <div class="w-25 mh2 flex flex-column items-center">
-                        <a id="article-google-maps" class=" mb2 flex flex-column items-center pointer grow article-link" target="_blank">
-                            <div class="bg-white br-100 pa3 circlebutton">
-                                <img src="./img/googlemaps.png">
-                            </div>
-                            <p class="tc f6">Google Maps</p>
-                        </a>
-                    </div>
+            <div class="w-100 flex flex-column" id="article-links">
 
+            <div class="wiki-intro ph3 pv3 mv3" id="wiki-intro">
+                <p class="mb0" id="article-intro">The Musée des Arts Décoratifs (Museum of Decorative Arts) is a museum dedicated to the exhibition and preservation of the decorative arts. Located at 107 Rue de Rivoli in the city’s 1st arrondissement, the museum occupies the most north-western wing of the Palais du Louvre, known as the Pavillon de Marsan (Marsan Pavilion).  With over one million objects in its collection, the Musée des Arts Décoratifs is the largest museum of decorative arts in continental Europe.</p>
+                <p class="textlink">Read more</p>
+            </div>
+
+        
+            <div class=" w-100 flex flew-row justify-between ph3 mv3" id="wikilinks">
+
+                <div class="w-25 mh2 flex flex-column items-center">
+                    <a id="article-wikipedia" class=" mb2 flex flex-column items-center pointer grow article-link" target="_blank">
+                        <div class="bg-white br-100 pa2 circlebutton">
+                            <img src="./img/wikipedia.png">
+                        </div>
+                        <p class="tc f6">Wikipedia</p>
+                    </a>
                 </div>
+                <div class="w-25 mh2 flex flex-column items-center">
+                    <a id="article-wikidata" class="mb2 flex flex-column items-center pointer grow article-link" target="_blank">
+                        <div class="bg-white v-mid tc br-100 pa2 circlebutton">
+                            <img src="./img/wikidata.png">
+                        </div>
+                        <p class="tc f6">Wikidata</p>
+                    </a>
+                </div>
+                <div class="w-25 mh2 flex flex-column items-center">
+                    <a id="article-wikicommons" class=" mb2 flex flex-column items-center pointer grow article-link" target="_blank">
+                        <div class="bg-white br-100 pa2 circlebutton">
+                            <img src="./img/wikimedia.png">
+                        </div>
+                        <p class="tc f6">Wikicommons</p>
+                    </a>
+                </div>
+                <div class="w-25 mh2 flex flex-column items-center">
+                    <a id="article-google-maps" class=" mb2 flex flex-column items-center pointer grow article-link" target="_blank">
+                        <div class="bg-white br-100 pa2 circlebutton">
+                            <img src="./img/googlemaps.png">
+                        </div>
+                        <p class="tc f6">Google Maps</p>
+                    </a>
+                </div>
+
+            </div>
+        </div>
+        </div>
     </div>
+            
 </div>
-            
-    </div>
 
-    <!-- Javascript file -->
-    <script type="text/javascript" src="index.js"></script>
-    <script type="text/javascript" src="buttons.js"></script>
+<!-- Javascript file -->
+<script type="text/javascript" src="index.js"></script>
+<script type="text/javascript" src="buttons.js"></script>
 
 </body>
 
