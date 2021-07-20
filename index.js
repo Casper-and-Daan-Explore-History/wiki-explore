@@ -212,7 +212,7 @@ map.on('load', function() {
         },
         cluster: true,
         clusterMaxZoom: 14, // Max zoom to cluster points on
-        clusterRadius: 50,
+        clusterRadius: 16,
     });
 
     //ad layers to bring data sources to map
@@ -229,28 +229,43 @@ map.on('load', function() {
 
 
 
+    // map.addLayer({
+    //     id: 'clusters',
+    //     type: 'circle',
+    //     source: 'wikipediaSource',
+    //     filter: ['has', 'point_count'],
+    //     paint: {
+    //         // Use step expressions (https://docs.mapbox.com/mapbox-gl-js/style-spec/#expressions-step)
+    //         // with three steps to implement three types of circles:
+    //         //   * Blue, 20px circles when point count is less than 100
+    //         //   * Yellow, 30px circles when point count is between 100 and 750
+    //         //   * Pink, 40px circles when point count is greater than or equal to 750
+    //         'circle-color': '#4B7982',
+    //         'circle-stroke-color': '#fff',
+    //         'circle-stroke-width': 1,
+    //         'circle-radius': [
+    //             'step', ['get', 'point_count'],
+    //             20,
+    //             10,
+    //             30,
+    //             25,
+    //             40
+    //         ]
+    //     }
+    // });
+
+
     map.addLayer({
-        id: 'clusters',
+        id: 'unclustered-point',
         type: 'circle',
         source: 'wikipediaSource',
-        filter: ['has', 'point_count'],
+        // filter: ['!', ['has', 'point_count']],
         paint: {
-            // Use step expressions (https://docs.mapbox.com/mapbox-gl-js/style-spec/#expressions-step)
-            // with three steps to implement three types of circles:
-            //   * Blue, 20px circles when point count is less than 100
-            //   * Yellow, 30px circles when point count is between 100 and 750
-            //   * Pink, 40px circles when point count is greater than or equal to 750
-            'circle-color': '#4B7982',
-            'circle-stroke-color': '#fff',
+            'circle-color': '#234C5A',
+            'circle-opacity': 0.5,
+            'circle-radius': 10,
             'circle-stroke-width': 1,
-            'circle-radius': [
-                'step', ['get', 'point_count'],
-                20,
-                10,
-                30,
-                25,
-                40
-            ]
+            'circle-stroke-color': '#fff'
         }
     });
 
@@ -266,20 +281,6 @@ map.on('load', function() {
         },
         paint: {
             "text-color": "#ffffff"
-        }
-    });
-
-    map.addLayer({
-        id: 'unclustered-point',
-        type: 'circle',
-        source: 'wikipediaSource',
-        filter: ['!', ['has', 'point_count']],
-        paint: {
-            'circle-color': '#234C5A',
-            'circle-opacity': 0.5,
-            'circle-radius': 10,
-            'circle-stroke-width': 1,
-            'circle-stroke-color': '#fff'
         }
     });
 
@@ -426,11 +427,14 @@ map.on('load', function() {
     // hover popup Wikipedia Layer
     map.on('mousemove', 'unclustered-point', hoverPopupOn);
     map.on('mouseleave', 'unclustered-point', hoverPopupOff);
+    map.on('mousemove', 'cluster-count', hoverPopupOn);
+    map.on('mouseleave', 'cluster-count', hoverPopupOff);
 
     // click
     map.on('click', function(e) {});
 
     map.on('click', 'unclustered-point', popupOpen);
+    map.on('click', 'cluster-count', popupOpen);
 
     // Map panning ends
     map.on('moveend', function() {
@@ -441,10 +445,14 @@ map.on('load', function() {
 
 
 function hoverPopupOn(e) {
-
+    console.log(e.features);
     if (e.features.length == 1) { // one article
-        var articleTitle = e.features[0].properties.title; // getting article title
-        var html = '<ul class="articleDropdown"><li id="">' + articleTitle + '</li></ul>'; // generate html for one article using artile title
+        if (e.features[0].properties.title != undefined) {
+            var articleTitle = e.features[0].properties.title; // getting article title
+            var html = '<ul class="articleDropdown"><li id="">' + articleTitle + '</li></ul>'; // generate html for one article using artile title
+        } else {
+            var html = '<ul class="articleDropdown"><li id="">Click to zoom</li></ul>'; // generate html for one article using artile title
+        }
     } else if (e.features.length > 1) { // mor than one article
         var html = '<ul class="articleDropdown"><li id="">' + e.features.length + " articles." + '</li></ul>'; // generating html for  more than one article uusing the number of articles as a title.
     }
@@ -480,16 +488,22 @@ function popupOpen(e) {
     if (e.features.length > 1) {
         openPopupListBelowClick(e);
         return
+    } else if (e.features[0].properties.cluster) {
+        //zoom
+
+        map.flyTo({
+            zoom: map.getZoom() + 1,
+            center: e.features[0].geometry.coordinates.slice(),
+            speed: 0.85,
+            // this animation is considered essential with respect to prefers-reduced-motion
+            essential: true
+        });
+
+    } else {
+        openDetailPannel(e.features[0].properties); //Starts API calls
     }
 
-    // map.off('mouseleave', 'unclustered-point', hoverPopupOff);
 
-    openDetailPannel(e.features[0].properties); //Starts API calls
-
-    // popup
-    //     .setLngLat(e.features[0].geometry.coordinates.slice())
-    //     .setHTML(popuphtml())
-    //     .addTo(map);
 
 }
 
