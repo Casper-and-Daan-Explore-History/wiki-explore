@@ -445,7 +445,7 @@ map.on('load', function() {
 
 
 function hoverPopupOn(e) {
-    console.log(e.features);
+    // console.log(e.features);
     if (e.features.length == 1) { // one article
         if (e.features[0].properties.title != undefined) {
             var articleTitle = e.features[0].properties.title; // getting article title
@@ -951,13 +951,16 @@ function wikipdiaApiGeoRequest() {
 
     requestURL = 'https://en.wikipedia.org/w/api.php?action=query&format=json&list=geosearch&origin=*&utf8=1&gsbbox=' + cUL[1] + '|' + cUL[0] + '|' + cLR[1] + '|' + cLR[0] + '&gslimit=500&gsprimary=all';
     // console.log('Request is for ' + requestURL);
+    console.log('Request sent');
     ajaxQueue.push($.getJSON(requestURL, function(data) {
         parseJSONResponse(data);
     }));
 }
 
 function parseJSONResponse(jsonData) {
-    // console.log(jsonData);
+    console.log('Request respons');
+    console.log(jsonData);
+    console.log("@1");
 
     $.each(jsonData.query.geosearch, function(index, value) {
         //console.log( index + ": " + value.title );
@@ -988,30 +991,27 @@ function stopAllAjax() {
 }
 
 function addWikipadiaPage(article) {
+    console.log('Request Prcessing step 1');
     addWikipediaPageToGeojson(article);
     updateWikipediaGeojsonSource();
 
 }
 
 function addWikipediaPageToGeojson(article) {
-    if (mapIsActive) { // is map active?
-        if (isArticleNew(article)) {
-            var point = { //write the specific geojson feature for this point
-                "type": "Feature",
-                "properties": article, // all info known about the article is saved as property
-                "geometry": {
-                    "type": "Point",
-                    "coordinates": article.lonLat
-                }
-            };
-            wikipediaGeojson.features.push(point) // add the newly created geojson feature the geojson
-            map.getSource('wikipediaSource').setData(wikipediaGeojson); // update map with the geojson (includng most recent addition)            
-        } // else it already exist, so ignor.
-    } else { // map is not ready
-        setTimeout(function() {
-            addWikipediaPageToGeojson(article) // do identical second attempt
-        }, 250); // wait quater of a second
+    console.log('Request Prcessing step 2');
+    // if (mapIsActive) { // is map active?
+    if (isArticleNew(article)) {
+        var point = { //write the specific geojson feature for this point
+            "type": "Feature",
+            "properties": article, // all info known about the article is saved as property
+            "geometry": {
+                "type": "Point",
+                "coordinates": article.lonLat
+            }
+        };
+        wikipediaGeojson.features.push(point) // add the newly created geojson feature the geojson
     }
+
 }
 
 function isArticleNew(article) {
