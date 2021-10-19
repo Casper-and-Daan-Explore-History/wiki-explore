@@ -949,7 +949,19 @@ function wikipdiaApiGeoRequest() {
     let cUL = map.unproject([0, 0]).toArray()
     let cLR = map.unproject([w, h]).toArray()
 
-    requestURL = 'https://en.wikipedia.org/w/api.php?action=query&format=json&list=geosearch&origin=*&utf8=1&gsbbox=' + cUL[1] + '|' + cUL[0] + '|' + cLR[1] + '|' + cLR[0] + '&gslimit=500&gsprimary=all';
+    let cornerCoordinates = map.getBounds()
+    let crns = [cornerCoordinates["_ne"].lat, cornerCoordinates["_sw"].lng, cornerCoordinates["_sw"].lat, cornerCoordinates["_ne"].lng]
+    console.log(cornerCoordinates["_ne"].lat);
+    console.log(cornerCoordinates["_sw"].lng);
+    console.log(cornerCoordinates["_sw"].lat);
+    console.log(cornerCoordinates["_ne"].lng);
+
+    console.log(cUL[1]);
+    console.log(cUL[0]);
+    console.log(cLR[1]);
+    console.log(cLR[0]);
+
+    requestURL = 'https://en.wikipedia.org/w/api.php?action=query&format=json&list=geosearch&origin=*&utf8=1&gsbbox=' + crns[0] + '|' + crns[1] + '|' + crns[2] + '|' + crns[3] + '&gslimit=500&gsprimary=all';
     // console.log('Request is for ' + requestURL);
     console.log('Request sent');
     ajaxQueue.push($.getJSON(requestURL, function(data) {
@@ -980,6 +992,7 @@ function parseJSONResponse(jsonData) {
         // console.log(article);
         addWikipadiaPage(article)
     });
+    updateWikipediaGeojsonSource();
 }
 
 function stopAllAjax() {
@@ -991,9 +1004,9 @@ function stopAllAjax() {
 }
 
 function addWikipadiaPage(article) {
-    console.log('Request Prcessing step 1');
+    // console.log('Request Prcessing step 1');
     addWikipediaPageToGeojson(article);
-    updateWikipediaGeojsonSource();
+    // updateWikipediaGeojsonSource();
 
 }
 
