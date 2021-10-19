@@ -151,7 +151,6 @@ p {
     object-fit: cover;
     position: relative;
     overflow: hidden;
-    width: auto;
     display: flex;
     align-items: center;
     height: 300px;
@@ -160,6 +159,13 @@ p {
     border-radius: 16px;
     filter: drop-shadow(0px 2px 10px rgba(0, 0, 0, 0.15));        
 }
+
+.article-image img {
+    object-fit: cover;
+    height: 100%;
+    width: 100%;       
+}
+
 
 .enlargeIcon {
 	background-color: var(--black);
@@ -175,10 +181,15 @@ p {
 	z-index:5;
 }
 
+#closeicon {
+    display: none;
+}
+
 .wiki-intro {
     background-color: var(--white);
     border-radius: 16px;
-    filter: drop-shadow(0px 2px 10px rgba(0, 0, 0, 0.15));    
+    filter: drop-shadow(0px 2px 10px rgba(0, 0, 0, 0.15)); 
+    position: relative;   
 }
 
 .item {

@@ -65,13 +65,9 @@ function toggleBigimage() {
     if ($(window).width() > 960) {
       infoTwothirds();
       mapOnethird();
-      $(".article-image").animate({
-        'min-height': "500px",
-      }, 200, function () {
-        // Animation complete.
-      });
-      document.getElementById("wiki-intro").style.width = "50%";
-      document.getElementById("wikilinks").style.width = "50%";
+      hideText();
+      hideLinks();
+      imageInFocus();
     }
     $(".article-image").removeClass('hide').addClass('show');
   }
@@ -79,13 +75,9 @@ function toggleBigimage() {
     if ($(window).width() > 960) {
       infoOnethird();
       mapTwothirds();
-      $(".article-image").animate({
-        'min-height': "300px",
-      }, 200, function () {
-        // Animation complete.
-      });
-      document.getElementById("wiki-intro").style.width = "100%";
-      document.getElementById("wikilinks").style.width = "100%";
+      showEverything()
+      imageOutFocus();
+      
     }
     $(".article-image").removeClass('show').addClass('hide');
   }
@@ -96,15 +88,10 @@ function toggleBigtext() {
     if ($(window).width() > 960) {
       infoTwothirds();
       mapOnethird();
-      $(".wiki-intro").animate({
-        // 'width': "calc(50% - 16px)",
-        'marginLeft': "16px"
-      }, 200, function () {
-        // Animation complete.
-      });
-      document.getElementById("wiki-intro").style.width = "calc(50% - 16px)";
-      document.getElementById("articleimage").style.maxWidth = "50%";
-      document.getElementById("wikilinks").style.width = "50%";
+      hideImage();
+      hideLinks();
+      textInFocus();
+        
     }
     $(".wiki-intro").removeClass('hide').addClass('show');
   }
@@ -112,21 +99,77 @@ function toggleBigtext() {
     if ($(window).width() > 960) {
       infoOnethird();
       mapTwothirds();
-      $(".wiki-intro").animate({
-        'marginLeft': "0px"
-      }, 200, function () {
-        // Animation complete.
-      });
-      document.getElementById("articleimage").style.maxWidth = "100%";
-      document.getElementById("wiki-intro").style.width = "100%";
-      document.getElementById("wikilinks").style.width = "100%";
+      showEverything();
+      textOutFocus();
     }
     $(".wiki-intro").removeClass('show').addClass('hide');
   }
 }
 
 
+function hideImage() {
+  //hide the image
+  document.getElementById("articleimage").style.display = "none";
+}
 
+function hideText() {
+  //hide the text
+  document.getElementById("wiki-intro").style.display = "none";
+}
+
+function hideLinks() {
+  //hide the links
+  document.getElementById("wikilinks").style.display = "none";
+}
+
+function showEverything() {
+  //show everything again
+  document.getElementById("wikilinks").style.display = "flex";
+  document.getElementById("wiki-intro").style.display = "block";
+  document.getElementById("articleimage").style.display = "block";
+}
+
+
+function textInFocus() {
+  $(".wiki-intro").animate({
+    'marginLeft': "16px"
+  }, 200, function () {
+    // Animation complete.
+  });    
+  document.getElementById("readmore").style.display = "none";
+  document.getElementById("closeicon").style.display = "block";
+  document.getElementById("wiki-intro").style.padding = "5rem";
+}
+
+function textOutFocus() {
+  $(".wiki-intro").animate({
+    'marginLeft': "0px"
+  }, 200, function () {
+    // Animation complete.
+  });   
+  document.getElementById("readmore").style.display = "block";
+  document.getElementById("closeicon").style.display = "none";
+  document.getElementById("wiki-intro").style.padding = "1rem";
+}
+
+
+function imageInFocus() {
+  $(".article-image").animate({
+        'min-height': "500px",
+      }, 200, function () {
+        // Animation complete.
+  });
+  document.getElementById("article-image").style.objectFit = "contain";
+}
+
+function imageOutFocus() {
+  $(".article-image").animate({
+    'min-height': "300px",
+  }, 200, function () {
+    // Animation complete.
+  });
+  document.getElementById("article-image").style.objectFit = "cover";
+}
 
 
 function mapFullscreen() {
