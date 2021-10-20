@@ -139,6 +139,11 @@ function textInFocus() {
   document.getElementById("readmore").style.display = "none";
   document.getElementById("closeicon").style.display = "block";
   document.getElementById("wiki-intro").style.padding = "5rem";
+  document.getElementById("wiki-intro").style.maxHeight = "none";
+  document.getElementById("wiki-intro").style.overflow = "visible";
+  document.getElementById("wiki-intro-content-text").style.maxHeight = "none";
+
+
 }
 
 function textOutFocus() {
@@ -150,6 +155,9 @@ function textOutFocus() {
   document.getElementById("readmore").style.display = "block";
   document.getElementById("closeicon").style.display = "none";
   document.getElementById("wiki-intro").style.padding = "1rem";
+  document.getElementById("wiki-intro").style.maxHeight = "300px";
+  document.getElementById("wiki-intro").style.overflow = "hidden";
+  document.getElementById("wiki-intro-content-text").style.maxHeight = "300px";
 }
 
 
