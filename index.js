@@ -960,6 +960,7 @@ function wikipdiaApiGeoRequest() {
     console.log(cUL[0]);
     console.log(cLR[1]);
     console.log(cLR[0]);
+    //test cahnge for upload to Github
 
     requestURL = 'https://en.wikipedia.org/w/api.php?action=query&format=json&list=geosearch&origin=*&utf8=1&gsbbox=' + crns[0] + '|' + crns[1] + '|' + crns[2] + '|' + crns[3] + '&gslimit=500&gsprimary=all';
     // console.log('Request is for ' + requestURL);
