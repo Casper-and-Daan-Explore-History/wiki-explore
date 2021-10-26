@@ -37,6 +37,7 @@ function showInfopanel() {
 function hideInfopanel() {
   if ($(".info").hasClass('show')) {
     if ($(window).width() > 960) {
+      infoOnethird();
       infoHidden();
       mapFullscreen();
       $(".info").removeClass('show').addClass('hide');
@@ -60,6 +61,59 @@ function hideInfopanel() {
   }
 }
 
+function toggleInfopanel() {
+  if ($(".info").hasClass('show')) {
+    if ($(window).width() > 960) {
+      showEverything();
+      textOutFocus();
+      imageOutFocus();
+      infoHidden();
+      mapFullscreen();
+      $(".info").removeClass('show').addClass('hide');
+    }
+    if ($(window).width() < 960 && $(window).width() > 480) {
+      $(".info").animate({
+        left: "-=70vw"
+      }, 200, function () {
+        // Animation complete.
+      });
+      $(".info").removeClass('show').addClass('hide');
+    }
+    if ($(window).width() < 480) {
+      $(".info").animate({
+        left: "-=100vw"
+      }, 200, function () {
+        // Animation complete.
+      });
+      $(".info").removeClass('show').addClass('hide');
+    }
+  }
+  else if ($(".info").hasClass('hide')) {
+    if ($(window).width() > 960) {
+      infoOnethird();
+      mapTwothirds();
+      $(".info").removeClass('hide').addClass('show');
+    }
+    if ($(window).width() < 960 && $(window).width() > 480) {
+      $(".info").animate({
+        left: "+=70vw"
+      }, 200, function () {
+        // Animation complete.
+      });
+      $(".info").removeClass('hide').addClass('show');
+    }
+    if ($(window).width() < 480) {
+      $(".info").animate({
+        left: "+=100vw"
+      }, 200, function () {
+        // Animation complete.
+      });
+
+      $(".info").removeClass('hide').addClass('show');
+    }
+  }
+}
+
 function toggleBigimage() {
   if ($(".article-image").hasClass('hide')) {
     if ($(window).width() > 960) {
@@ -75,7 +129,7 @@ function toggleBigimage() {
     if ($(window).width() > 960) {
       infoOnethird();
       mapTwothirds();
-      showEverything()
+      showEverything();
       imageOutFocus();
       
     }
@@ -206,7 +260,8 @@ function mapOnethird() {
 
 function infoHidden() {
   $(".info").animate({
-    left: "-=33%"
+    left: "-=33%",
+    width: "33%"
   }, 200, function () {
     // Animation complete.
   });

@@ -121,18 +121,16 @@
 
     <div class="maincontent">
         <div class="mapcontainer">
-            <div class="pa3 right-0 w-30">
-                <div id="geocoderMap" class="geocoder v-mid w-10 w-100"></div>
+            <div class="right-0 w-30 flex flew-row searchbox">
+                <div class="enlargeMapIcon pointer" onclick="toggleInfopanel()">
+                    <i class="fas fa-expand-alt icon"></i>
+                </div>
+                <div id="geocoderMap" class="geocoder v-mid"></div>
             </div>
             <div id="map" class="map"></div>
         </div>
 
         <div class="info z-4 hide w-33 overflow-y-scroll hidescrollbars">
-
-            <div class="absolute top-0 right-0" onclick="hideInfopanel()">
-                <p>close</p>
-            </div>
-
             <div class="title ph3">
                 <h1 class="fw7 mb3 mt2 lh-title" id="article-title">The Louvre Palace</h1>
                 <div class="w-100 flex flex-row">
@@ -163,7 +161,7 @@
                     </div>
                     <div class="wiki-intro-content flex flex-column">
                         <div class="wiki-intro-content-text overflow-hidden" id="wiki-intro-content-text">
-                            <p class="mv0 pa3" id="article-intro">The Musée des Arts Décoratifs (Museum of Decorative Arts) is a
+                            <p class="mv0" id="article-intro">The Musée des Arts Décoratifs (Museum of Decorative Arts) is a
                                 museum dedicated to the exhibition and preservation of the decorative arts. Located at 107
                                 Rue de Rivoli in the city’s 1st arrondissement, the museum occupies the most north-western
                                 wing of the Palais du Louvre, known as the Pavillon de Marsan (Marsan Pavilion). With over
