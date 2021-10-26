@@ -151,6 +151,7 @@ function toggleBigtext() {
   }
   else {
     if ($(window).width() > 960) {
+      console.log("werk bitch")
       infoOnethird();
       mapTwothirds();
       showEverything();
@@ -185,12 +186,13 @@ function showEverything() {
 
 
 function textInFocus() {
-  $(".wiki-intro").animate({
-    'marginLeft': "16px"
-  }, 200, function () {
-    // Animation complete.
-  });    
-  document.getElementById("readmore").style.display = "none";
+  // $(".wiki-intro").animate({
+  //   'marginLeft': "16px"
+  // }, 200, function () {
+  //   // Animation complete.
+  // });    
+  // document.getElementById("readmore").style.display = "none";
+  document.getElementById("wiki-intro").style.marginLeft = "16px";
   document.getElementById("closeicon").style.display = "block";
   document.getElementById("wiki-intro").style.padding = "5rem";
   document.getElementById("wiki-intro").style.maxHeight = "none";
@@ -201,12 +203,13 @@ function textInFocus() {
 }
 
 function textOutFocus() {
-  $(".wiki-intro").animate({
-    'marginLeft': "0px"
-  }, 200, function () {
-    // Animation complete.
-  });   
-  document.getElementById("readmore").style.display = "block";
+  // $(".wiki-intro").animate({
+  //   'marginLeft': "0px"
+  // }, 200, function () {
+  //   // Animation complete.
+  // });   
+  // document.getElementById("readmore").style.display = "block";
+  document.getElementById("wiki-intro").style.marginLeft = "0px";
   document.getElementById("closeicon").style.display = "none";
   document.getElementById("wiki-intro").style.padding = "1rem";
   document.getElementById("wiki-intro").style.maxHeight = "300px";
@@ -216,20 +219,22 @@ function textOutFocus() {
 
 
 function imageInFocus() {
-  $(".article-image").animate({
-        'min-height': "500px",
-      }, 200, function () {
-        // Animation complete.
-  });
+  // $(".article-image").animate({
+  //       'min-height': "500px",
+  //     }, 200, function () {
+  //       // Animation complete.
+  // });
+  document.getElementById("articleimage").style.minHeight = "500px";
   document.getElementById("article-image").style.objectFit = "contain";
 }
 
 function imageOutFocus() {
-  $(".article-image").animate({
-    'min-height': "300px",
-  }, 200, function () {
-    // Animation complete.
-  });
+  // $(".article-image").animate({
+  //   'min-height': "300px",
+  // }, 200, function () {
+  //   // Animation complete.
+  // });
+  document.getElementById("articleimage").style.minHeight = "300px";
   document.getElementById("article-image").style.objectFit = "cover";
 }
 
