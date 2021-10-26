@@ -146,16 +146,16 @@
 
             <div class="infocontent flex flex-wrap">
 
-                <div class="article-image mv3 hide" id="articleimage" onclick="toggleBigimage()">
+                <div class="article-image mv3 hide shadow overflow-hidden" id="articleimage" onclick="toggleBigimage()">
                     <div class="enlargeIcon">
                         <i class="fas fa-expand-alt"></i>
                     </div>
-                    <img class="grow pointer" id="article-image"
+                    <img class="pointer" id="article-image"
                         src="https://upload.wikimedia.org/wikipedia/commons/3/3a/Louvre_aile_Richelieu.jpg"
                         alt="louvre">
                 </div>
 
-                <div class="wiki-intro mv3 hide pointer" id="wiki-intro" onclick="toggleBigtext()">
+                <div class="wiki-intro mv3 hide pointer shadow overflow-hidden" id="wiki-intro" onclick="toggleBigtext()">
                     <div class="enlargeIcon" id="closeicon">
                         <i class="fas fa-expand-alt"></i>
                     </div>
@@ -168,9 +168,9 @@
                                 one million objects in its collection, the Musée des Arts Décoratifs is the largest museum
                                 of decorative arts in continental Europe.</p>
                         </div>
-                        <div class="wiki-intro-content-footer ph3">
+                        <!-- <div class="wiki-intro-content-footer ph3">
                             <p class="textlink" id="readmore">Read more</p>
-                        </div>
+                        </div> -->
                     </div>
                 </div>
 
@@ -180,7 +180,7 @@
                     <div class="w-25 mh2 flex flex-column items-center">
                         <a id="article-wikipedia"
                             class=" mb2 flex flex-column items-center pointer grow article-link" target="_blank">
-                            <div class="bg-white br-100 pa2 circlebutton">
+                            <div class="bg-white br-100 pa2 circlebutton shadow">
                                 <img src="./img/wikipedia.png">
                             </div>
                             <p class="tc f6">Wikipedia</p>
