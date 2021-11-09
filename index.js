@@ -539,7 +539,6 @@ function openPopupListBelowClick(e) {
     for (i in e.features) { // bind click events to list elements
         clickedListDataGlobalStorage[i] = listData[i].properties
 
-
         $("#" + e.features[i].properties.title.replace(/[^a-z0-9]/gi, '')) // use the same formating for the #id
             .attr("data-list-nbr", i)
             .click(function() {
