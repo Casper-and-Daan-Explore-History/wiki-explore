@@ -120,17 +120,9 @@
 
 
     <div class="maincontent">
-        <div class="mapcontainer">
-            <div class="right-0 w-30 flex flew-row searchbox">
-                <div class="enlargeMapIcon pointer" onclick="toggleInfopanel()">
-                    <i class="fas fa-expand-alt icon"></i>
-                </div>
-                <div id="geocoderMap" class="geocoder v-mid"></div>
-            </div>
-            <div id="map" class="map"></div>
-        </div>
+        
 
-        <div class="info z-4 hide w-33 overflow-y-scroll hidescrollbars">
+        <div class="info hide overflow-y-scroll hidescrollbars dn" id="info">
             <div class="title ph3">
                 <h1 class="fw7 mb3 mt2 lh-title" id="article-title">The Louvre Palace</h1>
                 <div class="w-100 flex flex-row">
@@ -217,6 +209,17 @@
                 </div>
             </div>
         </div>
+
+        <div class="mapcontainer">
+            <div class="absolute w-30 flex flew-row searchbox">
+                <div class="enlargeMapIcon pointer" onclick="hideInfopanel()">
+                    <i class="fas fa-expand-alt icon"></i>
+                </div>
+                <div id="geocoderMap" class="geocoder v-mid"></div>
+            </div>
+            <div id="map" class="map"></div>
+        </div>
+
     </div>
 
     </div>

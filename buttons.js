@@ -1,18 +1,8 @@
-function hideAboutpanel() {
-    document.getElementById("about").style.display = "none";
-}
-
-function openAboutpanel() {
-    document.getElementById("about").style.display = "block";
-}
-
 
 function showInfopanel() {
-  if ($(".info").hasClass('hide')) {
     if ($(window).width() > 960) {
       infoOnethird();
       mapTwothirds();
-      $(".info").removeClass('hide').addClass('show');
     }
     if ($(window).width() < 960 && $(window).width() > 480) {
       $(".info").animate({
@@ -20,7 +10,6 @@ function showInfopanel() {
       }, 200, function () {
         // Animation complete.
       });
-      $(".info").removeClass('hide').addClass('show');
     }
     if ($(window).width() < 480) {
       $(".info").animate({
@@ -28,19 +17,14 @@ function showInfopanel() {
       }, 200, function () {
         // Animation complete.
       });
-
-      $(".info").removeClass('hide').addClass('show');
     }
   }
-}
+
   
 function hideInfopanel() {
-  if ($(".info").hasClass('show')) {
     if ($(window).width() > 960) {
-      infoOnethird();
       infoHidden();
       mapFullscreen();
-      $(".info").removeClass('show').addClass('hide');
     }
     if ($(window).width() < 960 && $(window).width() > 480) {
       $(".info").animate({
@@ -48,7 +32,6 @@ function hideInfopanel() {
       }, 200, function () {
         // Animation complete.
       });
-      $(".info").removeClass('show').addClass('hide');
     }
     if ($(window).width() < 480) {
       $(".info").animate({
@@ -56,69 +39,15 @@ function hideInfopanel() {
       }, 200, function () {
         // Animation complete.
       });
-      $(".info").removeClass('show').addClass('hide');
     }
   }
-}
 
-function toggleInfopanel() {
-  if ($(".info").hasClass('show')) {
-    if ($(window).width() > 960) {
-      showEverything();
-      textOutFocus();
-      imageOutFocus();
-      infoHidden();
-      mapFullscreen();
-      $(".info").removeClass('show').addClass('hide');
-    }
-    if ($(window).width() < 960 && $(window).width() > 480) {
-      $(".info").animate({
-        left: "-=70vw"
-      }, 200, function () {
-        // Animation complete.
-      });
-      $(".info").removeClass('show').addClass('hide');
-    }
-    if ($(window).width() < 480) {
-      $(".info").animate({
-        left: "-=100vw"
-      }, 200, function () {
-        // Animation complete.
-      });
-      $(".info").removeClass('show').addClass('hide');
-    }
-  }
-  else if ($(".info").hasClass('hide')) {
-    if ($(window).width() > 960) {
-      infoOnethird();
-      mapTwothirds();
-      $(".info").removeClass('hide').addClass('show');
-    }
-    if ($(window).width() < 960 && $(window).width() > 480) {
-      $(".info").animate({
-        left: "+=70vw"
-      }, 200, function () {
-        // Animation complete.
-      });
-      $(".info").removeClass('hide').addClass('show');
-    }
-    if ($(window).width() < 480) {
-      $(".info").animate({
-        left: "+=100vw"
-      }, 200, function () {
-        // Animation complete.
-      });
-
-      $(".info").removeClass('hide').addClass('show');
-    }
-  }
-}
 
 function toggleBigimage() {
   if ($(".article-image").hasClass('hide')) {
     if ($(window).width() > 960) {
       infoTwothirds();
-      mapOnethird();
+      // mapOnethird();
       hideText();
       hideLinks();
       imageInFocus();
@@ -128,7 +57,7 @@ function toggleBigimage() {
   else {
     if ($(window).width() > 960) {
       infoOnethird();
-      mapTwothirds();
+      // mapTwothirds();
       showEverything();
       imageOutFocus();
       
@@ -141,7 +70,7 @@ function toggleBigtext() {
   if ($(".wiki-intro").hasClass('hide')) {
     if ($(window).width() > 960) {
       infoTwothirds();
-      mapOnethird();
+      // mapOnethird();
       hideImage();
       hideLinks();
       textInFocus();
@@ -151,9 +80,8 @@ function toggleBigtext() {
   }
   else {
     if ($(window).width() > 960) {
-      console.log("werk bitch")
       infoOnethird();
-      mapTwothirds();
+      // mapTwothirds();
       showEverything();
       textOutFocus();
     }
@@ -239,40 +167,22 @@ function imageOutFocus() {
 }
 
 
-function mapFullscreen() {
-  $(".mapcontainer").animate({
-    left: "16px"
-  }, 200, function () {
-    // Animation complete.
-  });
-}
 
-function mapTwothirds() {
-  $(".mapcontainer").animate({
-    left: "33%"
-  }, 200, function () {
-    // Animation complete.
-  });
-}
-
-function mapOnethird() {
-  $(".mapcontainer").animate({
-    left: "66%"
-  }, 200, function () {
-    // Animation complete.
-  });
-}
 
 function infoHidden() {
+  
   $(".info").animate({
-    left: "-=33%",
-    width: "33%"
+    width: "0%",
   }, 200, function () {
     // Animation complete.
+    $(".info").hide();
+
   });
+  // $(".info").hide();
 }
 
 function infoOnethird() {
+  $(".info").show();
   $(".info").animate({
     left: "0px",
     width: "33%"
@@ -284,10 +194,42 @@ function infoOnethird() {
 function infoTwothirds() {
     $(".info").animate({
       left: "0px",
-    width: "66%"
+      width: "66%"
     }, 200, function () {
       // Animation complete.
     });
     
 
 }
+
+
+
+
+
+
+
+
+
+// function mapFullscreen() {
+//   $(".mapcontainer").animate({
+//     left: "16px"
+//   }, 200, function () {
+//     // Animation complete.
+//   });
+// }
+
+// function mapTwothirds() {
+//   $(".mapcontainer").animate({
+//     left: "33%"
+//   }, 200, function () {
+//     // Animation complete.
+//   });
+// }
+
+// function mapOnethird() {
+//   $(".mapcontainer").animate({
+//     left: "66%"
+//   }, 200, function () {
+//     // Animation complete.
+//   });
+// }
