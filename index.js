@@ -431,7 +431,9 @@ map.on('load', function() {
     map.on('mouseleave', 'cluster-count', hoverPopupOff);
 
     // click
-    map.on('click', function(e) {});
+    map.on('click', function(e) {
+        // hideInfopanel()
+    });
 
     map.on('click', 'unclustered-point', popupOpen);
     map.on('click', 'cluster-count', popupOpen);
@@ -502,9 +504,6 @@ function popupOpen(e) {
     } else {
         openDetailPannel(e.features[0].properties); //Starts API calls
     }
-
-
-
 }
 
 var clickedListDataGlobalStorage;
