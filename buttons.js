@@ -6,17 +6,14 @@ function showInfopanel() {
     }
     if ($(window).width() < 960 && $(window).width() > 480) {
       $(".info").animate({
-        left: "+=70vw"
+        width: "100%"
+        // left: "+=70vw"
       }, 200, function () {
         // Animation complete.
       });
     }
     if ($(window).width() < 480) {
-      $(".info").animate({
-        left: "+=100vw"
-      }, 200, function () {
-        // Animation complete.
-      });
+      infoFullscreen();
     }
   }
 
@@ -198,8 +195,16 @@ function infoTwothirds() {
     }, 200, function () {
       // Animation complete.
     });
-    
+}
 
+function infoFullscreen() {
+  $(".info").show();
+  $(".info").animate({
+    left: "0px",
+    width: "100%"
+  }, 200, function () {
+    // Animation complete.
+  });
 }
 
 
