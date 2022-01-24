@@ -3,6 +3,7 @@
     --prim1: #234C5A;
     --prim2: #4B7982;
     --prim3: #F4E9D3;
+    --primx: #E4E7E6;
     /* --prim4: #f0ece4; */
     --prim4: #ECF2F4;
     --black: #272727;
@@ -15,8 +16,8 @@ html, body {
     margin: 0;
     box-sizing: border-box;
     overflow: hidden;
-    background-color: var(--prim3); 
-    background-image: url("./img/asfalt-dark.png");
+    background-color: var(--primx); 
+    /* background-image: url("./img/asfalt-dark.png"); */
     background-size: 128px 128px;
 }
 
@@ -30,6 +31,23 @@ p {
     font-size: 16px;
     line-height: 1.7;
     font-weight: 400;
+}
+
+
+@media only screen and (max-width: 599px) {
+	.maincontent {
+        padding: 0px;
+    }
+}
+@media only screen and (min-width: 600px) {
+    .maincontent {
+        padding: 16px;
+    }	
+}
+@media only screen and (min-width: 900px) {
+    .maincontent {
+        padding: 16px;
+    }
 }
 
 /* ----------- B U T T O N S ---------- */
@@ -80,7 +98,6 @@ p {
     box-sizing: border-box;
     display: flex;
     flex-direction: row;
-    padding: 16px;
     overflow: hidden;
 }
 
@@ -182,6 +199,12 @@ p {
 
 .shadow {
     box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.15);
+  }
+
+  .mapshadow {
+    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.15);
+    transition: all .3s cubic-bezier(.77, 0, .175, 1);
+    transform:translateY(0)
   }
 
 .shadow, .shadow-hover {
