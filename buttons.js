@@ -1,50 +1,26 @@
 
 function showInfopanel() {
-    if ($(window).width() > 960) {
+    if ($(window).width() > 900) {
       infoOnethird();
-      mapTwothirds();
     }
-    if ($(window).width() < 960 && $(window).width() > 480) {
-      $(".info").animate({
-        width: "100%"
-        // left: "+=70vw"
-      }, 200, function () {
-        // Animation complete.
-      });
+    if ($(window).width() < 900 && $(window).width() > 600) {
+      infoFullscreen();
     }
-    if ($(window).width() < 480) {
+    if ($(window).width() < 600) {
       infoFullscreen();
     }
   }
 
   
 function hideInfopanel() {
-    if ($(window).width() > 960) {
-      infoHidden();
-      mapFullscreen();
-    }
-    if ($(window).width() < 960 && $(window).width() > 480) {
-      $(".info").animate({
-        left: "-=70vw"
-      }, 200, function () {
-        // Animation complete.
-      });
-    }
-    if ($(window).width() < 480) {
-      $(".info").animate({
-        left: "-=100vw"
-      }, 200, function () {
-        // Animation complete.
-      });
-    }
+    infoHidden();
   }
 
 
 function toggleBigimage() {
   if ($(".article-image").hasClass('hide')) {
-    if ($(window).width() > 960) {
+    if ($(window).width() > 900) {
       infoTwothirds();
-      // mapOnethird();
       hideText();
       hideLinks();
       imageInFocus();
@@ -52,9 +28,8 @@ function toggleBigimage() {
     $(".article-image").removeClass('hide').addClass('show');
   }
   else {
-    if ($(window).width() > 960) {
+    if ($(window).width() > 900) {
       infoOnethird();
-      // mapTwothirds();
       showEverything();
       imageOutFocus();
       
@@ -65,7 +40,7 @@ function toggleBigimage() {
 
 function toggleBigtext() {
   if ($(".wiki-intro").hasClass('hide')) {
-    if ($(window).width() > 960) {
+    if ($(window).width() > 900) {
       infoTwothirds();
       // mapOnethird();
       hideImage();
@@ -76,9 +51,8 @@ function toggleBigtext() {
     $(".wiki-intro").removeClass('hide').addClass('show');
   }
   else {
-    if ($(window).width() > 960) {
+    if ($(window).width() > 900) {
       infoOnethird();
-      // mapTwothirds();
       showEverything();
       textOutFocus();
     }
@@ -165,7 +139,6 @@ function imageOutFocus() {
 
 
 
-
 function infoHidden() {
   
   $(".info").animate({
@@ -182,13 +155,14 @@ function infoOnethird() {
   $(".info").show();
   $(".info").animate({
     left: "0px",
-    width: "33%"
+    width: "38%"
   }, 200, function () {
     // Animation complete.
   });
 }
 
 function infoTwothirds() {
+    $(".info").show();
     $(".info").animate({
       left: "0px",
       width: "66%"
@@ -206,35 +180,3 @@ function infoFullscreen() {
     // Animation complete.
   });
 }
-
-
-
-
-
-
-
-
-
-// function mapFullscreen() {
-//   $(".mapcontainer").animate({
-//     left: "16px"
-//   }, 200, function () {
-//     // Animation complete.
-//   });
-// }
-
-// function mapTwothirds() {
-//   $(".mapcontainer").animate({
-//     left: "33%"
-//   }, 200, function () {
-//     // Animation complete.
-//   });
-// }
-
-// function mapOnethird() {
-//   $(".mapcontainer").animate({
-//     left: "66%"
-//   }, 200, function () {
-//     // Animation complete.
-//   });
-// }
