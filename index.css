@@ -202,7 +202,6 @@ p {
     border-radius: 16px;
     object-fit: cover;
     position: relative;
-    overflow: hidden;
     display: flex;
     align-items: center;
     height: 300px;
@@ -228,14 +227,14 @@ p {
 .shadow-hover:active, .shadow-hover:focus, .shadow-hover:hover, .shadow:hover {
     box-shadow: 0 4px 4px rgba(0, 0, 0, .1), 0 8px 8px rgba(0, 0, 0, .1), 0 16px 16px rgba(0, 0, 0, .1), 0 32px 32px rgba(0, 0, 0, .1);
     transform: translateY(-4px);
-    outline:none;
+    outline: none;
 }
 
 .article-image img {
     object-fit: cover;
     height: 100%;
     width: 100%;   
-    border-radius: 16px;    
+    border-radius: 16px;  
 }
 
 .searchbox {
@@ -263,6 +262,8 @@ p {
     display:block;
 }
 
+
+
 .enlargeMapIcon {
 	background-color: var(--white);
 	color: var(--black);
@@ -277,14 +278,22 @@ p {
     align-items:center;
 }
 
+#closeicon {
+    display: none;
+}
+
 
 .wiki-intro {
     position: relative;
     background-color: var(--white);
     border-radius: 16px;
     max-height: 300px; 
-    overflow: hidden;
+    /* overflow: hidden; */
     padding: 24px;
+}
+
+.wiki-intro:hover .enlargeIcon{
+    display:block;
 }
 .wiki-intro-content-text {
     max-height: 300px;

@@ -75,7 +75,7 @@
         </div>
     </div>
 
-    <div class="WelcomeDiv db w-100 mw-100 vh-100 cf overflow-hidden z-999 absolute top-0">
+    <div class="WelcomeDiv dn w-100 mw-100 vh-100 cf overflow-hidden z-999 absolute top-0">
         <div class="bgimage w-100 h-100">
             <div class="WelcomeDivContent2 w-60-l w-100 h-100 flex flex-column justify-between-l justify-center">
                 <div class="welcomeheader pa4-ns pa3">
@@ -135,7 +135,7 @@
 
             <div class="infocontent flex flex-wrap">
 
-                <div class="article-image mv3 hide shadow overflow-hidden" id="articleimage" onclick="toggleBigimage()">
+                <div class="article-image mv3 hide shadow" id="articleimage" onclick="toggleBigimage()">
                     <div class="enlargeIcon">
                         <i class="fas fa-expand-alt"></i>
                     </div>
@@ -144,10 +144,11 @@
                         alt="louvre">
                 </div>
 
-                <div class="wiki-intro mv3 hide pointer shadow overflow-hidden" id="wiki-intro" onclick="toggleBigtext()">
+                <div class="wiki-intro mv3 hide pointer shadow" id="wiki-intro" onclick="toggleBigtext()">
                     <div class="enlargeIcon shadow">
                         <i class="fas fa-expand-alt"></i>
                     </div>
+                    <div class="enlargeIcon" id="closeicon"></div>
                     <div class="wiki-intro-content flex flex-column">
                         <div class="wiki-intro-content-text overflow-hidden" id="wiki-intro-content-text">
                             <p class="mv0" id="article-intro">The Musée des Arts Décoratifs (Museum of Decorative Arts) is a
