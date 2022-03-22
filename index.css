@@ -231,7 +231,6 @@ p {
     outline:none;
 }
 
-
 .article-image img {
     object-fit: cover;
     height: 100%;
@@ -244,17 +243,24 @@ p {
 }
 
 .enlargeIcon {
-	background-color: var(--black);
-	color: var(--white);
+    display:none;
+	background-color: var(--white);
+	color: var(--black);
 	position: absolute;
-	right:0;
-    top: 0px;
+	right:-20px;
+    top: -20px;
 	width: 30px;
 	margin: 10px;
 	text-align: center;
-	border-radius: 4px;
+	border-radius: 100px;
 	padding: 5px;
-	z-index:5;
+	z-index:10;
+    overflow: visible;
+    object-fit: cover;
+}
+
+.article-image:hover .enlargeIcon{
+    display:block;
 }
 
 .enlargeMapIcon {
@@ -271,10 +277,6 @@ p {
     align-items:center;
 }
 
-
-#closeicon {
-    display: none;
-}
 
 .wiki-intro {
     position: relative;
