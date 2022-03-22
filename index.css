@@ -16,7 +16,7 @@ html, body {
     margin: 0;
     box-sizing: border-box;
     overflow: hidden;
-    background-color: var(--primx); 
+    background-color: var(--prim2); 
     /* background-image: url("./img/asfalt-dark.png"); */
     background-size: 128px 128px;
 }
@@ -182,6 +182,10 @@ p {
 
 /* ----------- INFO DIV ---------- */
 
+.title {
+    color: var(--white)
+}
+
 .hidescrollbars::-webkit-scrollbar {
     display: none;
 }
@@ -309,7 +313,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00f8f9fb', e
 
 .item {
     margin-top: 0px;
-    color: var(--black);
+    color: var(--white);
     line-height: 1.2;
 }
 
