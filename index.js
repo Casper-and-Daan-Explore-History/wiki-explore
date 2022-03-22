@@ -261,8 +261,8 @@ map.on('load', function() {
         source: 'wikipediaSource',
         // filter: ['!', ['has', 'point_count']],
         paint: {
-            'circle-color': '#234C5A',
-            'circle-opacity': 0.5,
+            'circle-color': '#4B7982',
+            'circle-opacity': 0.8,
             'circle-radius': 10,
             'circle-stroke-width': 1,
             'circle-stroke-color': '#fff'
