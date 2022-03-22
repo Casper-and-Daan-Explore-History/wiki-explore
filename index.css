@@ -92,11 +92,12 @@ p {
 
 .wikilinks {
     width: 100%;
-    margin-top: 16px
+    margin-top: 16px;
+    color: var(--white);
 }
 
 .listitem {
-    border-top: 0.5px solid silver;
+    border-top: 0.5px solid white;
     width: 100%;
     padding: 0px 8px;
     transition: 0.2s;
@@ -122,6 +123,7 @@ p {
 }
 
 .listitemlabel {
+    color: var(--white);
     margin-left: 24px;
     text-decoration: none;
     line-height: 1.2;

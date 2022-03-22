@@ -78,7 +78,7 @@ function hideLinks() {
 
 function showEverything() {
   //show everything again
-  document.getElementById("wikilinks").style.display = "flex";
+  document.getElementById("wikilinks").style.display = "block";
   document.getElementById("wiki-intro").style.display = "block";
   document.getElementById("articleimage").style.display = "block";
 }
