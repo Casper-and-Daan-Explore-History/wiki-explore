@@ -134,8 +134,6 @@ function imageOutFocus() {
     document.getElementById("article-image").style.objectFit = "cover";
 }
 
-
-
 function infoHidden() {
     $(".info").animate({
         width: "0%",
@@ -143,6 +141,7 @@ function infoHidden() {
         // Animation complete.
         $(".info").hide();
         map.resize()
+        $(".enlargeMapIcon").hide()
     });
     // $(".info").hide();
 }
@@ -154,6 +153,7 @@ function infoOnethird() {
         width: "38%"
     }, 200, function() {
         // Animation complete.
+        $(".enlargeMapIcon").show()
     });
 }
 
@@ -164,6 +164,7 @@ function infoTwothirds() {
         width: "66%"
     }, 200, function() {
         // Animation complete.
+        $(".enlargeMapIcon").show()
     });
 }
 
@@ -174,5 +175,6 @@ function infoFullscreen() {
         width: "100%"
     }, 200, function() {
         // Animation complete.
+        $(".enlargeMapIcon").hide()
     });
 }
