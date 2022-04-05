@@ -20,11 +20,8 @@
     <link href="https://api.mapbox.com/mapbox-gl-js/v1.7.0/mapbox-gl.css" rel="stylesheet" />
 
     <!-- geocoder from mapbox -->
-    <script
-        src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.4.2/mapbox-gl-geocoder.min.js"></script>
-    <link rel="stylesheet"
-        href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.4.2/mapbox-gl-geocoder.css"
-        type="text/css" />
+    <script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.4.2/mapbox-gl-geocoder.min.js"></script>
+    <link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.4.2/mapbox-gl-geocoder.css" type="text/css" />
 
     <!-- required to use Mapbox Geocoder in IE 11 -->
     <script src="https://cdn.jsdelivr.net/npm/es6-promise@4/dist/es6-promise.min.js"></script>
@@ -32,8 +29,8 @@
 
     <!-- Google Font -->
     <script src="https://kit.fontawesome.com/c258b31bf5.js" crossorigin="anonymous"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com"> 
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> 
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Caudex:wght@400;700&family=Inter:wght@500&display=swap" rel="stylesheet">
 
 </head>
@@ -48,9 +45,8 @@
                 <h1>About Wiki Map</h1>
                 <div class="flex-auto items-center content-center tl w-50-l center">
 
-                    <p>I like car design. I struggle to place the right designer at the right studio. I wanted to create
-                        this data vizualization to show that, and celebrate and give an insight in the evolution of car
-                        design.</p>
+                    <p>I like car design. I struggle to place the right designer at the right studio. I wanted to create this data vizualization to show that, and celebrate and give an insight in the evolution of car design.
+                    </p>
                     <h3 class="lh-title mb0">Where the data comes from</h3>
                     <p class="mt1">Wikipedia</p>
                     <h3 class="lh-title mb0">Roadmap</h3>
@@ -116,18 +112,18 @@
 
 
     <div class="maincontent">
-        
+
 
         <div class="info hide overflow-y-scroll hidescrollbars dn" id="info">
             <div class="closebutton" onclick="hideInfopanel()">close</div>
             <div class="title ph3">
-                <h1 class="fw7 mb3 mt2 lh-title" id="article-title">The Louvre Palace</h1>
-                <div class="w-100 flex flex-row">
+                <h1 class="fw7 mb3 mt2 lh-title" id="article-title"></h1>
+                <!-- <div class="w-100 flex flex-row">
                     <p class="mv1 f5 lh-copy" id="article-description">Museum of the decorative arts and design located
                         in the Louvre's northwest wing</p>
-                </div>
+                </div> -->
                 <div>
-                    <p class="item dib">From</p>
+                    <!-- <p class="item dib">From</p> -->
                     <p class="item f5 dib" id="article-year">1905</p>
                 </div>
 
@@ -139,9 +135,7 @@
                     <div class="enlargeIcon">
                         <i class="fas fa-expand-alt"></i>
                     </div>
-                    <img class="pointer" id="article-image"
-                        src="https://upload.wikimedia.org/wikipedia/commons/3/3a/Louvre_aile_Richelieu.jpg"
-                        alt="louvre">
+                    <img class="pointer" id="article-image" src="https://upload.wikimedia.org/wikipedia/commons/3/3a/Louvre_aile_Richelieu.jpg" alt="louvre">
                 </div>
 
                 <div class="wiki-intro mv3 hide pointer shadow" id="wiki-intro" onclick="toggleBigtext()">
@@ -151,12 +145,9 @@
                     <div class="enlargeIcon" id="closeicon"></div>
                     <div class="wiki-intro-content flex flex-column">
                         <div class="wiki-intro-content-text overflow-hidden" id="wiki-intro-content-text">
-                            <p class="mv0" id="article-intro">The Musée des Arts Décoratifs (Museum of Decorative Arts) is a
-                                museum dedicated to the exhibition and preservation of the decorative arts. Located at 107
-                                Rue de Rivoli in the city’s 1st arrondissement, the museum occupies the most north-western
-                                wing of the Palais du Louvre, known as the Pavillon de Marsan (Marsan Pavilion). With over
-                                one million objects in its collection, the Musée des Arts Décoratifs is the largest museum
-                                of decorative arts in continental Europe.</p>
+                            <p class="mv0" id="article-intro">The Musée des Arts Décoratifs (Museum of Decorative Arts) is a museum dedicated to the exhibition and preservation of the decorative arts. Located at 107 Rue de Rivoli in the city’s 1st arrondissement, the museum occupies the
+                                most north-western wing of the Palais du Louvre, known as the Pavillon de Marsan (Marsan Pavilion). With over one million objects in its collection, the Musée des Arts Décoratifs is the largest museum of decorative arts
+                                in continental Europe.</p>
                         </div>
                         <!-- <div class="wiki-intro-content-footer ph3">
                             <p class="textlink" id="readmore">Read more</p>
