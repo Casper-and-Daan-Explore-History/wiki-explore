@@ -1485,7 +1485,6 @@ function updateDetailsPannel() {
 
         $("#article-google-maps").hide();
         $("#article-google-maps").attr("href", "");
-
     }
 
     $("#article-title").text(detailsPannelData.Map_title);
