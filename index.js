@@ -922,7 +922,7 @@ function selectNew(Q) {
         $("#selectionContainer").css({ 'display': 'flex' });
         $(".singleImgSelection").attr("src", data.imgthum);
         $("#slectedItemTitle").text(data.label);
-        $("#slectedItemDescription").text(data.description);
+        // $("#slectedItemDescription").text(data.description);
         $("#slectedItemCategory").text(data.categorie);
         // $(".singleImgSelection").attr("src", data.imgthum);
         $(".singleImgSelection").show();
@@ -1463,7 +1463,8 @@ function updateDetailsPannel() {
     function resetDetailsPannel() {
         $("#article-title").text("no title");
         $("#article-intro").html("");
-        $("#article-year").text("-");
+        // $("#article-year").text("-");
+        $("#article-year").hide();
         $("#articleimage").hide();
         $("#article-image").addClass("loader");
         $("#article-image").attr("src", "img/loading.gif");
@@ -1491,7 +1492,13 @@ function updateDetailsPannel() {
 
     $("#article-title").text(detailsPannelData.Map_title);
     $("#article-intro").html(detailsPannelData.wikipedia_Intro);
-    $("#article-year").text(formatingInseption());
+
+    // year label 
+    let yearLabel = formatingInseption();
+    if (yearLabel) {
+        $("#article-year").text(yearLabel);
+        $("#article-year").show();
+    }
 
     if (detailsPannelData.wikipedia_ImgUrl != undefined) {
         $("#articleimage").show();
@@ -1532,11 +1539,12 @@ function updateDetailsPannel() {
     }
 
     function formatingInseption() {
-        var value = "-";
+        var value = "";
         if (detailsPannelData.Wikidata_inception != undefined) {
-            value = detailsPannelData.Wikidata_inception;
+            return "From " + detailsPannelData.Wikidata_inception;
+        } else {
+            return
         }
-        return value;
     }
 
     function formatingVisitors() {
