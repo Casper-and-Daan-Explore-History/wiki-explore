@@ -204,9 +204,26 @@ p {
     position: relative;
     display: flex;
     align-items: center;
+    justify-content: center;
     height: 300px;
     width: 100%;
     background-color: var(--black);
+}
+
+#article-image-loader {
+    display:none;
+    object-fit: cover;
+    position: absolute;
+    width: 40px;
+    height: auto;
+}
+
+img[src^=loading] {
+    display:none;
+    object-fit: cover;
+    position: absolute;
+    width: 40px;
+    height: auto;
 }
 
 .loader {

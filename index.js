@@ -1466,9 +1466,9 @@ function updateDetailsPannel() {
         // $("#article-year").text("-");
         $("#article-year").hide();
         $("#articleimage").hide();
-        $("#article-image").addClass("loader");
+        // $("#article-image-loader").attr("display", "block");
         $("#article-image").attr("src", "img/loading.gif");
-        $("#article-image").attr("alt", "loading");
+        // $("#article-image").attr("alt", "loading");
         // $("#article-description").html("no discription");
         $("#article-visitors").text("-");
         $("#article-instance-of").html("-");
@@ -1502,7 +1502,8 @@ function updateDetailsPannel() {
 
     if (detailsPannelData.wikipedia_ImgUrl != undefined) {
         $("#articleimage").show();
-        $("#article-image").removeClass("loader");
+        // $("#article-image-loader").attr("display", "none");
+        // $("#article-image").removeClass("loader");
 
         $("#article-image").attr("src", detailsPannelData.wikipedia_ImgUrl);
         $("#article-image").attr("alt", detailsPannelData.wikipedia_ImgTitle);
