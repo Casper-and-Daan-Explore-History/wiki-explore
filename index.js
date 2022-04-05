@@ -1457,6 +1457,7 @@ function popuphtml() {
 function updateDetailsPannel() {
     console.log(detailsPannelData);
 
+
     resetDetailsPannel();
 
     function resetDetailsPannel() {
@@ -1464,6 +1465,7 @@ function updateDetailsPannel() {
         $("#article-intro").html("");
         $("#article-year").text("-");
         $("#articleimage").hide();
+        $("#article-image").addClass("loader");
         $("#article-image").attr("src", "img/loading.gif");
         $("#article-image").attr("alt", "loading");
         // $("#article-description").html("no discription");
@@ -1493,8 +1495,11 @@ function updateDetailsPannel() {
 
     if (detailsPannelData.wikipedia_ImgUrl != undefined) {
         $("#articleimage").show();
+        $("#article-image").removeClass("loader");
+
         $("#article-image").attr("src", detailsPannelData.wikipedia_ImgUrl);
         $("#article-image").attr("alt", detailsPannelData.wikipedia_ImgTitle);
+
     }
 
     // $("#article-description").html(detailsPannelData.Wikidata_itemDescription);
