@@ -9,6 +9,10 @@
     --black: #272727;
 }
 
+img[src*="loading.gif"] { 
+    width: 20px;
+    }
+
 html,
 body {
     font-family: 'Inter', sans-serif;
