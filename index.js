@@ -776,7 +776,7 @@ function extractLngLat(dirtyGeo) {
 
 // Helper - procesing String
 function qnumberExtraction(QURL) {
-    var value = QURL.replace("http://www.wikidata.org/entity/", "");
+    var value = QURL.replace("https://www.wikidata.org/entity/", "");
     return value;
 }
 
@@ -791,7 +791,7 @@ function getCommonsCategoryImgs(pageTitle, Qdestination, vieuwDestination) {
     // var apiURL = "https://commons.wikimedia.org/w/api.php?action=query&format=json&list=categorymembers&pageids=4606622&utf8=1&cmtitle=Category%3A" + pageTitle + "&cmtype=subcat%7Cfile&cmlimit=max"
     $(document).ready(function() {
         $.ajax({
-            url: 'http://commons.wikimedia.org/w/api.php',
+            url: 'https://commons.wikimedia.org/w/api.php',
             data: {
                 action: 'query',
                 format: 'json',
@@ -807,8 +807,8 @@ function getCommonsCategoryImgs(pageTitle, Qdestination, vieuwDestination) {
     });
 
     function processResult(apiResult) {
-        var imgUrlPrefix = "http://commons.wikimedia.org/wiki/Special:FilePath/";
-        var pageUrlPrefix = "http://commons.wikimedia.org/wiki/";
+        var imgUrlPrefix = "https://commons.wikimedia.org/wiki/Special:FilePath/";
+        var pageUrlPrefix = "https://commons.wikimedia.org/wiki/";
         var thumSufix = "?width=300px";
         var arrayOfImgs = [];
         for (r in apiResult.query.categorymembers) {
@@ -1085,7 +1085,7 @@ function parseWikipediaApiResponseDetails(jsonData) {
     detailsPannelData.wikipedia_ImgTitle = wikipediaApiRespons.pageimage;
     detailsPannelData.Qnumber = wikipediaApiRespons.pageprops.wikibase_item;
     if (wikipediaApiRespons.pageimage != undefined) {
-        detailsPannelData.wikipedia_ImgUrl = "http://commons.wikimedia.org/wiki/Special:FilePath/" + wikipediaApiRespons.pageimage;
+        detailsPannelData.wikipedia_ImgUrl = "https://commons.wikimedia.org/wiki/Special:FilePath/" + wikipediaApiRespons.pageimage;
     }
     detailsPannelData.wikipedia_Categories = [];
 
@@ -1129,7 +1129,7 @@ function parseCommonsApiResponseDetails(jsonData) {
     detailsPannelData.wikipedia_Intro = wikipediaApiRespons.extract;
     detailsPannelData.wikipedia_ImgTitle = wikipediaApiRespons.pageimage;
     detailsPannelData.Qnumber = wikipediaApiRespons.pageprops.wikibase_item;
-    detailsPannelData.wikipedia_ImgUrl = "http://commons.wikimedia.org/wiki/Special:FilePath/" + wikipediaApiRespons.pageimage;
+    detailsPannelData.wikipedia_ImgUrl = "https://commons.wikimedia.org/wiki/Special:FilePath/" + wikipediaApiRespons.pageimage;
     detailsPannelData.wikipedia_Categories = [];
 
     //ToDo: get a desent thumnail. Maibe by transforming img url?
@@ -1267,8 +1267,8 @@ function WikidataApiRequestDetails() {
             console.log(keys);
             console.log(data.img);
             // https://commons.wikimedia.org/wiki/File:P1050763_Louvre_code_Hammurabi_face_rwk-gradient.jpg
-            // http://commons.wikimedia.org/wiki/Special:FilePath/P1050763%20Louvre%20code%20Hammurabi%20face%20rwk-gradient.jpg
-            // http://commons.wikimedia.org/wiki/Special:FilePath/  Louvre%20chateau%201.jpg
+            // https://commons.wikimedia.org/wiki/Special:FilePath/P1050763%20Louvre%20code%20Hammurabi%20face%20rwk-gradient.jpg
+            // https://commons.wikimedia.org/wiki/Special:FilePath/  Louvre%20chateau%201.jpg
             // https://commons.wikimedia.org/wiki/File:             Louvre%20chateau%201.jpg
 
             for (k in keys) {
@@ -1292,7 +1292,7 @@ function WikidataApiRequestDetails() {
                             // case "img":
                             //     value = data[keys[k]][v];
                             //     value = value.replace(
-                            //         "http://commons.wikimedia.org/wiki/Special:FilePath/",
+                            //         "https://commons.wikimedia.org/wiki/Special:FilePath/",
                             //         "https://commons.wikimedia.org/wiki/File:"
                             //     )
                             //     break;
