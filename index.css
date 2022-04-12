@@ -222,7 +222,7 @@ p {
 }
 
 #article-image-loader {
-    display:none;
+    display: none;
     object-fit: cover;
     position: absolute;
     width: 40px;
@@ -230,9 +230,9 @@ p {
 }
 
 img[src^=loading] {
-    display:none;
-    object-fit: cover;
-    position: absolute;
+    /* display:none; */
+    /* object-fit: cover; */
+    /* position: absolute; */
     width: 40px;
     height: auto;
 }
