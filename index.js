@@ -1076,19 +1076,9 @@ map.addControl(new mapboxgl.NavigationControl(), 'bottom-right');
 // Fullscreen constroles.
 map.addControl(new mapboxgl.FullscreenControl(), 'bottom-right');
 
-// location search
-
-
-
-// Add geolocate control to the map.
-// map.addControl(
-//     new mapboxgl.GeolocateControl({
-//         positionOptions: {
-//             enableHighAccuracy: true
-//         },
-//         trackUserLocation: true
-//     })
-// );
+function newRandomLocation() {
+    map.flyTo({ center: startingLocation });
+}
 
 /* Get the documentElement (<html>) to display the page in fullscreen */
 var elem = document.documentElement;
