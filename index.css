@@ -506,3 +506,13 @@ img[src^=loading] {
 .startButton:hover {
     text-decoration: none!important;
 }
+
+.mapboxgl-ctrl-geocoder {
+    max-width: 100%!important;
+    width: 100%!important;
+    height: auto!important;
+    border-radius: 0.5rem!important;
+}
+.mapboxgl-ctrl-geocoder--input{
+    height: 60px!important;
+}
