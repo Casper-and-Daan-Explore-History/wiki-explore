@@ -1057,10 +1057,10 @@ const startingLocations = [
 const startingLocation = startingLocations[Math.floor(Math.random() * startingLocations.length)]
 
 
-mapboxgl.accessToken = 'pk.eyJ1IjoiY2Fza2VzIiwiYSI6ImNqYW1tNGdwdjN3MW8yeWp1cWNsaXZveDYifQ.MNpL7SYvoVgR4s_4ma5iyg';
+mapboxgl.accessToken = 'pk.eyJ1IjoiY2Fza2VzIiwiYSI6ImNsZGtwdGRrdzA4dWMzb3BoMWdxM3Zib2UifQ.2q2xfShG5nmDHTxg7n_ZhQ';
 var map = new mapboxgl.Map({
     container: 'map', // container id
-    style: 'mapbox://styles/caskes/cklkot3vu1nwy17qneh7f1hzd', // stylesheet location
+    style: 'mapbox://styles/caskes/cldkq0ha9000r01n3hjgwtkrn', // stylesheet location
     center: startingLocation, // starting position [lng, lat]
     zoom: 15,
     hash: true
