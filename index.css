@@ -29,12 +29,12 @@ body {
 h1,
 h2 {
     /* font-family: 'Karla', sans-serif; */
-    font-family: 'Caudex', serif;
+    font-family: 'Bitter', serif;
 }
 
 p {
     font-family: 'Inter', sans-serif;
-    font-size: 16px;
+    font-size: 18px;
     line-height: 1.7;
     font-weight: 500;
 }
@@ -329,7 +329,7 @@ img[src^=loading] {
     border-radius: 16px;
     max-height: 300px;
     /* overflow: hidden; */
-    padding: 24px;
+    padding: 32px 28px;
 }
 
 .wiki-intro:hover .enlargeIcon {
@@ -461,20 +461,26 @@ img[src^=loading] {
 ---------------------------------------------
 */
 
-.WelcomeDiv {
-    font-family: 'Karla', sans-serif;
+.mapboxgl-ctrl-geocoder {
+    border-radius: .5rem!important;
 }
 
 .WelcomeDiv .mapboxgl-ctrl-geocoder {
     text-align: left;
+    width: 100%;
+    max-width: none;
+   
 }
 
-.WelcomeDivContent {
-    background: rgba(248, 250, 252, 0.65);
-    -webkit-backdrop-filter: blur(100px);
-    backdrop-filter: blur(100px);
-    opacity: 0.5;
-    /* Note: backdrop-filter has minimal browser support */
+.WelcomeDiv .mapboxgl-ctrl-geocoder input{
+    text-align: left;
+    width: 100%;
+    max-width: none;
+    height: 60px;
+    vertical-align: middle;
+    font-size: 16px;
+    font-family: 'Inter', sans-serif;
+    font-weight: 400;
 }
 
 .logo {
@@ -482,12 +488,10 @@ img[src^=loading] {
     height: 75px;
 }
 
-.WelcomeDivContent2 {
-    background: rgba(244, 233, 211, 1);
-    -webkit-backdrop-filter: blur(100px);
-    backdrop-filter: blur(100px);
-    background-image: url("./img/asfalt-dark.png");
-    background-size: 128px 128px;
+.WelcomeDiv {
+    background-image: url("./img/bg.jpg");
+    background-size: cover;
+    color: white;
 }
 
 .bgimage {
@@ -497,10 +501,10 @@ img[src^=loading] {
 }
 
 .startButton {
-    background-color: var(--prim2);
+    height: 60px;
+    background-color: var(--black);
     text-decoration: none;
     color: var(--prim1);
-    box-shadow: 0 1.9px 2.2px rgba(0, 0, 0, 0.009), 0 4.6px 5.3px rgba(0, 0, 0, 0.014), 0 8.5px 10px rgba(0, 0, 0, 0.02), 0 14.8px 17.9px rgba(0, 0, 0, 0.028), 0 26.9px 33.4px rgba(0, 0, 0, 0.044), 0 62px 80px rgba(0, 0, 0, 0.09);
 }
 
 .startButton:hover {

@@ -31,7 +31,7 @@
     <script src="https://kit.fontawesome.com/c258b31bf5.js" crossorigin="anonymous"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Caudex:wght@400;700&family=Inter:wght@500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Bitter:wght@400;500;600;700&family=Inter:wght@500&display=swap" rel="stylesheet">
 
 </head>
 
@@ -71,31 +71,31 @@
         </div>
     </div>
 
-    <div class="WelcomeDiv dn w-100 mw-100 vh-100 cf overflow-hidden z-999 absolute top-0">
-        <div class="bgimage w-100 h-100">
-            <div class="WelcomeDivContent2 w-60-l w-100 h-100 flex flex-column justify-between-l justify-center">
-                <div class="welcomeheader pa4-ns pa3">
-                    <img class="logo" src="./img/logo.png">
+    <div class="WelcomeDiv w-100 mw-100 vh-100 overflow-hidden z-999 absolute top-0">
+        <div class="welcomeheader pa4-ns pa3">
+            <img class="logo" src="./img/logo.png">
+        </div>
+        <div class="WelcomeDivContent center w-60-l w-100 h-100 flex flex-column justify-between-l justify-center">
+            <div class="welcomecontent ph6-l pa5-m pa3 items-center">
+                <div class="mb5">
+                    <h1 class="mw-100 tc f1 mb0">Wiki explore</h1>
+                    <p class="tc">Very interesting subtitle</p>
                 </div>
-                <div class="welcomecontent ph6-l pa5-m pa3">
-                    <div class="mb5">
-                        <h1 class="mw-100 f1 mb0 tracked-tight">Wiki map that has no name yet</h1>
-                        <p>Very interesting subtitle</p>
+                <div class=" flex flex-row items-center">
+                    <div id="geocoderWelcome" class="geocoder v-mid w-75 mr3">
                     </div>
-                    <div class="mb5">
-                        <div id="geocoderWelcome" class="geocoder dib v-mid w-100 mr3 mb2">
-                        </div>
-                        <div class="dib startButton tc w-100 w-100 f6 link grow br3 pointer center">
-                            <p class="white fw4">Search</p>
-                        </div>
+                    <div class="startButton tc w-25 f6 link grow br3 pointer flex items-center justify-center">
+                        <p class="white fw4 mv0 ">Search</p>
                     </div>
                 </div>
-                <div class="welcomefooter ph6-l pa5-m pa3">
-                    <p class="link" onclick="openAboutpanel()">About Wiki data map</p>
+                <div class="dib startButton tc w-100 w-100 f6 link grow br3 pointer center mt3">
+                    <p class="white fw4">Random location</p>
                 </div>
             </div>
+            <div class="welcomefooter ph6-l pa5-m pa3">
+                <p class="link" onclick="openAboutpanel()">About Wiki data map</p>
+            </div>
         </div>
-
     </div>
 
     <div id="loadingBox" class="loadingBox">
