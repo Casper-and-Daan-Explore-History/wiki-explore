@@ -1054,14 +1054,16 @@ const startingLocations = [
     [103.610, -1.590],
     [122.951, 10.676]
 ]
-const startingLocation = startingLocations[Math.floor(Math.random() * startingLocations.length)]
+let randCityNumber = Math.floor(Math.random() * cities.length);
+const startingLocation = cities[randCityNumber]
+// const startingLocation = startingLocations[Math.floor(Math.random() * startingLocations.length)]
 
 
 mapboxgl.accessToken = 'pk.eyJ1IjoiY2Fza2VzIiwiYSI6ImNsZGtwdGRrdzA4dWMzb3BoMWdxM3Zib2UifQ.2q2xfShG5nmDHTxg7n_ZhQ';
 var map = new mapboxgl.Map({
     container: 'map', // container id
     style: 'mapbox://styles/caskes/cldkq0ha9000r01n3hjgwtkrn', // stylesheet location
-    center: startingLocation, // starting position [lng, lat]
+    center: startingLocation.cord, // starting position [lng, lat]
     zoom: 15,
     hash: true
 });
