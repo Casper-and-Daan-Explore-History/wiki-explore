@@ -17,45 +17,46 @@ function hideInfopanel() {
 
 
 function toggleBigimage() {
-    if ($(".article-image").hasClass('hide')) {
-        if ($(window).width() > 900) {
-            infoTwothirds();
-            hideText();
-            hideLinks();
-            imageInFocus();
-        }
-        $(".article-image").removeClass('hide').addClass('show');
+    if ($(".article-image-small").hasClass('hide')) {
+        // if ($(window).width() > 900) {
+        //     infoTwothirds();
+        //     hideText();
+        //     hideLinks();
+        //     imageInFocus();
+        // }
+        // $(".article-image").removeClass('hide').addClass('show');
+        $(".article-image-small").removeClass('hide').addClass('show');
     } else {
-        if ($(window).width() > 900) {
-            infoOnethird();
-            showEverything();
-            imageOutFocus();
+        // if ($(window).width() > 900) {
+        //     infoOnethird();
+        //     showEverything();
+        //     imageOutFocus();
 
-        }
-        $(".article-image").removeClass('show').addClass('hide');
+        // }
+        $(".article-image-small").removeClass('show').addClass('hide');
     }
 }
 
-function toggleBigtext() {
-    if ($(".wiki-intro").hasClass('hide')) {
-        if ($(window).width() > 900) {
-            infoTwothirds();
-            // mapOnethird();
-            hideImage();
-            hideLinks();
-            textInFocus();
+// function toggleBigtext() {
+//     if ($(".wiki-intro").hasClass('hide')) {
+//         if ($(window).width() > 900) {
+//             infoTwothirds();
+//             // mapOnethird();
+//             hideImage();
+//             hideLinks();
+//             textInFocus();
 
-        }
-        $(".wiki-intro").removeClass('hide').addClass('show');
-    } else {
-        if ($(window).width() > 900) {
-            infoOnethird();
-            showEverything();
-            textOutFocus();
-        }
-        $(".wiki-intro").removeClass('show').addClass('hide');
-    }
-}
+//         }
+//         $(".wiki-intro").removeClass('hide').addClass('show');
+//     } else {
+//         if ($(window).width() > 900) {
+//             infoOnethird();
+//             showEverything();
+//             textOutFocus();
+//         }
+//         $(".wiki-intro").removeClass('show').addClass('hide');
+//     }
+// }
 
 
 function hideImage() {

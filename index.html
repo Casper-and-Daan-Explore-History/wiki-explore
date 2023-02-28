@@ -118,6 +118,9 @@
     <div class="maincontent">
         <button onclick="newRandomLocation()" style="z-index: 999;"></button>
 
+        <img class="article-image-big" id="article-image hide" src="https://upload.wikimedia.org/wikipedia/commons/3/3a/Louvre_aile_Richelieu.jpg" alt="louvre">
+
+
 
         <div class="info hide overflow-y-scroll hidescrollbars dn" id="info">
             <div class="title ph3">
@@ -130,7 +133,7 @@
 
             <div class="infocontent flex flex-wrap">
 
-                <div class="article-image mv3 hide shadow" id="articleimage" onclick="">
+                <div class="article-image mv3 hide shadow" id="articleimage" onclick="toggleBigimage()">
                     <div class="enlargeIcon">
                         <i class="fas fa-expand-alt"></i>
                     </div>
@@ -152,7 +155,7 @@
                 </div>
 
 
-                <div class="wikilinks ph3" id="wikilinks">
+                <div class="wikilinks" id="wikilinks">
                     <h2>More information</h2>
 
                     <div class="listitem">

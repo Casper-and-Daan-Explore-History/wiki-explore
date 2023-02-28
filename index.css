@@ -213,7 +213,7 @@ p {
     /* Firefox */
 }
 
-.article-image {
+.article-image-small {
     border-radius: 16px;
     object-fit: cover;
     position: relative;
@@ -223,6 +223,11 @@ p {
     height: 300px;
     width: 100%;
     background-color: var(--black);
+}
+
+.article-image-big {
+    position: absolute;
+    
 }
 
 #article-image-loader {
@@ -271,7 +276,7 @@ img[src^=loading] {
     outline: none;
 }
 
-.article-image img {
+.article-image-small img {
     object-fit: cover;
     height: 100%;
     width: 100%;
@@ -299,7 +304,7 @@ img[src^=loading] {
     object-fit: cover;
 }
 
-.article-image:hover .enlargeIcon {
+.article-image-small:hover .enlargeIcon {
     display: block;
 }
 
