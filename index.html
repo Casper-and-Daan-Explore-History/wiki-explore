@@ -110,9 +110,6 @@
     </div>
 
     <div class="hamburger dn w-100 pa2 absolute min-h-100 z-999" id="hamburgermenu">
-        <div class="closebutton" onclick="closeHamburger()">
-            <img src="./img/close.svg" alt="Close" class="closeicon">
-        </div>
         <div class="tc f3 pv3 mt5 bt bb pointer" onclick="openAboutpanel(); closeHamburger()">About</div>
         <div class="tc f4 pv3 mt5">Other info</div>
     </div>
@@ -123,15 +120,9 @@
 
 
         <div class="info hide overflow-y-scroll hidescrollbars dn" id="info">
-            <div class="closebutton" onclick="hideInfopanel()">close</div>
             <div class="title ph3">
                 <h1 class="fw7 mb3 mt2 lh-title" id="article-title"></h1>
-                <!-- <div class="w-100 flex flex-row">
-                    <p class="mv1 f5 lh-copy" id="article-description">Museum of the decorative arts and design located
-                        in the Louvre's northwest wing</p>
-                </div> -->
                 <div>
-                    <!-- <p class="item dib">From</p> -->
                     <p class="item f5 dib" id="article-year">1905</p>
                 </div>
 
@@ -139,7 +130,7 @@
 
             <div class="infocontent flex flex-wrap">
 
-                <div class="article-image mv3 hide shadow" id="articleimage" onclick="toggleBigimage()">
+                <div class="article-image mv3 hide shadow" id="articleimage" onclick="">
                     <div class="enlargeIcon">
                         <i class="fas fa-expand-alt"></i>
                     </div>
@@ -147,14 +138,10 @@
                     <!-- <img id="article-image-loader" src="img/loading.gif" alt="louvre"> -->
                 </div>
 
-                <div class="wiki-intro mv3 hide pointer shadow" id="wiki-intro" onclick="toggleBigtext()">
-                    <div class="enlargeIcon shadow">
-                        <i class="fas fa-expand-alt"></i>
-                    </div>
-                    <div class="enlargeIcon" id="closeicon"></div>
+                <div class="wiki-intro hide ph3" id="wiki-intro" onclick="">
                     <div class="wiki-intro-content flex flex-column">
-                        <div class="wiki-intro-content-text overflow-hidden" id="wiki-intro-content-text">
-                            <p class="mv0" id="article-intro">The Musée des Arts Décoratifs (Museum of Decorative Arts) is a museum dedicated to the exhibition and preservation of the decorative arts. Located at 107 Rue de Rivoli in the city’s 1st arrondissement, the museum occupies the
+                        <div class="" id="wiki-intro-content-text">
+                            <p class="mv3" id="article-intro">The Musée des Arts Décoratifs (Museum of Decorative Arts) is a museum dedicated to the exhibition and preservation of the decorative arts. Located at 107 Rue de Rivoli in the city’s 1st arrondissement, the museum occupies the
                                 most north-western wing of the Palais du Louvre, known as the Pavillon de Marsan (Marsan Pavilion). With over one million objects in its collection, the Musée des Arts Décoratifs is the largest museum of decorative arts
                                 in continental Europe.</p>
                         </div>
@@ -165,7 +152,7 @@
                 </div>
 
 
-                <div class="wikilinks" id="wikilinks">
+                <div class="wikilinks ph3" id="wikilinks">
                     <h2>More information</h2>
 
                     <div class="listitem">

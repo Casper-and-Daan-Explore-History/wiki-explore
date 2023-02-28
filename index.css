@@ -21,7 +21,7 @@ body {
     margin: 0;
     box-sizing: border-box;
     overflow: hidden;
-    background-color: var(--prim2);
+    background-color: var(--white);
     /* background-image: url("./img/asfalt-dark.png"); */
     background-size: 128px 128px;
 }
@@ -101,11 +101,11 @@ p {
 .wikilinks {
     width: 100%;
     margin-top: 16px;
-    color: var(--white);
+    color: var(--black);
 }
 
 .listitem {
-    border-top: 0.5px solid white;
+    border-top: 0.5px solid black;
     width: 100%;
     padding: 0px 8px;
     transition: 0.2s;
@@ -131,7 +131,7 @@ p {
 }
 
 .listitemlabel {
-    color: var(--white);
+    color: var(--black);
     margin-left: 24px;
     text-decoration: none;
     line-height: 1.2;
@@ -196,7 +196,7 @@ p {
 /* ----------- INFO DIV ---------- */
 
 .title {
-    color: var(--white)
+    color: var(--black)
 }
 
 .hidescrollbars::-webkit-scrollbar {
@@ -325,19 +325,11 @@ img[src^=loading] {
 
 .wiki-intro {
     position: relative;
-    background-color: var(--white);
-    border-radius: 16px;
-    max-height: 300px;
     /* overflow: hidden; */
-    padding: 32px 28px;
 }
 
 .wiki-intro:hover .enlargeIcon {
     display: block;
-}
-
-.wiki-intro-content-text {
-    max-height: 276px;
 }
 
 #article-intro p:first-child {
@@ -349,7 +341,7 @@ img[src^=loading] {
 }
 
 .wiki-intro-content-footer {
-    position: absolute;
+    /* position: absolute; */
     bottom: 0px;
     width: 100%;
     padding-bottom: 16px;
@@ -368,7 +360,7 @@ img[src^=loading] {
 
 .item {
     margin-top: 0px;
-    color: var(--white);
+    color: var(--black);
     line-height: 1.2;
 }
 
