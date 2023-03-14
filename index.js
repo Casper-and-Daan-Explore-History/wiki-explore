@@ -14,7 +14,6 @@ let wikipediaGeojson = {
     ]
 };
 
-let ResultsObject = {};
 let mapIsActive = false;
 
 let ajaxQueue = new Array();
@@ -237,11 +236,9 @@ function hoverPopupOn(e) {
     map.getCanvas().style.cursor = 'pointer'; // changing mouse signaling the posibility to click
 }
 
-function hoverPopupOff(e) {
-
+function hoverPopupOff() {
     map.getCanvas().style.cursor = '';
     hoverPopup.remove();
-
 }
 
 function popupOpen(e) {
@@ -564,20 +561,13 @@ function parseWikipediaApiResponseDetails(jsonData) {
 function updateDetailsPannel() {
     console.log(detailsPannelData);
 
-    resetDetailsPannel();
-
-    function resetDetailsPannel() {
+    { // reset all fields
         $('#article-title').text('no title');
         $('#article-intro').html('');
-        // $("#article-year").text("-");
         $('#article-year').hide();
         $('#articleimage').hide();
-        // $("#article-image-loader").attr("display", "block");
         $('#article-image').attr('src', 'img/kutgif.gif');
-        // $("#article-image").attr("alt", "loading");
-        // $("#article-description").html("no discription");
-        $('#article-visitors').text('-');
-        $('#article-instance-of').html('-');
+        // $('#article-instance-of').html('-');
 
         $('#article-wikidata').hide();
         $('#article-wikidata').attr('href', '');
@@ -588,8 +578,8 @@ function updateDetailsPannel() {
         $('#article-wikicommons').hide();
         $('#article-wikicommons').attr('href', '');
 
-        $('#article-google-search').hide();
-        $('#article-google-search').attr('href', '');
+        // $('#article-google-search').hide();
+        // $('#article-google-search').attr('href', '');
 
         $('#article-google-maps').hide();
         $('#article-google-maps').attr('href', '');
@@ -607,17 +597,12 @@ function updateDetailsPannel() {
 
     if (detailsPannelData.wikipedia_ImgUrl != undefined) {
         $('#articleimage').show();
-        // $("#article-image-loader").attr("display", "none");
-        // $("#article-image").removeClass("loader");
-
         $('#article-image').attr('src', detailsPannelData.wikipedia_ImgUrl);
         $('#article-image').attr('alt', detailsPannelData.wikipedia_ImgTitle);
 
     }
 
-    // $("#article-description").html(detailsPannelData.Wikidata_itemDescription);
-    $('#article-visitors').text(formatingVisitors());
-    $('#article-instance-of').html(formatingInstanceOfList());
+    // $('#article-instance-of').html(formatingInstanceOfList());
 
     if (detailsPannelData.Wikidata_item != undefined) {
         $('#article-wikidata').attr('href', detailsPannelData.Wikidata_item);
@@ -652,15 +637,7 @@ function updateDetailsPannel() {
         }
     }
 
-    function formatingVisitors() {
-        let visitors = '-';
-        if (detailsPannelData.Wikidata_visitorsPerYear != undefined) {
-            let visitorsString = detailsPannelData.Wikidata_visitorsPerYear.toString();
-            visitors = visitorsString.replace('visitors per year', ' ');
-        }
-        return visitors;
-    }
-
+    // eslint-disable-next-line no-unused-vars
     function formatingInstanceOfList() {
         let string = '';
         let array = detailsPannelData.Wikidata_instanceOfLabel;
