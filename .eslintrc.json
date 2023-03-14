@@ -1,0 +1,22 @@
+{
+    "env": {
+      "browser": true,
+      "node": true
+    },
+    "extends": "eslint:recommended",
+    "parserOptions": {
+      "ecmaVersion": 2018
+    },
+    "rules": {
+      "no-console": "off",
+      "indent": ["error", 4],
+      "quotes": ["error", "single"],
+      "semi": ["error", "always"],
+      "no-unused-vars": "warn",
+      "no-extra-semi": "error",
+      "no-trailing-spaces": "error",
+      "comma-dangle": ["error", "never"],
+      "no-multiple-empty-lines": ["error", { "max": 1 }]
+    }
+  }
+  
