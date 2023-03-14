@@ -1,10 +1,10 @@
 /* eslint-disable no-undef */
-var selectedQ = undefined;
-var QnbrGeojson = {
+let selectedQ = undefined;
+let QnbrGeojson = {
     'type': 'FeatureCollection',
     'features': []
 };
-var wikipediaGeojson = {
+let wikipediaGeojson = {
     'type': 'FeatureCollection',
     'features': [
         //     { 
@@ -18,14 +18,14 @@ var wikipediaGeojson = {
     ]
 };
 
-var allQnbrs = [];
-var ResultsObject = {};
-var results; // results form commons.wikimedia img search from category
-var mapIsActive = false;
+let allQnbrs = [];
+let ResultsObject = {};
+let results; // results form commons.wikimedia img search from category
+let mapIsActive = false;
 
-var ajaxQueue = new Array();
+let ajaxQueue = new Array();
 
-var detailsPannelData = {
+let detailsPannelData = {
     "wikipedia_ApiOngoing": false, // current status of API resquest
     "wikimedia_ApiOngoing": false, // current status of API resquest
     "wikidata_ApiOngoing": false, // current status of API resquest
@@ -35,11 +35,11 @@ var detailsPannelData = {
 };
 
 // get a random city from the cities array
-let randCityNumber = Math.floor(Math.random() * cities.length); // cities variable is comming from a different js file.
-const startingLocation = cities[randCityNumber] // cities variable is comming from a different js file.
+let randCityNumber = Math.floor(Math.random() * cities.length); // cities letiable is comming from a different js file.
+const startingLocation = cities[randCityNumber] // cities letiable is comming from a different js file.
 
 mapboxgl.accessToken = 'pk.eyJ1IjoiY2Fza2VzIiwiYSI6ImNsZGtwdGRrdzA4dWMzb3BoMWdxM3Zib2UifQ.2q2xfShG5nmDHTxg7n_ZhQ';
-var map = new mapboxgl.Map({
+let map = new mapboxgl.Map({
     container: 'map', // container id
     style: 'mapbox://styles/caskes/cldkq0ha9000r01n3hjgwtkrn', // stylesheet location
     center: startingLocation.cord, // starting position [lng, lat]
@@ -60,7 +60,7 @@ function newRandomLocation() {
 }
 
 /* Get the documentElement (<html>) to display the page in fullscreen */
-var elem = document.documentElement;
+let elem = document.documentElement;
 
 /* View in fullscreen */
 function openFullscreen() {
@@ -106,29 +106,29 @@ function hideWelcomCoverPage() {
     }, 500);
 }
 
-var hoverPopup = new mapboxgl.Popup({
+let hoverPopup = new mapboxgl.Popup({
     closeButton: false,
     closeOnClick: true
 });
 
-var popup = new mapboxgl.Popup({
+let popup = new mapboxgl.Popup({
     closeButton: true,
     closeOnClick: true
 });
 
-var listPopup = new mapboxgl.Popup({
+let listPopup = new mapboxgl.Popup({
     closeButton: true,
     closeOnClick: true
 });
 
-var contentpopup = new mapboxgl.Popup({
+let contentpopup = new mapboxgl.Popup({
     closeButton: true,
     closeOnClick: false
 });
 
 function buildAllVisibleItems() {
 
-    // var features = map.queryRenderedFeatures({ layers: ['QnbrLayer'] });
+    // let features = map.queryRenderedFeatures({ layers: ['QnbrLayer'] });
 
     // console.log(features);
     // console.log(QnbrDone);
@@ -150,14 +150,14 @@ map.on('load', function() {
     mapIsActive = true;
 
     // adding geocoer search box one welkom screen
-    var geocoder = new MapboxGeocoder({
+    let geocoder = new MapboxGeocoder({
         accessToken: mapboxgl.accessToken,
         mapboxgl: mapboxgl
     });
     document.getElementById('geocoderWelcome').appendChild(geocoder.onAdd(map))
 
     //adding geocoder
-    var geocoder2 = new MapboxGeocoder({
+    let geocoder2 = new MapboxGeocoder({
         accessToken: mapboxgl.accessToken,
         mapboxgl: mapboxgl
     });
@@ -249,10 +249,10 @@ map.on('load', function() {
 
     // inspect a cluster on click
     map.on('click', 'clusters', function(e) {
-        var features = map.queryRenderedFeatures(e.point, {
+        let features = map.queryRenderedFeatures(e.point, {
             layers: ['clusters']
         });
-        var clusterId = features[0].properties.cluster_id;
+        let clusterId = features[0].properties.cluster_id;
         map.getSource('wikipediaSource').getClusterExpansionZoom(
             clusterId,
             function(err, zoom) {
@@ -271,7 +271,7 @@ map.on('load', function() {
     // the location of the feature, with
     // description HTML from its properties.
     // map.on('click', 'unclustered-point', function (e) {
-    // var coordinates = e.features[0].geometry.coordinates.slice();
+    // let coordinates = e.features[0].geometry.coordinates.slice();
 
     // // Ensure that if the map is zoomed out such that
     // // multiple copies of the feature are visible, the
@@ -291,14 +291,14 @@ map.on('load', function() {
 
     map.on('contextmenu', 'clusters', function(e) {
 
-        var features = map.queryRenderedFeatures(e.point, { layers: ['clusters'] });
-        var clusterId = features[0].properties.cluster_id,
+        let features = map.queryRenderedFeatures(e.point, { layers: ['clusters'] });
+        let clusterId = features[0].properties.cluster_id,
             point_count = features[0].properties.point_count,
             clusterSource = map.getSource( /* cluster layer data source id */ 'wikipediaSource');
 
         // Get all points under a cluster
         clusterSource.getClusterLeaves(clusterId, point_count, 0, function(err, aFeatures) {
-            var e = {};
+            let e = {};
             e.features = aFeatures;
 
             openPopupListBelowClick(e);
@@ -367,9 +367,9 @@ map.on('load', function() {
 
     // hover popup QnumberLayer
     map.on('mousemove', 'QnbrLayerIcon', function(e) {
-        var hoverdQID = e.features[0].properties.Qnbr;
+        let hoverdQID = e.features[0].properties.Qnbr;
         if (ResultsObject[hoverdQID].imgthum != undefined) {
-            var html = '<img src="' + ResultsObject[hoverdQID].imgthum + '" alt="' + ResultsObject[hoverdQID].label + '" class="popupImg">';
+            let html = '<img src="' + ResultsObject[hoverdQID].imgthum + '" alt="' + ResultsObject[hoverdQID].label + '" class="popupImg">';
             hoverPopup
                 .setLngLat(e.lngLat)
                 .setHTML(html)
@@ -377,7 +377,7 @@ map.on('load', function() {
 
             map.getCanvas().style.cursor = 'pointer';
         } else {
-            var html = '<p class="popupText">No image</p>';
+            let html = '<p class="popupText">No image</p>';
         }
         // console.log(e);
     });
@@ -411,16 +411,16 @@ function hoverPopupOn(e) {
     // console.log(e.features);
     if (e.features.length == 1) { // one article
         if (e.features[0].properties.title != undefined) {
-            var articleTitle = e.features[0].properties.title; // getting article title
-            var html = '<ul class="articleDropdown"><li id="">' + articleTitle + '</li></ul>'; // generate html for one article using artile title
+            let articleTitle = e.features[0].properties.title; // getting article title
+            let html = '<ul class="articleDropdown"><li id="">' + articleTitle + '</li></ul>'; // generate html for one article using artile title
         } else {
-            var html = '<ul class="articleDropdown"><li id="">Click to zoom</li></ul>'; // generate html for one article using artile title
+            let html = '<ul class="articleDropdown"><li id="">Click to zoom</li></ul>'; // generate html for one article using artile title
         }
     } else if (e.features.length > 1) { // mor than one article
-        var html = '<ul class="articleDropdown"><li id="">' + e.features.length + " articles." + '</li></ul>'; // generating html for  more than one article uusing the number of articles as a title.
+        let html = '<ul class="articleDropdown"><li id="">' + e.features.length + " articles." + '</li></ul>'; // generating html for  more than one article uusing the number of articles as a title.
     }
 
-    var coordinates = e.features[0].geometry.coordinates.slice(); // latLng to place popup
+    let coordinates = e.features[0].geometry.coordinates.slice(); // latLng to place popup
 
     while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) { // avoid missplacinf popup on zomed out world where some part of the mercato projection is visible twice.
         coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
@@ -467,15 +467,15 @@ function popupOpen(e) {
     }
 }
 
-var clickedListDataGlobalStorage;
+let clickedListDataGlobalStorage;
 
 function openPopupListBelowClick(e) {
     //console.log("list")
     //console.log(e)
 
-    var listData = e.features; // local save of map data for click events that accure alter.
+    let listData = e.features; // local save of map data for click events that accure alter.
 
-    var html = '';
+    let html = '';
     html += '<ul class="articleDropdown">'; //start of list
 
     for (i in e.features) { // for every list element
@@ -502,7 +502,7 @@ function openPopupListBelowClick(e) {
         $("#" + e.features[i].properties.title.replace(/[^a-z0-9]/gi, '')) // use the same formating for the #id
             .attr("data-list-nbr", i)
             .click(function() {
-                var listNbr = $(this).attr("data-list-nbr")
+                let listNbr = $(this).attr("data-list-nbr")
                 listNbr = Number(listNbr);
                 //console.log("List data binded to butons");
                 //console.log(clickedListDataGlobalStorage[listNbr]);
@@ -529,14 +529,14 @@ function runQuery() {
 
     // // the function that process the query
     // function makeSPARQLQuery(endpointUrl, sparqlQuery, doneCallback) {
-    //     var settings = {
+    //     let settings = {
     //         headers: { Accept: 'application/sparql-results+json' },
     //         data: { query: sparqlQuery }
     //     };
     //     return $.ajax(endpointUrl, settings).then(doneCallback);
     // }
 
-    // var endpointUrl = 'https://query.wikidata.org/sparql',
+    // let endpointUrl = 'https://query.wikidata.org/sparql',
     //     sparqlQuery = "#defaultView:ImageGride\n" +
     //         "SELECT\n" +
     //         "  ?item ?itemLabel ?itemDescription\n" +
@@ -591,7 +591,7 @@ function runQuery() {
     //         "  #### Labels & discription #### \n" +
     //         "  SERVICE wikibase:label { # Get labels\n" +
     //         "    bd:serviceParam wikibase:language \"en\". \n" +
-    //         "    ?instance rdfs:label ?instanceLabel.      # The specification of the variables to be labeld is needed for grouping the instances of correctly\n" +
+    //         "    ?instance rdfs:label ?instanceLabel.      # The specification of the letiables to be labeld is needed for grouping the instances of correctly\n" +
     //         "    ?item rdfs:label ?itemLabel.\n" +
     //         "    ?item schema:description ?itemDescription.\n" +
     //         "  }\n" +
@@ -611,7 +611,7 @@ function processQueryResults(data) {
 
     resultsFromQuery = []; //empties result array
     for (d in data.results.bindings) {
-        var result = {};
+        let result = {};
         result.qnumber = qnumberExtraction(data.results.bindings[d].item.value);
         result.qnumberURL = data.results.bindings[d].item.value;
         if (data.results.bindings[d].article != undefined) { result.wikipedia = data.results.bindings[d].article.value; }
@@ -639,7 +639,7 @@ function processQueryResults(data) {
 
 // Helper - organising query results to a usefull object
 function buildResultsObject(result) {
-    var Q = result.qnumber;
+    let Q = result.qnumber;
     if (ResultsObject[Q] != undefined) {
         if (ResultsObject[Q].wikipedia != results.wikipedia) {
             ResultsObject[Q].wikipedia = "";
@@ -702,7 +702,7 @@ function buildGeojsonFromQueryResults() {
 function addPointToQnbrGeojson(LngLat, Qnbr, categorie) {
     // console.log("show point");
     // for (i in LngLat) {
-    var point = {
+    let point = {
         "type": "Feature",
         "properties": {
             'Qnbr': Qnbr,
@@ -720,7 +720,7 @@ function addPointToQnbrGeojson(LngLat, Qnbr, categorie) {
 
 // Helper - procesing String
 function extractLngLat(dirtyGeo) {
-    var cleanLongLat = dirtyGeo.replace("Point(", "");
+    let cleanLongLat = dirtyGeo.replace("Point(", "");
     cleanLongLat = cleanLongLat.replace(")", "");
     const lonlat = cleanLongLat.split(" ");
     lonlat[0] = Number(lonlat[0]);
@@ -730,7 +730,7 @@ function extractLngLat(dirtyGeo) {
 
 // Helper - procesing String
 function qnumberExtraction(QURL) {
-    var value = QURL.replace("https://www.wikidata.org/entity/", "");
+    let value = QURL.replace("https://www.wikidata.org/entity/", "");
     return value;
 }
 
@@ -742,7 +742,7 @@ function getCommonsCategoryImgs(pageTitle, Qdestination, vieuwDestination) {
     }
 
     // pageTitle = encodeURIComponent(pageTitle)
-    // var apiURL = "https://commons.wikimedia.org/w/api.php?action=query&format=json&list=categorymembers&pageids=4606622&utf8=1&cmtitle=Category%3A" + pageTitle + "&cmtype=subcat%7Cfile&cmlimit=max"
+    // let apiURL = "https://commons.wikimedia.org/w/api.php?action=query&format=json&list=categorymembers&pageids=4606622&utf8=1&cmtitle=Category%3A" + pageTitle + "&cmtype=subcat%7Cfile&cmlimit=max"
     $(document).ready(function() {
         $.ajax({
             url: 'https://commons.wikimedia.org/w/api.php',
@@ -761,13 +761,13 @@ function getCommonsCategoryImgs(pageTitle, Qdestination, vieuwDestination) {
     });
 
     function processResult(apiResult) {
-        var imgUrlPrefix = "https://commons.wikimedia.org/wiki/Special:FilePath/";
-        var pageUrlPrefix = "https://commons.wikimedia.org/wiki/";
-        var thumSufix = "?width=300px";
-        var arrayOfImgs = [];
+        let imgUrlPrefix = "https://commons.wikimedia.org/wiki/Special:FilePath/";
+        let pageUrlPrefix = "https://commons.wikimedia.org/wiki/";
+        let thumSufix = "?width=300px";
+        let arrayOfImgs = [];
         for (r in apiResult.query.categorymembers) {
             if (apiResult.query.categorymembers[r].title.slice(0, 8) != "Category") {
-                var imgObject = {
+                let imgObject = {
                     imgurl: imgUrlPrefix + encodeURIComponent(apiResult.query.categorymembers[r].title),
                     thumurl: imgUrlPrefix + encodeURIComponent(apiResult.query.categorymembers[r].title) + thumSufix,
                     pageurl: pageUrlPrefix + encodeURIComponent(apiResult.query.categorymembers[r].title)
@@ -776,7 +776,7 @@ function getCommonsCategoryImgs(pageTitle, Qdestination, vieuwDestination) {
             }
         }
 
-        var firstImgObject = {
+        let firstImgObject = {
             imgurl: ResultsObject[selectedQ].img,
             thumurl: ResultsObject[selectedQ].imgthum,
             // pageurl: pageUrlPrefix + encodeURIComponent(apiResult.query.categorymembers[r].title)
@@ -784,7 +784,7 @@ function getCommonsCategoryImgs(pageTitle, Qdestination, vieuwDestination) {
         arrayOfImgs.unshift(firstImgObject);
 
         ResultsObject[Qdestination].commonsImgs = arrayOfImgs;
-        //  for (var i = 0; i < apiResult.query.search.length; i++){
+        //  for (let i = 0; i < apiResult.query.search.length; i++){
         //       $('#display-result').append('<p>'+apiResult.query.search[i].title+'</p>');
         //  }
         resultsFromCommonsReady(Qdestination, vieuwDestination);
@@ -813,12 +813,12 @@ function resultsFromCommonsReady(Q, vieuwDestination) {
 // Helper - open link in new window
 function openInNewWindow(url) {
     if (selectedQ === undefined) {
-        var lngLat = map.getCenter();
-        var lng = lngLat.lng;
-        var lat = lngLat.lat;
+        let lngLat = map.getCenter();
+        let lng = lngLat.lng;
+        let lat = lngLat.lat;
     } else {
-        var lng = ResultsObject[selectedQ].geo[0];
-        var lat = ResultsObject[selectedQ].geo[1];
+        let lng = ResultsObject[selectedQ].geo[0];
+        let lat = ResultsObject[selectedQ].geo[1];
     }
 
     //selectedQ
@@ -864,7 +864,7 @@ function selectNew(Q) {
         $("#commons").hide();
         //console.log("unselected");
     } else {
-        var data = ResultsObject[Q]
+        let data = ResultsObject[Q]
         selectedQ = Q;
         //console.log("selected" + Q);
 
@@ -925,7 +925,7 @@ function parseJSONResponse(jsonData) {
 
     $.each(jsonData.query.geosearch, function(index, value) {
         //console.log( index + ": " + value.title );
-        var article = {
+        let article = {
             "pageId": value.pageid,
             "title": value.title,
             "lonLat": [value.lon, value.lat]
@@ -963,7 +963,7 @@ function addWikipediaPageToGeojson(article) {
     console.log('Request Prcessing step 2');
     // if (mapIsActive) { // is map active?
     if (isArticleNew(article)) {
-        var point = { //write the specific geojson feature for this point
+        let point = { //write the specific geojson feature for this point
             "type": "Feature",
             "properties": article, // all info known about the article is saved as property
             "geometry": {
@@ -1026,7 +1026,7 @@ function WikipediaApiRequestDetails(pageID) {
 }
 
 function parseWikipediaApiResponseDetails(jsonData) {
-    var wikipediaApiRespons = jsonData.query.pages[0];
+    let wikipediaApiRespons = jsonData.query.pages[0];
 
     detailsPannelData.wikipedia_Intro = wikipediaApiRespons.extract;
     detailsPannelData.wikipedia_ImgTitle = wikipediaApiRespons.pageimage;
@@ -1039,7 +1039,7 @@ function parseWikipediaApiResponseDetails(jsonData) {
     //ToDo: get a desent thumnail. Maibe by transforming img url?
 
     // if (wikipediaApiRespons.thumbnail != undefined) {
-    //     var url = wikipediaApiRespons.thumbnail.source;
+    //     let url = wikipediaApiRespons.thumbnail.source;
     //     url.replace("50px", "500px"); // changing thmbnail size
     //     detailsPannelData.imgThumbnailUrl = url;
     // }
@@ -1070,7 +1070,7 @@ function CommonsApiRequest(pageID) {
 }
 
 function parseCommonsApiResponseDetails(jsonData) {
-    var wikipediaApiRespons = jsonData.query.pages[0];
+    let wikipediaApiRespons = jsonData.query.pages[0];
 
     detailsPannelData.wikipedia_Intro = wikipediaApiRespons.extract;
     detailsPannelData.wikipedia_ImgTitle = wikipediaApiRespons.pageimage;
@@ -1081,7 +1081,7 @@ function parseCommonsApiResponseDetails(jsonData) {
     //ToDo: get a desent thumnail. Maibe by transforming img url?
 
     // if (wikipediaApiRespons.thumbnail != undefined) {
-    //     var url = wikipediaApiRespons.thumbnail.source;
+    //     let url = wikipediaApiRespons.thumbnail.source;
     //     url.replace("50px", "500px"); // changing thmbnail size
     //     detailsPannelData.imgThumbnailUrl = url;
     // }
@@ -1104,21 +1104,21 @@ function parseCommonsApiResponseDetails(jsonData) {
 
 function WikidataApiRequestDetails() {
     function makeSPARQLQuery(endpointUrl, sparqlQuery, doneCallback) {
-        var settings = {
+        let settings = {
             headers: { Accept: 'application/sparql-results+json' },
             data: { query: sparqlQuery }
         };
         return $.ajax(endpointUrl, settings).then(doneCallback);
     }
 
-    //https://query.wikidata.org/#SELECT%20%3Fitem%20%3FitemLabel%20%3FitemDescription%20%3Fimg%20%3Fcommons%20%3FWikipediaLink%20%3Felevation%20%3Farea%20%3FofficialWebsite%20%3FflagImage%20%3FLonLat%20%3FcoatOfArmsImage%20%3FCommonsCategory%20%3FFreebaseIdGoogleSearch%20%3FGoogleKnowledgeGraphId%20%3FstartTime%20%3FendTime%20%3Finception%20%3Freligion%20%3FsignificantEvent%20%3Faudio%20%3FmaximumCapacity%20%3FvisitorsPerYear%20%3FheritageDesignationLabel%20%3Flength%20%3Fwidth%20%3Fheight%20%3FplanViewImage%20%3FFacebookId%20%3FGoogleMapsCustomerId%20%3FInstagramUsername%20%3FMapillaryId%20%3FTwitterUsername%20%3FOpenStreetMapRelationId%20%3FInstagramLocationId%20%3FFoursquareVenueId%20%3FImdbId%20%3FLinkedInCompanyId%20%3FTripAdvisorId%20%3FYelpId%20%3FYouTubeChannelId%20%3FphoneNumber%20%3FemailAddress%20%3Fsubreddit%20%3FGoogleArtsCulturePartnerId%20%3Fpopulation%20%3FcommonsLink%20%3FinstanceOfLabel%20WHERE%20%7B%0A%0A%20%20%23%20https%3A%2F%2Fwww.wikidata.org%2Fwiki%2FQ2981%20Notre%20Dam%20of%20Paris%0A%20%20%23%20https%3A%2F%2Fwww.wikidata.org%2Fwiki%2FQ243%20Toure%20Eiffel%0A%20%20%20%20%0A%20%20VALUES%20%3Fitem%20%7B%20%23%3Fitem%20variable%20is%20set%20to%20Qnumber%0A%20%20%20%20wd%3AQ243%0A%20%20%7D%0A%20%20%0A%20%20OPTIONAL%20%7B%20%3Fitem%20%20wdt%3AP18%20%20%20%3Fimg.%20%7D%0A%20%20OPTIONAL%20%7B%20%3Fitem%20%20wdt%3AP373%20%20%3FcommonsLink.%20%7D%0A%20%20OPTIONAL%20%7B%20%3Fitem%20%20wdt%3AP31%20%20%20%3FinstanceOf.%20%7D%0A%20%20OPTIONAL%20%7B%20%3Fitem%20%20wdt%3AP625%20%20%3FLonLat.%20%7D%0A%20%20OPTIONAL%20%7B%20%3Fitem%20%20wdt%3AP1082%20%3Fpopulation.%20%7D%0A%20%20OPTIONAL%20%7B%20%3Fitem%20%20wdt%3AP2044%20%3Felevation.%20%7D%0A%20%20OPTIONAL%20%7B%20%3Fitem%20%20wdt%3AP2046%20%3Farea.%20%7D%0A%20%20OPTIONAL%20%7B%20%3Fitem%20%20wdt%3AP856%20%20%3FofficialWebsite.%20%7D%0A%20%20OPTIONAL%20%7B%20%3Fitem%20%20wdt%3AP41%20%20%20%3FflagImage.%20%7D%0A%20%20OPTIONAL%20%7B%20%3Fitem%20%20wdt%3AP94%20%20%20%3FcoatOfArmsImage.%20%7D%0A%20%20OPTIONAL%20%7B%20%3Fitem%20%20wdt%3AP373%20%20%3FCommonsCategory.%20%7D%0A%20%20OPTIONAL%20%7B%20%3Fitem%20%20wdt%3AP646%20%20%3FFreebaseIdGoogleSearch.%20%7D%0A%20%20OPTIONAL%20%7B%20%3Fitem%20%20wdt%3AP2671%20%3FGoogleKnowledgeGraphId.%20%7D%0A%20%20OPTIONAL%20%7B%20%3Fitem%20%20wdt%3AP580%20%20%3FstartTime.%20%7D%0A%20%20OPTIONAL%20%7B%20%3Fitem%20%20wdt%3AP582%20%20%3FendTime.%20%7D%0A%20%20OPTIONAL%20%7B%20%3Fitem%20%20wdt%3AP571%20%20%3Finception.%20%7D%0A%20%20OPTIONAL%20%7B%20%3Fitem%20%20wdt%3AP140%20%20%3Freligion.%20%7D%0A%20%20OPTIONAL%20%7B%20%3Fitem%20%20wdt%3AP793%20%20%3FsignificantEvent.%20%7D%0A%20%20OPTIONAL%20%7B%20%3Fitem%20%20wdt%3AP51%20%20%20%3Faudio.%20%7D%0A%20%20OPTIONAL%20%7B%20%3Fitem%20%20wdt%3AP1083%20%3FmaximumCapacity.%20%7D%0A%20%20OPTIONAL%20%7B%20%3Fitem%20%20wdt%3AP1174%20%3FvisitorsPerYear.%20%7D%0A%20%20OPTIONAL%20%7B%20%3Fitem%20%20wdt%3AP1435%20%3FheritageDesignation.%20%7D%0A%20%20OPTIONAL%20%7B%20%3Fitem%20%20wdt%3AP2043%20%3Flength.%20%7D%0A%20%20OPTIONAL%20%7B%20%3Fitem%20%20wdt%3AP2049%20%3Fwidth.%20%7D%0A%20%20OPTIONAL%20%7B%20%3Fitem%20%20wdt%3AP2048%20%3Fheight.%20%7D%0A%20%20OPTIONAL%20%7B%20%3Fitem%20%20wdt%3AP3311%20%3FplanViewImage.%20%7D%0A%20%20OPTIONAL%20%7B%20%3Fitem%20%20wdt%3AP2013%20%3FFacebookId.%20%7D%0A%20%20OPTIONAL%20%7B%20%3Fitem%20%20wdt%3AP3749%20%3FGoogleMapsCustomerId.%20%7D%0A%20%20OPTIONAL%20%7B%20%3Fitem%20%20wdt%3AP2003%20%3FInstagramUsername.%20%7D%0A%20%20OPTIONAL%20%7B%20%3Fitem%20%20wdt%3AP1947%20%3FMapillaryId.%20%7D%0A%20%20OPTIONAL%20%7B%20%3Fitem%20%20wdt%3AP2002%20%3FTwitterUsername.%20%7D%0A%20%20OPTIONAL%20%7B%20%3Fitem%20%20wdt%3AP402%20%20%3FOpenStreetMapRelationId.%20%7D%0A%20%20OPTIONAL%20%7B%20%3Fitem%20%20wdt%3AP4173%20%3FInstagramLocationId.%20%7D%0A%20%20OPTIONAL%20%7B%20%3Fitem%20%20wdt%3AP1968%20%3FFoursquareVenueId.%20%7D%0A%20%20OPTIONAL%20%7B%20%3Fitem%20%20wdt%3AP345%20%20%3FImdbId.%20%7D%0A%20%20OPTIONAL%20%7B%20%3Fitem%20%20wdt%3AP4264%20%3FLinkedInCompanyId.%20%7D%0A%20%20OPTIONAL%20%7B%20%3Fitem%20%20wdt%3AP3134%20%3FTripAdvisorId.%20%7D%0A%20%20OPTIONAL%20%7B%20%3Fitem%20
-    var endpointUrl = 'https://query.wikidata.org/sparql',
+    //https://query.wikidata.org/#SELECT%20%3Fitem%20%3FitemLabel%20%3FitemDescription%20%3Fimg%20%3Fcommons%20%3FWikipediaLink%20%3Felevation%20%3Farea%20%3FofficialWebsite%20%3FflagImage%20%3FLonLat%20%3FcoatOfArmsImage%20%3FCommonsCategory%20%3FFreebaseIdGoogleSearch%20%3FGoogleKnowledgeGraphId%20%3FstartTime%20%3FendTime%20%3Finception%20%3Freligion%20%3FsignificantEvent%20%3Faudio%20%3FmaximumCapacity%20%3FvisitorsPerYear%20%3FheritageDesignationLabel%20%3Flength%20%3Fwidth%20%3Fheight%20%3FplanViewImage%20%3FFacebookId%20%3FGoogleMapsCustomerId%20%3FInstagramUsername%20%3FMapillaryId%20%3FTwitterUsername%20%3FOpenStreetMapRelationId%20%3FInstagramLocationId%20%3FFoursquareVenueId%20%3FImdbId%20%3FLinkedInCompanyId%20%3FTripAdvisorId%20%3FYelpId%20%3FYouTubeChannelId%20%3FphoneNumber%20%3FemailAddress%20%3Fsubreddit%20%3FGoogleArtsCulturePartnerId%20%3Fpopulation%20%3FcommonsLink%20%3FinstanceOfLabel%20WHERE%20%7B%0A%0A%20%20%23%20https%3A%2F%2Fwww.wikidata.org%2Fwiki%2FQ2981%20Notre%20Dam%20of%20Paris%0A%20%20%23%20https%3A%2F%2Fwww.wikidata.org%2Fwiki%2FQ243%20Toure%20Eiffel%0A%20%20%20%20%0A%20%20VALUES%20%3Fitem%20%7B%20%23%3Fitem%20letiable%20is%20set%20to%20Qnumber%0A%20%20%20%20wd%3AQ243%0A%20%20%7D%0A%20%20%0A%20%20OPTIONAL%20%7B%20%3Fitem%20%20wdt%3AP18%20%20%20%3Fimg.%20%7D%0A%20%20OPTIONAL%20%7B%20%3Fitem%20%20wdt%3AP373%20%20%3FcommonsLink.%20%7D%0A%20%20OPTIONAL%20%7B%20%3Fitem%20%20wdt%3AP31%20%20%20%3FinstanceOf.%20%7D%0A%20%20OPTIONAL%20%7B%20%3Fitem%20%20wdt%3AP625%20%20%3FLonLat.%20%7D%0A%20%20OPTIONAL%20%7B%20%3Fitem%20%20wdt%3AP1082%20%3Fpopulation.%20%7D%0A%20%20OPTIONAL%20%7B%20%3Fitem%20%20wdt%3AP2044%20%3Felevation.%20%7D%0A%20%20OPTIONAL%20%7B%20%3Fitem%20%20wdt%3AP2046%20%3Farea.%20%7D%0A%20%20OPTIONAL%20%7B%20%3Fitem%20%20wdt%3AP856%20%20%3FofficialWebsite.%20%7D%0A%20%20OPTIONAL%20%7B%20%3Fitem%20%20wdt%3AP41%20%20%20%3FflagImage.%20%7D%0A%20%20OPTIONAL%20%7B%20%3Fitem%20%20wdt%3AP94%20%20%20%3FcoatOfArmsImage.%20%7D%0A%20%20OPTIONAL%20%7B%20%3Fitem%20%20wdt%3AP373%20%20%3FCommonsCategory.%20%7D%0A%20%20OPTIONAL%20%7B%20%3Fitem%20%20wdt%3AP646%20%20%3FFreebaseIdGoogleSearch.%20%7D%0A%20%20OPTIONAL%20%7B%20%3Fitem%20%20wdt%3AP2671%20%3FGoogleKnowledgeGraphId.%20%7D%0A%20%20OPTIONAL%20%7B%20%3Fitem%20%20wdt%3AP580%20%20%3FstartTime.%20%7D%0A%20%20OPTIONAL%20%7B%20%3Fitem%20%20wdt%3AP582%20%20%3FendTime.%20%7D%0A%20%20OPTIONAL%20%7B%20%3Fitem%20%20wdt%3AP571%20%20%3Finception.%20%7D%0A%20%20OPTIONAL%20%7B%20%3Fitem%20%20wdt%3AP140%20%20%3Freligion.%20%7D%0A%20%20OPTIONAL%20%7B%20%3Fitem%20%20wdt%3AP793%20%20%3FsignificantEvent.%20%7D%0A%20%20OPTIONAL%20%7B%20%3Fitem%20%20wdt%3AP51%20%20%20%3Faudio.%20%7D%0A%20%20OPTIONAL%20%7B%20%3Fitem%20%20wdt%3AP1083%20%3FmaximumCapacity.%20%7D%0A%20%20OPTIONAL%20%7B%20%3Fitem%20%20wdt%3AP1174%20%3FvisitorsPerYear.%20%7D%0A%20%20OPTIONAL%20%7B%20%3Fitem%20%20wdt%3AP1435%20%3FheritageDesignation.%20%7D%0A%20%20OPTIONAL%20%7B%20%3Fitem%20%20wdt%3AP2043%20%3Flength.%20%7D%0A%20%20OPTIONAL%20%7B%20%3Fitem%20%20wdt%3AP2049%20%3Fwidth.%20%7D%0A%20%20OPTIONAL%20%7B%20%3Fitem%20%20wdt%3AP2048%20%3Fheight.%20%7D%0A%20%20OPTIONAL%20%7B%20%3Fitem%20%20wdt%3AP3311%20%3FplanViewImage.%20%7D%0A%20%20OPTIONAL%20%7B%20%3Fitem%20%20wdt%3AP2013%20%3FFacebookId.%20%7D%0A%20%20OPTIONAL%20%7B%20%3Fitem%20%20wdt%3AP3749%20%3FGoogleMapsCustomerId.%20%7D%0A%20%20OPTIONAL%20%7B%20%3Fitem%20%20wdt%3AP2003%20%3FInstagramUsername.%20%7D%0A%20%20OPTIONAL%20%7B%20%3Fitem%20%20wdt%3AP1947%20%3FMapillaryId.%20%7D%0A%20%20OPTIONAL%20%7B%20%3Fitem%20%20wdt%3AP2002%20%3FTwitterUsername.%20%7D%0A%20%20OPTIONAL%20%7B%20%3Fitem%20%20wdt%3AP402%20%20%3FOpenStreetMapRelationId.%20%7D%0A%20%20OPTIONAL%20%7B%20%3Fitem%20%20wdt%3AP4173%20%3FInstagramLocationId.%20%7D%0A%20%20OPTIONAL%20%7B%20%3Fitem%20%20wdt%3AP1968%20%3FFoursquareVenueId.%20%7D%0A%20%20OPTIONAL%20%7B%20%3Fitem%20%20wdt%3AP345%20%20%3FImdbId.%20%7D%0A%20%20OPTIONAL%20%7B%20%3Fitem%20%20wdt%3AP4264%20%3FLinkedInCompanyId.%20%7D%0A%20%20OPTIONAL%20%7B%20%3Fitem%20%20wdt%3AP3134%20%3FTripAdvisorId.%20%7D%0A%20%20OPTIONAL%20%7B%20%3Fitem%20
+    let endpointUrl = 'https://query.wikidata.org/sparql',
         sparqlQuery = "SELECT ?item ?itemLabel ?itemDescription ?img ?commons ?WikipediaLink ?elevation ?area ?officialWebsite ?flagImage ?LonLat ?coatOfArmsImage ?CommonsCategory ?FreebaseIdGoogleSearch ?GoogleKnowledgeGraphId ?startTime ?endTime ?inception ?religion ?significantEvent ?audio ?maximumCapacity ?visitorsPerYear ?heritageDesignationLabel ?length ?width ?height ?planViewImage ?FacebookId ?GoogleMapsCustomerId ?InstagramUsername ?MapillaryId ?TwitterUsername ?OpenStreetMapRelationId ?InstagramLocationId ?FoursquareVenueId ?ImdbId ?LinkedInCompanyId ?TripAdvisorId ?YelpId ?YouTubeChannelId ?phoneNumber ?emailAddress ?subreddit ?GoogleArtsCulturePartnerId ?population ?commonsLink ?instanceOfLabel WHERE {\n" +
         "\n" +
         "  # https://www.wikidata.org/wiki/Q2981 Notre Dam of Paris\n" +
         "  # https://www.wikidata.org/wiki/Q243 Toure Eiffel\n" +
         "    \n" +
-        "  VALUES ?item { #?item variable is set to Qnumber\n" +
+        "  VALUES ?item { #?item letiable is set to Qnumber\n" +
         "    wd:" + detailsPannelData.Qnumber + "\n" +
         "  }\n" +
         "  \n" +
@@ -1190,12 +1190,12 @@ function WikidataApiRequestDetails() {
         cleanResults()
 
         function cleanResults() {
-            var gatherdResults = {}; //raw results come in with a lot of fluf and in repated fashon to account for several values. Here we keep the minimum and put the results in an array if needed.
+            let gatherdResults = {}; //raw results come in with a lot of fluf and in repated fashon to account for several values. Here we keep the minimum and put the results in an array if needed.
 
             for (i in data) { // loop throug resonds sets
-                var keys = Object.keys(data[i]); //get all the object's keys 
+                let keys = Object.keys(data[i]); //get all the object's keys 
                 for (k in keys) {
-                    if (gatherdResults[keys[k]] === undefined) { //If no value was ever saved for this key(variable name)
+                    if (gatherdResults[keys[k]] === undefined) { //If no value was ever saved for this key(letiable name)
                         gatherdResults[keys[k]] = [data[i][keys[k]].value]; // save value in a new array
                     } else {
                         if (jQuery.inArray(data[i][keys[k]].value, gatherdResults[keys[k]]) === -1) // If this value does not exist in array
@@ -1208,7 +1208,7 @@ function WikidataApiRequestDetails() {
         }
 
         function makeResultsUsefull(data) {
-            var keys = Object.keys(data);
+            let keys = Object.keys(data);
             console.log(keys);
             console.log(data.img);
             // https://commons.wikimedia.org/wiki/File:P1050763_Louvre_code_Hammurabi_face_rwk-gradient.jpg
@@ -1218,9 +1218,9 @@ function WikidataApiRequestDetails() {
 
             for (k in keys) {
                 for (v in data[keys[k]]) {
-                    var value = "";
+                    let value = "";
 
-                    switch (keys[k]) { // for every variable there is an other method of enriching.
+                    switch (keys[k]) { // for every letiable there is an other method of enriching.
                         case "CommonsCategory":
                             value = "https://commons.wikimedia.org/wiki/Category:" + encodeURIComponent(data[keys[k]][v]);
                             break;
@@ -1374,9 +1374,9 @@ function bigNumberFormater(num) {
 }
 
 function popuphtml() {
-    var html = "";
+    let html = "";
     html += "<table>";
-    var keys = Object.keys(detailsPannelData);
+    let keys = Object.keys(detailsPannelData);
     for (i in keys) {
         html += "<tr><td>";
         html += keys[i];
@@ -1479,7 +1479,7 @@ function updateDetailsPannel() {
     }
 
     function formatingInseption() {
-        var value = "";
+        let value = "";
         if (detailsPannelData.Wikidata_inception != undefined) {
             return "From " + detailsPannelData.Wikidata_inception;
         } else {
@@ -1488,17 +1488,17 @@ function updateDetailsPannel() {
     }
 
     function formatingVisitors() {
-        var visitors = "-";
+        let visitors = "-";
         if (detailsPannelData.Wikidata_visitorsPerYear != undefined) {
-            var visitorsString = detailsPannelData.Wikidata_visitorsPerYear.toString()
+            let visitorsString = detailsPannelData.Wikidata_visitorsPerYear.toString()
             visitors = visitorsString.replace("visitors per year", " ");
         }
         return visitors;
     }
 
     function formatingInstanceOfList() {
-        var string = "";
-        var array = detailsPannelData.Wikidata_instanceOfLabel;
+        let string = "";
+        let array = detailsPannelData.Wikidata_instanceOfLabel;
         for (i in array) {
             string += array[i]
             if (i < array.length - 1) {
