@@ -34,22 +34,6 @@ var detailsPannelData = {
     "wikidata_QueryDone": false // Data collection status
 };
 
-function hideAboutpanel() {
-    document.getElementById("about").style.display = "none";
-}
-
-function openAboutpanel() {
-    document.getElementById("about").style.display = "block";
-}
-
-function openHamburger() {
-    document.getElementById("hamburgermenu").style.display = "block";
-}
-
-function closeHamburger() {
-    document.getElementById("hamburgermenu").style.display = "none";
-}
-
 // get a random city from the cities array
 let randCityNumber = Math.floor(Math.random() * cities.length); // cities variable is comming from a different js file.
 const startingLocation = cities[randCityNumber] // cities variable is comming from a different js file.
