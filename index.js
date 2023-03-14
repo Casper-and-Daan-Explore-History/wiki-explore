@@ -99,15 +99,6 @@ map.on('load', function() {
     });
     document.getElementById('geocoderMap').appendChild(geocoder2.onAdd(map));
 
-    // create data sources for layers to use
-    map.addSource('QnbrSource', {
-        'type': 'geojson',
-        'data': {
-            'type': 'FeatureCollection',
-            'features': []
-        }
-    });
-
     map.addSource('wikipediaSource', {
         'type': 'geojson',
         'data': {
@@ -118,41 +109,6 @@ map.on('load', function() {
         clusterMaxZoom: 14, // Max zoom to cluster points on
         clusterRadius: 16
     });
-
-    //ad layers to bring data sources to map
-    // map.addLayer({ // wikipediaLayer
-    //     "id": "wikipediaLayer",
-    //     "type": "symbol",
-    //     "source": "wikipediaSource",
-    //     'layout': {
-    //         'icon-image': 'wikipedia',
-    //     }
-    // });
-
-    // map.addLayer({
-    //     id: 'clusters',
-    //     type: 'circle',
-    //     source: 'wikipediaSource',
-    //     filter: ['has', 'point_count'],
-    //     paint: {
-    //         // Use step expressions (https://docs.mapbox.com/mapbox-gl-js/style-spec/#expressions-step)
-    //         // with three steps to implement three types of circles:
-    //         //   * Blue, 20px circles when point count is less than 100
-    //         //   * Yellow, 30px circles when point count is between 100 and 750
-    //         //   * Pink, 40px circles when point count is greater than or equal to 750
-    //         'circle-color': '#4B7982',
-    //         'circle-stroke-color': '#fff',
-    //         'circle-stroke-width': 1,
-    //         'circle-radius': [
-    //             'step', ['get', 'point_count'],
-    //             20,
-    //             10,
-    //             30,
-    //             25,
-    //             40
-    //         ]
-    //     }
-    // });
 
     map.addLayer({
         id: 'unclustered-point',
@@ -242,64 +198,6 @@ map.on('load', function() {
 
         // openPopupListBelowClick(e);
     });
-
-    map.loadImage(
-        'https://casper-and-daan-explore-history.github.io/wiki-battle-map/img/architecture_small.png',
-        function(error, image) {
-            if (error) throw error;
-            map.addImage('archi', image);
-            map.loadImage(
-                'https://casper-and-daan-explore-history.github.io/wiki-battle-map/img/event.png',
-                function(error, image) {
-                    if (error) throw error;
-                    map.addImage('event', image);
-                    map.loadImage(
-                        'https://casper-and-daan-explore-history.github.io/wiki-battle-map/img/other.png',
-                        function(error, image) {
-                            if (error) throw error;
-                            map.addImage('other', image);
-                            map.loadImage(
-                                'https://casper-and-daan-explore-history.github.io/wiki-battle-map/img/wikipedia.png',
-                                function(error, image) {
-                                    if (error) throw error;
-                                    map.addImage('wikipedia', image);
-                                    addLayerWithIcons(); // All images are now loaded, add layer that uses the images
-
-                                }
-                            );
-
-                        }
-                    );
-                }
-            );
-        }
-    );
-
-    function addLayerWithIcons() {
-        map.addLayer({
-            'id': 'QnbrLayerIcon',
-            'type': 'symbol',
-            'source': 'QnbrSource',
-            // "source-layer": "gp_registered_patients",
-            // "filter": ["in", "stack", "two","three","five","nine","one"],
-            // "minzoom": 11,
-            // "interactive": true,
-            'layout': {
-                // "icon-offset": [14,-154],
-                'icon-image': [
-                    'match', ['get', 'cat'],
-                    ['Architectural'],
-                    'archi', ['Event'],
-                    'event',
-                    'other'
-                ],
-                'icon-allow-overlap': true,
-                'icon-ignore-placement': true,
-                'icon-padding': 0,
-                'icon-size': 0.6
-            }
-        });
-    }
 
     // hover popup QnumberLayer
     map.on('mousemove', 'QnbrLayerIcon', function(e) {
