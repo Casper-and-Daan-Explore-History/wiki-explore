@@ -17,11 +17,10 @@ var wikipediaGeojson = {
         // }
     ]
 };
-var resultsFromQuery = [];
+
 var allQnbrs = [];
 var ResultsObject = {};
 var results; // results form commons.wikimedia img search from category
-var imgSlideIndex = 1;
 var mapIsActive = false;
 
 var ajaxQueue = new Array();
