@@ -307,12 +307,6 @@ function openPopupListBelowClick(e) {
 wikipdiaApiGeoRequest();
 
 function wikipdiaApiGeoRequest() {
-    let canvas = map.getCanvas();
-    let w = canvas.width;
-    let h = canvas.height;
-    let cUL = map.unproject([0, 0]).toArray();
-    let cLR = map.unproject([w, h]).toArray();
-
     let cornerCoordinates = map.getBounds();
     let crns = [cornerCoordinates['_ne'].lat, cornerCoordinates['_sw'].lng, cornerCoordinates['_sw'].lat, cornerCoordinates['_ne'].lng];
 
@@ -343,23 +337,23 @@ function parseJSONResponse(jsonData) {
     updateWikipediaGeojsonSource();
 }
 
-function addWikipediaPageToGeojson(article) {
-    if (isArticleNew(article)) { // check if article is already in geojson
-        let point = { //write the specific geojson feature for this point
+function addWikipediaPageToGeojson(article) { // add article to geojson
+    if (isArticleNotInGeojson(article)) { // check if article is already in geojson
+        let feature = {
             'type': 'Feature',
-            'properties': article, // all info known about the article is saved as property
+            'properties': article,
             'geometry': {
                 'type': 'Point',
                 'coordinates': article.lonLat
             }
         };
-        wikipediaGeojson.features.push(point); // add the newly created geojson feature the geojson
+        wikipediaGeojson.features.push(feature);
     }
 }
 
-function isArticleNew(article) {
-    for (i in wikipediaGeojson.features) {
-        if (wikipediaGeojson.features[i].properties.pageId == article.pageId) {
+function isArticleNotInGeojson(article) {
+    for (const feature of wikipediaGeojson.features) {
+        if (feature.properties.pageId === article.pageId) {
             return false;
         }
     }
