@@ -202,7 +202,6 @@ map.on('load', function () {
     });
 });
 function hoverPopupOn(e) {
-    // console.log(e.features);
     let html = '';
     if (e.features.length == 1) { // one article
         if (e.features[0].properties.title != undefined) {
@@ -240,7 +239,6 @@ function hoverPopupOff() {
 }
 
 function popupOpen(e) {
-    //console.log(e.features)
     if (e.features.length > 1) {
         openPopupListBelowClick(e);
         return;
@@ -263,9 +261,6 @@ function popupOpen(e) {
 let clickedListDataGlobalStorage;
 
 function openPopupListBelowClick(e) {
-    //console.log("list")
-    //console.log(e)
-
     let listData = e.features; // local save of map data for click events that accure alter.
 
     let html = '';
@@ -297,9 +292,6 @@ function openPopupListBelowClick(e) {
             .click(function () {
                 let listNbr = $(this).attr('data-list-nbr');
                 listNbr = Number(listNbr);
-                //console.log("List data binded to butons");
-                //console.log(clickedListDataGlobalStorage[listNbr]);
-                //console.log(clickedListDataGlobalStorage[listNbr]);
                 openDetailPannel(clickedListDataGlobalStorage[listNbr]);
                 listPopup.remove();
             });
@@ -323,31 +315,17 @@ function wikipdiaApiGeoRequest() {
 
     let cornerCoordinates = map.getBounds();
     let crns = [cornerCoordinates['_ne'].lat, cornerCoordinates['_sw'].lng, cornerCoordinates['_sw'].lat, cornerCoordinates['_ne'].lng];
-    console.log(cornerCoordinates['_ne'].lat);
-    console.log(cornerCoordinates['_sw'].lng);
-    console.log(cornerCoordinates['_sw'].lat);
-    console.log(cornerCoordinates['_ne'].lng);
-
-    console.log(cUL[1]);
-    console.log(cUL[0]);
-    console.log(cLR[1]);
-    console.log(cLR[0]);
 
     requestURL = 'https://en.wikipedia.org/w/api.php?action=query&format=json&list=geosearch&origin=*&utf8=1&gsbbox=' + crns[0] + '|' + crns[1] + '|' + crns[2] + '|' + crns[3] + '&gslimit=500&gsprimary=all';
-    // console.log('Request is for ' + requestURL);
-    console.log('Request sent');
+    console.log('Searching articles');
     ajaxQueue.push($.getJSON(requestURL, function (data) {
         parseJSONResponse(data);
     }));
 }
 
 function parseJSONResponse(jsonData) {
-    console.log('Request respons');
-    console.log(jsonData);
-    console.log('@1');
-
+    console.log('Found ' + jsonData.query.geosearch.length + ' articles');
     $.each(jsonData.query.geosearch, function (index, value) {
-        //console.log( index + ": " + value.title );
         let article = {
             'pageId': value.pageid,
             'title': value.title,
@@ -360,24 +338,13 @@ function parseJSONResponse(jsonData) {
             article.url = 'https://en.wikipedia.org/?curid=' + value.pageid;
         }
 
-        // console.log("Found Article " + index + ": " + article.title);
-        // console.log(article);
-        addWikipadiaPage(article);
+        addWikipediaPageToGeojson(article);
     });
     updateWikipediaGeojsonSource();
 }
 
-function addWikipadiaPage(article) {
-    // console.log('Request Prcessing step 1');
-    addWikipediaPageToGeojson(article);
-    // updateWikipediaGeojsonSource();
-
-}
-
 function addWikipediaPageToGeojson(article) {
-    console.log('Request Prcessing step 2');
-    // if (mapIsActive) { // is map active?
-    if (isArticleNew(article)) {
+    if (isArticleNew(article)) { // check if article is already in geojson
         let point = { //write the specific geojson feature for this point
             'type': 'Feature',
             'properties': article, // all info known about the article is saved as property
@@ -388,7 +355,6 @@ function addWikipediaPageToGeojson(article) {
         };
         wikipediaGeojson.features.push(point); // add the newly created geojson feature the geojson
     }
-
 }
 
 function isArticleNew(article) {
