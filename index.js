@@ -66,7 +66,7 @@ function hideWelcomCoverPage() {
     $('#coverContainer').toggleClass('transparent');
     runQuery();
 
-    setTimeout(function() {
+    setTimeout(function () {
         $('.WelcomeDiv').hide();
         $('#coverContainer').hide();
     }, 500);
@@ -82,7 +82,7 @@ let listPopup = new mapboxgl.Popup({
     closeOnClick: true
 });
 
-map.on('load', function() {
+map.on('load', function () {
     mapIsActive = true;
 
     // adding geocoer search box one welkom screen
@@ -140,14 +140,14 @@ map.on('load', function() {
     });
 
     // inspect a cluster on click
-    map.on('click', 'clusters', function(e) {
+    map.on('click', 'clusters', function (e) {
         let features = map.queryRenderedFeatures(e.point, {
             layers: ['clusters']
         });
         let clusterId = features[0].properties.cluster_id;
         map.getSource('wikipediaSource').getClusterExpansionZoom(
             clusterId,
-            function(err, zoom) {
+            function (err, zoom) {
                 if (err) return;
 
                 map.easeTo({
@@ -158,30 +158,21 @@ map.on('load', function() {
         );
     });
 
-    // When a click event occurs on a feature in
-    // the unclustered-point layer, open a popup at
-    // the location of the feature, with
-    // description HTML from its properties.
-    // map.on('click', 'unclustered-point', function (e) {
-    // let coordinates = e.features[0].geometry.coordinates.slice();
+    // hover popup Wikipedia Layer
+    map.on('mousemove', 'unclustered-point', hoverPopupOn);
+    map.on('mouseleave', 'unclustered-point', hoverPopupOff);
+    map.on('mousemove', 'cluster-count', hoverPopupOn);
+    map.on('mouseleave', 'cluster-count', hoverPopupOff);
 
-    // // Ensure that if the map is zoomed out such that
-    // // multiple copies of the feature are visible, the
-    // // popup appears over the copy being pointed to.
-    // while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
-    // coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
-    // }
-    // });
-
-    map.on('mouseenter', 'clusters', function() {
+    map.on('mouseenter', 'clusters', function () {
         map.getCanvas().style.cursor = 'pointer';
     });
 
-    map.on('mouseleave', 'clusters', function() {
+    map.on('mouseleave', 'clusters', function () {
         map.getCanvas().style.cursor = '';
     });
 
-    map.on('contextmenu', 'clusters', function(e) {
+    map.on('contextmenu', 'clusters', function (e) {
 
         let features = map.queryRenderedFeatures(e.point, { layers: ['clusters'] });
         let clusterId = features[0].properties.cluster_id,
@@ -189,7 +180,7 @@ map.on('load', function() {
             clusterSource = map.getSource( /* cluster layer data source id */ 'wikipediaSource');
 
         // Get all points under a cluster
-        clusterSource.getClusterLeaves(clusterId, point_count, 0, function(err, aFeatures) {
+        clusterSource.getClusterLeaves(clusterId, point_count, 0, function (err, aFeatures) {
             let e = {};
             e.features = aFeatures;
 
@@ -199,27 +190,8 @@ map.on('load', function() {
         // openPopupListBelowClick(e);
     });
 
-    // hover popup QnumberLayer
-    map.on('mousemove', 'QnbrLayerIcon', function(e) {
-        let hoverdQID = e.features[0].properties.Qnbr;
-        if (ResultsObject[hoverdQID].imgthum != undefined) {
-            let html = '<img src="' + ResultsObject[hoverdQID].imgthum + '" alt="' + ResultsObject[hoverdQID].label + '" class="popupImg">';
-            hoverPopup
-                .setLngLat(e.lngLat)
-                .setHTML(html)
-                .addTo(map);
-
-            map.getCanvas().style.cursor = 'pointer';
-        }
-        // console.log(e);
-    });
-    map.on('mouseleave', 'QnbrLayerIcon', function() {
-        map.getCanvas().style.cursor = '';
-        hoverPopup.remove();
-    });
-
     // click
-    map.on('click', function() {
+    map.on('click', function () {
         // hideInfopanel()
     });
 
@@ -227,11 +199,50 @@ map.on('load', function() {
     map.on('click', 'cluster-count', popupOpen);
 
     // Map panning ends
-    map.on('moveend', function() {
+    map.on('moveend', function () {
         // runQuery();
         wikipdiaApiGeoRequest();
     });
 });
+function hoverPopupOn(e) {
+    // console.log(e.features);
+    let html = '';
+    if (e.features.length == 1) { // one article
+        if (e.features[0].properties.title != undefined) {
+            let articleTitle = e.features[0].properties.title; // getting article title
+            html = '<ul class="articleDropdown"><li id="">' + articleTitle + '</li></ul>'; // generate html for one article using artile title
+        } else {
+            html = '<ul class="articleDropdown"><li id="">Click to zoom</li></ul>'; // generate html for one article using artile title
+        }
+    } else if (e.features.length > 1) { // mor than one article
+        html = '<ul class="articleDropdown"><li id="">' + e.features.length + ' articles.' + '</li></ul>'; // generating html for  more than one article uusing the number of articles as a title.
+    }
+
+    let coordinates = e.features[0].geometry.coordinates.slice(); // latLng to place popup
+
+    while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) { // avoid missplacinf popup on zomed out world where some part of the mercato projection is visible twice.
+        coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
+    }
+
+    hoverPopup //popup simple name of article or number of articles under mouse
+        .setLngLat(coordinates)
+        .setHTML(html)
+        .addTo(map);
+
+    $('.mapboxgl-popup-content').css({ // styling popup
+        'background': 'transparent',
+        'padding': '0'
+    });
+
+    map.getCanvas().style.cursor = 'pointer'; // changing mouse signaling the posibility to click
+}
+
+function hoverPopupOff(e) {
+
+    map.getCanvas().style.cursor = '';
+    hoverPopup.remove();
+
+}
 
 function popupOpen(e) {
     //console.log(e.features)
@@ -288,7 +299,7 @@ function openPopupListBelowClick(e) {
 
         $('#' + e.features[i].properties.title.replace(/[^a-z0-9]/gi, '')) // use the same formating for the #id
             .attr('data-list-nbr', i)
-            .click(function() {
+            .click(function () {
                 let listNbr = $(this).attr('data-list-nbr');
                 listNbr = Number(listNbr);
                 //console.log("List data binded to butons");
@@ -417,7 +428,7 @@ function wikipdiaApiGeoRequest() {
     requestURL = 'https://en.wikipedia.org/w/api.php?action=query&format=json&list=geosearch&origin=*&utf8=1&gsbbox=' + crns[0] + '|' + crns[1] + '|' + crns[2] + '|' + crns[3] + '&gslimit=500&gsprimary=all';
     // console.log('Request is for ' + requestURL);
     console.log('Request sent');
-    ajaxQueue.push($.getJSON(requestURL, function(data) {
+    ajaxQueue.push($.getJSON(requestURL, function (data) {
         parseJSONResponse(data);
     }));
 }
@@ -427,7 +438,7 @@ function parseJSONResponse(jsonData) {
     console.log(jsonData);
     console.log('@1');
 
-    $.each(jsonData.query.geosearch, function(index, value) {
+    $.each(jsonData.query.geosearch, function (index, value) {
         //console.log( index + ": " + value.title );
         let article = {
             'pageId': value.pageid,
@@ -486,7 +497,7 @@ function updateWikipediaGeojsonSource() {
         map.getSource('wikipediaSource').setData(wikipediaGeojson);
         $('#loadingBox').hide();
     } else {
-        map.on('load', function() {
+        map.on('load', function () {
             map.getSource('wikipediaSource').setData(wikipediaGeojson);
             $('#loadingBox').hide();
         });
@@ -516,7 +527,7 @@ function WikipediaApiRequestDetails(pageID) {
     detailsPannelData.wikipedia_ApiOngoing = true;
     requestURL = 'https://en.wikipedia.org/w/api.php?action=query&origin=*&format=json&prop=extracts%7Cpageprops%7Cpageimages%7Ccategories&pageids=' + pageID + '&utf8=1&formatversion=latest&exintro=1';
     // API sandox link: https://en.wikipedia.org/wiki/Special:ApiSandbox#action=query&format=json&origin=*&prop=extracts%7Cpageprops%7Cpageimages%7Ccategories&pageids=58387057&utf8=1&formatversion=latest&exintro=1
-    ajaxQueue.push($.getJSON(requestURL, function(data) {
+    ajaxQueue.push($.getJSON(requestURL, function (data) {
         parseWikipediaApiResponseDetails(data);
     }));
 }
