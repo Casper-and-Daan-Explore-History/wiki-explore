@@ -198,7 +198,7 @@ map.on('load', function () {
 
     // Map panning ends
     map.on('moveend', function () {
-        wikipdiaApiGeoRequest();
+        wikipediaApiGeoRequest();
     });
 });
 function hoverPopupOn(e) {
@@ -304,17 +304,22 @@ function openPopupListBelowClick(e) {
     });
 }
 
-wikipdiaApiGeoRequest();
+wikipediaApiGeoRequest();
 
-function wikipdiaApiGeoRequest() {
-    let cornerCoordinates = map.getBounds();
-    let crns = [cornerCoordinates['_ne'].lat, cornerCoordinates['_sw'].lng, cornerCoordinates['_sw'].lat, cornerCoordinates['_ne'].lng];
+function wikipediaApiGeoRequest() {
+    const bounds = map.getBounds();
+    const boundsArray = [
+        bounds['_ne'].lat,
+        bounds['_sw'].lng,
+        bounds['_sw'].lat,
+        bounds['_ne'].lng
+    ];
 
-    requestURL = 'https://en.wikipedia.org/w/api.php?action=query&format=json&list=geosearch&origin=*&utf8=1&gsbbox=' + crns[0] + '|' + crns[1] + '|' + crns[2] + '|' + crns[3] + '&gslimit=500&gsprimary=all';
+    const requestURL = `https://en.wikipedia.org/w/api.php?action=query&format=json&list=geosearch&origin=*&utf8=1&gsbbox=${boundsArray.join('|')}&gslimit=500&gsprimary=all`;
     console.log('Searching articles');
-    ajaxQueue.push($.getJSON(requestURL, function (data) {
-        parseJSONResponse(data);
-    }));
+    ajaxQueue.push(fetch(requestURL)
+        .then(response => response.json())
+        .then(data => parseJSONResponse(data)));
 }
 
 function parseJSONResponse(jsonData) {
