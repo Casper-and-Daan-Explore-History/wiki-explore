@@ -504,7 +504,7 @@ function updateWikipediaGeojsonSource() {
 function openDetailPannel(selectionInfo) {
     //console.log("This is selected:");
     //console.log(selectionInfo);
-    detailsPannelData = {
+    detailsPannelData = { // reset data
         'wikipedia_ApiOngoing': false, // current status of API resquest
         'wikimedia_ApiOngoing': false, // current status of API resquest
         'wikidata_ApiOngoing': false, // current status of API resquest
@@ -536,7 +536,7 @@ function parseWikipediaApiResponseDetails(jsonData) {
     detailsPannelData.wikipedia_ImgTitle = wikipediaApiRespons.pageimage;
     detailsPannelData.Qnumber = wikipediaApiRespons.pageprops.wikibase_item;
     if (wikipediaApiRespons.pageimage != undefined) {
-        detailsPannelData.wikipedia_ImgUrl = 'https://commons.wikimedia.org/wiki/Special:FilePath/' + wikipediaApiRespons.pageimage;
+        detailsPannelData.wikipedia_ImgUrl = `https://commons.wikimedia.org/wiki/Special:FilePath/${wikipediaApiRespons.pageimage}?width=800`;
     }
     detailsPannelData.wikipedia_Categories = [];
 
