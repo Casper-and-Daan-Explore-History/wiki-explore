@@ -34,7 +34,6 @@ var detailsPannelData = {
     "wikidata_QueryDone": false // Data collection status
 };
 
-
 function hideAboutpanel() {
     document.getElementById("about").style.display = "none";
 }
@@ -63,7 +62,6 @@ var map = new mapboxgl.Map({
     zoom: 15,
     hash: true
 });
-
 
 // document.getElementById('geocoder').appendChild(geocoder.onAdd(map));
 
@@ -438,7 +436,6 @@ map.on('load', function() {
     });
 });
 
-
 function hoverPopupOn(e) {
     // console.log(e.features);
     if (e.features.length == 1) { // one article
@@ -550,9 +547,6 @@ function openPopupListBelowClick(e) {
         "padding": "0"
     })
 }
-
-
-
 
 // runQuery();
 function runQuery() {
@@ -1059,9 +1053,6 @@ function openDetailPannel(selectionInfo) {
     WikipediaApiRequestDetails(detailsPannelData.wikipediaID);
 }
 
-
-
-
 function WikipediaApiRequestDetails(pageID) {
     detailsPannelData.wikipedia_ApiOngoing = true;
     requestURL = 'https://en.wikipedia.org/w/api.php?action=query&origin=*&format=json&prop=extracts%7Cpageprops%7Cpageimages%7Ccategories&pageids=' + pageID + '&utf8=1&formatversion=latest&exintro=1';
@@ -1105,7 +1096,6 @@ function parseWikipediaApiResponseDetails(jsonData) {
 
     updateDetailsPannel();
 }
-
 
 function CommonsApiRequest(pageID) {
     detailsPannelData.wikipedia_ApiOngoing = true;
@@ -1563,14 +1553,11 @@ function updateDetailsPannel() {
     showInfopanel();
 }
 
-
-
-
-
-// on map movement queries: wikipedia API, Wikidata query, Wiki commons API (toggle for all 3)
-// plaatje, title, intro, Wikipedia link, Wikidata link, mini discription, (list of related categories: quality?)
-// extra from Qnbr: instance of, official website, inception, part of, pronunciation audio, date of official opening, commons ategorie, significant event, 
+// Ideas for future:
+// - on map movement queries: wikipedia API, Wikidata query, Wiki commons API (toggle for all 3)
+// - plaatje, title, intro, Wikipedia link, Wikidata link, mini discription, (list of related categories: quality?)
+// - extra from wikidata's Qnbr: instance of, official website, inception, part of, pronunciation audio, date of official opening, commons ategorie, significant event, 
 // audio, visitors per year, height, area, Google Maps Customer ID, Insta Location, Mapillary ID, Facebook ID, Freebase ID (Google Search), Instagram username, Twitter username
-// extra LonLat: Google maps link, Bing maps, WikiShootMe
-// extra form commons: photo album, hi qualit images, image locator tool
+// - extra from LonLat: Google maps link, Bing maps, WikiShootMe
+// - extra form commons: photo album, hi qualit images, image locator tool link
 // options: see images arround this location
