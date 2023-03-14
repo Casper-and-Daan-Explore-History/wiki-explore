@@ -63,7 +63,6 @@ $('.startButton').click(
 function hideWelcomCoverPage() {
     $('.WelcomeDiv').toggleClass('transparent');
     $('#coverContainer').toggleClass('transparent');
-    runQuery();
 
     setTimeout(function () {
         $('.WelcomeDiv').hide();
@@ -199,7 +198,6 @@ map.on('load', function () {
 
     // Map panning ends
     map.on('moveend', function () {
-        // runQuery();
         wikipdiaApiGeoRequest();
     });
 });
@@ -312,93 +310,6 @@ function openPopupListBelowClick(e) {
         'background': 'transparent',
         'padding': '0'
     });
-}
-
-// runQuery();
-function runQuery() {
-    // let canvas = map.getCanvas()
-    // let w = canvas.width
-    // let h = canvas.height
-    // let cUL = map.unproject([0, 0]).toArray()
-    // let cLR = map.unproject([w, h]).toArray()
-
-    // // the function that process the query
-    // function makeSPARQLQuery(endpointUrl, sparqlQuery, doneCallback) {
-    //     let settings = {
-    //         headers: { Accept: 'application/sparql-results+json' },
-    //         data: { query: sparqlQuery }
-    //     };
-    //     return $.ajax(endpointUrl, settings).then(doneCallback);
-    // }
-
-    // let endpointUrl = 'https://query.wikidata.org/sparql',
-    //     sparqlQuery = "#defaultView:ImageGride\n" +
-    //         "SELECT\n" +
-    //         "  ?item ?itemLabel ?itemDescription\n" +
-    //         "  ?geo ?img ?categorie ?wikiMediaCategory\n" +
-    //         "  (GROUP_CONCAT(?instanceLabel; SEPARATOR = \", \") AS ?instancesof) # a nices String with the labels of the different instances of related to the item\n" +
-    //         "WITH\n" +
-    //         "{\n" +
-    //         "  SELECT \n" +
-    //         "    ?item \n" +
-    //         "    (SAMPLE(?geo_) AS ?geo) # The SAMPLE code is needed to inform the GROUP BY code what to do when there are more than one.\n" +
-    //         "    (SAMPLE(?img_) AS ?img)\n" +
-    //         "  WHERE\n" +
-    //         "  {\n" +
-    //         "    #### Selection based on location ####   \n" +
-    //         "    SERVICE wikibase:box\n" +
-    //         "    {\n" +
-    //         "      ?item wdt:P625 ?geo_.\n" +
-    //         "      bd:serviceParam wikibase:cornerWest \"Point(" + cUL[0] + " " + cUL[1] + ")\"^^geo:wktLiteral. \n" +
-    //         "      bd:serviceParam wikibase:cornerEast \"Point(" + cLR[0] + " " + cLR[1] + ")\"^^geo:wktLiteral.\n" +
-    //         "    }\n" +
-    //         "\n" +
-    //         "    MINUS { ?item (wdt:P31/(wdt:P279*)) wd:Q376799. } # Remove everything related to roads\n" +
-    //         "    ?item wdt:P18 ?img_. # Only keep items with pictures\n" +
-    //         "  }\n" +
-    //         "  GROUP BY ?item\n" +
-    //         "} AS %get_items\n" +
-    //         "WHERE\n" +
-    //         "{\n" +
-    //         "  INCLUDE %get_items\n" +
-    //         "\n" +
-    //         "  #### Categorise items ####\n" +
-    //         "  BIND(\n" +
-    //         "    IF(EXISTS {?item (wdt:P31/(wdt:P279*)) wd:Q811979},\n" +
-    //         "       \"Architectural\",\n" +
-    //         "       IF(EXISTS {?item (wdt:P31/(wdt:P279*)) wd:Q1656682},\n" +
-    //         "          \"Event\",\n" +
-    //         "          \"Other\"\n" +
-    //         "         )\n" +
-    //         "      )\n" +
-    //         "  AS ?categorie)\n" +
-    //         "  \n" +
-    //         "  OPTIONAL { ?item wdt:P31 ?instance. } # Get instances\n" +
-    //         "   \n" +
-    //         "  OPTIONAL { ?item wdt:P373 ?wikiMediaCategory. }\n" +
-    //         "   \n" +
-    //         "  #### Wikipedia link ####\n" +
-    //         "  OPTIONAL {\n" +
-    //         "    ?article schema:about ?item . # Get wikipedia link\n" +
-    //         "    ?article schema:isPartOf <https://en.wikipedia.org/>. # Only keep EN language\n" +
-    //         "  }\n" +
-    //         "  \n" +
-    //         "  #### Labels & discription #### \n" +
-    //         "  SERVICE wikibase:label { # Get labels\n" +
-    //         "    bd:serviceParam wikibase:language \"en\". \n" +
-    //         "    ?instance rdfs:label ?instanceLabel.      # The specification of the letiables to be labeld is needed for grouping the instances of correctly\n" +
-    //         "    ?item rdfs:label ?itemLabel.\n" +
-    //         "    ?item schema:description ?itemDescription.\n" +
-    //         "  }\n" +
-    //         "}\n" +
-    //         "GROUP BY ?item ?itemLabel ?itemDescription ?geo ?img ?categorie ?article ?wikiMediaCategory";
-
-    // makeSPARQLQuery(endpointUrl, sparqlQuery, function (data) {
-    //     // $( 'body' ).append( $( '<pre>' ).text( JSON.stringify( data ) ) );
-    //     // console.log( data );
-    //     processQueryResults(data);
-    // }
-    // );
 }
 
 wikipdiaApiGeoRequest();
@@ -539,14 +450,6 @@ function parseWikipediaApiResponseDetails(jsonData) {
         detailsPannelData.wikipedia_ImgUrl = `https://commons.wikimedia.org/wiki/Special:FilePath/${wikipediaApiRespons.pageimage}?width=800`;
     }
     detailsPannelData.wikipedia_Categories = [];
-
-    //ToDo: get a desent thumnail. Maibe by transforming img url?
-
-    // if (wikipediaApiRespons.thumbnail != undefined) {
-    //     let url = wikipediaApiRespons.thumbnail.source;
-    //     url.replace("50px", "500px"); // changing thmbnail size
-    //     detailsPannelData.imgThumbnailUrl = url;
-    // }
 
     for (i in wikipediaApiRespons.categories) {
         detailsPannelData.wikipedia_Categories.push(wikipediaApiRespons.categories[i].title); // adding all wikipediaApiRespons cathegories.
