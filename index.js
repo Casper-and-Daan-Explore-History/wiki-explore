@@ -36,7 +36,7 @@ let detailsPannelData = {
 
 // get a random city from the cities array
 let randCityNumber = Math.floor(Math.random() * cities.length); // cities letiable is comming from a different js file.
-const startingLocation = cities[randCityNumber] // cities letiable is comming from a different js file.
+const startingLocation = cities[randCityNumber]; // cities letiable is comming from a different js file.
 
 mapboxgl.accessToken = 'pk.eyJ1IjoiY2Fza2VzIiwiYSI6ImNsZGtwdGRrdzA4dWMzb3BoMWdxM3Zib2UifQ.2q2xfShG5nmDHTxg7n_ZhQ';
 let map = new mapboxgl.Map({
@@ -135,7 +135,7 @@ function buildAllVisibleItems() {
 }
 
 function flyTo(lon, lat, zoom) {
-    if (zoom === undefined) { zoom = 14 };
+    if (zoom === undefined) { zoom = 14; }
     map.flyTo({
         center: [
             lon,
@@ -144,7 +144,7 @@ function flyTo(lon, lat, zoom) {
         zoom: zoom,
         essential: true // this animation is considered essential with respect to prefers-reduced-motion
     });
-};
+}
 
 map.on('load', function() {
     mapIsActive = true;
@@ -154,14 +154,14 @@ map.on('load', function() {
         accessToken: mapboxgl.accessToken,
         mapboxgl: mapboxgl
     });
-    document.getElementById('geocoderWelcome').appendChild(geocoder.onAdd(map))
+    document.getElementById('geocoderWelcome').appendChild(geocoder.onAdd(map));
 
     //adding geocoder
     let geocoder2 = new MapboxGeocoder({
         accessToken: mapboxgl.accessToken,
         mapboxgl: mapboxgl
     });
-    document.getElementById('geocoderMap').appendChild(geocoder2.onAdd(map))
+    document.getElementById('geocoderMap').appendChild(geocoder2.onAdd(map));
 
     // create data sources for layers to use
     map.addSource('QnbrSource', {
@@ -302,7 +302,7 @@ map.on('load', function() {
             e.features = aFeatures;
 
             openPopupListBelowClick(e);
-        })
+        });
 
         // openPopupListBelowClick(e);
     });
@@ -327,7 +327,7 @@ map.on('load', function() {
                                 function(error, image) {
                                     if (error) throw error;
                                     map.addImage('wikipedia', image);
-                                    addLayerWithIcons() // All images are now loaded, add layer that uses the images
+                                    addLayerWithIcons(); // All images are now loaded, add layer that uses the images
 
                                 }
                             );
@@ -434,7 +434,7 @@ function hoverPopupOn(e) {
     $('.mapboxgl-popup-content').css({ // styling popup
         'background': 'transparent',
         'padding': '0'
-    })
+    });
 
     map.getCanvas().style.cursor = 'pointer'; // changing mouse signaling the posibility to click
 }
@@ -450,7 +450,7 @@ function popupOpen(e) {
     //console.log(e.features)
     if (e.features.length > 1) {
         openPopupListBelowClick(e);
-        return
+        return;
     } else if (e.features[0].properties.cluster) {
         //zoom
 
@@ -497,26 +497,26 @@ function openPopupListBelowClick(e) {
 
     clickedListDataGlobalStorage = [];
     for (i in e.features) { // bind click events to list elements
-        clickedListDataGlobalStorage[i] = listData[i].properties
+        clickedListDataGlobalStorage[i] = listData[i].properties;
 
         $('#' + e.features[i].properties.title.replace(/[^a-z0-9]/gi, '')) // use the same formating for the #id
             .attr('data-list-nbr', i)
             .click(function() {
-                let listNbr = $(this).attr('data-list-nbr')
+                let listNbr = $(this).attr('data-list-nbr');
                 listNbr = Number(listNbr);
                 //console.log("List data binded to butons");
                 //console.log(clickedListDataGlobalStorage[listNbr]);
                 //console.log(clickedListDataGlobalStorage[listNbr]);
                 openDetailPannel(clickedListDataGlobalStorage[listNbr]);
                 listPopup.remove();
-            })
+            });
     }
 
     // hide standard Mapbox popup CSS
     $('.mapboxgl-popup-content').has('.articleDropdown').css({
         'background': 'transparent',
         'padding': '0'
-    })
+    });
 }
 
 // runQuery();
@@ -643,31 +643,31 @@ function buildResultsObject(result) {
     if (ResultsObject[Q] != undefined) {
         if (ResultsObject[Q].wikipedia != results.wikipedia) {
             ResultsObject[Q].wikipedia = '';
-        };
+        }
         if (ResultsObject[Q].geo != results.geo) {
             ResultsObject[Q].geo = '';
-        };
+        }
         if (ResultsObject[Q].img != results.img) {
             ResultsObject[Q].img = '';
-        };
+        }
         if (ResultsObject[Q].imgthum != results.imgthum) {
             ResultsObject[Q].imgthum = '';
-        };
+        }
         if (ResultsObject[Q].commons != results.commons) {
             ResultsObject[Q].commons = '';
-        };
+        }
         if (ResultsObject[Q].label != results.label) {
             ResultsObject[Q].label = '';
-        };
+        }
         if (ResultsObject[Q].description != results.description) {
             ResultsObject[Q].description = '';
-        };
+        }
         if (ResultsObject[Q].instanceof != results.instanceof) {
             ResultsObject[Q].instanceof = '';
-        };
+        }
         if (ResultsObject[Q].categorie != results.categorie) {
             ResultsObject[Q].categorie = '';
-        };
+        }
 
     } else {
         ResultsObject[Q] = result;
@@ -679,21 +679,21 @@ function buildGeojsonFromQueryResults() {
     //console.log("@2");
     QnbrGeojson.features = [];
     for (i in allQnbrs) {
-        addPointToQnbrGeojson(ResultsObject[allQnbrs[i]].geo, ResultsObject[allQnbrs[i]].qnumber, ResultsObject[allQnbrs[i]].categorie)
+        addPointToQnbrGeojson(ResultsObject[allQnbrs[i]].geo, ResultsObject[allQnbrs[i]].qnumber, ResultsObject[allQnbrs[i]].categorie);
     }
     if (mapIsActive) {
         //console.log("@3");
         map.getSource('QnbrSource').setData(QnbrGeojson);
         $('#loadingBox').hide();
         setTimeout(function() {
-            buildAllVisibleItems()
+            buildAllVisibleItems();
         }, 500);
     } else {
         //console.log("@4");
         map.on('load', function() {
             map.getSource('QnbrSource').setData(QnbrGeojson);
             $('#loadingBox').hide();
-            buildAllVisibleItems()
+            buildAllVisibleItems();
         });
     }
 }
@@ -714,7 +714,7 @@ function addPointToQnbrGeojson(LngLat, Qnbr, categorie) {
         }
     };
 
-    QnbrGeojson.features.push(point)
+    QnbrGeojson.features.push(point);
         // }
 }
 
@@ -772,7 +772,7 @@ function getCommonsCategoryImgs(pageTitle, Qdestination, vieuwDestination) {
                     thumurl: imgUrlPrefix + encodeURIComponent(apiResult.query.categorymembers[r].title) + thumSufix,
                     pageurl: pageUrlPrefix + encodeURIComponent(apiResult.query.categorymembers[r].title)
                 };
-                arrayOfImgs.push(imgObject)
+                arrayOfImgs.push(imgObject);
             }
         }
 
@@ -788,7 +788,7 @@ function getCommonsCategoryImgs(pageTitle, Qdestination, vieuwDestination) {
         //       $('#display-result').append('<p>'+apiResult.query.search[i].title+'</p>');
         //  }
         resultsFromCommonsReady(Qdestination, vieuwDestination);
-    };
+    }
 }
 
 // Processing Commons images
@@ -839,13 +839,13 @@ function openInNewWindow(url) {
             url = 'https://www.google.com/maps/@' + lat + ',' + lng + ',1000m/data=!3m1!1e3';
             break;
         case 'flickr':
-            url = 'https://www.flickr.com/map?&fLat=' + lat + '&fLon=' + lng + '&zl=15'
+            url = 'https://www.flickr.com/map?&fLat=' + lat + '&fLon=' + lng + '&zl=15';
             break;
         case 'wikishootme':
             url = 'https://tools.wmflabs.org/wikishootme/#lat=' + lat + '&lng=' + lng + '&zoom=14';
             break;
         default:
-            console.log('no url recognised')
+            console.log('no url recognised');
             break;
     }
     //console.log("open: " + url)
@@ -864,7 +864,7 @@ function selectNew(Q) {
         $('#commons').hide();
         //console.log("unselected");
     } else {
-        let data = ResultsObject[Q]
+        let data = ResultsObject[Q];
         selectedQ = Q;
         //console.log("selected" + Q);
 
@@ -880,7 +880,7 @@ function selectNew(Q) {
         // $(".singleImgSelection").attr("src", data.imgthum);
         $('.singleImgSelection').show();
         // getCommonsCategoryImgs(data.commons, selectedQ, "carousel");
-    };
+    }
 
     // if (data != undefined && lat != undefined) {
     //     flyTo(lng, lat, zoom); //camera flyes to selection
@@ -892,14 +892,14 @@ wikipdiaApiGeoRequest();
 // Wikipedia query from here:
 
 function wikipdiaApiGeoRequest() {
-    let canvas = map.getCanvas()
-    let w = canvas.width
-    let h = canvas.height
-    let cUL = map.unproject([0, 0]).toArray()
-    let cLR = map.unproject([w, h]).toArray()
+    let canvas = map.getCanvas();
+    let w = canvas.width;
+    let h = canvas.height;
+    let cUL = map.unproject([0, 0]).toArray();
+    let cLR = map.unproject([w, h]).toArray();
 
-    let cornerCoordinates = map.getBounds()
-    let crns = [cornerCoordinates['_ne'].lat, cornerCoordinates['_sw'].lng, cornerCoordinates['_sw'].lat, cornerCoordinates['_ne'].lng]
+    let cornerCoordinates = map.getBounds();
+    let crns = [cornerCoordinates['_ne'].lat, cornerCoordinates['_sw'].lng, cornerCoordinates['_sw'].lat, cornerCoordinates['_ne'].lng];
     console.log(cornerCoordinates['_ne'].lat);
     console.log(cornerCoordinates['_sw'].lng);
     console.log(cornerCoordinates['_sw'].lat);
@@ -929,7 +929,7 @@ function parseJSONResponse(jsonData) {
             'pageId': value.pageid,
             'title': value.title,
             'lonLat': [value.lon, value.lat]
-        }
+        };
 
         if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
             article.url = 'https://en.m.wikipedia.org/?curid=' + value.pageid;
@@ -939,7 +939,7 @@ function parseJSONResponse(jsonData) {
 
         // console.log("Found Article " + index + ": " + article.title);
         // console.log(article);
-        addWikipadiaPage(article)
+        addWikipadiaPage(article);
     });
     updateWikipediaGeojsonSource();
 }
@@ -971,7 +971,7 @@ function addWikipediaPageToGeojson(article) {
                 'coordinates': article.lonLat
             }
         };
-        wikipediaGeojson.features.push(point) // add the newly created geojson feature the geojson
+        wikipediaGeojson.features.push(point); // add the newly created geojson feature the geojson
     }
 
 }
@@ -1054,7 +1054,7 @@ function parseWikipediaApiResponseDetails(jsonData) {
     // If new Qnumber, and no data jet, then get Wikidata data:
     if (!detailsPannelData.wikidata_ApiOngoing && !detailsPannelData.wikidata_QueryDone && detailsPannelData.Qnumber != undefined) {
         //console.log("should call Wikidata API");
-        WikidataApiRequestDetails()
+        WikidataApiRequestDetails();
     }
 
     updateDetailsPannel();
@@ -1096,7 +1096,7 @@ function parseCommonsApiResponseDetails(jsonData) {
     // If new Qnumber, and no data jet, then get Wikidata data:
     if (!detailsPannelData.wikidata_ApiOngoing && !detailsPannelData.wikidata_QueryDone && detailsPannelData.Qnumber != undefined) {
         //console.log("should call Wikidata API");
-        WikidataApiRequestDetails()
+        WikidataApiRequestDetails();
     }
 
     updateDetailsPannel();
@@ -1183,11 +1183,11 @@ function WikidataApiRequestDetails() {
     makeSPARQLQuery(endpointUrl, sparqlQuery, function(data) {
         $('body').append($('<pre>').text(JSON.stringify(data)));
         //console.log(data.results.bindings);
-        WikidataApiResultsProcessingDetails(data.results.bindings)
+        WikidataApiResultsProcessingDetails(data.results.bindings);
     });
 
     function WikidataApiResultsProcessingDetails(data) {
-        cleanResults()
+        cleanResults();
 
         function cleanResults() {
             let gatherdResults = {}; //raw results come in with a lot of fluf and in repated fashon to account for several values. Here we keep the minimum and put the results in an array if needed.
@@ -1199,12 +1199,12 @@ function WikidataApiRequestDetails() {
                         gatherdResults[keys[k]] = [data[i][keys[k]].value]; // save value in a new array
                     } else {
                         if (jQuery.inArray(data[i][keys[k]].value, gatherdResults[keys[k]]) === -1) // If this value does not exist in array
-                            gatherdResults[keys[k]].push(data[i][keys[k]].value) // then add to array
+                            gatherdResults[keys[k]].push(data[i][keys[k]].value); // then add to array
                     }
                 }
             }
             //console.log(gatherdResults);
-            makeResultsUsefull(gatherdResults)
+            makeResultsUsefull(gatherdResults);
         }
 
         function makeResultsUsefull(data) {
@@ -1230,7 +1230,7 @@ function WikidataApiRequestDetails() {
                             value = value.replace('Point(', '');
                             value = value.replace(')', '');
                             value = value.split(' ');
-                            value = [Number(value[0]), Number(value[1])]
+                            value = [Number(value[0]), Number(value[1])];
                             break;
 
                             // this changes the img url  to the img page 
@@ -1345,7 +1345,7 @@ function WikidataApiRequestDetails() {
             }
             console.log(detailsPannelData);
             // popup.setHTML(popuphtml())
-            updateDetailsPannel()
+            updateDetailsPannel();
             if (!detailsPannelData.wikimedia_ApiOngoing && !detailsPannelData.wikimedia_QueryDone && (detailsPannelData.Wikidata_CommonsCategory != undefined || detailsPannelData.Wikidata_commonsLink != undefined)) {
                 console.log('should call Commons API');
                 // WikidataApiRequestDetails()
@@ -1483,14 +1483,14 @@ function updateDetailsPannel() {
         if (detailsPannelData.Wikidata_inception != undefined) {
             return 'From ' + detailsPannelData.Wikidata_inception;
         } else {
-            return
+            return;
         }
     }
 
     function formatingVisitors() {
         let visitors = '-';
         if (detailsPannelData.Wikidata_visitorsPerYear != undefined) {
-            let visitorsString = detailsPannelData.Wikidata_visitorsPerYear.toString()
+            let visitorsString = detailsPannelData.Wikidata_visitorsPerYear.toString();
             visitors = visitorsString.replace('visitors per year', ' ');
         }
         return visitors;
@@ -1500,12 +1500,12 @@ function updateDetailsPannel() {
         let string = '';
         let array = detailsPannelData.Wikidata_instanceOfLabel;
         for (i in array) {
-            string += array[i]
+            string += array[i];
             if (i < array.length - 1) {
-                string += ', '
+                string += ', ';
             }
         }
-        return string
+        return string;
     }
     showInfopanel();
 }
