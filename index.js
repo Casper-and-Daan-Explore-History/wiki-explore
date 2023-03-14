@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 var selectedQ = undefined;
 var QnbrGeojson = {
     'type': 'FeatureCollection',
@@ -49,7 +50,6 @@ var map = new mapboxgl.Map({
 
 // document.getElementById('geocoder').appendChild(geocoder.onAdd(map));
 
-
 // Zoom and rotation constroles.
 map.addControl(new mapboxgl.NavigationControl(), 'bottom-right');
 
@@ -89,7 +89,6 @@ function closeFullscreen() {
     }
 }
 
-
 $(".startButton").click(
     hideWelcomCoverPage
 );
@@ -101,7 +100,6 @@ function hideWelcomCoverPage() {
     $(".WelcomeDiv").toggleClass("transparent");
     $("#coverContainer").toggleClass("transparent");
     runQuery();
-
 
     setTimeout(function() {
         $(".WelcomeDiv").hide();
@@ -152,8 +150,6 @@ function flyTo(lon, lat, zoom) {
 map.on('load', function() {
     mapIsActive = true;
 
-
-
     // adding geocoer search box one welkom screen
     var geocoder = new MapboxGeocoder({
         accessToken: mapboxgl.accessToken,
@@ -167,8 +163,6 @@ map.on('load', function() {
         mapboxgl: mapboxgl
     });
     document.getElementById('geocoderMap').appendChild(geocoder2.onAdd(map))
-
-
 
     // create data sources for layers to use
     map.addSource('QnbrSource', {
@@ -200,10 +194,6 @@ map.on('load', function() {
     //     }
     // });
 
-
-
-
-
     // map.addLayer({
     //     id: 'clusters',
     //     type: 'circle',
@@ -228,7 +218,6 @@ map.on('load', function() {
     //         ]
     //     }
     // });
-
 
     map.addLayer({
         id: 'unclustered-point',
@@ -376,7 +365,6 @@ map.on('load', function() {
             },
         });
     }
-
 
     // hover popup QnumberLayer
     map.on('mousemove', 'QnbrLayerIcon', function(e) {
@@ -540,7 +528,6 @@ function runQuery() {
     // let cUL = map.unproject([0, 0]).toArray()
     // let cLR = map.unproject([w, h]).toArray()
 
-
     // // the function that process the query
     // function makeSPARQLQuery(endpointUrl, sparqlQuery, doneCallback) {
     //     var settings = {
@@ -612,7 +599,6 @@ function runQuery() {
     //         "}\n" +
     //         "GROUP BY ?item ?itemLabel ?itemDescription ?geo ?img ?categorie ?article ?wikiMediaCategory";
 
-
     // makeSPARQLQuery(endpointUrl, sparqlQuery, function (data) {
     //     // $( 'body' ).append( $( '<pre>' ).text( JSON.stringify( data ) ) );
     //     // console.log( data );
@@ -645,7 +631,6 @@ function processQueryResults(data) {
         // buildResultsObject(result);
     }
     allQnbrs = Object.keys(ResultsObject);
-
 
     //console.log(ResultsObject);
     // console.log(resultsFromQuery);
@@ -729,7 +714,6 @@ function addPointToQnbrGeojson(LngLat, Qnbr, categorie) {
             "coordinates": LngLat
         }
     };
-
 
     QnbrGeojson.features.push(point)
         // }
@@ -838,7 +822,6 @@ function openInNewWindow(url) {
         var lat = ResultsObject[selectedQ].geo[1];
     }
 
-
     //selectedQ
     switch (url) {
         case "wikidata":
@@ -905,8 +888,6 @@ function selectNew(Q) {
     //     showPoint(lng, lat); // highlight map point
     // };
 }
-
-
 
 wikipdiaApiGeoRequest();
 // Wikipedia query from here:
@@ -1016,7 +997,6 @@ function updateWikipediaGeojsonSource() {
         });
     }
 }
-
 
 function openDetailPannel(selectionInfo) {
     //console.log("This is selected:");
@@ -1228,7 +1208,6 @@ function WikidataApiRequestDetails() {
             makeResultsUsefull(gatherdResults)
         }
 
-
         function makeResultsUsefull(data) {
             var keys = Object.keys(data);
             console.log(keys);
@@ -1352,9 +1331,6 @@ function WikidataApiRequestDetails() {
                             // value = value.replace(")", "");
                             // value = value.split(" ");
 
-
-
-
                         default:
                             value = data[keys[k]][v];
                             break;
@@ -1378,7 +1354,6 @@ function WikidataApiRequestDetails() {
         }
 
     }
-
 
     //detailsPannelData.Qnumber
 }
@@ -1423,7 +1398,6 @@ function popuphtml() {
 
 function updateDetailsPannel() {
     console.log(detailsPannelData);
-
 
     resetDetailsPannel();
 
