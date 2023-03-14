@@ -213,22 +213,48 @@ p {
     /* Firefox */
 }
 
-.article-image-small {
-    border-radius: 16px;
-    object-fit: cover;
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+.image-container {
     height: 300px;
     width: 100%;
-    background-color: var(--black);
-}
-
-.article-image-big {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer; /* added for mouse pointer on hover */
+  }
+  
+  .image-container img {
+    max-height: 100%;
+    max-width: 100%;
+    object-fit: contain;
+  }
+  
+  .image-container.fullscreen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    z-index: 999;
+  }
+  
+  .image-container.fullscreen img {
+    max-height: 95%;
+    max-width: 95%;
+  }
+  
+  .image-container.fullscreen .close-icon {
     position: absolute;
-    
-}
+    top: 10px;
+    right: 10px;
+    font-size: 30px;
+    color: #fff;
+    cursor: pointer;
+  }
+
+  
+
 
 #article-image-loader {
     display: none;
@@ -276,12 +302,7 @@ img[src^=loading] {
     outline: none;
 }
 
-.article-image-small img {
-    object-fit: cover;
-    height: 100%;
-    width: 100%;
-    border-radius: 16px;
-}
+
 
 .searchbox {
     padding: 16px;

@@ -27,6 +27,7 @@
     <script src="https://cdn.jsdelivr.net/npm/es6-promise@4/dist/es6-promise.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/es6-promise@4/dist/es6-promise.auto.min.js"></script>
 
+
     <!-- Google Font -->
     <script src="https://kit.fontawesome.com/c258b31bf5.js" crossorigin="anonymous"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -118,7 +119,9 @@
     <div class="maincontent">
         <button onclick="newRandomLocation()" style="z-index: 999;"></button>
 
-        <img class="article-image-big" id="article-image hide" src="https://upload.wikimedia.org/wikipedia/commons/3/3a/Louvre_aile_Richelieu.jpg" alt="louvre">
+        
+
+
 
 
 
@@ -133,12 +136,14 @@
 
             <div class="infocontent flex flex-wrap">
 
-                <div class="article-image mv3 hide shadow" id="articleimage" onclick="toggleBigimage()">
-                    <div class="enlargeIcon">
-                        <i class="fas fa-expand-alt"></i>
+                <div class="image-container mv3 shadow" id="articleimage" >
+                    <img class="" id="article-image" src="https://upload.wikimedia.org/wikipedia/commons/3/3a/Louvre_aile_Richelieu.jpg" alt="louvre">
+                    <div class="close-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                            <path fill="none" d="M0 0h24v24H0V0z"/>
+                            <path d="M17.66 6.34a.996.996 0 0 0-1.41 0L12 10.59 7.75 6.34a.996.996 0 1 0-1.41 1.41L10.59 12l-4.24 4.24a.996.996 0 1 0 1.41 1.41L12 13.41l4.24 4.24a.996.996 0 1 0 1.41-1.41L13.41 12l4.25-4.25a.996.996 0 0 0 0-1.41z"/>
+                        </svg>
                     </div>
-                    <img class="pointer" id="article-image" src="https://upload.wikimedia.org/wikipedia/commons/3/3a/Louvre_aile_Richelieu.jpg" alt="louvre">
-                    <!-- <img id="article-image-loader" src="img/loading.gif" alt="louvre"> -->
                 </div>
 
                 <div class="wiki-intro hide ph3" id="wiki-intro" onclick="">
@@ -206,6 +211,8 @@
     <!-- Javascript file -->
     <script type="text/javascript" src="index.js"></script>
     <script type="text/javascript" src="buttons.js"></script>
+    <script src="./image.js"></script>
+
 
     <script async defer src="https://scripts.simpleanalyticscdn.com/latest.js"></script>
     <noscript><img src="https://queue.simpleanalyticscdn.com/noscript.gif" alt="" referrerpolicy="no-referrer-when-downgrade" /></noscript>
