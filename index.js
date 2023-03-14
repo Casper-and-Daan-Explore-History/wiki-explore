@@ -26,12 +26,12 @@ let mapIsActive = false;
 let ajaxQueue = new Array();
 
 let detailsPannelData = {
-    "wikipedia_ApiOngoing": false, // current status of API resquest
-    "wikimedia_ApiOngoing": false, // current status of API resquest
-    "wikidata_ApiOngoing": false, // current status of API resquest
-    "wikipedia_QueryDone": false, // Data collection status
-    "wikimedia_QueryDone": false, // Data collection status
-    "wikidata_QueryDone": false // Data collection status
+    'wikipedia_ApiOngoing': false, // current status of API resquest
+    'wikimedia_ApiOngoing': false, // current status of API resquest
+    'wikidata_ApiOngoing': false, // current status of API resquest
+    'wikipedia_QueryDone': false, // Data collection status
+    'wikimedia_QueryDone': false, // Data collection status
+    'wikidata_QueryDone': false // Data collection status
 };
 
 // get a random city from the cities array
@@ -88,7 +88,7 @@ function closeFullscreen() {
     }
 }
 
-$(".startButton").click(
+$('.startButton').click(
     hideWelcomCoverPage
 );
 // $("#coverContainer").click(
@@ -96,13 +96,13 @@ $(".startButton").click(
 // );
 
 function hideWelcomCoverPage() {
-    $(".WelcomeDiv").toggleClass("transparent");
-    $("#coverContainer").toggleClass("transparent");
+    $('.WelcomeDiv').toggleClass('transparent');
+    $('#coverContainer').toggleClass('transparent');
     runQuery();
 
     setTimeout(function() {
-        $(".WelcomeDiv").hide();
-        $("#coverContainer").hide();
+        $('.WelcomeDiv').hide();
+        $('#coverContainer').hide();
     }, 500);
 }
 
@@ -243,7 +243,7 @@ map.on('load', function() {
             'text-size': 12,
         },
         paint: {
-            "text-color": "#ffffff"
+            'text-color': '#ffffff'
         }
     });
 
@@ -341,26 +341,26 @@ map.on('load', function() {
 
     function addLayerWithIcons() {
         map.addLayer({
-            "id": "QnbrLayerIcon",
-            "type": "symbol",
-            "source": "QnbrSource",
+            'id': 'QnbrLayerIcon',
+            'type': 'symbol',
+            'source': 'QnbrSource',
             // "source-layer": "gp_registered_patients",
             // "filter": ["in", "stack", "two","three","five","nine","one"],
             // "minzoom": 11,
             // "interactive": true,
-            "layout": {
+            'layout': {
                 // "icon-offset": [14,-154],
-                "icon-image": [
-                    "match", ["get", "cat"],
-                    ["Architectural"],
-                    "archi", ["Event"],
-                    "event",
-                    "other"
+                'icon-image': [
+                    'match', ['get', 'cat'],
+                    ['Architectural'],
+                    'archi', ['Event'],
+                    'event',
+                    'other'
                 ],
-                "icon-allow-overlap": true,
-                "icon-ignore-placement": true,
-                "icon-padding": 0,
-                "icon-size": 0.6,
+                'icon-allow-overlap': true,
+                'icon-ignore-placement': true,
+                'icon-padding': 0,
+                'icon-size': 0.6,
             },
         });
     }
@@ -417,7 +417,7 @@ function hoverPopupOn(e) {
             let html = '<ul class="articleDropdown"><li id="">Click to zoom</li></ul>'; // generate html for one article using artile title
         }
     } else if (e.features.length > 1) { // mor than one article
-        let html = '<ul class="articleDropdown"><li id="">' + e.features.length + " articles." + '</li></ul>'; // generating html for  more than one article uusing the number of articles as a title.
+        let html = '<ul class="articleDropdown"><li id="">' + e.features.length + ' articles.' + '</li></ul>'; // generating html for  more than one article uusing the number of articles as a title.
     }
 
     let coordinates = e.features[0].geometry.coordinates.slice(); // latLng to place popup
@@ -431,9 +431,9 @@ function hoverPopupOn(e) {
         .setHTML(html)
         .addTo(map);
 
-    $(".mapboxgl-popup-content").css({ // styling popup
-        "background": "transparent",
-        "padding": "0"
+    $('.mapboxgl-popup-content').css({ // styling popup
+        'background': 'transparent',
+        'padding': '0'
     })
 
     map.getCanvas().style.cursor = 'pointer'; // changing mouse signaling the posibility to click
@@ -499,10 +499,10 @@ function openPopupListBelowClick(e) {
     for (i in e.features) { // bind click events to list elements
         clickedListDataGlobalStorage[i] = listData[i].properties
 
-        $("#" + e.features[i].properties.title.replace(/[^a-z0-9]/gi, '')) // use the same formating for the #id
-            .attr("data-list-nbr", i)
+        $('#' + e.features[i].properties.title.replace(/[^a-z0-9]/gi, '')) // use the same formating for the #id
+            .attr('data-list-nbr', i)
             .click(function() {
-                let listNbr = $(this).attr("data-list-nbr")
+                let listNbr = $(this).attr('data-list-nbr')
                 listNbr = Number(listNbr);
                 //console.log("List data binded to butons");
                 //console.log(clickedListDataGlobalStorage[listNbr]);
@@ -513,9 +513,9 @@ function openPopupListBelowClick(e) {
     }
 
     // hide standard Mapbox popup CSS
-    $(".mapboxgl-popup-content").has(".articleDropdown").css({
-        "background": "transparent",
-        "padding": "0"
+    $('.mapboxgl-popup-content').has('.articleDropdown').css({
+        'background': 'transparent',
+        'padding': '0'
     })
 }
 
@@ -617,9 +617,9 @@ function processQueryResults(data) {
         if (data.results.bindings[d].article != undefined) { result.wikipedia = data.results.bindings[d].article.value; }
         if (data.results.bindings[d].geo != undefined) { result.geo = extractLngLat(data.results.bindings[d].geo.value); }
         if (data.results.bindings[d].img != undefined) { result.img = data.results.bindings[d].img.value; }
-        if (data.results.bindings[d].img != undefined) { result.imgthum = data.results.bindings[d].img.value + "?width=600px"; }
+        if (data.results.bindings[d].img != undefined) { result.imgthum = data.results.bindings[d].img.value + '?width=600px'; }
         if (data.results.bindings[d].wikiMediaCategory != undefined) { result.commons = data.results.bindings[d].wikiMediaCategory.value; }
-        if (data.results.bindings[d].wikiMediaCategory != undefined) { result.commonsurl = "https://commons.wikimedia.org/wiki/Category:" + encodeURIComponent(data.results.bindings[d].wikiMediaCategory.value); }
+        if (data.results.bindings[d].wikiMediaCategory != undefined) { result.commonsurl = 'https://commons.wikimedia.org/wiki/Category:' + encodeURIComponent(data.results.bindings[d].wikiMediaCategory.value); }
         if (data.results.bindings[d].itemLabel != undefined) { result.label = data.results.bindings[d].itemLabel.value; }
         if (data.results.bindings[d].itemDescription != undefined) { result.description = data.results.bindings[d].itemDescription.value; }
         if (data.results.bindings[d].instancesof != undefined) { result.instanceof = data.results.bindings[d].instancesof.value; }
@@ -642,31 +642,31 @@ function buildResultsObject(result) {
     let Q = result.qnumber;
     if (ResultsObject[Q] != undefined) {
         if (ResultsObject[Q].wikipedia != results.wikipedia) {
-            ResultsObject[Q].wikipedia = "";
+            ResultsObject[Q].wikipedia = '';
         };
         if (ResultsObject[Q].geo != results.geo) {
-            ResultsObject[Q].geo = "";
+            ResultsObject[Q].geo = '';
         };
         if (ResultsObject[Q].img != results.img) {
-            ResultsObject[Q].img = "";
+            ResultsObject[Q].img = '';
         };
         if (ResultsObject[Q].imgthum != results.imgthum) {
-            ResultsObject[Q].imgthum = "";
+            ResultsObject[Q].imgthum = '';
         };
         if (ResultsObject[Q].commons != results.commons) {
-            ResultsObject[Q].commons = "";
+            ResultsObject[Q].commons = '';
         };
         if (ResultsObject[Q].label != results.label) {
-            ResultsObject[Q].label = "";
+            ResultsObject[Q].label = '';
         };
         if (ResultsObject[Q].description != results.description) {
-            ResultsObject[Q].description = "";
+            ResultsObject[Q].description = '';
         };
         if (ResultsObject[Q].instanceof != results.instanceof) {
-            ResultsObject[Q].instanceof = "";
+            ResultsObject[Q].instanceof = '';
         };
         if (ResultsObject[Q].categorie != results.categorie) {
-            ResultsObject[Q].categorie = "";
+            ResultsObject[Q].categorie = '';
         };
 
     } else {
@@ -684,7 +684,7 @@ function buildGeojsonFromQueryResults() {
     if (mapIsActive) {
         //console.log("@3");
         map.getSource('QnbrSource').setData(QnbrGeojson);
-        $("#loadingBox").hide();
+        $('#loadingBox').hide();
         setTimeout(function() {
             buildAllVisibleItems()
         }, 500);
@@ -692,7 +692,7 @@ function buildGeojsonFromQueryResults() {
         //console.log("@4");
         map.on('load', function() {
             map.getSource('QnbrSource').setData(QnbrGeojson);
-            $("#loadingBox").hide();
+            $('#loadingBox').hide();
             buildAllVisibleItems()
         });
     }
@@ -703,14 +703,14 @@ function addPointToQnbrGeojson(LngLat, Qnbr, categorie) {
     // console.log("show point");
     // for (i in LngLat) {
     let point = {
-        "type": "Feature",
-        "properties": {
+        'type': 'Feature',
+        'properties': {
             'Qnbr': Qnbr,
             'cat': categorie
         },
-        "geometry": {
-            "type": "Point",
-            "coordinates": LngLat
+        'geometry': {
+            'type': 'Point',
+            'coordinates': LngLat
         }
     };
 
@@ -720,9 +720,9 @@ function addPointToQnbrGeojson(LngLat, Qnbr, categorie) {
 
 // Helper - procesing String
 function extractLngLat(dirtyGeo) {
-    let cleanLongLat = dirtyGeo.replace("Point(", "");
-    cleanLongLat = cleanLongLat.replace(")", "");
-    const lonlat = cleanLongLat.split(" ");
+    let cleanLongLat = dirtyGeo.replace('Point(', '');
+    cleanLongLat = cleanLongLat.replace(')', '');
+    const lonlat = cleanLongLat.split(' ');
     lonlat[0] = Number(lonlat[0]);
     lonlat[1] = Number(lonlat[1]);
     return lonlat;
@@ -730,7 +730,7 @@ function extractLngLat(dirtyGeo) {
 
 // Helper - procesing String
 function qnumberExtraction(QURL) {
-    let value = QURL.replace("https://www.wikidata.org/entity/", "");
+    let value = QURL.replace('https://www.wikidata.org/entity/', '');
     return value;
 }
 
@@ -761,12 +761,12 @@ function getCommonsCategoryImgs(pageTitle, Qdestination, vieuwDestination) {
     });
 
     function processResult(apiResult) {
-        let imgUrlPrefix = "https://commons.wikimedia.org/wiki/Special:FilePath/";
-        let pageUrlPrefix = "https://commons.wikimedia.org/wiki/";
-        let thumSufix = "?width=300px";
+        let imgUrlPrefix = 'https://commons.wikimedia.org/wiki/Special:FilePath/';
+        let pageUrlPrefix = 'https://commons.wikimedia.org/wiki/';
+        let thumSufix = '?width=300px';
         let arrayOfImgs = [];
         for (r in apiResult.query.categorymembers) {
-            if (apiResult.query.categorymembers[r].title.slice(0, 8) != "Category") {
+            if (apiResult.query.categorymembers[r].title.slice(0, 8) != 'Category') {
                 let imgObject = {
                     imgurl: imgUrlPrefix + encodeURIComponent(apiResult.query.categorymembers[r].title),
                     thumurl: imgUrlPrefix + encodeURIComponent(apiResult.query.categorymembers[r].title) + thumSufix,
@@ -795,11 +795,11 @@ function getCommonsCategoryImgs(pageTitle, Qdestination, vieuwDestination) {
 function resultsFromCommonsReady(Q, vieuwDestination) {
     //console.log(ResultsObject[Q]);
     switch (vieuwDestination) {
-        case "gallery":
+        case 'gallery':
             populateGalleryVieuw(Q);
 
             break;
-        case "carousel":
+        case 'carousel':
             buildCarouselContent(Q);
 
             break;
@@ -823,29 +823,29 @@ function openInNewWindow(url) {
 
     //selectedQ
     switch (url) {
-        case "wikidata":
-            url = "https://www.wikidata.org/wiki/" + selectedQ;
+        case 'wikidata':
+            url = 'https://www.wikidata.org/wiki/' + selectedQ;
             break;
-        case "wikipedia":
+        case 'wikipedia':
             url = ResultsObject[selectedQ].wikipedia;
             break;
-        case "commons":
-            url = "url-commons";
+        case 'commons':
+            url = 'url-commons';
             break;
-        case "wikimedia":
+        case 'wikimedia':
             url = ResultsObject[selectedQ].commonsurl;
             break;
-        case "googleMaps":
-            url = "https://www.google.com/maps/@" + lat + "," + lng + ",1000m/data=!3m1!1e3";
+        case 'googleMaps':
+            url = 'https://www.google.com/maps/@' + lat + ',' + lng + ',1000m/data=!3m1!1e3';
             break;
-        case "flickr":
-            url = "https://www.flickr.com/map?&fLat=" + lat + "&fLon=" + lng + "&zl=15"
+        case 'flickr':
+            url = 'https://www.flickr.com/map?&fLat=' + lat + '&fLon=' + lng + '&zl=15'
             break;
-        case "wikishootme":
-            url = "https://tools.wmflabs.org/wikishootme/#lat=" + lat + "&lng=" + lng + "&zoom=14";
+        case 'wikishootme':
+            url = 'https://tools.wmflabs.org/wikishootme/#lat=' + lat + '&lng=' + lng + '&zoom=14';
             break;
         default:
-            console.log("no url recognised")
+            console.log('no url recognised')
             break;
     }
     //console.log("open: " + url)
@@ -857,28 +857,28 @@ function selectNew(Q) {
     if (Q === undefined) {
         selectedQ = undefined;
         // $("#selectionContainer").hide();
-        $("#selectionContainer").css({ 'display': 'none' });
-        $(".singleImgSelection").hide();
-        $("#slideshow-container").hide();
-        $("#wikidata").hide();
-        $("#commons").hide();
+        $('#selectionContainer').css({ 'display': 'none' });
+        $('.singleImgSelection').hide();
+        $('#slideshow-container').hide();
+        $('#wikidata').hide();
+        $('#commons').hide();
         //console.log("unselected");
     } else {
         let data = ResultsObject[Q]
         selectedQ = Q;
         //console.log("selected" + Q);
 
-        $("#wikidata").show();
-        $("#commons").show();
-        $("#slideshow-container").hide();
+        $('#wikidata').show();
+        $('#commons').show();
+        $('#slideshow-container').hide();
         // $("#selectionContainer").show();
-        $("#selectionContainer").css({ 'display': 'flex' });
-        $(".singleImgSelection").attr("src", data.imgthum);
-        $("#slectedItemTitle").text(data.label);
+        $('#selectionContainer').css({ 'display': 'flex' });
+        $('.singleImgSelection').attr('src', data.imgthum);
+        $('#slectedItemTitle').text(data.label);
         // $("#slectedItemDescription").text(data.description);
-        $("#slectedItemCategory").text(data.categorie);
+        $('#slectedItemCategory').text(data.categorie);
         // $(".singleImgSelection").attr("src", data.imgthum);
-        $(".singleImgSelection").show();
+        $('.singleImgSelection').show();
         // getCommonsCategoryImgs(data.commons, selectedQ, "carousel");
     };
 
@@ -899,11 +899,11 @@ function wikipdiaApiGeoRequest() {
     let cLR = map.unproject([w, h]).toArray()
 
     let cornerCoordinates = map.getBounds()
-    let crns = [cornerCoordinates["_ne"].lat, cornerCoordinates["_sw"].lng, cornerCoordinates["_sw"].lat, cornerCoordinates["_ne"].lng]
-    console.log(cornerCoordinates["_ne"].lat);
-    console.log(cornerCoordinates["_sw"].lng);
-    console.log(cornerCoordinates["_sw"].lat);
-    console.log(cornerCoordinates["_ne"].lng);
+    let crns = [cornerCoordinates['_ne'].lat, cornerCoordinates['_sw'].lng, cornerCoordinates['_sw'].lat, cornerCoordinates['_ne'].lng]
+    console.log(cornerCoordinates['_ne'].lat);
+    console.log(cornerCoordinates['_sw'].lng);
+    console.log(cornerCoordinates['_sw'].lat);
+    console.log(cornerCoordinates['_ne'].lng);
 
     console.log(cUL[1]);
     console.log(cUL[0]);
@@ -921,14 +921,14 @@ function wikipdiaApiGeoRequest() {
 function parseJSONResponse(jsonData) {
     console.log('Request respons');
     console.log(jsonData);
-    console.log("@1");
+    console.log('@1');
 
     $.each(jsonData.query.geosearch, function(index, value) {
         //console.log( index + ": " + value.title );
         let article = {
-            "pageId": value.pageid,
-            "title": value.title,
-            "lonLat": [value.lon, value.lat]
+            'pageId': value.pageid,
+            'title': value.title,
+            'lonLat': [value.lon, value.lat]
         }
 
         if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
@@ -964,11 +964,11 @@ function addWikipediaPageToGeojson(article) {
     // if (mapIsActive) { // is map active?
     if (isArticleNew(article)) {
         let point = { //write the specific geojson feature for this point
-            "type": "Feature",
-            "properties": article, // all info known about the article is saved as property
-            "geometry": {
-                "type": "Point",
-                "coordinates": article.lonLat
+            'type': 'Feature',
+            'properties': article, // all info known about the article is saved as property
+            'geometry': {
+                'type': 'Point',
+                'coordinates': article.lonLat
             }
         };
         wikipediaGeojson.features.push(point) // add the newly created geojson feature the geojson
@@ -988,11 +988,11 @@ function isArticleNew(article) {
 function updateWikipediaGeojsonSource() {
     if (mapIsActive) {
         map.getSource('wikipediaSource').setData(wikipediaGeojson);
-        $("#loadingBox").hide();
+        $('#loadingBox').hide();
     } else {
         map.on('load', function() {
             map.getSource('wikipediaSource').setData(wikipediaGeojson);
-            $("#loadingBox").hide();
+            $('#loadingBox').hide();
         });
     }
 }
@@ -1001,12 +1001,12 @@ function openDetailPannel(selectionInfo) {
     //console.log("This is selected:");
     //console.log(selectionInfo);
     detailsPannelData = {
-        "wikipedia_ApiOngoing": false, // current status of API resquest
-        "wikimedia_ApiOngoing": false, // current status of API resquest
-        "wikidata_ApiOngoing": false, // current status of API resquest
-        "wikipedia_QueryDone": false, // Data collection status
-        "wikimedia_QueryDone": false, // Data collection status
-        "wikidata_QueryDone": false // Data collection status
+        'wikipedia_ApiOngoing': false, // current status of API resquest
+        'wikimedia_ApiOngoing': false, // current status of API resquest
+        'wikidata_ApiOngoing': false, // current status of API resquest
+        'wikipedia_QueryDone': false, // Data collection status
+        'wikimedia_QueryDone': false, // Data collection status
+        'wikidata_QueryDone': false // Data collection status
     };
 
     detailsPannelData.Map_title = selectionInfo.title; // title
@@ -1032,7 +1032,7 @@ function parseWikipediaApiResponseDetails(jsonData) {
     detailsPannelData.wikipedia_ImgTitle = wikipediaApiRespons.pageimage;
     detailsPannelData.Qnumber = wikipediaApiRespons.pageprops.wikibase_item;
     if (wikipediaApiRespons.pageimage != undefined) {
-        detailsPannelData.wikipedia_ImgUrl = "https://commons.wikimedia.org/wiki/Special:FilePath/" + wikipediaApiRespons.pageimage;
+        detailsPannelData.wikipedia_ImgUrl = 'https://commons.wikimedia.org/wiki/Special:FilePath/' + wikipediaApiRespons.pageimage;
     }
     detailsPannelData.wikipedia_Categories = [];
 
@@ -1075,7 +1075,7 @@ function parseCommonsApiResponseDetails(jsonData) {
     detailsPannelData.wikipedia_Intro = wikipediaApiRespons.extract;
     detailsPannelData.wikipedia_ImgTitle = wikipediaApiRespons.pageimage;
     detailsPannelData.Qnumber = wikipediaApiRespons.pageprops.wikibase_item;
-    detailsPannelData.wikipedia_ImgUrl = "https://commons.wikimedia.org/wiki/Special:FilePath/" + wikipediaApiRespons.pageimage;
+    detailsPannelData.wikipedia_ImgUrl = 'https://commons.wikimedia.org/wiki/Special:FilePath/' + wikipediaApiRespons.pageimage;
     detailsPannelData.wikipedia_Categories = [];
 
     //ToDo: get a desent thumnail. Maibe by transforming img url?
@@ -1113,72 +1113,72 @@ function WikidataApiRequestDetails() {
 
     //https://query.wikidata.org/#SELECT%20%3Fitem%20%3FitemLabel%20%3FitemDescription%20%3Fimg%20%3Fcommons%20%3FWikipediaLink%20%3Felevation%20%3Farea%20%3FofficialWebsite%20%3FflagImage%20%3FLonLat%20%3FcoatOfArmsImage%20%3FCommonsCategory%20%3FFreebaseIdGoogleSearch%20%3FGoogleKnowledgeGraphId%20%3FstartTime%20%3FendTime%20%3Finception%20%3Freligion%20%3FsignificantEvent%20%3Faudio%20%3FmaximumCapacity%20%3FvisitorsPerYear%20%3FheritageDesignationLabel%20%3Flength%20%3Fwidth%20%3Fheight%20%3FplanViewImage%20%3FFacebookId%20%3FGoogleMapsCustomerId%20%3FInstagramUsername%20%3FMapillaryId%20%3FTwitterUsername%20%3FOpenStreetMapRelationId%20%3FInstagramLocationId%20%3FFoursquareVenueId%20%3FImdbId%20%3FLinkedInCompanyId%20%3FTripAdvisorId%20%3FYelpId%20%3FYouTubeChannelId%20%3FphoneNumber%20%3FemailAddress%20%3Fsubreddit%20%3FGoogleArtsCulturePartnerId%20%3Fpopulation%20%3FcommonsLink%20%3FinstanceOfLabel%20WHERE%20%7B%0A%0A%20%20%23%20https%3A%2F%2Fwww.wikidata.org%2Fwiki%2FQ2981%20Notre%20Dam%20of%20Paris%0A%20%20%23%20https%3A%2F%2Fwww.wikidata.org%2Fwiki%2FQ243%20Toure%20Eiffel%0A%20%20%20%20%0A%20%20VALUES%20%3Fitem%20%7B%20%23%3Fitem%20letiable%20is%20set%20to%20Qnumber%0A%20%20%20%20wd%3AQ243%0A%20%20%7D%0A%20%20%0A%20%20OPTIONAL%20%7B%20%3Fitem%20%20wdt%3AP18%20%20%20%3Fimg.%20%7D%0A%20%20OPTIONAL%20%7B%20%3Fitem%20%20wdt%3AP373%20%20%3FcommonsLink.%20%7D%0A%20%20OPTIONAL%20%7B%20%3Fitem%20%20wdt%3AP31%20%20%20%3FinstanceOf.%20%7D%0A%20%20OPTIONAL%20%7B%20%3Fitem%20%20wdt%3AP625%20%20%3FLonLat.%20%7D%0A%20%20OPTIONAL%20%7B%20%3Fitem%20%20wdt%3AP1082%20%3Fpopulation.%20%7D%0A%20%20OPTIONAL%20%7B%20%3Fitem%20%20wdt%3AP2044%20%3Felevation.%20%7D%0A%20%20OPTIONAL%20%7B%20%3Fitem%20%20wdt%3AP2046%20%3Farea.%20%7D%0A%20%20OPTIONAL%20%7B%20%3Fitem%20%20wdt%3AP856%20%20%3FofficialWebsite.%20%7D%0A%20%20OPTIONAL%20%7B%20%3Fitem%20%20wdt%3AP41%20%20%20%3FflagImage.%20%7D%0A%20%20OPTIONAL%20%7B%20%3Fitem%20%20wdt%3AP94%20%20%20%3FcoatOfArmsImage.%20%7D%0A%20%20OPTIONAL%20%7B%20%3Fitem%20%20wdt%3AP373%20%20%3FCommonsCategory.%20%7D%0A%20%20OPTIONAL%20%7B%20%3Fitem%20%20wdt%3AP646%20%20%3FFreebaseIdGoogleSearch.%20%7D%0A%20%20OPTIONAL%20%7B%20%3Fitem%20%20wdt%3AP2671%20%3FGoogleKnowledgeGraphId.%20%7D%0A%20%20OPTIONAL%20%7B%20%3Fitem%20%20wdt%3AP580%20%20%3FstartTime.%20%7D%0A%20%20OPTIONAL%20%7B%20%3Fitem%20%20wdt%3AP582%20%20%3FendTime.%20%7D%0A%20%20OPTIONAL%20%7B%20%3Fitem%20%20wdt%3AP571%20%20%3Finception.%20%7D%0A%20%20OPTIONAL%20%7B%20%3Fitem%20%20wdt%3AP140%20%20%3Freligion.%20%7D%0A%20%20OPTIONAL%20%7B%20%3Fitem%20%20wdt%3AP793%20%20%3FsignificantEvent.%20%7D%0A%20%20OPTIONAL%20%7B%20%3Fitem%20%20wdt%3AP51%20%20%20%3Faudio.%20%7D%0A%20%20OPTIONAL%20%7B%20%3Fitem%20%20wdt%3AP1083%20%3FmaximumCapacity.%20%7D%0A%20%20OPTIONAL%20%7B%20%3Fitem%20%20wdt%3AP1174%20%3FvisitorsPerYear.%20%7D%0A%20%20OPTIONAL%20%7B%20%3Fitem%20%20wdt%3AP1435%20%3FheritageDesignation.%20%7D%0A%20%20OPTIONAL%20%7B%20%3Fitem%20%20wdt%3AP2043%20%3Flength.%20%7D%0A%20%20OPTIONAL%20%7B%20%3Fitem%20%20wdt%3AP2049%20%3Fwidth.%20%7D%0A%20%20OPTIONAL%20%7B%20%3Fitem%20%20wdt%3AP2048%20%3Fheight.%20%7D%0A%20%20OPTIONAL%20%7B%20%3Fitem%20%20wdt%3AP3311%20%3FplanViewImage.%20%7D%0A%20%20OPTIONAL%20%7B%20%3Fitem%20%20wdt%3AP2013%20%3FFacebookId.%20%7D%0A%20%20OPTIONAL%20%7B%20%3Fitem%20%20wdt%3AP3749%20%3FGoogleMapsCustomerId.%20%7D%0A%20%20OPTIONAL%20%7B%20%3Fitem%20%20wdt%3AP2003%20%3FInstagramUsername.%20%7D%0A%20%20OPTIONAL%20%7B%20%3Fitem%20%20wdt%3AP1947%20%3FMapillaryId.%20%7D%0A%20%20OPTIONAL%20%7B%20%3Fitem%20%20wdt%3AP2002%20%3FTwitterUsername.%20%7D%0A%20%20OPTIONAL%20%7B%20%3Fitem%20%20wdt%3AP402%20%20%3FOpenStreetMapRelationId.%20%7D%0A%20%20OPTIONAL%20%7B%20%3Fitem%20%20wdt%3AP4173%20%3FInstagramLocationId.%20%7D%0A%20%20OPTIONAL%20%7B%20%3Fitem%20%20wdt%3AP1968%20%3FFoursquareVenueId.%20%7D%0A%20%20OPTIONAL%20%7B%20%3Fitem%20%20wdt%3AP345%20%20%3FImdbId.%20%7D%0A%20%20OPTIONAL%20%7B%20%3Fitem%20%20wdt%3AP4264%20%3FLinkedInCompanyId.%20%7D%0A%20%20OPTIONAL%20%7B%20%3Fitem%20%20wdt%3AP3134%20%3FTripAdvisorId.%20%7D%0A%20%20OPTIONAL%20%7B%20%3Fitem%20
     let endpointUrl = 'https://query.wikidata.org/sparql',
-        sparqlQuery = "SELECT ?item ?itemLabel ?itemDescription ?img ?commons ?WikipediaLink ?elevation ?area ?officialWebsite ?flagImage ?LonLat ?coatOfArmsImage ?CommonsCategory ?FreebaseIdGoogleSearch ?GoogleKnowledgeGraphId ?startTime ?endTime ?inception ?religion ?significantEvent ?audio ?maximumCapacity ?visitorsPerYear ?heritageDesignationLabel ?length ?width ?height ?planViewImage ?FacebookId ?GoogleMapsCustomerId ?InstagramUsername ?MapillaryId ?TwitterUsername ?OpenStreetMapRelationId ?InstagramLocationId ?FoursquareVenueId ?ImdbId ?LinkedInCompanyId ?TripAdvisorId ?YelpId ?YouTubeChannelId ?phoneNumber ?emailAddress ?subreddit ?GoogleArtsCulturePartnerId ?population ?commonsLink ?instanceOfLabel WHERE {\n" +
-        "\n" +
-        "  # https://www.wikidata.org/wiki/Q2981 Notre Dam of Paris\n" +
-        "  # https://www.wikidata.org/wiki/Q243 Toure Eiffel\n" +
-        "    \n" +
-        "  VALUES ?item { #?item letiable is set to Qnumber\n" +
-        "    wd:" + detailsPannelData.Qnumber + "\n" +
-        "  }\n" +
-        "  \n" +
-        "  OPTIONAL { ?item  wdt:P18   ?img. }\n" +
-        "  OPTIONAL { ?item  wdt:P373  ?commonsLink. }\n" +
-        "  OPTIONAL { ?item  wdt:P31   ?instanceOf. }\n" +
-        "  OPTIONAL { ?item  wdt:P625  ?LonLat. }\n" +
-        "  OPTIONAL { ?item  wdt:P1082 ?population. }\n" +
-        "  OPTIONAL { ?item  wdt:P2044 ?elevation. }\n" +
-        "  OPTIONAL { ?item  wdt:P2046 ?area. }\n" +
-        "  OPTIONAL { ?item  wdt:P856  ?officialWebsite. }\n" +
-        "  OPTIONAL { ?item  wdt:P41   ?flagImage. }\n" +
-        "  OPTIONAL { ?item  wdt:P94   ?coatOfArmsImage. }\n" +
-        "  OPTIONAL { ?item  wdt:P373  ?CommonsCategory. }\n" +
-        "  OPTIONAL { ?item  wdt:P646  ?FreebaseIdGoogleSearch. }\n" +
-        "  OPTIONAL { ?item  wdt:P2671 ?GoogleKnowledgeGraphId. }\n" +
-        "  OPTIONAL { ?item  wdt:P580  ?startTime. }\n" +
-        "  OPTIONAL { ?item  wdt:P582  ?endTime. }\n" +
-        "  OPTIONAL { ?item  wdt:P571  ?inception. }\n" +
-        "  OPTIONAL { ?item  wdt:P140  ?religion. }\n" +
-        "  OPTIONAL { ?item  wdt:P793  ?significantEvent. }\n" +
-        "  OPTIONAL { ?item  wdt:P51   ?audio. }\n" +
-        "  OPTIONAL { ?item  wdt:P1083 ?maximumCapacity. }\n" +
-        "  OPTIONAL { ?item  wdt:P1174 ?visitorsPerYear. }\n" +
-        "  OPTIONAL { ?item  wdt:P1435 ?heritageDesignation. }\n" +
-        "  OPTIONAL { ?item  wdt:P2043 ?length. }\n" +
-        "  OPTIONAL { ?item  wdt:P2049 ?width. }\n" +
-        "  OPTIONAL { ?item  wdt:P2048 ?height. }\n" +
-        "  OPTIONAL { ?item  wdt:P3311 ?planViewImage. }\n" +
-        "  OPTIONAL { ?item  wdt:P2013 ?FacebookId. }\n" +
-        "  OPTIONAL { ?item  wdt:P3749 ?GoogleMapsCustomerId. }\n" +
-        "  OPTIONAL { ?item  wdt:P2003 ?InstagramUsername. }\n" +
-        "  OPTIONAL { ?item  wdt:P1947 ?MapillaryId. }\n" +
-        "  OPTIONAL { ?item  wdt:P2002 ?TwitterUsername. }\n" +
-        "  OPTIONAL { ?item  wdt:P402  ?OpenStreetMapRelationId. }\n" +
-        "  OPTIONAL { ?item  wdt:P4173 ?InstagramLocationId. }\n" +
-        "  OPTIONAL { ?item  wdt:P1968 ?FoursquareVenueId. }\n" +
-        "  OPTIONAL { ?item  wdt:P345  ?ImdbId. }\n" +
-        "  OPTIONAL { ?item  wdt:P4264 ?LinkedInCompanyId. }\n" +
-        "  OPTIONAL { ?item  wdt:P3134 ?TripAdvisorId. }\n" +
-        "  OPTIONAL { ?item  wdt:P3108 ?YelpId. }\n" +
-        "  OPTIONAL { ?item  wdt:P2397 ?YouTubeChannelId. }\n" +
-        "  OPTIONAL { ?item  wdt:P1329 ?phoneNumber. }\n" +
-        "  OPTIONAL { ?item  wdt:P968  ?emailAddress. }\n" +
-        "  OPTIONAL { ?item  wdt:P3984 ?subreddit. }\n" +
-        "  OPTIONAL { ?item  wdt:P4702 ?GoogleArtsCulturePartnerId. }\n" +
-        "  \n" +
-        "  OPTIONAL {\n" +
-        "    ?WikipediaLink schema:about ?item;\n" +
-        "      schema:isPartOf <https://en.wikipedia.org/>.\n" +
-        "  }\n" +
-        "  OPTIONAL { SERVICE wikibase:label { bd:serviceParam wikibase:language \"[AUTO_LANGUAGE],en\". } }\n" +
-        "  OPTIONAL {\n" +
-        "    SERVICE wikibase:label {\n" +
-        "      bd:serviceParam wikibase:language \"[AUTO_LANGUAGE],en\".\n" +
-        "      ?item rdfs:label ?itemLabel;\n" +
-        "        schema:description ?itemDescription.\n" +
-        "    }\n" +
-        "  }\n" +
-        "}";
+        sparqlQuery = 'SELECT ?item ?itemLabel ?itemDescription ?img ?commons ?WikipediaLink ?elevation ?area ?officialWebsite ?flagImage ?LonLat ?coatOfArmsImage ?CommonsCategory ?FreebaseIdGoogleSearch ?GoogleKnowledgeGraphId ?startTime ?endTime ?inception ?religion ?significantEvent ?audio ?maximumCapacity ?visitorsPerYear ?heritageDesignationLabel ?length ?width ?height ?planViewImage ?FacebookId ?GoogleMapsCustomerId ?InstagramUsername ?MapillaryId ?TwitterUsername ?OpenStreetMapRelationId ?InstagramLocationId ?FoursquareVenueId ?ImdbId ?LinkedInCompanyId ?TripAdvisorId ?YelpId ?YouTubeChannelId ?phoneNumber ?emailAddress ?subreddit ?GoogleArtsCulturePartnerId ?population ?commonsLink ?instanceOfLabel WHERE {\n' +
+        '\n' +
+        '  # https://www.wikidata.org/wiki/Q2981 Notre Dam of Paris\n' +
+        '  # https://www.wikidata.org/wiki/Q243 Toure Eiffel\n' +
+        '    \n' +
+        '  VALUES ?item { #?item letiable is set to Qnumber\n' +
+        '    wd:' + detailsPannelData.Qnumber + '\n' +
+        '  }\n' +
+        '  \n' +
+        '  OPTIONAL { ?item  wdt:P18   ?img. }\n' +
+        '  OPTIONAL { ?item  wdt:P373  ?commonsLink. }\n' +
+        '  OPTIONAL { ?item  wdt:P31   ?instanceOf. }\n' +
+        '  OPTIONAL { ?item  wdt:P625  ?LonLat. }\n' +
+        '  OPTIONAL { ?item  wdt:P1082 ?population. }\n' +
+        '  OPTIONAL { ?item  wdt:P2044 ?elevation. }\n' +
+        '  OPTIONAL { ?item  wdt:P2046 ?area. }\n' +
+        '  OPTIONAL { ?item  wdt:P856  ?officialWebsite. }\n' +
+        '  OPTIONAL { ?item  wdt:P41   ?flagImage. }\n' +
+        '  OPTIONAL { ?item  wdt:P94   ?coatOfArmsImage. }\n' +
+        '  OPTIONAL { ?item  wdt:P373  ?CommonsCategory. }\n' +
+        '  OPTIONAL { ?item  wdt:P646  ?FreebaseIdGoogleSearch. }\n' +
+        '  OPTIONAL { ?item  wdt:P2671 ?GoogleKnowledgeGraphId. }\n' +
+        '  OPTIONAL { ?item  wdt:P580  ?startTime. }\n' +
+        '  OPTIONAL { ?item  wdt:P582  ?endTime. }\n' +
+        '  OPTIONAL { ?item  wdt:P571  ?inception. }\n' +
+        '  OPTIONAL { ?item  wdt:P140  ?religion. }\n' +
+        '  OPTIONAL { ?item  wdt:P793  ?significantEvent. }\n' +
+        '  OPTIONAL { ?item  wdt:P51   ?audio. }\n' +
+        '  OPTIONAL { ?item  wdt:P1083 ?maximumCapacity. }\n' +
+        '  OPTIONAL { ?item  wdt:P1174 ?visitorsPerYear. }\n' +
+        '  OPTIONAL { ?item  wdt:P1435 ?heritageDesignation. }\n' +
+        '  OPTIONAL { ?item  wdt:P2043 ?length. }\n' +
+        '  OPTIONAL { ?item  wdt:P2049 ?width. }\n' +
+        '  OPTIONAL { ?item  wdt:P2048 ?height. }\n' +
+        '  OPTIONAL { ?item  wdt:P3311 ?planViewImage. }\n' +
+        '  OPTIONAL { ?item  wdt:P2013 ?FacebookId. }\n' +
+        '  OPTIONAL { ?item  wdt:P3749 ?GoogleMapsCustomerId. }\n' +
+        '  OPTIONAL { ?item  wdt:P2003 ?InstagramUsername. }\n' +
+        '  OPTIONAL { ?item  wdt:P1947 ?MapillaryId. }\n' +
+        '  OPTIONAL { ?item  wdt:P2002 ?TwitterUsername. }\n' +
+        '  OPTIONAL { ?item  wdt:P402  ?OpenStreetMapRelationId. }\n' +
+        '  OPTIONAL { ?item  wdt:P4173 ?InstagramLocationId. }\n' +
+        '  OPTIONAL { ?item  wdt:P1968 ?FoursquareVenueId. }\n' +
+        '  OPTIONAL { ?item  wdt:P345  ?ImdbId. }\n' +
+        '  OPTIONAL { ?item  wdt:P4264 ?LinkedInCompanyId. }\n' +
+        '  OPTIONAL { ?item  wdt:P3134 ?TripAdvisorId. }\n' +
+        '  OPTIONAL { ?item  wdt:P3108 ?YelpId. }\n' +
+        '  OPTIONAL { ?item  wdt:P2397 ?YouTubeChannelId. }\n' +
+        '  OPTIONAL { ?item  wdt:P1329 ?phoneNumber. }\n' +
+        '  OPTIONAL { ?item  wdt:P968  ?emailAddress. }\n' +
+        '  OPTIONAL { ?item  wdt:P3984 ?subreddit. }\n' +
+        '  OPTIONAL { ?item  wdt:P4702 ?GoogleArtsCulturePartnerId. }\n' +
+        '  \n' +
+        '  OPTIONAL {\n' +
+        '    ?WikipediaLink schema:about ?item;\n' +
+        '      schema:isPartOf <https://en.wikipedia.org/>.\n' +
+        '  }\n' +
+        '  OPTIONAL { SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". } }\n' +
+        '  OPTIONAL {\n' +
+        '    SERVICE wikibase:label {\n' +
+        '      bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en".\n' +
+        '      ?item rdfs:label ?itemLabel;\n' +
+        '        schema:description ?itemDescription.\n' +
+        '    }\n' +
+        '  }\n' +
+        '}';
 
     makeSPARQLQuery(endpointUrl, sparqlQuery, function(data) {
         $('body').append($('<pre>').text(JSON.stringify(data)));
@@ -1218,18 +1218,18 @@ function WikidataApiRequestDetails() {
 
             for (k in keys) {
                 for (v in data[keys[k]]) {
-                    let value = "";
+                    let value = '';
 
                     switch (keys[k]) { // for every letiable there is an other method of enriching.
-                        case "CommonsCategory":
-                            value = "https://commons.wikimedia.org/wiki/Category:" + encodeURIComponent(data[keys[k]][v]);
+                        case 'CommonsCategory':
+                            value = 'https://commons.wikimedia.org/wiki/Category:' + encodeURIComponent(data[keys[k]][v]);
                             break;
 
-                        case "LonLat":
+                        case 'LonLat':
                             value = data[keys[k]][v];
-                            value = value.replace("Point(", "");
-                            value = value.replace(")", "");
-                            value = value.split(" ");
+                            value = value.replace('Point(', '');
+                            value = value.replace(')', '');
+                            value = value.split(' ');
                             value = [Number(value[0]), Number(value[1])]
                             break;
 
@@ -1242,78 +1242,78 @@ function WikidataApiRequestDetails() {
                             //     )
                             //     break;
 
-                        case "TwitterUsername":
-                            value = "https://twitter.com/" + data[keys[k]][v];
+                        case 'TwitterUsername':
+                            value = 'https://twitter.com/' + data[keys[k]][v];
                             break;
 
-                        case "height":
-                            value = data[keys[k]][v] + " meters";
+                        case 'height':
+                            value = data[keys[k]][v] + ' meters';
                             break;
 
-                        case "FreebaseIdGoogleSearch":
-                            value = "https://www.google.com/search?kgmid=" + encodeURIComponent(data[keys[k]][v]);
+                        case 'FreebaseIdGoogleSearch':
+                            value = 'https://www.google.com/search?kgmid=' + encodeURIComponent(data[keys[k]][v]);
                             break;
 
-                        case "commonsLink":
-                            value = "https://commons.wikimedia.org/wiki/Category:" + encodeURIComponent(data[keys[k]][v]);
+                        case 'commonsLink':
+                            value = 'https://commons.wikimedia.org/wiki/Category:' + encodeURIComponent(data[keys[k]][v]);
                             break;
 
-                        case "inception":
-                            value = data[keys[k]][v].split("-");
+                        case 'inception':
+                            value = data[keys[k]][v].split('-');
                             value = value[0];
                             break;
 
-                        case "length":
-                            value = data[keys[k]][v] + " meters";
+                        case 'length':
+                            value = data[keys[k]][v] + ' meters';
                             break;
 
-                        case "FacebookId":
-                            value = "https://www.facebook.com/" + encodeURIComponent(data[keys[k]][v]);
+                        case 'FacebookId':
+                            value = 'https://www.facebook.com/' + encodeURIComponent(data[keys[k]][v]);
                             break;
 
-                        case "FoursquareVenueId":
-                            value = "https://foursquare.com/v/" + encodeURIComponent(data[keys[k]][v]);
+                        case 'FoursquareVenueId':
+                            value = 'https://foursquare.com/v/' + encodeURIComponent(data[keys[k]][v]);
                             break;
 
-                        case "GoogleMapsCustomerId":
-                            value = "https://maps.google.com/?cid=" + encodeURIComponent(data[keys[k]][v]);
+                        case 'GoogleMapsCustomerId':
+                            value = 'https://maps.google.com/?cid=' + encodeURIComponent(data[keys[k]][v]);
                             break;
 
-                        case "InstagramLocationId":
-                            value = "https://www.instagram.com/explore/locations/" + encodeURIComponent(data[keys[k]][v]) + "/";
+                        case 'InstagramLocationId':
+                            value = 'https://www.instagram.com/explore/locations/' + encodeURIComponent(data[keys[k]][v]) + '/';
                             break;
 
-                        case "InstagramUsername":
-                            value = "https://www.instagram.com/" + encodeURIComponent(data[keys[k]][v]) + "/";
+                        case 'InstagramUsername':
+                            value = 'https://www.instagram.com/' + encodeURIComponent(data[keys[k]][v]) + '/';
                             break;
 
-                        case "ImdbId":
-                            value = "https://wikidata-externalid-url.toolforge.org/?p=345&url_prefix=https://www.imdb.com/&id=" + encodeURIComponent(data[keys[k]][v]);
+                        case 'ImdbId':
+                            value = 'https://wikidata-externalid-url.toolforge.org/?p=345&url_prefix=https://www.imdb.com/&id=' + encodeURIComponent(data[keys[k]][v]);
                             break;
 
-                        case "LinkedInCompanyId":
-                            value = "https://www.linkedin.com/company/" + encodeURIComponent(data[keys[k]][v]);
+                        case 'LinkedInCompanyId':
+                            value = 'https://www.linkedin.com/company/' + encodeURIComponent(data[keys[k]][v]);
                             break;
 
-                        case "MapillaryId":
-                            value = "https://www.mapillary.com/map/im/" + encodeURIComponent(data[keys[k]][v]);
+                        case 'MapillaryId':
+                            value = 'https://www.mapillary.com/map/im/' + encodeURIComponent(data[keys[k]][v]);
                             break;
 
-                        case "TripAdvisorId":
-                            value = "https://www.tripadvisor.com/" + encodeURIComponent(data[keys[k]][v]);
+                        case 'TripAdvisorId':
+                            value = 'https://www.tripadvisor.com/' + encodeURIComponent(data[keys[k]][v]);
                             break;
 
-                        case "YelpId":
+                        case 'YelpId':
                             // value = "https://www.yelp.com/biz/" + encodeURIComponent(data[keys[k]][v]);
-                            value = "https://www.yelp.com/biz/" + data[keys[k]][v];
+                            value = 'https://www.yelp.com/biz/' + data[keys[k]][v];
                             break;
 
-                        case "YouTubeChannelId":
-                            value = "https://www.youtube.com/channel/" + encodeURIComponent(data[keys[k]][v]);
+                        case 'YouTubeChannelId':
+                            value = 'https://www.youtube.com/channel/' + encodeURIComponent(data[keys[k]][v]);
                             break;
 
-                        case "visitorsPerYear":
-                            value = bigNumberFormater(data[keys[k]][v]) + " visitors per year";
+                        case 'visitorsPerYear':
+                            value = bigNumberFormater(data[keys[k]][v]) + ' visitors per year';
                             break;
 
                             // case "":
@@ -1336,10 +1336,10 @@ function WikidataApiRequestDetails() {
                     }
 
                     // save enriched value to final object used to display results to UI
-                    if (detailsPannelData["Wikidata_" + keys[k]] === undefined) { // does it exist?
-                        detailsPannelData["Wikidata_" + keys[k]] = [value]; // then: replace
+                    if (detailsPannelData['Wikidata_' + keys[k]] === undefined) { // does it exist?
+                        detailsPannelData['Wikidata_' + keys[k]] = [value]; // then: replace
                     } else {
-                        detailsPannelData["Wikidata_" + keys[k]].push(value); // then: save as new
+                        detailsPannelData['Wikidata_' + keys[k]].push(value); // then: save as new
                     }
                 }
             }
@@ -1347,7 +1347,7 @@ function WikidataApiRequestDetails() {
             // popup.setHTML(popuphtml())
             updateDetailsPannel()
             if (!detailsPannelData.wikimedia_ApiOngoing && !detailsPannelData.wikimedia_QueryDone && (detailsPannelData.Wikidata_CommonsCategory != undefined || detailsPannelData.Wikidata_commonsLink != undefined)) {
-                console.log("should call Commons API");
+                console.log('should call Commons API');
                 // WikidataApiRequestDetails()
             }
         }
@@ -1374,15 +1374,15 @@ function bigNumberFormater(num) {
 }
 
 function popuphtml() {
-    let html = "";
-    html += "<table>";
+    let html = '';
+    html += '<table>';
     let keys = Object.keys(detailsPannelData);
     for (i in keys) {
-        html += "<tr><td>";
+        html += '<tr><td>';
         html += keys[i];
-        html += "</td><td>";
+        html += '</td><td>';
         html += detailsPannelData[keys[i]];
-        html += "</td></tr>";
+        html += '</td></tr>';
     }
 
     // <table>
@@ -1401,108 +1401,108 @@ function updateDetailsPannel() {
     resetDetailsPannel();
 
     function resetDetailsPannel() {
-        $("#article-title").text("no title");
-        $("#article-intro").html("");
+        $('#article-title').text('no title');
+        $('#article-intro').html('');
         // $("#article-year").text("-");
-        $("#article-year").hide();
-        $("#articleimage").hide();
+        $('#article-year').hide();
+        $('#articleimage').hide();
         // $("#article-image-loader").attr("display", "block");
-        $("#article-image").attr("src", "img/kutgif.gif");
+        $('#article-image').attr('src', 'img/kutgif.gif');
         // $("#article-image").attr("alt", "loading");
         // $("#article-description").html("no discription");
-        $("#article-visitors").text("-");
-        $("#article-instance-of").html("-");
+        $('#article-visitors').text('-');
+        $('#article-instance-of').html('-');
 
-        $("#article-wikidata").hide();
-        $("#article-wikidata").attr("href", "");
+        $('#article-wikidata').hide();
+        $('#article-wikidata').attr('href', '');
 
-        $("#article-wikipedia").hide();
-        $("#article-wikipedia").attr("href", "");
+        $('#article-wikipedia').hide();
+        $('#article-wikipedia').attr('href', '');
 
-        $("#article-wikicommons").hide();
-        $("#article-wikicommons").attr("href", "");
+        $('#article-wikicommons').hide();
+        $('#article-wikicommons').attr('href', '');
 
-        $("#article-google-search").hide();
-        $("#article-google-search").attr("href", "");
+        $('#article-google-search').hide();
+        $('#article-google-search').attr('href', '');
 
-        $("#article-google-maps").hide();
-        $("#article-google-maps").attr("href", "");
+        $('#article-google-maps').hide();
+        $('#article-google-maps').attr('href', '');
     }
 
-    $("#article-title").text(detailsPannelData.Map_title);
-    $("#article-intro").html(detailsPannelData.wikipedia_Intro);
+    $('#article-title').text(detailsPannelData.Map_title);
+    $('#article-intro').html(detailsPannelData.wikipedia_Intro);
 
     // year label 
     let yearLabel = formatingInseption();
     if (yearLabel) {
-        $("#article-year").text(yearLabel);
-        $("#article-year").show();
+        $('#article-year').text(yearLabel);
+        $('#article-year').show();
     }
 
     if (detailsPannelData.wikipedia_ImgUrl != undefined) {
-        $("#articleimage").show();
+        $('#articleimage').show();
         // $("#article-image-loader").attr("display", "none");
         // $("#article-image").removeClass("loader");
 
-        $("#article-image").attr("src", detailsPannelData.wikipedia_ImgUrl);
-        $("#article-image").attr("alt", detailsPannelData.wikipedia_ImgTitle);
+        $('#article-image').attr('src', detailsPannelData.wikipedia_ImgUrl);
+        $('#article-image').attr('alt', detailsPannelData.wikipedia_ImgTitle);
 
     }
 
     // $("#article-description").html(detailsPannelData.Wikidata_itemDescription);
-    $("#article-visitors").text(formatingVisitors());
-    $("#article-instance-of").html(formatingInstanceOfList());
+    $('#article-visitors').text(formatingVisitors());
+    $('#article-instance-of').html(formatingInstanceOfList());
 
     if (detailsPannelData.Wikidata_item != undefined) {
-        $("#article-wikidata").attr("href", detailsPannelData.Wikidata_item);
-        $("#article-wikidata").show();
+        $('#article-wikidata').attr('href', detailsPannelData.Wikidata_item);
+        $('#article-wikidata').show();
     }
 
     if (detailsPannelData.Wikidata_WikipediaLink != undefined) {
-        $("#article-wikipedia").attr("href", detailsPannelData.Wikidata_WikipediaLink);
-        $("#article-wikipedia").show();
+        $('#article-wikipedia').attr('href', detailsPannelData.Wikidata_WikipediaLink);
+        $('#article-wikipedia').show();
     }
 
     if (detailsPannelData.Wikidata_CommonsCategory != undefined) {
-        $("#article-wikicommons").attr("href", detailsPannelData.Wikidata_CommonsCategory);
-        $("#article-wikicommons").show();
+        $('#article-wikicommons').attr('href', detailsPannelData.Wikidata_CommonsCategory);
+        $('#article-wikicommons').show();
     }
 
     if (detailsPannelData.Wikidata_FreebaseIdGoogleSearch != undefined) {
-        $("#article-google-search").attr("href", detailsPannelData.Wikidata_FreebaseIdGoogleSearch);
-        $("#article-google-search").show();
+        $('#article-google-search').attr('href', detailsPannelData.Wikidata_FreebaseIdGoogleSearch);
+        $('#article-google-search').show();
     }
 
     if (detailsPannelData.Wikidata_GoogleMapsCustomerId != undefined) {
-        $("#article-google-maps").attr("href", detailsPannelData.Wikidata_GoogleMapsCustomerId);
-        $("#article-google-maps").show();
+        $('#article-google-maps').attr('href', detailsPannelData.Wikidata_GoogleMapsCustomerId);
+        $('#article-google-maps').show();
     }
 
     function formatingInseption() {
-        let value = "";
+        let value = '';
         if (detailsPannelData.Wikidata_inception != undefined) {
-            return "From " + detailsPannelData.Wikidata_inception;
+            return 'From ' + detailsPannelData.Wikidata_inception;
         } else {
             return
         }
     }
 
     function formatingVisitors() {
-        let visitors = "-";
+        let visitors = '-';
         if (detailsPannelData.Wikidata_visitorsPerYear != undefined) {
             let visitorsString = detailsPannelData.Wikidata_visitorsPerYear.toString()
-            visitors = visitorsString.replace("visitors per year", " ");
+            visitors = visitorsString.replace('visitors per year', ' ');
         }
         return visitors;
     }
 
     function formatingInstanceOfList() {
-        let string = "";
+        let string = '';
         let array = detailsPannelData.Wikidata_instanceOfLabel;
         for (i in array) {
             string += array[i]
             if (i < array.length - 1) {
-                string += ", "
+                string += ', '
             }
         }
         return string
