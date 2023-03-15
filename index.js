@@ -634,7 +634,7 @@ function WikidataApiRequestDetails() {
                         break;
 
                     case 'visitorsPerYear':
-                        value = bigNumberFormater(data[keys[k]][v]) + ' visitors per year';
+                        value = bigNumberFormatter(data[keys[k]][v]) + ' visitors per year';
                         break;
 
                         // case "":
@@ -668,7 +668,7 @@ function WikidataApiRequestDetails() {
             // popup.setHTML(popuphtml())
             updateDetailsPannel(detailsPannelData);
             if (!detailsPannelData.wikimedia_ApiOngoing && !detailsPannelData.wikimedia_QueryDone && (detailsPannelData.Wikidata_CommonsCategory != undefined || detailsPannelData.Wikidata_commonsLink != undefined)) {
-                console.log('should call Commons API');
+                console.log('could call Commons API');
                 // WikidataApiRequestDetails()
             }
         }
@@ -762,13 +762,7 @@ function updateDetailsPannel(data) {
         $('#article-official-website').show();
     }
 
-    function formatingInseption() {
-        if (data.Wikidata_inception != undefined) {
-            return 'From ' + data.Wikidata_inception;
-        } else {
-            return;
-        }
-    }
+    function formatingInseption() { return data.Wikidata_inception != undefined ? `From  ${data.Wikidata_inception}` : undefined; }
 
     // eslint-disable-next-line no-unused-vars
     function formatingInstanceOfList() {
@@ -785,9 +779,7 @@ function updateDetailsPannel(data) {
     showInfopanel();
 }
 
-function bigNumberFormatter(num) {
-    return num >= 1000000 ? (num / 1000000).toFixed(0) + ' M' : num >= 1000 ? (num / 1000).toFixed(0) + ' k' : num;
-}
+function bigNumberFormatter(num) { return num >= 1000000 ? (num / 1000000).toFixed(0) + ' M' : num >= 1000 ? (num / 1000).toFixed(0) + ' k' : num; }
 
 // Ideas for future:
 // - on map movement queries: wikipedia API, Wikidata query, Wiki commons API (toggle for all 3)
