@@ -470,20 +470,20 @@ function WikidataApiRequestDetails() {
             '  OPTIONAL { ?item  wdt:P3311 ?planViewImage. }\n' +
             '  OPTIONAL { ?item  wdt:P2013 ?FacebookId. }\n' +
             '  OPTIONAL { ?item  wdt:P3749 ?GoogleMapsCustomerId. }\n' +
-            '  OPTIONAL { ?item  wdt:P2003 ?InstagramUsername. }\n' +
+            '  OPTIONAL { ?item  wdt:P2003 ?InstagramUsername. }\n' + // to be added as a button
             '  OPTIONAL { ?item  wdt:P1947 ?MapillaryId. }\n' +
-            '  OPTIONAL { ?item  wdt:P2002 ?TwitterUsername. }\n' +
+            '  OPTIONAL { ?item  wdt:P2002 ?TwitterUsername. }\n' + // to be added as a button
             '  OPTIONAL { ?item  wdt:P402  ?OpenStreetMapRelationId. }\n' +
-            '  OPTIONAL { ?item  wdt:P4173 ?InstagramLocationId. }\n' +
+            '  OPTIONAL { ?item  wdt:P4173 ?InstagramLocationId. }\n' + // to be added as a button
             '  OPTIONAL { ?item  wdt:P1968 ?FoursquareVenueId. }\n' +
             '  OPTIONAL { ?item  wdt:P345  ?ImdbId. }\n' +
-            '  OPTIONAL { ?item  wdt:P4264 ?LinkedInCompanyId. }\n' +
-            '  OPTIONAL { ?item  wdt:P3134 ?TripAdvisorId. }\n' +
-            '  OPTIONAL { ?item  wdt:P3108 ?YelpId. }\n' +
-            '  OPTIONAL { ?item  wdt:P2397 ?YouTubeChannelId. }\n' +
-            '  OPTIONAL { ?item  wdt:P1329 ?phoneNumber. }\n' +
-            '  OPTIONAL { ?item  wdt:P968  ?emailAddress. }\n' +
-            '  OPTIONAL { ?item  wdt:P3984 ?subreddit. }\n' +
+            '  OPTIONAL { ?item  wdt:P4264 ?LinkedInCompanyId. }\n' + // to be added as a button
+            '  OPTIONAL { ?item  wdt:P3134 ?TripAdvisorId. }\n' + // to be added as a button
+            '  OPTIONAL { ?item  wdt:P3108 ?YelpId. }\n' + // to be added as a button
+            '  OPTIONAL { ?item  wdt:P2397 ?YouTubeChannelId. }\n' + // to be added as a button
+            '  OPTIONAL { ?item  wdt:P1329 ?phoneNumber. }\n' + // to be added as a button
+            '  OPTIONAL { ?item  wdt:P968  ?emailAddress. }\n' + // to be added as a button
+            '  OPTIONAL { ?item  wdt:P3984 ?subreddit. }\n' + // to be added as a button
             '  OPTIONAL { ?item  wdt:P4702 ?GoogleArtsCulturePartnerId. }\n' +
             '  \n' +
             '  OPTIONAL {\n' +
