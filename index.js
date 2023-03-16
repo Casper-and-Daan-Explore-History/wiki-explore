@@ -367,27 +367,15 @@ function updateWikipediaGeojsonSource() {
     }
 }
 
-function openDetailPannel(selectionInfo) {
-    //console.log("This is selected:");
-    //console.log(selectionInfo);
-    detailsPannelData = { // reset data
-        'wikipedia_ApiOngoing': false, // current status of API resquest
-        'wikimedia_ApiOngoing': false, // current status of API resquest
-        'wikidata_ApiOngoing': false, // current status of API resquest
-        'wikipedia_QueryDone': false, // Data collection status
-        'wikimedia_QueryDone': false, // Data collection status
-        'wikidata_QueryDone': false // Data collection status
-    };
-
-    detailsPannelData.Map_title = selectionInfo.title; // title
-    detailsPannelData.wikipediaID = selectionInfo.pageId; // pageId
-    detailsPannelData.Map_lonLat = JSON.parse(selectionInfo.lonLat); // "lonLat": [value.lon, value.lat]
-
+function openDetailPannel(poiProperties) {
+    detailsPannelData = {}; // reset
+    detailsPannelData.Map_title = poiProperties.title; // title
+    detailsPannelData.wikipediaID = poiProperties.pageId; // pageId
+    detailsPannelData.Map_lonLat = JSON.parse(poiProperties.lonLat); // "lonLat": [value.lon, value.lat]
     WikipediaApiRequestDetails(detailsPannelData.wikipediaID);
 }
 
 function WikipediaApiRequestDetails(pageID) {
-    detailsPannelData.wikipedia_ApiOngoing = true;
     requestURL = 'https://en.wikipedia.org/w/api.php?action=query&origin=*&format=json&prop=extracts%7Cpageprops%7Cpageimages%7Ccategories&pageids=' + pageID + '&utf8=1&formatversion=latest&exintro=1';
     // API sandox link: https://en.wikipedia.org/wiki/Special:ApiSandbox#action=query&format=json&origin=*&prop=extracts%7Cpageprops%7Cpageimages%7Ccategories&pageids=58387057&utf8=1&formatversion=latest&exintro=1
     ajaxQueue.push($.getJSON(requestURL, function (data) {
@@ -400,7 +388,8 @@ function parseWikipediaApiResponseDetails(jsonData) {
 
     detailsPannelData.wikipedia_Intro = wikipediaApiRespons.extract;
     detailsPannelData.wikipedia_ImgTitle = wikipediaApiRespons.pageimage;
-    detailsPannelData.Qnumber = wikipediaApiRespons.pageprops.wikibase_item;
+    detailsPannelData.qNumber = wikipediaApiRespons.pageprops.wikibase_item;
+    if (detailsPannelData.qNumber) WikidataApiRequestDetails();
     if (wikipediaApiRespons.pageimage != undefined) {
         detailsPannelData.wikipedia_ImgUrl = `https://commons.wikimedia.org/wiki/Special:FilePath/${wikipediaApiRespons.pageimage}?width=800`;
     }
@@ -410,32 +399,32 @@ function parseWikipediaApiResponseDetails(jsonData) {
         detailsPannelData.wikipedia_Categories.push(wikipediaApiRespons.categories[i].title); // adding all wikipediaApiRespons cathegories.
     }
 
-    detailsPannelData.wikipedia_ApiOngoing = false; // change status to no API call ongoing.
-    //console.log(detailsPannelData);
-
-    // If new Qnumber, and no data jet, then get Wikidata data:
-    if (!detailsPannelData.wikidata_ApiOngoing && !detailsPannelData.wikidata_QueryDone && detailsPannelData.Qnumber != undefined) {
-        //console.log("should call Wikidata API");
-        WikidataApiRequestDetails();
-    }
-
     updateDetailsPannel(detailsPannelData);
 }
 
 function WikidataApiRequestDetails() {
-    function makeSPARQLQuery(endpointUrl, sparqlQuery, doneCallback) {
-        var settings = {
-            headers: { Accept: 'application/sparql-results+json' },
-            data: { query: sparqlQuery }
-        };
-        return $.ajax(endpointUrl, settings).then(doneCallback);
+
+    async function fetchWikidataData(endpointUrl, sparqlQuery, doneCallback) {
+        const headers = new Headers({ Accept: 'application/sparql-results+json' });
+        const body = new URLSearchParams({ query: sparqlQuery });
+
+        try {
+            const response = await fetch(endpointUrl, { method: 'POST', headers, body });
+            if (!response.ok) {
+                throw new Error(`HTTP error: ${response.status}`);
+            }
+            const json = await response.json();
+            doneCallback(json);
+        } catch (error) {
+            console.error(error);
+        }
     }
 
     //https://query.wikidata.org/#SELECT%20%3Fitem%20%3FitemLabel%20%3FitemDescription%20%3Fimg%20%3Fcommons%20%3FWikipediaLink%20%3Felevation%20%3Farea%20%3FofficialWebsite%20%3FflagImage%20%3FLonLat%20%3FcoatOfArmsImage%20%3FCommonsCategory%20%3FFreebaseIdGoogleSearch%20%3FGoogleKnowledgeGraphId%20%3FstartTime%20%3FendTime%20%3Finception%20%3Freligion%20%3FsignificantEvent%20%3Faudio%20%3FmaximumCapacity%20%3FvisitorsPerYear%20%3FheritageDesignationLabel%20%3Flength%20%3Fwidth%20%3Fheight%20%3FplanViewImage%20%3FFacebookId%20%3FGoogleMapsCustomerId%20%3FInstagramUsername%20%3FMapillaryId%20%3FTwitterUsername%20%3FOpenStreetMapRelationId%20%3FInstagramLocationId%20%3FFoursquareVenueId%20%3FImdbId%20%3FLinkedInCompanyId%20%3FTripAdvisorId%20%3FYelpId%20%3FYouTubeChannelId%20%3FphoneNumber%20%3FemailAddress%20%3Fsubreddit%20%3FGoogleArtsCulturePartnerId%20%3Fpopulation%20%3FcommonsLink%20%3FinstanceOfLabel%20WHERE%20%7B%0A%0A%20%20%23%20https%3A%2F%2Fwww.wikidata.org%2Fwiki%2FQ2981%20Notre%20Dam%20of%20Paris%0A%20%20%23%20https%3A%2F%2Fwww.wikidata.org%2Fwiki%2FQ243%20Toure%20Eiffel%0A%20%20%20%20%0A%20%20VALUES%20%3Fitem%20%7B%20%23%3Fitem%20variable%20is%20set%20to%20Qnumber%0A%20%20%20%20wd%3AQ243%0A%20%20%7D%0A%20%20%0A%20%20OPTIONAL%20%7B%20%3Fitem%20%20wdt%3AP18%20%20%20%3Fimg.%20%7D%0A%20%20OPTIONAL%20%7B%20%3Fitem%20%20wdt%3AP373%20%20%3FcommonsLink.%20%7D%0A%20%20OPTIONAL%20%7B%20%3Fitem%20%20wdt%3AP31%20%20%20%3FinstanceOf.%20%7D%0A%20%20OPTIONAL%20%7B%20%3Fitem%20%20wdt%3AP625%20%20%3FLonLat.%20%7D%0A%20%20OPTIONAL%20%7B%20%3Fitem%20%20wdt%3AP1082%20%3Fpopulation.%20%7D%0A%20%20OPTIONAL%20%7B%20%3Fitem%20%20wdt%3AP2044%20%3Felevation.%20%7D%0A%20%20OPTIONAL%20%7B%20%3Fitem%20%20wdt%3AP2046%20%3Farea.%20%7D%0A%20%20OPTIONAL%20%7B%20%3Fitem%20%20wdt%3AP856%20%20%3FofficialWebsite.%20%7D%0A%20%20OPTIONAL%20%7B%20%3Fitem%20%20wdt%3AP41%20%20%20%3FflagImage.%20%7D%0A%20%20OPTIONAL%20%7B%20%3Fitem%20%20wdt%3AP94%20%20%20%3FcoatOfArmsImage.%20%7D%0A%20%20OPTIONAL%20%7B%20%3Fitem%20%20wdt%3AP373%20%20%3FCommonsCategory.%20%7D%0A%20%20OPTIONAL%20%7B%20%3Fitem%20%20wdt%3AP646%20%20%3FFreebaseIdGoogleSearch.%20%7D%0A%20%20OPTIONAL%20%7B%20%3Fitem%20%20wdt%3AP2671%20%3FGoogleKnowledgeGraphId.%20%7D%0A%20%20OPTIONAL%20%7B%20%3Fitem%20%20wdt%3AP580%20%20%3FstartTime.%20%7D%0A%20%20OPTIONAL%20%7B%20%3Fitem%20%20wdt%3AP582%20%20%3FendTime.%20%7D%0A%20%20OPTIONAL%20%7B%20%3Fitem%20%20wdt%3AP571%20%20%3Finception.%20%7D%0A%20%20OPTIONAL%20%7B%20%3Fitem%20%20wdt%3AP140%20%20%3Freligion.%20%7D%0A%20%20OPTIONAL%20%7B%20%3Fitem%20%20wdt%3AP793%20%20%3FsignificantEvent.%20%7D%0A%20%20OPTIONAL%20%7B%20%3Fitem%20%20wdt%3AP51%20%20%20%3Faudio.%20%7D%0A%20%20OPTIONAL%20%7B%20%3Fitem%20%20wdt%3AP1083%20%3FmaximumCapacity.%20%7D%0A%20%20OPTIONAL%20%7B%20%3Fitem%20%20wdt%3AP1174%20%3FvisitorsPerYear.%20%7D%0A%20%20OPTIONAL%20%7B%20%3Fitem%20%20wdt%3AP1435%20%3FheritageDesignation.%20%7D%0A%20%20OPTIONAL%20%7B%20%3Fitem%20%20wdt%3AP2043%20%3Flength.%20%7D%0A%20%20OPTIONAL%20%7B%20%3Fitem%20%20wdt%3AP2049%20%3Fwidth.%20%7D%0A%20%20OPTIONAL%20%7B%20%3Fitem%20%20wdt%3AP2048%20%3Fheight.%20%7D%0A%20%20OPTIONAL%20%7B%20%3Fitem%20%20wdt%3AP3311%20%3FplanViewImage.%20%7D%0A%20%20OPTIONAL%20%7B%20%3Fitem%20%20wdt%3AP2013%20%3FFacebookId.%20%7D%0A%20%20OPTIONAL%20%7B%20%3Fitem%20%20wdt%3AP3749%20%3FGoogleMapsCustomerId.%20%7D%0A%20%20OPTIONAL%20%7B%20%3Fitem%20%20wdt%3AP2003%20%3FInstagramUsername.%20%7D%0A%20%20OPTIONAL%20%7B%20%3Fitem%20%20wdt%3AP1947%20%3FMapillaryId.%20%7D%0A%20%20OPTIONAL%20%7B%20%3Fitem%20%20wdt%3AP2002%20%3FTwitterUsername.%20%7D%0A%20%20OPTIONAL%20%7B%20%3Fitem%20%20wdt%3AP402%20%20%3FOpenStreetMapRelationId.%20%7D%0A%20%20OPTIONAL%20%7B%20%3Fitem%20%20wdt%3AP4173%20%3FInstagramLocationId.%20%7D%0A%20%20OPTIONAL%20%7B%20%3Fitem%20%20wdt%3AP1968%20%3FFoursquareVenueId.%20%7D%0A%20%20OPTIONAL%20%7B%20%3Fitem%20%20wdt%3AP345%20%20%3FImdbId.%20%7D%0A%20%20OPTIONAL%20%7B%20%3Fitem%20%20wdt%3AP4264%20%3FLinkedInCompanyId.%20%7D%0A%20%20OPTIONAL%20%7B%20%3Fitem%20%20wdt%3AP3134%20%3FTripAdvisorId.%20%7D%0A%20%20OPTIONAL%20%7B%20%3Fitem%20
     let endpointUrl = 'https://query.wikidata.org/sparql';
     let sparqlQuery = `
         SELECT ?item ?itemLabel ?itemDescription ?img ?commons ?WikipediaLink ?elevation ?area ?officialWebsite ?flagImage ?LonLat ?coatOfArmsImage ?CommonsCategory ?FreebaseIdGoogleSearch ?GoogleKnowledgeGraphId ?startTime ?endTime ?inception ?religion ?significantEvent ?audio ?maximumCapacity ?visitorsPerYear ?heritageDesignationLabel ?length ?width ?height ?planViewImage ?FacebookId ?GoogleMapsCustomerId ?InstagramUsername ?MapillaryId ?TwitterUsername ?OpenStreetMapRelationId ?InstagramLocationId ?FoursquareVenueId ?ImdbId ?LinkedInCompanyId ?TripAdvisorId ?YelpId ?YouTubeChannelId ?phoneNumber ?emailAddress ?subreddit ?GoogleArtsCulturePartnerId ?population ?commonsLink ?instanceOfLabel WHERE {
-          VALUES ?item { wd:${detailsPannelData.Qnumber} }
+          VALUES ?item { wd:${detailsPannelData.qNumber} }
           OPTIONAL { ?item  wdt:P18   ?img. }
           OPTIONAL { ?item  wdt:P373  ?commonsLink. }
           OPTIONAL { ?item  wdt:P31   ?instanceOf. }
@@ -493,183 +482,146 @@ function WikidataApiRequestDetails() {
           }
         }`;
 
-    makeSPARQLQuery(endpointUrl, sparqlQuery, function (data) {
-        // $('body').append($('<pre>').text(JSON.stringify(data)));
-        console.log(data);
-        // console.log(data.results.bindings);
+    fetchWikidataData(endpointUrl, sparqlQuery, function (data) {
         WikidataApiResultsProcessingDetails(data.results.bindings);
     });
 
-    function WikidataApiResultsProcessingDetails(data) {
-        cleanResults();
-
-        function cleanResults() {
-            var gatherdResults = {}; //raw results come in with a lot of fluf and in repated fashon to account for several values. Here we keep the minimum and put the results in an array if needed.
-
-            for (i in data) { // loop throug resonds sets
-                var keys = Object.keys(data[i]); //get all the object's keys
-                for (k in keys) {
-                    if (gatherdResults[keys[k]] === undefined) { //If no value was ever saved for this key(variable name)
-                        gatherdResults[keys[k]] = [data[i][keys[k]].value]; // save value in a new array
-                    } else {
-                        if (jQuery.inArray(data[i][keys[k]].value, gatherdResults[keys[k]]) === -1) // If this value does not exist in array
-                            gatherdResults[keys[k]].push(data[i][keys[k]].value); // then add to array
-                    }
+    function WikidataApiResultsProcessingDetails(rawResponsData) {
+        let data = {}; //raw results come in with a lot of fluf and in repated fashon to account for several values. Here we keep the minimum and put the results in an array if needed.
+        {
+            for (let row of rawResponsData) { // loop throug resonds sets
+                let keys = Object.keys(row); //get all the object's keys
+                for (let key of keys) {
+                    let value = row[key].value
+                    if (!data[key]) data[key] = [value]
+                    else if (!data[key].includes(value)) data[key].push(value)
                 }
             }
-            //console.log(gatherdResults);
-            makeResultsUsefull(gatherdResults);
         }
 
-        function makeResultsUsefull(data) {
-            var keys = Object.keys(data);
+        {
+            console.log(data);
+            let keys = Object.keys(data);
             console.log(keys);
-            console.log(data.img);
-            // https://commons.wikimedia.org/wiki/File:P1050763_Louvre_code_Hammurabi_face_rwk-gradient.jpg
-            // https://commons.wikimedia.org/wiki/Special:FilePath/P1050763%20Louvre%20code%20Hammurabi%20face%20rwk-gradient.jpg
-            // https://commons.wikimedia.org/wiki/Special:FilePath/  Louvre%20chateau%201.jpg
-            // https://commons.wikimedia.org/wiki/File:             Louvre%20chateau%201.jpg
+            for (let key of keys) { // value categories
+                for (v in data[key]) { // array of values
+                    let value = '';
 
-            for (k in keys) {
-                for (v in data[keys[k]]) {
-                    var value = '';
+                    switch (key) { // for every variable there is an other method of enriching.
+                    case 'CommonsCategory':
+                        value = `https://commons.wikimedia.org/wiki/Category:${encodeURIComponent(data[key][v])}`;
+                        break;
 
-                    switch (keys[k]) { // for every variable there is an other method of enriching.
-                        case 'CommonsCategory':
-                            value = 'https://commons.wikimedia.org/wiki/Category:' + encodeURIComponent(data[keys[k]][v]);
-                            break;
-
-                        case 'LonLat':
-                            value = data[keys[k]][v];
-                            value = value.replace('Point(', '');
-                            value = value.replace(')', '');
-                            value = value.split(' ');
-                            value = [Number(value[0]), Number(value[1])];
-                            // if (value.length == 1) value = value[0];
-                            break;
+                    case 'LonLat':
+                        value = data[key][v];
+                        value = value.replace('Point(', '');
+                        value = value.replace(')', '');
+                        value = value.split(' ');
+                        value = [Number(value[0]), Number(value[1])];
+                        // if (value.length == 1) value = value[0];
+                        break;
 
                         // this changes the img url  to the img page
                         // case "img":
-                        //     value = data[keys[k]][v];
+                        //     value = data[key][v];
                         //     value = value.replace(
                         //         "https://commons.wikimedia.org/wiki/Special:FilePath/",
                         //         "https://commons.wikimedia.org/wiki/File:"
                         //     )
                         //     break;
 
-                        case 'TwitterUsername':
-                            value = 'https://twitter.com/' + data[keys[k]][v];
-                            break;
+                    case 'TwitterUsername':
+                        value = `https://twitter.com/${data[key][v]}`;
+                        break;
 
-                        case 'height':
-                            value = data[keys[k]][v] + ' meters';
-                            break;
+                    case 'height':
+                        value = `${data[key][v]} meters`;                        break;
 
-                        case 'FreebaseIdGoogleSearch':
-                            value = 'https://www.google.com/search?kgmid=' + encodeURIComponent(data[keys[k]][v]);
-                            break;
+                    case 'FreebaseIdGoogleSearch':
+                        value = `https://www.google.com/search?kgmid=${encodeURIComponent(data[key][v])}`;
+                        break;
 
-                        case 'commonsLink':
-                            value = 'https://commons.wikimedia.org/wiki/Category:' + encodeURIComponent(data[keys[k]][v]);
-                            break;
+                    case 'commonsLink':
+                        value = `https://commons.wikimedia.org/wiki/Category:${encodeURIComponent(data[key][v])}`;
+                        break;
 
-                        case 'inception':
-                            value = data[keys[k]][v].split('-');
-                            value = value[0];
-                            break;
+                    case 'inception':
+                        value = data[key][v].split('-');
+                        value = value[0];
+                        break;
 
-                        case 'length':
-                            value = data[keys[k]][v] + ' meters';
-                            break;
+                    case 'length':
+                        value = `${data[key][v]} meters`;
+                        break;
 
-                        case 'FacebookId':
-                            value = 'https://www.facebook.com/' + encodeURIComponent(data[keys[k]][v]);
-                            break;
+                    case 'FacebookId':
+                        value = `https://www.facebook.com/${encodeURIComponent(data[key][v])}`;
+                        break;
 
-                        case 'FoursquareVenueId':
-                            value = 'https://foursquare.com/v/' + encodeURIComponent(data[keys[k]][v]);
-                            break;
+                    case 'FoursquareVenueId':
+                        value = `https://foursquare.com/v/${encodeURIComponent(data[key][v])}`;
+                        break;
 
-                        case 'GoogleMapsCustomerId':
-                            value = 'https://maps.google.com/?cid=' + encodeURIComponent(data[keys[k]][v]);
-                            break;
+                    case 'GoogleMapsCustomerId':
+                        value = `https://maps.google.com/?cid=${encodeURIComponent(data[key][v])}`;
+                        break;
 
-                        case 'InstagramLocationId':
-                            value = 'https://www.instagram.com/explore/locations/' + encodeURIComponent(data[keys[k]][v]) + '/';
-                            break;
+                    case 'InstagramLocationId':
+                        value = `https://www.instagram.com/explore/locations/${encodeURIComponent(data[key][v])}/`;
+                        break;
 
-                        case 'InstagramUsername':
-                            value = 'https://www.instagram.com/' + encodeURIComponent(data[keys[k]][v]) + '/';
-                            break;
+                    case 'InstagramUsername':
+                        value = `https://www.instagram.com/${encodeURIComponent(data[key][v])}/`;
+                        break;
 
-                        case 'ImdbId':
-                            value = 'https://wikidata-externalid-url.toolforge.org/?p=345&url_prefix=https://www.imdb.com/&id=' + encodeURIComponent(data[keys[k]][v]);
-                            break;
+                    case 'ImdbId':
+                        value = `https://wikidata-externalid-url.toolforge.org/?p=345&url_prefix=https://www.imdb.com/&id=${encodeURIComponent(data[key][v])}`;
+                        break;
 
-                        case 'LinkedInCompanyId':
-                            value = 'https://www.linkedin.com/company/' + encodeURIComponent(data[keys[k]][v]);
-                            break;
+                    case 'LinkedInCompanyId':
+                        value = `https://www.linkedin.com/company/${encodeURIComponent(data[key][v])}`;
+                        break;
 
-                        case 'MapillaryId':
-                            value = 'https://www.mapillary.com/map/im/' + encodeURIComponent(data[keys[k]][v]);
-                            break;
+                    case 'MapillaryId':
+                        value = `https://www.mapillary.com/map/im/${encodeURIComponent(data[key][v])}`;
+                        break;
 
-                        case 'TripAdvisorId':
-                            value = 'https://www.tripadvisor.com/' + encodeURIComponent(data[keys[k]][v]);
-                            break;
+                    case 'TripAdvisorId':
+                        value = `https://www.tripadvisor.com/${encodeURIComponent(data[key][v])}`;
+                        break;
 
-                        case 'YelpId':
-                            // value = "https://www.yelp.com/biz/" + encodeURIComponent(data[keys[k]][v]);
-                            value = 'https://www.yelp.com/biz/' + data[keys[k]][v];
-                            break;
+                    case 'YelpId':
+                        // value = "https://www.yelp.com/biz/" + encodeURIComponent(data[key][v]);
+                        value = `https://www.yelp.com/biz/${data[key][v]}`;
+                        break;
 
-                        case 'YouTubeChannelId':
-                            value = 'https://www.youtube.com/channel/' + encodeURIComponent(data[keys[k]][v]);
-                            break;
+                    case 'YouTubeChannelId':
+                        value = `https://www.youtube.com/channel/${encodeURIComponent(data[key][v])}`;
+                        break;
 
-                        case 'visitorsPerYear':
-                            value = bigNumberFormatter(data[keys[k]][v]) + ' visitors per year';
-                            break;
+                    case 'visitorsPerYear':
+                        value = `${bigNumberFormatter(data[key][v])} visitors per year`;
+                        break;
 
-                        // case "":
-                        //     break;
-                        // case "":
-                        //     break;
-                        // case "":
-                        //     break;
-                        // case "":
-                        //     break;
-
-                        // value = "" + data[keys[k]][v];
-                        // value = "" + encodeURIComponent(data[keys[k]][v]);
-                        // value = value.replace(")", "");
-                        // value = value.split(" ");
-
-                        default:
-                            value = data[keys[k]][v];
-                            break;
+                    default:
+                        value = data[key][v];
+                        break;
                     }
 
                     // save enriched value to final object used to display results to UI
-                    if (detailsPannelData['Wikidata_' + keys[k]] === undefined) { // does it exist?
-                        detailsPannelData['Wikidata_' + keys[k]] = [value]; // then: replace
-                    } else {
-                        detailsPannelData['Wikidata_' + keys[k]].push(value); // then: save as new
-                    }
+                    detailsPannelData[`Wikidata_${key}`] = detailsPannelData[`Wikidata_${key}`] || [];
+                    detailsPannelData[`Wikidata_${key}`].push(value);
                 }
             }
-            console.log(detailsPannelData);
-            // popup.setHTML(popuphtml())
             updateDetailsPannel(detailsPannelData);
-            if (!detailsPannelData.wikimedia_ApiOngoing && !detailsPannelData.wikimedia_QueryDone && (detailsPannelData.Wikidata_CommonsCategory != undefined || detailsPannelData.Wikidata_commonsLink != undefined)) {
+            if (detailsPannelData.Wikidata_CommonsCategory != undefined || detailsPannelData.Wikidata_commonsLink != undefined) {
                 console.log('could call Commons API');
-                // WikidataApiRequestDetails()
             }
         }
 
     }
 
-    //detailsPannelData.Qnumber
+    //detailsPannelData.qNumber
 }
 
 function updateDetailsPannel(data) {
