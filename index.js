@@ -372,15 +372,16 @@ function openDetailPannel(poiProperties) {
     detailsPannelData.Map_title = poiProperties.title; // title
     detailsPannelData.wikipediaID = poiProperties.pageId; // pageId
     detailsPannelData.Map_lonLat = JSON.parse(poiProperties.lonLat); // "lonLat": [value.lon, value.lat]
-    WikipediaApiRequestDetails(detailsPannelData.wikipediaID);
+    wikipediaApiRequestDetails(detailsPannelData.wikipediaID);
 }
 
-function WikipediaApiRequestDetails(pageID) {
-    requestURL = 'https://en.wikipedia.org/w/api.php?action=query&origin=*&format=json&prop=extracts%7Cpageprops%7Cpageimages%7Ccategories&pageids=' + pageID + '&utf8=1&formatversion=latest&exintro=1';
-    // API sandox link: https://en.wikipedia.org/wiki/Special:ApiSandbox#action=query&format=json&origin=*&prop=extracts%7Cpageprops%7Cpageimages%7Ccategories&pageids=58387057&utf8=1&formatversion=latest&exintro=1
-    ajaxQueue.push($.getJSON(requestURL, function (data) {
-        parseWikipediaApiResponseDetails(data);
-    }));
+async function wikipediaApiRequestDetails(pageID) {
+    // API sandbox link: https://en.wikipedia.org/wiki/Special:ApiSandbox#action=query&format=json&origin=*&prop=extracts%7Cpageprops%7Cpageimages%7Ccategories&pageids=58387057&utf8=1&formatversion=latest&exintro=1
+    const requestURL = `https://en.wikipedia.org/w/api.php?action=query&origin=*&format=json&prop=extracts%7Cpageprops%7Cpageimages%7Ccategories&pageids=${pageID}&utf8=1&formatversion=latest&exintro=1`;
+    fetch(requestURL)
+        .then(response => response.json())
+        .then(data => parseWikipediaApiResponseDetails(data))
+        .catch(error => console.error(error));
 }
 
 function parseWikipediaApiResponseDetails(jsonData) {
@@ -508,18 +509,18 @@ function WikidataApiRequestDetails() {
                     let value = '';
 
                     switch (key) { // for every variable there is an other method of enriching.
-                    case 'CommonsCategory':
-                        value = `https://commons.wikimedia.org/wiki/Category:${encodeURIComponent(data[key][v])}`;
-                        break;
+                        case 'CommonsCategory':
+                            value = `https://commons.wikimedia.org/wiki/Category:${encodeURIComponent(data[key][v])}`;
+                            break;
 
-                    case 'LonLat':
-                        value = data[key][v];
-                        value = value.replace('Point(', '');
-                        value = value.replace(')', '');
-                        value = value.split(' ');
-                        value = [Number(value[0]), Number(value[1])];
-                        // if (value.length == 1) value = value[0];
-                        break;
+                        case 'LonLat':
+                            value = data[key][v];
+                            value = value.replace('Point(', '');
+                            value = value.replace(')', '');
+                            value = value.split(' ');
+                            value = [Number(value[0]), Number(value[1])];
+                            // if (value.length == 1) value = value[0];
+                            break;
 
                         // this changes the img url  to the img page
                         // case "img":
@@ -530,82 +531,82 @@ function WikidataApiRequestDetails() {
                         //     )
                         //     break;
 
-                    case 'TwitterUsername':
-                        value = `https://twitter.com/${data[key][v]}`;
-                        break;
+                        case 'TwitterUsername':
+                            value = `https://twitter.com/${data[key][v]}`;
+                            break;
 
-                    case 'height':
-                        value = `${data[key][v]} meters`;                        break;
+                        case 'height':
+                            value = `${data[key][v]} meters`; break;
 
-                    case 'FreebaseIdGoogleSearch':
-                        value = `https://www.google.com/search?kgmid=${encodeURIComponent(data[key][v])}`;
-                        break;
+                        case 'FreebaseIdGoogleSearch':
+                            value = `https://www.google.com/search?kgmid=${encodeURIComponent(data[key][v])}`;
+                            break;
 
-                    case 'commonsLink':
-                        value = `https://commons.wikimedia.org/wiki/Category:${encodeURIComponent(data[key][v])}`;
-                        break;
+                        case 'commonsLink':
+                            value = `https://commons.wikimedia.org/wiki/Category:${encodeURIComponent(data[key][v])}`;
+                            break;
 
-                    case 'inception':
-                        value = data[key][v].split('-');
-                        value = value[0];
-                        break;
+                        case 'inception':
+                            value = data[key][v].split('-');
+                            value = value[0];
+                            break;
 
-                    case 'length':
-                        value = `${data[key][v]} meters`;
-                        break;
+                        case 'length':
+                            value = `${data[key][v]} meters`;
+                            break;
 
-                    case 'FacebookId':
-                        value = `https://www.facebook.com/${encodeURIComponent(data[key][v])}`;
-                        break;
+                        case 'FacebookId':
+                            value = `https://www.facebook.com/${encodeURIComponent(data[key][v])}`;
+                            break;
 
-                    case 'FoursquareVenueId':
-                        value = `https://foursquare.com/v/${encodeURIComponent(data[key][v])}`;
-                        break;
+                        case 'FoursquareVenueId':
+                            value = `https://foursquare.com/v/${encodeURIComponent(data[key][v])}`;
+                            break;
 
-                    case 'GoogleMapsCustomerId':
-                        value = `https://maps.google.com/?cid=${encodeURIComponent(data[key][v])}`;
-                        break;
+                        case 'GoogleMapsCustomerId':
+                            value = `https://maps.google.com/?cid=${encodeURIComponent(data[key][v])}`;
+                            break;
 
-                    case 'InstagramLocationId':
-                        value = `https://www.instagram.com/explore/locations/${encodeURIComponent(data[key][v])}/`;
-                        break;
+                        case 'InstagramLocationId':
+                            value = `https://www.instagram.com/explore/locations/${encodeURIComponent(data[key][v])}/`;
+                            break;
 
-                    case 'InstagramUsername':
-                        value = `https://www.instagram.com/${encodeURIComponent(data[key][v])}/`;
-                        break;
+                        case 'InstagramUsername':
+                            value = `https://www.instagram.com/${encodeURIComponent(data[key][v])}/`;
+                            break;
 
-                    case 'ImdbId':
-                        value = `https://wikidata-externalid-url.toolforge.org/?p=345&url_prefix=https://www.imdb.com/&id=${encodeURIComponent(data[key][v])}`;
-                        break;
+                        case 'ImdbId':
+                            value = `https://wikidata-externalid-url.toolforge.org/?p=345&url_prefix=https://www.imdb.com/&id=${encodeURIComponent(data[key][v])}`;
+                            break;
 
-                    case 'LinkedInCompanyId':
-                        value = `https://www.linkedin.com/company/${encodeURIComponent(data[key][v])}`;
-                        break;
+                        case 'LinkedInCompanyId':
+                            value = `https://www.linkedin.com/company/${encodeURIComponent(data[key][v])}`;
+                            break;
 
-                    case 'MapillaryId':
-                        value = `https://www.mapillary.com/map/im/${encodeURIComponent(data[key][v])}`;
-                        break;
+                        case 'MapillaryId':
+                            value = `https://www.mapillary.com/map/im/${encodeURIComponent(data[key][v])}`;
+                            break;
 
-                    case 'TripAdvisorId':
-                        value = `https://www.tripadvisor.com/${encodeURIComponent(data[key][v])}`;
-                        break;
+                        case 'TripAdvisorId':
+                            value = `https://www.tripadvisor.com/${encodeURIComponent(data[key][v])}`;
+                            break;
 
-                    case 'YelpId':
-                        // value = "https://www.yelp.com/biz/" + encodeURIComponent(data[key][v]);
-                        value = `https://www.yelp.com/biz/${data[key][v]}`;
-                        break;
+                        case 'YelpId':
+                            // value = "https://www.yelp.com/biz/" + encodeURIComponent(data[key][v]);
+                            value = `https://www.yelp.com/biz/${data[key][v]}`;
+                            break;
 
-                    case 'YouTubeChannelId':
-                        value = `https://www.youtube.com/channel/${encodeURIComponent(data[key][v])}`;
-                        break;
+                        case 'YouTubeChannelId':
+                            value = `https://www.youtube.com/channel/${encodeURIComponent(data[key][v])}`;
+                            break;
 
-                    case 'visitorsPerYear':
-                        value = `${bigNumberFormatter(data[key][v])} visitors per year`;
-                        break;
+                        case 'visitorsPerYear':
+                            value = `${bigNumberFormatter(data[key][v])} visitors per year`;
+                            break;
 
-                    default:
-                        value = data[key][v];
-                        break;
+                        default:
+                            value = data[key][v];
+                            break;
                     }
 
                     // save enriched value to final object used to display results to UI
