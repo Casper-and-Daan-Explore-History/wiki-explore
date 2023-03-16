@@ -248,7 +248,7 @@ function popupOpen(e) {
         //zoom
 
         map.flyTo({
-            zoom: map.getZoom() + 1,
+            zoom: map.getZoom() + 2,
             center: e.features[0].geometry.coordinates.slice(),
             speed: 0.85,
             // this animation is considered essential with respect to prefers-reduced-motion
