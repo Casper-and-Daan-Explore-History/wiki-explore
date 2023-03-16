@@ -208,12 +208,12 @@ function hoverPopupOn(e) {
     if (e.features.length == 1) { // one article
         if (e.features[0].properties.title != undefined) {
             let articleTitle = e.features[0].properties.title; // getting article title
-            html = '<ul class="articleDropdown"><li id="">' + articleTitle + '</li></ul>'; // generate html for one article using artile title
+            html = `<ul class="articleDropdown"><li id="">${articleTitle}</li></ul>`;
         } else {
             html = '<ul class="articleDropdown"><li id="">Click to zoom</li></ul>'; // generate html for one article using artile title
         }
     } else if (e.features.length > 1) { // mor than one article
-        html = '<ul class="articleDropdown"><li id="">' + e.features.length + ' articles.' + '</li></ul>'; // generating html for  more than one article uusing the number of articles as a title.
+        html = `<ul class="articleDropdown"><li id="">${e.features.length} articles.</li></ul>`;
     }
 
     let coordinates = e.features[0].geometry.coordinates.slice(); // latLng to place popup
@@ -313,7 +313,7 @@ function wikipediaApiGeoRequest() {
 }
 
 function parseJSONResponse(jsonData) {
-    console.log('Found ' + jsonData.query.geosearch.length + ' articles');
+    console.log(`Found ${jsonData.query.geosearch.length} articles`);
     $.each(jsonData.query.geosearch, function (index, value) {
         let article = {
             'pageId': value.pageid,
@@ -322,9 +322,9 @@ function parseJSONResponse(jsonData) {
         };
 
         if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
-            article.url = 'https://en.m.wikipedia.org/?curid=' + value.pageid;
+            article.url = `https://en.m.wikipedia.org/?curid=${value.pageid}`;
         } else {
-            article.url = 'https://en.wikipedia.org/?curid=' + value.pageid;
+            article.url = `https://en.wikipedia.org/?curid=${value.pageid}`;
         }
 
         addWikipediaPageToGeojson(article);
@@ -592,7 +592,6 @@ function WikidataApiRequestDetails() {
                             break;
 
                         case 'YelpId':
-                            // value = "https://www.yelp.com/biz/" + encodeURIComponent(data[key][v]);
                             value = `https://www.yelp.com/biz/${data[key][v]}`;
                             break;
 
@@ -726,7 +725,7 @@ function updateDetailsPannel(data) {
     showInfopanel();
 }
 
-function bigNumberFormatter(num) { return num >= 1000000 ? (num / 1000000).toFixed(0) + ' M' : num >= 1000 ? (num / 1000).toFixed(0) + ' k' : num; }
+function bigNumberFormatter(num) { return num >= 1000000 ? `${(num / 1000000).toFixed(0)} M` : num >= 1000 ? `${(num / 1000).toFixed(0)} k` : num; }
 
 // Ideas for future:
 // - on map movement queries: wikipedia API, Wikidata query, Wiki commons API (toggle for all 3)
