@@ -432,77 +432,71 @@ function WikidataApiRequestDetails() {
     }
 
     //https://query.wikidata.org/#SELECT%20%3Fitem%20%3FitemLabel%20%3FitemDescription%20%3Fimg%20%3Fcommons%20%3FWikipediaLink%20%3Felevation%20%3Farea%20%3FofficialWebsite%20%3FflagImage%20%3FLonLat%20%3FcoatOfArmsImage%20%3FCommonsCategory%20%3FFreebaseIdGoogleSearch%20%3FGoogleKnowledgeGraphId%20%3FstartTime%20%3FendTime%20%3Finception%20%3Freligion%20%3FsignificantEvent%20%3Faudio%20%3FmaximumCapacity%20%3FvisitorsPerYear%20%3FheritageDesignationLabel%20%3Flength%20%3Fwidth%20%3Fheight%20%3FplanViewImage%20%3FFacebookId%20%3FGoogleMapsCustomerId%20%3FInstagramUsername%20%3FMapillaryId%20%3FTwitterUsername%20%3FOpenStreetMapRelationId%20%3FInstagramLocationId%20%3FFoursquareVenueId%20%3FImdbId%20%3FLinkedInCompanyId%20%3FTripAdvisorId%20%3FYelpId%20%3FYouTubeChannelId%20%3FphoneNumber%20%3FemailAddress%20%3Fsubreddit%20%3FGoogleArtsCulturePartnerId%20%3Fpopulation%20%3FcommonsLink%20%3FinstanceOfLabel%20WHERE%20%7B%0A%0A%20%20%23%20https%3A%2F%2Fwww.wikidata.org%2Fwiki%2FQ2981%20Notre%20Dam%20of%20Paris%0A%20%20%23%20https%3A%2F%2Fwww.wikidata.org%2Fwiki%2FQ243%20Toure%20Eiffel%0A%20%20%20%20%0A%20%20VALUES%20%3Fitem%20%7B%20%23%3Fitem%20variable%20is%20set%20to%20Qnumber%0A%20%20%20%20wd%3AQ243%0A%20%20%7D%0A%20%20%0A%20%20OPTIONAL%20%7B%20%3Fitem%20%20wdt%3AP18%20%20%20%3Fimg.%20%7D%0A%20%20OPTIONAL%20%7B%20%3Fitem%20%20wdt%3AP373%20%20%3FcommonsLink.%20%7D%0A%20%20OPTIONAL%20%7B%20%3Fitem%20%20wdt%3AP31%20%20%20%3FinstanceOf.%20%7D%0A%20%20OPTIONAL%20%7B%20%3Fitem%20%20wdt%3AP625%20%20%3FLonLat.%20%7D%0A%20%20OPTIONAL%20%7B%20%3Fitem%20%20wdt%3AP1082%20%3Fpopulation.%20%7D%0A%20%20OPTIONAL%20%7B%20%3Fitem%20%20wdt%3AP2044%20%3Felevation.%20%7D%0A%20%20OPTIONAL%20%7B%20%3Fitem%20%20wdt%3AP2046%20%3Farea.%20%7D%0A%20%20OPTIONAL%20%7B%20%3Fitem%20%20wdt%3AP856%20%20%3FofficialWebsite.%20%7D%0A%20%20OPTIONAL%20%7B%20%3Fitem%20%20wdt%3AP41%20%20%20%3FflagImage.%20%7D%0A%20%20OPTIONAL%20%7B%20%3Fitem%20%20wdt%3AP94%20%20%20%3FcoatOfArmsImage.%20%7D%0A%20%20OPTIONAL%20%7B%20%3Fitem%20%20wdt%3AP373%20%20%3FCommonsCategory.%20%7D%0A%20%20OPTIONAL%20%7B%20%3Fitem%20%20wdt%3AP646%20%20%3FFreebaseIdGoogleSearch.%20%7D%0A%20%20OPTIONAL%20%7B%20%3Fitem%20%20wdt%3AP2671%20%3FGoogleKnowledgeGraphId.%20%7D%0A%20%20OPTIONAL%20%7B%20%3Fitem%20%20wdt%3AP580%20%20%3FstartTime.%20%7D%0A%20%20OPTIONAL%20%7B%20%3Fitem%20%20wdt%3AP582%20%20%3FendTime.%20%7D%0A%20%20OPTIONAL%20%7B%20%3Fitem%20%20wdt%3AP571%20%20%3Finception.%20%7D%0A%20%20OPTIONAL%20%7B%20%3Fitem%20%20wdt%3AP140%20%20%3Freligion.%20%7D%0A%20%20OPTIONAL%20%7B%20%3Fitem%20%20wdt%3AP793%20%20%3FsignificantEvent.%20%7D%0A%20%20OPTIONAL%20%7B%20%3Fitem%20%20wdt%3AP51%20%20%20%3Faudio.%20%7D%0A%20%20OPTIONAL%20%7B%20%3Fitem%20%20wdt%3AP1083%20%3FmaximumCapacity.%20%7D%0A%20%20OPTIONAL%20%7B%20%3Fitem%20%20wdt%3AP1174%20%3FvisitorsPerYear.%20%7D%0A%20%20OPTIONAL%20%7B%20%3Fitem%20%20wdt%3AP1435%20%3FheritageDesignation.%20%7D%0A%20%20OPTIONAL%20%7B%20%3Fitem%20%20wdt%3AP2043%20%3Flength.%20%7D%0A%20%20OPTIONAL%20%7B%20%3Fitem%20%20wdt%3AP2049%20%3Fwidth.%20%7D%0A%20%20OPTIONAL%20%7B%20%3Fitem%20%20wdt%3AP2048%20%3Fheight.%20%7D%0A%20%20OPTIONAL%20%7B%20%3Fitem%20%20wdt%3AP3311%20%3FplanViewImage.%20%7D%0A%20%20OPTIONAL%20%7B%20%3Fitem%20%20wdt%3AP2013%20%3FFacebookId.%20%7D%0A%20%20OPTIONAL%20%7B%20%3Fitem%20%20wdt%3AP3749%20%3FGoogleMapsCustomerId.%20%7D%0A%20%20OPTIONAL%20%7B%20%3Fitem%20%20wdt%3AP2003%20%3FInstagramUsername.%20%7D%0A%20%20OPTIONAL%20%7B%20%3Fitem%20%20wdt%3AP1947%20%3FMapillaryId.%20%7D%0A%20%20OPTIONAL%20%7B%20%3Fitem%20%20wdt%3AP2002%20%3FTwitterUsername.%20%7D%0A%20%20OPTIONAL%20%7B%20%3Fitem%20%20wdt%3AP402%20%20%3FOpenStreetMapRelationId.%20%7D%0A%20%20OPTIONAL%20%7B%20%3Fitem%20%20wdt%3AP4173%20%3FInstagramLocationId.%20%7D%0A%20%20OPTIONAL%20%7B%20%3Fitem%20%20wdt%3AP1968%20%3FFoursquareVenueId.%20%7D%0A%20%20OPTIONAL%20%7B%20%3Fitem%20%20wdt%3AP345%20%20%3FImdbId.%20%7D%0A%20%20OPTIONAL%20%7B%20%3Fitem%20%20wdt%3AP4264%20%3FLinkedInCompanyId.%20%7D%0A%20%20OPTIONAL%20%7B%20%3Fitem%20%20wdt%3AP3134%20%3FTripAdvisorId.%20%7D%0A%20%20OPTIONAL%20%7B%20%3Fitem%20
-    var endpointUrl = 'https://query.wikidata.org/sparql',
-        sparqlQuery = 'SELECT ?item ?itemLabel ?itemDescription ?img ?commons ?WikipediaLink ?elevation ?area ?officialWebsite ?flagImage ?LonLat ?coatOfArmsImage ?CommonsCategory ?FreebaseIdGoogleSearch ?GoogleKnowledgeGraphId ?startTime ?endTime ?inception ?religion ?significantEvent ?audio ?maximumCapacity ?visitorsPerYear ?heritageDesignationLabel ?length ?width ?height ?planViewImage ?FacebookId ?GoogleMapsCustomerId ?InstagramUsername ?MapillaryId ?TwitterUsername ?OpenStreetMapRelationId ?InstagramLocationId ?FoursquareVenueId ?ImdbId ?LinkedInCompanyId ?TripAdvisorId ?YelpId ?YouTubeChannelId ?phoneNumber ?emailAddress ?subreddit ?GoogleArtsCulturePartnerId ?population ?commonsLink ?instanceOfLabel WHERE {\n' +
-            '\n' +
-            '  # https://www.wikidata.org/wiki/Q2981 Notre Dam of Paris\n' +
-            '  # https://www.wikidata.org/wiki/Q243 Toure Eiffel\n' +
-            '    \n' +
-            '  VALUES ?item { #?item variable is set to Qnumber\n' +
-            '    wd:' + detailsPannelData.Qnumber + '\n' +
-            '  }\n' +
-            '  \n' +
-            '  OPTIONAL { ?item  wdt:P18   ?img. }\n' +
-            '  OPTIONAL { ?item  wdt:P373  ?commonsLink. }\n' +
-            '  OPTIONAL { ?item  wdt:P31   ?instanceOf. }\n' +
-            '  OPTIONAL { ?item  wdt:P625  ?LonLat. }\n' +
-            '  OPTIONAL { ?item  wdt:P1082 ?population. }\n' +
-            '  OPTIONAL { ?item  wdt:P2044 ?elevation. }\n' +
-            '  OPTIONAL { ?item  wdt:P2046 ?area. }\n' +
-            '  OPTIONAL { ?item  wdt:P856  ?officialWebsite. }\n' +
-            '  OPTIONAL { ?item  wdt:P41   ?flagImage. }\n' +
-            '  OPTIONAL { ?item  wdt:P94   ?coatOfArmsImage. }\n' +
-            '  OPTIONAL { ?item  wdt:P373  ?CommonsCategory. }\n' +
-            '  OPTIONAL { ?item  wdt:P646  ?FreebaseIdGoogleSearch. }\n' +
-            '  OPTIONAL { ?item  wdt:P2671 ?GoogleKnowledgeGraphId. }\n' +
-            '  OPTIONAL { ?item  wdt:P580  ?startTime. }\n' +
-            '  OPTIONAL { ?item  wdt:P582  ?endTime. }\n' +
-            '  OPTIONAL { ?item  wdt:P571  ?inception. }\n' +
-            '  OPTIONAL { ?item  wdt:P140  ?religion. }\n' +
-            '  OPTIONAL { ?item  wdt:P793  ?significantEvent. }\n' +
-            '  OPTIONAL { ?item  wdt:P51   ?audio. }\n' +
-            '  OPTIONAL { ?item  wdt:P1083 ?maximumCapacity. }\n' +
-            '  OPTIONAL { ?item  wdt:P1174 ?visitorsPerYear. }\n' +
-            '  OPTIONAL { ?item  wdt:P1435 ?heritageDesignation. }\n' +
-            '  OPTIONAL { ?item  wdt:P2043 ?length. }\n' +
-            '  OPTIONAL { ?item  wdt:P2049 ?width. }\n' +
-            '  OPTIONAL { ?item  wdt:P2048 ?height. }\n' +
-            '  OPTIONAL { ?item  wdt:P3311 ?planViewImage. }\n' +
-            '  OPTIONAL { ?item  wdt:P2013 ?FacebookId. }\n' +
-            '  OPTIONAL { ?item  wdt:P3749 ?GoogleMapsCustomerId. }\n' +
-            '  OPTIONAL { ?item  wdt:P2003 ?InstagramUsername. }\n' + // to be added as a button
-            '  OPTIONAL { ?item  wdt:P1947 ?MapillaryId. }\n' +
-            '  OPTIONAL { ?item  wdt:P2002 ?TwitterUsername. }\n' + // to be added as a button
-            '  OPTIONAL { ?item  wdt:P402  ?OpenStreetMapRelationId. }\n' +
-            '  OPTIONAL { ?item  wdt:P4173 ?InstagramLocationId. }\n' + // to be added as a button
-            '  OPTIONAL { ?item  wdt:P1968 ?FoursquareVenueId. }\n' +
-            '  OPTIONAL { ?item  wdt:P345  ?ImdbId. }\n' +
-            '  OPTIONAL { ?item  wdt:P4264 ?LinkedInCompanyId. }\n' + // to be added as a button
-            '  OPTIONAL { ?item  wdt:P3134 ?TripAdvisorId. }\n' + // to be added as a button
-            '  OPTIONAL { ?item  wdt:P3108 ?YelpId. }\n' + // to be added as a button
-            '  OPTIONAL { ?item  wdt:P2397 ?YouTubeChannelId. }\n' + // to be added as a button
-            '  OPTIONAL { ?item  wdt:P1329 ?phoneNumber. }\n' + // to be added as a button
-            '  OPTIONAL { ?item  wdt:P968  ?emailAddress. }\n' + // to be added as a button
-            '  OPTIONAL { ?item  wdt:P3984 ?subreddit. }\n' + // to be added as a button
-            '  OPTIONAL { ?item  wdt:P4702 ?GoogleArtsCulturePartnerId. }\n' +
-            '  \n' +
-            '  OPTIONAL {\n' +
-            '    ?WikipediaLink schema:about ?item;\n' +
-            '      schema:isPartOf <https://en.wikipedia.org/>.\n' +
-            '  }\n' +
-            '  OPTIONAL { SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". } }\n' +
-            '  OPTIONAL {\n' +
-            '    SERVICE wikibase:label {\n' +
-            '      bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en".\n' +
-            '      ?item rdfs:label ?itemLabel;\n' +
-            '        schema:description ?itemDescription.\n' +
-            '    }\n' +
-            '  }\n' +
-            '}';
+    let endpointUrl = 'https://query.wikidata.org/sparql';
+    let sparqlQuery = `
+        SELECT ?item ?itemLabel ?itemDescription ?img ?commons ?WikipediaLink ?elevation ?area ?officialWebsite ?flagImage ?LonLat ?coatOfArmsImage ?CommonsCategory ?FreebaseIdGoogleSearch ?GoogleKnowledgeGraphId ?startTime ?endTime ?inception ?religion ?significantEvent ?audio ?maximumCapacity ?visitorsPerYear ?heritageDesignationLabel ?length ?width ?height ?planViewImage ?FacebookId ?GoogleMapsCustomerId ?InstagramUsername ?MapillaryId ?TwitterUsername ?OpenStreetMapRelationId ?InstagramLocationId ?FoursquareVenueId ?ImdbId ?LinkedInCompanyId ?TripAdvisorId ?YelpId ?YouTubeChannelId ?phoneNumber ?emailAddress ?subreddit ?GoogleArtsCulturePartnerId ?population ?commonsLink ?instanceOfLabel WHERE {
+          VALUES ?item { wd:${detailsPannelData.Qnumber} }
+          OPTIONAL { ?item  wdt:P18   ?img. }
+          OPTIONAL { ?item  wdt:P373  ?commonsLink. }
+          OPTIONAL { ?item  wdt:P31   ?instanceOf. }
+          OPTIONAL { ?item  wdt:P625  ?LonLat. }
+          OPTIONAL { ?item  wdt:P1082 ?population. }
+          OPTIONAL { ?item  wdt:P2044 ?elevation. }
+          OPTIONAL { ?item  wdt:P2046 ?area. }
+          OPTIONAL { ?item  wdt:P856  ?officialWebsite. }
+          OPTIONAL { ?item  wdt:P41   ?flagImage. }
+          OPTIONAL { ?item  wdt:P94   ?coatOfArmsImage. }
+          OPTIONAL { ?item  wdt:P373  ?CommonsCategory. }
+          OPTIONAL { ?item  wdt:P646  ?FreebaseIdGoogleSearch. }
+          OPTIONAL { ?item  wdt:P2671 ?GoogleKnowledgeGraphId. }
+          OPTIONAL { ?item  wdt:P580  ?startTime. }
+          OPTIONAL { ?item  wdt:P582  ?endTime. }
+          OPTIONAL { ?item  wdt:P571  ?inception. }
+          OPTIONAL { ?item  wdt:P140  ?religion. }
+          OPTIONAL { ?item  wdt:P793  ?significantEvent. }
+          OPTIONAL { ?item  wdt:P51   ?audio. }
+          OPTIONAL { ?item  wdt:P1083 ?maximumCapacity. }
+          OPTIONAL { ?item  wdt:P1174 ?visitorsPerYear. }
+          OPTIONAL { ?item  wdt:P1435 ?heritageDesignation. }
+          OPTIONAL { ?item  wdt:P2043 ?length. }
+          OPTIONAL { ?item  wdt:P2049 ?width. }
+          OPTIONAL { ?item  wdt:P2048 ?height. }
+          OPTIONAL { ?item  wdt:P3311 ?planViewImage. }
+          OPTIONAL { ?item  wdt:P2013 ?FacebookId. }
+          OPTIONAL { ?item  wdt:P3749 ?GoogleMapsCustomerId. }
+          OPTIONAL { ?item  wdt:P2003 ?InstagramUsername. } 
+          OPTIONAL { ?item  wdt:P1947 ?MapillaryId. }
+          OPTIONAL { ?item  wdt:P2002 ?TwitterUsername. } 
+          OPTIONAL { ?item  wdt:P402  ?OpenStreetMapRelationId. }
+          OPTIONAL { ?item  wdt:P4173 ?InstagramLocationId. } 
+          OPTIONAL { ?item  wdt:P1968 ?FoursquareVenueId. }
+          OPTIONAL { ?item  wdt:P345  ?ImdbId. }
+          OPTIONAL { ?item  wdt:P4264 ?LinkedInCompanyId. } 
+          OPTIONAL { ?item  wdt:P3134 ?TripAdvisorId. } 
+          OPTIONAL { ?item  wdt:P3108 ?YelpId. } 
+          OPTIONAL { ?item  wdt:P2397 ?YouTubeChannelId. } 
+          OPTIONAL { ?item  wdt:P1329 ?phoneNumber. } 
+          OPTIONAL { ?item  wdt:P968  ?emailAddress. } 
+          OPTIONAL { ?item  wdt:P3984 ?subreddit. } 
+          OPTIONAL { ?item  wdt:P4702 ?GoogleArtsCulturePartnerId. }
+          OPTIONAL {
+            ?WikipediaLink schema:about ?item;
+              schema:isPartOf <https://en.wikipedia.org/>.
+          }
+          OPTIONAL { SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". } }
+          OPTIONAL {
+            SERVICE wikibase:label {
+              bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en".
+              ?item rdfs:label ?itemLabel;
+                schema:description ?itemDescription.
+            }
+          }
+        }`;
 
     makeSPARQLQuery(endpointUrl, sparqlQuery, function (data) {
-        $('body').append($('<pre>').text(JSON.stringify(data)));
-        //console.log(data.results.bindings);
+        // $('body').append($('<pre>').text(JSON.stringify(data)));
+        console.log(data);
+        // console.log(data.results.bindings);
         WikidataApiResultsProcessingDetails(data.results.bindings);
     });
 
@@ -541,18 +535,18 @@ function WikidataApiRequestDetails() {
                     var value = '';
 
                     switch (keys[k]) { // for every variable there is an other method of enriching.
-                    case 'CommonsCategory':
-                        value = 'https://commons.wikimedia.org/wiki/Category:' + encodeURIComponent(data[keys[k]][v]);
-                        break;
+                        case 'CommonsCategory':
+                            value = 'https://commons.wikimedia.org/wiki/Category:' + encodeURIComponent(data[keys[k]][v]);
+                            break;
 
-                    case 'LonLat':
-                        value = data[keys[k]][v];
-                        value = value.replace('Point(', '');
-                        value = value.replace(')', '');
-                        value = value.split(' ');
-                        value = [Number(value[0]), Number(value[1])];
-                        // if (value.length == 1) value = value[0];
-                        break;
+                        case 'LonLat':
+                            value = data[keys[k]][v];
+                            value = value.replace('Point(', '');
+                            value = value.replace(')', '');
+                            value = value.split(' ');
+                            value = [Number(value[0]), Number(value[1])];
+                            // if (value.length == 1) value = value[0];
+                            break;
 
                         // this changes the img url  to the img page
                         // case "img":
@@ -563,79 +557,79 @@ function WikidataApiRequestDetails() {
                         //     )
                         //     break;
 
-                    case 'TwitterUsername':
-                        value = 'https://twitter.com/' + data[keys[k]][v];
-                        break;
+                        case 'TwitterUsername':
+                            value = 'https://twitter.com/' + data[keys[k]][v];
+                            break;
 
-                    case 'height':
-                        value = data[keys[k]][v] + ' meters';
-                        break;
+                        case 'height':
+                            value = data[keys[k]][v] + ' meters';
+                            break;
 
-                    case 'FreebaseIdGoogleSearch':
-                        value = 'https://www.google.com/search?kgmid=' + encodeURIComponent(data[keys[k]][v]);
-                        break;
+                        case 'FreebaseIdGoogleSearch':
+                            value = 'https://www.google.com/search?kgmid=' + encodeURIComponent(data[keys[k]][v]);
+                            break;
 
-                    case 'commonsLink':
-                        value = 'https://commons.wikimedia.org/wiki/Category:' + encodeURIComponent(data[keys[k]][v]);
-                        break;
+                        case 'commonsLink':
+                            value = 'https://commons.wikimedia.org/wiki/Category:' + encodeURIComponent(data[keys[k]][v]);
+                            break;
 
-                    case 'inception':
-                        value = data[keys[k]][v].split('-');
-                        value = value[0];
-                        break;
+                        case 'inception':
+                            value = data[keys[k]][v].split('-');
+                            value = value[0];
+                            break;
 
-                    case 'length':
-                        value = data[keys[k]][v] + ' meters';
-                        break;
+                        case 'length':
+                            value = data[keys[k]][v] + ' meters';
+                            break;
 
-                    case 'FacebookId':
-                        value = 'https://www.facebook.com/' + encodeURIComponent(data[keys[k]][v]);
-                        break;
+                        case 'FacebookId':
+                            value = 'https://www.facebook.com/' + encodeURIComponent(data[keys[k]][v]);
+                            break;
 
-                    case 'FoursquareVenueId':
-                        value = 'https://foursquare.com/v/' + encodeURIComponent(data[keys[k]][v]);
-                        break;
+                        case 'FoursquareVenueId':
+                            value = 'https://foursquare.com/v/' + encodeURIComponent(data[keys[k]][v]);
+                            break;
 
-                    case 'GoogleMapsCustomerId':
-                        value = 'https://maps.google.com/?cid=' + encodeURIComponent(data[keys[k]][v]);
-                        break;
+                        case 'GoogleMapsCustomerId':
+                            value = 'https://maps.google.com/?cid=' + encodeURIComponent(data[keys[k]][v]);
+                            break;
 
-                    case 'InstagramLocationId':
-                        value = 'https://www.instagram.com/explore/locations/' + encodeURIComponent(data[keys[k]][v]) + '/';
-                        break;
+                        case 'InstagramLocationId':
+                            value = 'https://www.instagram.com/explore/locations/' + encodeURIComponent(data[keys[k]][v]) + '/';
+                            break;
 
-                    case 'InstagramUsername':
-                        value = 'https://www.instagram.com/' + encodeURIComponent(data[keys[k]][v]) + '/';
-                        break;
+                        case 'InstagramUsername':
+                            value = 'https://www.instagram.com/' + encodeURIComponent(data[keys[k]][v]) + '/';
+                            break;
 
-                    case 'ImdbId':
-                        value = 'https://wikidata-externalid-url.toolforge.org/?p=345&url_prefix=https://www.imdb.com/&id=' + encodeURIComponent(data[keys[k]][v]);
-                        break;
+                        case 'ImdbId':
+                            value = 'https://wikidata-externalid-url.toolforge.org/?p=345&url_prefix=https://www.imdb.com/&id=' + encodeURIComponent(data[keys[k]][v]);
+                            break;
 
-                    case 'LinkedInCompanyId':
-                        value = 'https://www.linkedin.com/company/' + encodeURIComponent(data[keys[k]][v]);
-                        break;
+                        case 'LinkedInCompanyId':
+                            value = 'https://www.linkedin.com/company/' + encodeURIComponent(data[keys[k]][v]);
+                            break;
 
-                    case 'MapillaryId':
-                        value = 'https://www.mapillary.com/map/im/' + encodeURIComponent(data[keys[k]][v]);
-                        break;
+                        case 'MapillaryId':
+                            value = 'https://www.mapillary.com/map/im/' + encodeURIComponent(data[keys[k]][v]);
+                            break;
 
-                    case 'TripAdvisorId':
-                        value = 'https://www.tripadvisor.com/' + encodeURIComponent(data[keys[k]][v]);
-                        break;
+                        case 'TripAdvisorId':
+                            value = 'https://www.tripadvisor.com/' + encodeURIComponent(data[keys[k]][v]);
+                            break;
 
-                    case 'YelpId':
-                        // value = "https://www.yelp.com/biz/" + encodeURIComponent(data[keys[k]][v]);
-                        value = 'https://www.yelp.com/biz/' + data[keys[k]][v];
-                        break;
+                        case 'YelpId':
+                            // value = "https://www.yelp.com/biz/" + encodeURIComponent(data[keys[k]][v]);
+                            value = 'https://www.yelp.com/biz/' + data[keys[k]][v];
+                            break;
 
-                    case 'YouTubeChannelId':
-                        value = 'https://www.youtube.com/channel/' + encodeURIComponent(data[keys[k]][v]);
-                        break;
+                        case 'YouTubeChannelId':
+                            value = 'https://www.youtube.com/channel/' + encodeURIComponent(data[keys[k]][v]);
+                            break;
 
-                    case 'visitorsPerYear':
-                        value = bigNumberFormatter(data[keys[k]][v]) + ' visitors per year';
-                        break;
+                        case 'visitorsPerYear':
+                            value = bigNumberFormatter(data[keys[k]][v]) + ' visitors per year';
+                            break;
 
                         // case "":
                         //     break;
@@ -651,9 +645,9 @@ function WikidataApiRequestDetails() {
                         // value = value.replace(")", "");
                         // value = value.split(" ");
 
-                    default:
-                        value = data[keys[k]][v];
-                        break;
+                        default:
+                            value = data[keys[k]][v];
+                            break;
                     }
 
                     // save enriched value to final object used to display results to UI
