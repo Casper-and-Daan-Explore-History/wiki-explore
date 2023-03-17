@@ -1,3 +1,4 @@
+/* eslint-disable indent */
 /* eslint-disable no-undef */
 
 let wikipediaGeojson = {
@@ -27,18 +28,17 @@ let detailsPannelData = {
     'wikidata_QueryDone': false // Data collection status
 };
 
-// get a random city from the cities array
-let randCityNumber = Math.floor(Math.random() * cities.length); // cities letiable is comming from a different js file.
-const startingLocation = cities[randCityNumber]; // cities letiable is comming from a different js file.
+const randCity = cities[Math.floor(Math.random() * cities.length)]; // cities is an array from the data.js file. It consists of objects with the keys: "n" for name, "c" for coordinates and q for the Q number.
 
 mapboxgl.accessToken = 'pk.eyJ1IjoiY2Fza2VzIiwiYSI6ImNsZGtwdGRrdzA4dWMzb3BoMWdxM3Zib2UifQ.2q2xfShG5nmDHTxg7n_ZhQ';
-let map = new mapboxgl.Map({
-    container: 'map', // container id
+const mapConfig = {
+    container: 'map', // container element id
     style: 'mapbox://styles/caskes/cldkq0ha9000r01n3hjgwtkrn', // stylesheet location
-    center: startingLocation.cord, // starting position [lng, lat]
+    center: randCity.c, // "c" stands for coordinates. Random city of more than 100k people.
     zoom: 15,
-    hash: true
-});
+    hash: true // hash location in url
+};
+const map = new mapboxgl.Map(mapConfig);
 
 // document.getElementById('geocoder').appendChild(geocoder.onAdd(map));
 
@@ -49,9 +49,7 @@ map.addControl(new mapboxgl.NavigationControl(), 'bottom-right');
 map.addControl(new mapboxgl.FullscreenControl(), 'bottom-right');
 
 // eslint-disable-next-line no-unused-vars
-function newRandomLocation() {
-    map.flyTo({ center: startingLocation });
-}
+const newRandomLocation = () => map.flyTo({ center: startingLocation });
 
 $('.startButton').click(
     hideWelcomCoverPage()
@@ -493,9 +491,9 @@ function WikidataApiRequestDetails() {
             for (let row of rawResponsData) { // loop throug resonds sets
                 let keys = Object.keys(row); //get all the object's keys
                 for (let key of keys) {
-                    let value = row[key].value
-                    if (!data[key]) data[key] = [value]
-                    else if (!data[key].includes(value)) data[key].push(value)
+                    let value = row[key].value;
+                    if (!data[key]) data[key] = [value];
+                    else if (!data[key].includes(value)) data[key].push(value);
                 }
             }
         }
