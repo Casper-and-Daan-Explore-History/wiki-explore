@@ -290,7 +290,7 @@ function openPopupListBelowClick(e) {
 
 function wikipediaApiGeoRequest() {
     const bounds = map.getBounds();
-    const boundsArray = [
+    const boundsArray = [ // bounding box
         bounds['_ne'].lat,
         bounds['_sw'].lng,
         bounds['_sw'].lat,
@@ -298,7 +298,7 @@ function wikipediaApiGeoRequest() {
     ];
 
     const requestURL = `https://en.wikipedia.org/w/api.php?action=query&format=json&list=geosearch&origin=*&utf8=1&gsbbox=${boundsArray.join('|')}&gslimit=500&gsprimary=all`;
-    console.log('Searching articles');
+    console.log('Searching articles in new mpa locations');
     fetch(requestURL)
         .then(response => response.json())
         .then(data => parseJSONResponse(data));
