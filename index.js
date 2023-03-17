@@ -15,14 +15,7 @@ let wikipediaGeojson = {
     ]
 };
 
-let infoPanel = {
-    'wikipedia_ApiOngoing': false, // current status of API resquest
-    'wikimedia_ApiOngoing': false, // current status of API resquest
-    'wikidata_ApiOngoing': false, // current status of API resquest
-    'wikipedia_QueryDone': false, // Data collection status
-    'wikimedia_QueryDone': false, // Data collection status
-    'wikidata_QueryDone': false // Data collection status
-};
+let infoPanel = {};
 
 const randCity = cities[Math.floor(Math.random() * cities.length)]; // cities is an array from the data.js file. It consists of objects with the keys: "n" for name, "c" for coordinates and q for the Q number.
 
