@@ -149,10 +149,10 @@ function hoverPopupOn(e) {
             let articleTitle = e.features[0].properties.title; // getting article title
             html = `<ul class="articleDropdown"><li id="">${articleTitle}</li></ul>`;
         } else {
-            html = '<ul class="articleDropdown"><li id="">Click to zoom</li></ul>'; // generate html for one article using artile title
+            html = '<ul class="articleDropdown"><li id="">Multiple articles</li></ul>'; // generate html for one article using artile title
         }
     } else if (e.features.length > 1) { // mor than one article
-        html = `<ul class="articleDropdown"><li id="">${e.features.length} articles.</li></ul>`;
+        html = `<ul class="articleDropdown"><li id="">${e.features.length} articles</li></ul>`;
     }
 
     let coordinates = e.features[0].geometry.coordinates.slice(); // latLng to place popup
