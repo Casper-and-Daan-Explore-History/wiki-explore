@@ -298,7 +298,7 @@ function wikipediaApiGeoRequest() {
     ];
 
     const requestURL = `https://en.wikipedia.org/w/api.php?action=query&format=json&list=geosearch&origin=*&utf8=1&gsbbox=${boundsArray.join('|')}&gslimit=500&gsprimary=all`;
-    console.log('Searching articles in new mpa locations');
+    console.log('Searching articles in new map locations');
     fetch(requestURL)
         .then(response => response.json())
         .then(data => parseJSONResponse(data));
@@ -478,9 +478,7 @@ function WikidataApiRequestDetails() {
         }
 
         {
-            console.log(data);
             let keys = Object.keys(data);
-            console.log(keys);
             for (let key of keys) { // value categories
                 for (v in data[key]) { // array of values
                     let value = '';
@@ -592,7 +590,7 @@ function WikidataApiRequestDetails() {
             }
             updateDetailsPannel(detailsPannelData);
             if (detailsPannelData.Wikidata_CommonsCategory != undefined || detailsPannelData.Wikidata_commonsLink != undefined) {
-                console.log('could call Commons API');
+                // could call Commons API here
             }
         }
 
@@ -602,8 +600,6 @@ function WikidataApiRequestDetails() {
 }
 
 function updateDetailsPannel(data) {
-    console.log(data);
-
     { // reset all fields
         $('#article-title').text('no title');
         $('#article-intro').html('');
