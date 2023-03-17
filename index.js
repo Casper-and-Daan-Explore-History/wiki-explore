@@ -1,5 +1,5 @@
-/* eslint-disable indent */
 /* eslint-disable no-undef */
+/* eslint-disable indent */
 
 let articlesGeojson = {
     'type': 'FeatureCollection',
@@ -366,7 +366,7 @@ function parseWikipediaApiResponseDetails(jsonData) {
     }
     infoPanel.wikipedia_Categories = [];
 
-    for (i in wikipediaApiRespons.categories) {
+    for (const i in wikipediaApiRespons.categories) {
         infoPanel.wikipedia_Categories.push(wikipediaApiRespons.categories[i].title); // adding all wikipediaApiRespons cathegories.
     }
 
@@ -473,7 +473,7 @@ function WikidataApiRequestDetails() {
         {
             let keys = Object.keys(data);
             for (let key of keys) { // value categories
-                for (v in data[key]) { // array of values
+                for (let v in data[key]) { // array of values
                     let value = '';
 
                     switch (key) { // for every variable there is an other method of enriching.
@@ -676,19 +676,7 @@ function updateInfoPanel(data) {
 
     function formatingInseption() { return data.Wikidata_inception != undefined ? `From  ${data.Wikidata_inception}` : undefined; }
 
-    // eslint-disable-next-line no-unused-vars
-    function formatingInstanceOfList() {
-        let string = '';
-        let array = data.Wikidata_instanceOfLabel;
-        for (i in array) {
-            string += array[i];
-            if (i < array.length - 1) {
-                string += ', ';
-            }
-        }
-        return string;
-    }
-    showInfopanel();
+    showInfopanel(); // function from buttons.js
 }
 
 function bigNumberFormatter(num) { return num >= 1000000 ? `${(num / 1000000).toFixed(0)} M` : num >= 1000 ? `${(num / 1000).toFixed(0)} k` : num; }
