@@ -15,7 +15,7 @@ let wikipediaGeojson = {
     ]
 };
 
-let detailsPannelData = {
+let infoPanel = {
     'wikipedia_ApiOngoing': false, // current status of API resquest
     'wikimedia_ApiOngoing': false, // current status of API resquest
     'wikidata_ApiOngoing': false, // current status of API resquest
@@ -250,7 +250,7 @@ function popupOpen(e) {
         });
 
     } else {
-        openDetailPannel(e.features[0].properties); //Starts API calls
+        openInfoPanel(e.features[0].properties); //Starts API calls
     }
 }
 
@@ -276,7 +276,7 @@ function openPopupListBelowClick(e) {
         item.addEventListener('click', function () {
             let listNbr = $(this).attr('data-list-nbr');
             listNbr = Number(listNbr);
-            openDetailPannel(listData[listNbr].properties);
+            openInfoPanel(listData[listNbr].properties);
             listPopup.remove();
         });
     });
@@ -319,13 +319,13 @@ function processArticles(jsonData) {
             article.url = `https://en.wikipedia.org/?curid=${value.pageid}`;
         }
 
-        addWikipediaPageToGeojson(article);
+        addArticlesToGoejson(article);
     });
     map.getSource('wikipediaSource').setData(wikipediaGeojson);
     $('#loadingBox').hide();
 }
 
-function addWikipediaPageToGeojson(article) { // add article to geojson
+function addArticlesToGoejson(article) { // add article to geojson
     if (isArticleInGeojson(article)) return; // check if article is already in geojson
     let feature = {
         'type': 'Feature',
@@ -344,12 +344,12 @@ function isArticleInGeojson(article) {
     return wikipediaGeojson.features.some(feature => feature.properties.pageId === article.pageId);
 }
 
-function openDetailPannel(poiProperties) {
-    detailsPannelData = {}; // reset
-    detailsPannelData.Map_title = poiProperties.title; // title
-    detailsPannelData.wikipediaID = poiProperties.pageId; // pageId
-    detailsPannelData.Map_lonLat = JSON.parse(poiProperties.lonLat); // "lonLat": [value.lon, value.lat]
-    wikipediaApiRequestDetails(detailsPannelData.wikipediaID);
+function openInfoPanel(poiProperties) {
+    infoPanel = {}; // reset
+    infoPanel.Map_title = poiProperties.title; // title
+    infoPanel.wikipediaID = poiProperties.pageId; // pageId
+    infoPanel.Map_lonLat = JSON.parse(poiProperties.lonLat); // "lonLat": [value.lon, value.lat]
+    wikipediaApiRequestDetails(infoPanel.wikipediaID);
 }
 
 async function wikipediaApiRequestDetails(pageID) {
@@ -364,20 +364,20 @@ async function wikipediaApiRequestDetails(pageID) {
 function parseWikipediaApiResponseDetails(jsonData) {
     let wikipediaApiRespons = jsonData.query.pages[0];
 
-    detailsPannelData.wikipedia_Intro = wikipediaApiRespons.extract;
-    detailsPannelData.wikipedia_ImgTitle = wikipediaApiRespons.pageimage;
-    detailsPannelData.qNumber = wikipediaApiRespons.pageprops.wikibase_item;
-    if (detailsPannelData.qNumber) WikidataApiRequestDetails();
+    infoPanel.wikipedia_Intro = wikipediaApiRespons.extract;
+    infoPanel.wikipedia_ImgTitle = wikipediaApiRespons.pageimage;
+    infoPanel.qNumber = wikipediaApiRespons.pageprops.wikibase_item;
+    if (infoPanel.qNumber) WikidataApiRequestDetails();
     if (wikipediaApiRespons.pageimage != undefined) {
-        detailsPannelData.wikipedia_ImgUrl = `https://commons.wikimedia.org/wiki/Special:FilePath/${wikipediaApiRespons.pageimage}?width=800`;
+        infoPanel.wikipedia_ImgUrl = `https://commons.wikimedia.org/wiki/Special:FilePath/${wikipediaApiRespons.pageimage}?width=800`;
     }
-    detailsPannelData.wikipedia_Categories = [];
+    infoPanel.wikipedia_Categories = [];
 
     for (i in wikipediaApiRespons.categories) {
-        detailsPannelData.wikipedia_Categories.push(wikipediaApiRespons.categories[i].title); // adding all wikipediaApiRespons cathegories.
+        infoPanel.wikipedia_Categories.push(wikipediaApiRespons.categories[i].title); // adding all wikipediaApiRespons cathegories.
     }
 
-    updateDetailsPannel(detailsPannelData);
+    updateInfoPanel(infoPanel);
 }
 
 function WikidataApiRequestDetails() {
@@ -402,7 +402,7 @@ function WikidataApiRequestDetails() {
     let endpointUrl = 'https://query.wikidata.org/sparql';
     let sparqlQuery = `
         SELECT ?item ?itemLabel ?itemDescription ?img ?commons ?WikipediaLink ?elevation ?area ?officialWebsite ?flagImage ?LonLat ?coatOfArmsImage ?CommonsCategory ?FreebaseIdGoogleSearch ?GoogleKnowledgeGraphId ?startTime ?endTime ?inception ?religion ?significantEvent ?audio ?maximumCapacity ?visitorsPerYear ?heritageDesignationLabel ?length ?width ?height ?planViewImage ?FacebookId ?GoogleMapsCustomerId ?InstagramUsername ?MapillaryId ?TwitterUsername ?OpenStreetMapRelationId ?InstagramLocationId ?FoursquareVenueId ?ImdbId ?LinkedInCompanyId ?TripAdvisorId ?YelpId ?YouTubeChannelId ?phoneNumber ?emailAddress ?subreddit ?GoogleArtsCulturePartnerId ?population ?commonsLink ?instanceOfLabel WHERE {
-          VALUES ?item { wd:${detailsPannelData.qNumber} }
+          VALUES ?item { wd:${infoPanel.qNumber} }
           OPTIONAL { ?item  wdt:P18   ?img. }
           OPTIONAL { ?item  wdt:P373  ?commonsLink. }
           OPTIONAL { ?item  wdt:P31   ?instanceOf. }
@@ -584,22 +584,22 @@ function WikidataApiRequestDetails() {
                     }
 
                     // save enriched value to final object used to display results to UI
-                    detailsPannelData[`Wikidata_${key}`] = detailsPannelData[`Wikidata_${key}`] || [];
-                    detailsPannelData[`Wikidata_${key}`].push(value);
+                    infoPanel[`Wikidata_${key}`] = infoPanel[`Wikidata_${key}`] || [];
+                    infoPanel[`Wikidata_${key}`].push(value);
                 }
             }
-            updateDetailsPannel(detailsPannelData);
-            if (detailsPannelData.Wikidata_CommonsCategory != undefined || detailsPannelData.Wikidata_commonsLink != undefined) {
+            updateInfoPanel(infoPanel);
+            if (infoPanel.Wikidata_CommonsCategory != undefined || infoPanel.Wikidata_commonsLink != undefined) {
                 // could call Commons API here
             }
         }
 
     }
 
-    //detailsPannelData.qNumber
+    //infoPanel.qNumber
 }
 
-function updateDetailsPannel(data) {
+function updateInfoPanel(data) {
     { // reset all fields
         $('#article-title').text('no title');
         $('#article-intro').html('');
