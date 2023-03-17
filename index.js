@@ -29,7 +29,7 @@ map.addControl(new mapboxgl.NavigationControl(), 'bottom-right');
 map.addControl(new mapboxgl.FullscreenControl(), 'bottom-right');
 
 // eslint-disable-next-line no-unused-vars
-const newRandomLocation = () => map.flyTo({ center: startingLocation });
+function newRandomLocation() { map.flyTo({ center: startingLocation }); }
 
 $('.startButton').click(
     hideWelcomCoverPage()
