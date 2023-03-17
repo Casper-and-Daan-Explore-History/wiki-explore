@@ -331,26 +331,22 @@ function parseJSONResponse(jsonData) {
 }
 
 function addWikipediaPageToGeojson(article) { // add article to geojson
-    if (isArticleNotInGeojson(article)) { // check if article is already in geojson
-        let feature = {
-            'type': 'Feature',
-            'properties': article,
-            'geometry': {
-                'type': 'Point',
-                'coordinates': article.lonLat
-            }
-        };
-        wikipediaGeojson.features.push(feature);
-    }
+    if (isArticleInGeojson(article)) return; // check if article is already in geojson
+    let feature = {
+        'type': 'Feature',
+        'properties': article,
+        'geometry': {
+            'type': 'Point',
+            'coordinates': article.lonLat
+        }
+    };
+    wikipediaGeojson.features.push(feature);
+
 }
 
-function isArticleNotInGeojson(article) {
-    for (const feature of wikipediaGeojson.features) {
-        if (feature.properties.pageId === article.pageId) {
-            return false;
-        }
-    }
-    return true;
+function isArticleInGeojson(article) {
+    if (!article || !article.pageId) throw new Error('Invalid input');
+    return wikipediaGeojson.features.some(feature => feature.properties.pageId === article.pageId);
 }
 
 function updateWikipediaGeojsonSource() {
