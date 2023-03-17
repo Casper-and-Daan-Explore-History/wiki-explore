@@ -15,8 +15,6 @@ let wikipediaGeojson = {
     ]
 };
 
-let ajaxQueue = new Array();
-
 let detailsPannelData = {
     'wikipedia_ApiOngoing': false, // current status of API resquest
     'wikimedia_ApiOngoing': false, // current status of API resquest
@@ -301,9 +299,9 @@ function wikipediaApiGeoRequest() {
 
     const requestURL = `https://en.wikipedia.org/w/api.php?action=query&format=json&list=geosearch&origin=*&utf8=1&gsbbox=${boundsArray.join('|')}&gslimit=500&gsprimary=all`;
     console.log('Searching articles');
-    ajaxQueue.push(fetch(requestURL)
+    fetch(requestURL)
         .then(response => response.json())
-        .then(data => parseJSONResponse(data)));
+        .then(data => parseJSONResponse(data));
 }
 
 function parseJSONResponse(jsonData) {
@@ -346,15 +344,8 @@ function isArticleInGeojson(article) {
 }
 
 function updateWikipediaGeojsonSource() {
-    if (mapIsActive) {
-        map.getSource('wikipediaSource').setData(wikipediaGeojson);
-        $('#loadingBox').hide();
-    } else {
-        map.on('load', function () {
-            map.getSource('wikipediaSource').setData(wikipediaGeojson);
-            $('#loadingBox').hide();
-        });
-    }
+    map.getSource('wikipediaSource').setData(wikipediaGeojson);
+    $('#loadingBox').hide();
 }
 
 function openDetailPannel(poiProperties) {
