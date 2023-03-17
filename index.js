@@ -88,11 +88,10 @@ map.on('load', function () {
         clusterRadius: 16
     });
 
-    map.addLayer({
+    map.addLayer({ // draw both points and clusters
         id: 'unclustered-point',
         type: 'circle',
         source: 'wikipediaSource',
-        // filter: ['!', ['has', 'point_count']],
         paint: {
             'circle-color': '#4B7982',
             'circle-opacity': 0.8,
@@ -102,7 +101,7 @@ map.on('load', function () {
         }
     });
 
-    map.addLayer({
+    map.addLayer({ // add cluster counter value
         id: 'cluster-count',
         type: 'symbol',
         source: 'wikipediaSource',
@@ -117,58 +116,20 @@ map.on('load', function () {
         }
     });
 
-    // inspect a cluster on click
-    map.on('click', 'clusters', function (e) {
-        let features = map.queryRenderedFeatures(e.point, {
-            layers: ['clusters']
-        });
-        let clusterId = features[0].properties.cluster_id;
-        map.getSource('wikipediaSource').getClusterExpansionZoom(
-            clusterId,
-            function (err, zoom) {
-                if (err) return;
-
-                map.easeTo({
-                    center: features[0].geometry.coordinates,
-                    zoom: zoom
-                });
-            }
-        );
-    });
-
     // hover popup Wikipedia Layer
     map.on('mousemove', 'unclustered-point', hoverPopupOn);
     map.on('mouseleave', 'unclustered-point', hoverPopupOff);
     map.on('mousemove', 'cluster-count', hoverPopupOn);
     map.on('mouseleave', 'cluster-count', hoverPopupOff);
 
-    map.on('mouseenter', 'clusters', function () {
+    map.on('mouseenter', 'cluster-count', function () {
         map.getCanvas().style.cursor = 'pointer';
     });
 
-    map.on('mouseleave', 'clusters', function () {
+    map.on('mouseleave', 'cluster-count', function () {
         map.getCanvas().style.cursor = '';
     });
 
-    map.on('contextmenu', 'clusters', function (e) {
-
-        let features = map.queryRenderedFeatures(e.point, { layers: ['clusters'] });
-        let clusterId = features[0].properties.cluster_id,
-            point_count = features[0].properties.point_count,
-            clusterSource = map.getSource( /* cluster layer data source id */ 'wikipediaSource');
-
-        // Get all points under a cluster
-        clusterSource.getClusterLeaves(clusterId, point_count, 0, function (err, aFeatures) {
-            let e = {};
-            e.features = aFeatures;
-
-            openPopupListBelowClick(e);
-        });
-
-        // openPopupListBelowClick(e);
-    });
-
-    // click
     map.on('click', function () {
         // hideInfopanel()
     });
@@ -218,31 +179,23 @@ function hoverPopupOff() {
     hoverPopup.remove();
 }
 
-function popupOpen(e) {
-    if (e.features.length > 1) {
-        openPopupListBelowClick(e);
-        return;
-    } else if (e.features[0].properties.cluster) {
-        //zoom
-
-        map.flyTo({
-            zoom: map.getZoom() + 2,
-            center: e.features[0].geometry.coordinates.slice(),
-            speed: 0.85,
-            // this animation is considered essential with respect to prefers-reduced-motion
-            essential: true
-        });
-
-    } else {
-        openInfoPanel(e.features[0].properties); //Starts API calls
-    }
+function popupOpen(e) { // bad name, needs to be changed. This function is called when user clicks on map
+    console.log(e.features[0].properties);
+    if (e.features.length > 1) createListPopup(e.features); // more than one article under click
+    if (e.features[0].properties.cluster) {// a cluster under click
+        const featuresUnderClick = e.features; // get all features under the click
+        const clusterId = featuresUnderClick[0].properties.cluster_id; // cluster id is to identify wich features are in the cluster
+        const pointCount = featuresUnderClick[0].properties.point_count; // point count is to know howmany features should be requested from the cluster
+        const source = map.getSource('wikipediaSource'); // get the source of the cluster layer
+        source.getClusterLeaves(clusterId, pointCount, 0, (error, features) => { createListPopup(features); });
+    } else openInfoPanel(e.features[0].properties); // one article under click
 }
 
-function openPopupListBelowClick(e) {
-    const listData = e.features;
+function createListPopup(features) {
+
     const html = `
     <ul class="articleDropdown">
-        ${listData.map((feature, index) => `
+        ${features.map((feature, index) => `
         <li data-list-nbr="${index}">
             ${feature.properties.title}
         </li>
@@ -251,7 +204,7 @@ function openPopupListBelowClick(e) {
     `; // generate html for list of articles
 
     listPopup// initiate list popup
-        .setLngLat(e.features[0].geometry.coordinates.slice())
+        .setLngLat(features[0].geometry.coordinates.slice())
         .setHTML(html)
         .addTo(map);
 
@@ -260,7 +213,9 @@ function openPopupListBelowClick(e) {
         item.addEventListener('click', function () {
             let listNbr = $(this).attr('data-list-nbr');
             listNbr = Number(listNbr);
-            openInfoPanel(listData[listNbr].properties);
+            console.log("createListPopup");
+            console.log(features[listNbr].properties);
+            openInfoPanel(features[listNbr].properties);
             listPopup.remove();
         });
     });
@@ -329,14 +284,22 @@ function isArticleInGeojson(article) {
 }
 
 function openInfoPanel(poiProperties) {
+    console.log(poiProperties);
     infoPanel = {}; // reset
     infoPanel.Map_title = poiProperties.title; // title
     infoPanel.wikipediaID = poiProperties.pageId; // pageId
-    infoPanel.Map_lonLat = JSON.parse(poiProperties.lonLat); // "lonLat": [value.lon, value.lat]
+    if (typeof poiProperties.lonLat === 'string') {
+        infoPanel.Map_lonLat = JSON.parse(poiProperties.lonLat);
+    } else {
+        infoPanel.Map_lonLat = poiProperties.lonLat;
+    }
+    console.log(`openInfoPanel: ${infoPanel}`);
+    console.log(infoPanel);
     wikipediaApiRequestDetails(infoPanel.wikipediaID);
 }
 
 async function wikipediaApiRequestDetails(pageID) {
+    console.log(`Fetching details for article with pageID: ${pageID}`);
     // API sandbox link: https://en.wikipedia.org/wiki/Special:ApiSandbox#action=query&format=json&origin=*&prop=extracts%7Cpageprops%7Cpageimages%7Ccategories&pageids=58387057&utf8=1&formatversion=latest&exintro=1
     const requestURL = `https://en.wikipedia.org/w/api.php?action=query&origin=*&format=json&prop=extracts%7Cpageprops%7Cpageimages%7Ccategories&pageids=${pageID}&utf8=1&formatversion=latest&exintro=1`;
     fetch(requestURL)
