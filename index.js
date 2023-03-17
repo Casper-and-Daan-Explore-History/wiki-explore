@@ -15,8 +15,6 @@ let wikipediaGeojson = {
     ]
 };
 
-let mapIsActive = false;
-
 let ajaxQueue = new Array();
 
 let detailsPannelData = {
@@ -81,7 +79,7 @@ let listPopup = new mapboxgl.Popup({
 });
 
 map.on('load', function () {
-    mapIsActive = true;
+    wikipediaApiGeoRequest(); // initial first API call to get articles in the map view
 
     // adding geocoer search box one welkom screen
     let geocoder = new MapboxGeocoder({
@@ -291,8 +289,6 @@ function openPopupListBelowClick(e) {
         item.style.padding = '0';
     });
 }
-
-wikipediaApiGeoRequest(); // initial first API call to get articles in the map view
 
 function wikipediaApiGeoRequest() {
     const bounds = map.getBounds();
