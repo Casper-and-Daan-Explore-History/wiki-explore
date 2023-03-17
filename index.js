@@ -321,7 +321,8 @@ function parseJSONResponse(jsonData) {
 
         addWikipediaPageToGeojson(article);
     });
-    updateWikipediaGeojsonSource();
+    map.getSource('wikipediaSource').setData(wikipediaGeojson);
+    $('#loadingBox').hide();
 }
 
 function addWikipediaPageToGeojson(article) { // add article to geojson
@@ -341,11 +342,6 @@ function addWikipediaPageToGeojson(article) { // add article to geojson
 function isArticleInGeojson(article) {
     if (!article || !article.pageId) throw new Error('Invalid input');
     return wikipediaGeojson.features.some(feature => feature.properties.pageId === article.pageId);
-}
-
-function updateWikipediaGeojsonSource() {
-    map.getSource('wikipediaSource').setData(wikipediaGeojson);
-    $('#loadingBox').hide();
 }
 
 function openDetailPannel(poiProperties) {
