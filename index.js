@@ -1,7 +1,7 @@
 /* eslint-disable indent */
 /* eslint-disable no-undef */
 
-let wikipediaGeojson = {
+let articlesGeojson = {
     'type': 'FeatureCollection',
     'features': [
         //     {
@@ -314,7 +314,7 @@ function processArticles(jsonData) {
 
         addArticlesToGoejson(article);
     });
-    map.getSource('wikipediaSource').setData(wikipediaGeojson);
+    map.getSource('wikipediaSource').setData(articlesGeojson);
     $('#loadingBox').hide();
 }
 
@@ -328,13 +328,13 @@ function addArticlesToGoejson(article) { // add article to geojson
             'coordinates': article.lonLat
         }
     };
-    wikipediaGeojson.features.push(feature);
+    articlesGeojson.features.push(feature);
 
 }
 
 function isArticleInGeojson(article) {
     if (!article || !article.pageId) throw new Error('Invalid input');
-    return wikipediaGeojson.features.some(feature => feature.properties.pageId === article.pageId);
+    return articlesGeojson.features.some(feature => feature.properties.pageId === article.pageId);
 }
 
 function openInfoPanel(poiProperties) {
