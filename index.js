@@ -77,7 +77,7 @@ let listPopup = new mapboxgl.Popup({
 });
 
 map.on('load', function () {
-    wikipediaApiGeoRequest(); // initial first API call to get articles in the map view
+    fetchArticlesInBoundingBox(); // initial first API call to get articles in the map view
 
     // adding geocoer search box one welkom screen
     let geocoder = new MapboxGeocoder({
@@ -194,7 +194,7 @@ map.on('load', function () {
 
     // Map panning ends
     map.on('moveend', function () {
-        wikipediaApiGeoRequest();
+        fetchArticlesInBoundingBox();
     });
 });
 function hoverPopupOn(e) {
@@ -288,7 +288,7 @@ function openPopupListBelowClick(e) {
     });
 }
 
-function wikipediaApiGeoRequest() {
+function fetchArticlesInBoundingBox() {
     const bounds = map.getBounds();
     const boundsArray = [ // bounding box
         bounds['_ne'].lat,
@@ -301,10 +301,10 @@ function wikipediaApiGeoRequest() {
     console.log('Searching articles in new map locations');
     fetch(requestURL)
         .then(response => response.json())
-        .then(data => parseJSONResponse(data));
+        .then(data => processArticles(data));
 }
 
-function parseJSONResponse(jsonData) {
+function processArticles(jsonData) {
     console.log(`Found ${jsonData.query.geosearch.length} articles`);
     $.each(jsonData.query.geosearch, function (index, value) {
         let article = {
