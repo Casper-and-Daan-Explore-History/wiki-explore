@@ -137,11 +137,83 @@ map.on('load', function () {
     map.on('click', 'unclustered-point', popupOpen);
     map.on('click', 'cluster-count', popupOpen);
 
+
     // Map panning ends
     map.on('moveend', function () {
         fetchArticlesInBoundingBox();
     });
+
+    // Show the contextual menu on right-click
+    map.on('contextmenu', function (e) {
+        e.preventDefault();
+        const point = map.project(e.lngLat);
+        showContextMenu(point);
+    });
+
+    // hides the contextual menu on any interaction
+    map.on('move', hideContextMenu);
+    map.on('zoom', hideContextMenu);
+    map.on('rotate', hideContextMenu);
+    map.on('dragstart', hideContextMenu);
+    map.on('touchstart', hideContextMenu);
+
 });
+
+const contextMenuHTML = `
+  <div id="context-menu">
+    <ul>
+      <li><a id="google-maps-link" href="#" target="_blank">Google Maps</a></li>
+      <li><a id="apple-maps-link" href="#" target="_blank">Apple Maps</a></li>
+      <li><a id="bing-maps-link" href="#" target="_blank">Bing Maps</a></li>
+      <li><a id="here-wego-link" href="#" target="_blank">HERE WeGo</a></li>
+      <li><a id="openstreetmap-link" href="#" target="_blank">OpenStreetMap</a></li>
+      <li><a id="wikishootme-link" href="#" target="_blank">WikiShootMe</a></li>
+    </ul>
+  </div>
+`;
+
+document.body.insertAdjacentHTML('beforeend', contextMenuHTML);
+
+document.querySelector('#context-menu').addEventListener('click', hideContextMenu);
+
+function generateContextMenuLinks(lat, lng) {
+    const googleMapsLink = document.getElementById('google-maps-link');
+    googleMapsLink.href = `https://www.google.com/maps/?ll=${lat},${lng}&z=${map.getZoom()}&t=k`;
+
+    const appleMapsLink = document.getElementById('apple-maps-link');
+    appleMapsLink.href = `http://maps.apple.com/?ll=${lat},${lng}&z=${map.getZoom()}&t=s`;
+
+    const bingMapsLink = document.getElementById('bing-maps-link');
+    bingMapsLink.href = `https://www.bing.com/maps/?v=2&cp=${lat}~${lng}&lvl=${map.getZoom()}&sty=a`;
+
+    const wikishootmeLink = document.getElementById('wikishootme-link');
+    wikishootmeLink.href = `https://tools.wmflabs.org/wikishootme/#lat=${lat}&lon=${lng}&zoom=${map.getZoom()}`;
+
+    const openstreetmapLink = document.getElementById('openstreetmap-link');
+    openstreetmapLink.href = `https://www.openstreetmap.org/#map=${map.getZoom()}/${lat}/${lng}&markers=${lat},${lng}`;
+
+    const hereWegoLink = document.getElementById('here-wego-link');
+    hereWegoLink.href = `https://wego.here.com/?map=${lat},${lng},${map.getZoom()},satellite`;
+}
+
+function showContextMenu(point) {
+    const contextMenu = document.getElementById('context-menu');
+    const latLng = map.unproject([point.x, point.y]);
+    const lat = latLng.lat;
+    const lng = latLng.lng;
+    generateContextMenuLinks(lat, lng);
+    const mapElement = document.getElementById('map');
+    const rect = mapElement.getBoundingClientRect();
+    const offsetLeft = rect.left + window.pageXOffset;
+    const offsetTop = rect.top + window.pageYOffset;
+    contextMenu.style.left = point.x + offsetLeft + 'px';
+    contextMenu.style.top = point.y + offsetTop + 'px';
+    contextMenu.style.display = 'block';
+    map.once('mousedown', hideContextMenu);
+}
+
+function hideContextMenu() { document.getElementById('context-menu').style.display = 'none'; }
+
 function hoverPopupOn(e) {
     let html = '';
     if (e.features.length == 1) { // one article
