@@ -1,44 +1,44 @@
 /* eslint-disable no-undef */
 /* eslint-disable indent */
 
-let articlesGeojson = {
+let articlesGeojson = { // #map
     'type': 'FeatureCollection',
     'features': []
 };
 
-let infoPanel = {};
+let infoPanel = {}; // #panel
 
-const randCity = cities[Math.floor(Math.random() * cities.length)]; // cities is an array from the data.js file. It consists of objects with the keys: "n" for name, "c" for coordinates and q for the Q number.
+// cities is an array from the data.js file. It consists of objects with
+// the keys: "n" for name, "c" for coordinates and q for the Q number.
+const randCity = cities[Math.floor(Math.random() * cities.length)]; // #map
 
-mapboxgl.accessToken = 'pk.eyJ1IjoiY2Fza2VzIiwiYSI6ImNsZGtwdGRrdzA4dWMzb3BoMWdxM3Zib2UifQ.2q2xfShG5nmDHTxg7n_ZhQ';
-const mapConfig = {
+mapboxgl.accessToken = 'pk.eyJ1IjoiY2Fza2VzIiwiYSI6ImNsZGtwdGRrdzA4dWMzb3BoMWdxM3Zib2UifQ.2q2xfShG5nmDHTxg7n_ZhQ'; // #map
+const mapConfig = { // #map
     container: 'map', // container element id
     style: 'mapbox://styles/caskes/cldkq0ha9000r01n3hjgwtkrn', // stylesheet location
     center: randCity.c, // "c" stands for coordinates. Random city of more than 100k people.
     zoom: 15,
     hash: true // hash location in url
 };
-const map = new mapboxgl.Map(mapConfig);
-
-// document.getElementById('geocoder').appendChild(geocoder.onAdd(map));
+const map = new mapboxgl.Map(mapConfig); // #map
 
 // Zoom and rotation constroles.
-map.addControl(new mapboxgl.NavigationControl(), 'bottom-right');
+map.addControl(new mapboxgl.NavigationControl(), 'bottom-right'); // #map
 
 // Fullscreen constroles.
-map.addControl(new mapboxgl.FullscreenControl(), 'bottom-right');
+map.addControl(new mapboxgl.FullscreenControl(), 'bottom-right'); // #map
 
 // eslint-disable-next-line no-unused-vars
-function newRandomLocation() { map.flyTo({ center: startingLocation }); }
+function newRandomLocation() { map.flyTo({ center: startingLocation }); } // #random-location
 
-$('.startButton').click(
+$('.startButton').click( // #welcome
     hideWelcomCoverPage()
 );
 // $("#coverContainer").click(
 //     hideWelcomCoverPage
 // );
 
-function hideWelcomCoverPage() {
+function hideWelcomCoverPage() { // #welcome
     $('.WelcomeDiv').toggleClass('transparent');
     $('#coverContainer').toggleClass('transparent');
 
@@ -49,35 +49,37 @@ function hideWelcomCoverPage() {
 }
 
 //Create a popup to display when hovering over a marker.
-let hoverPopup = new mapboxgl.Popup({
+let hoverPopup = new mapboxgl.Popup({ // #map
     closeButton: false,
     closeOnClick: true
 });
 
 //Create a popup to display when clicking on a marker.
-let listPopup = new mapboxgl.Popup({
+let listPopup = new mapboxgl.Popup({ // #article-list
     closeButton: true,
     closeOnClick: true
 });
 
-map.on('load', function () {
-    fetchArticlesInBoundingBox(); // initial first API call to get articles in the map view
+// adding geocoer search box one welkom screen
+let geocoder = new MapboxGeocoder({ // #welcome
+    accessToken: mapboxgl.accessToken,
+    mapboxgl: mapboxgl
+});
+document.getElementById('geocoderWelcome').appendChild(geocoder.onAdd(map));
 
-    // adding geocoer search box one welkom screen
-    let geocoder = new MapboxGeocoder({
-        accessToken: mapboxgl.accessToken,
-        mapboxgl: mapboxgl
-    });
-    document.getElementById('geocoderWelcome').appendChild(geocoder.onAdd(map));
+map.on('load', function () {
+
+    // initial API call to get data on the map
+    fetchArticlesInBoundingBox(); // #geo-api
 
     //adding geocoder
-    let geocoder2 = new MapboxGeocoder({
+    let geocoder2 = new MapboxGeocoder({ // #map
         accessToken: mapboxgl.accessToken,
         mapboxgl: mapboxgl
     });
-    document.getElementById('geocoderMap').appendChild(geocoder2.onAdd(map));
+    document.getElementById('geocoderMap').appendChild(geocoder2.onAdd(map)); // #map
 
-    map.addSource('wikipediaSource', {
+    map.addSource('wikipediaSource', { // #map
         'type': 'geojson',
         'data': {
             'type': 'FeatureCollection',
@@ -88,7 +90,8 @@ map.on('load', function () {
         clusterRadius: 16
     });
 
-    map.addLayer({ // draw both points and clusters
+    // draw both points and clusters
+    map.addLayer({ // #map
         id: 'unclustered-point',
         type: 'circle',
         source: 'wikipediaSource',
@@ -101,7 +104,8 @@ map.on('load', function () {
         }
     });
 
-    map.addLayer({ // add cluster counter value
+    // add cluster counter value
+    map.addLayer({ // #map
         id: 'cluster-count',
         type: 'symbol',
         source: 'wikipediaSource',
@@ -117,16 +121,16 @@ map.on('load', function () {
     });
 
     // hover popup Wikipedia Layer
-    map.on('mousemove', 'unclustered-point', hoverPopupOn);
-    map.on('mouseleave', 'unclustered-point', hoverPopupOff);
-    map.on('mousemove', 'cluster-count', hoverPopupOn);
-    map.on('mouseleave', 'cluster-count', hoverPopupOff);
+    map.on('mousemove', 'unclustered-point', hoverPopupOn); // #map
+    map.on('mouseleave', 'unclustered-point', hoverPopupOff); // #map
+    map.on('mousemove', 'cluster-count', hoverPopupOn); // #map
+    map.on('mouseleave', 'cluster-count', hoverPopupOff); // #map
 
-    map.on('mouseenter', 'cluster-count', function () {
+    map.on('mouseenter', 'cluster-count', function () { // #map
         map.getCanvas().style.cursor = 'pointer';
     });
 
-    map.on('mouseleave', 'cluster-count', function () {
+    map.on('mouseleave', 'cluster-count', function () { // #map
         map.getCanvas().style.cursor = '';
     });
 
@@ -134,24 +138,24 @@ map.on('load', function () {
         // hideInfopanel()
     });
 
-    map.on('click', 'unclustered-point', popupOpen);
-    map.on('click', 'cluster-count', popupOpen);
+    map.on('click', 'unclustered-point', popupOpen); // #info-panel
+    map.on('click', 'cluster-count', popupOpen); // #article-list
 
 
     // Map panning ends
-    map.on('moveend', function () {
+    map.on('moveend', function () { // #geo-api
         fetchArticlesInBoundingBox();
     });
 
     // Show the contextual menu on right-click
-    map.on('contextmenu', function (e) {
+    map.on('contextmenu', function (e) { // #context-menu
         e.preventDefault();
         const point = map.project(e.lngLat);
         showContextMenu(point);
     });
 
     // hides the contextual menu on any interaction
-    map.on('move', hideContextMenu);
+    map.on('move', hideContextMenu); // #context-menu
     map.on('zoom', hideContextMenu);
     map.on('rotate', hideContextMenu);
     map.on('dragstart', hideContextMenu);
@@ -159,6 +163,7 @@ map.on('load', function () {
 
 });
 
+// #context-menu
 const contextMenuHTML = `
   <div id="context-menu">
     <ul>
@@ -171,12 +176,10 @@ const contextMenuHTML = `
     </ul>
   </div>
 `;
+document.body.insertAdjacentHTML('beforeend', contextMenuHTML); // #context-menu
+document.querySelector('#context-menu').addEventListener('click', hideContextMenu); // #context-menu
 
-document.body.insertAdjacentHTML('beforeend', contextMenuHTML);
-
-document.querySelector('#context-menu').addEventListener('click', hideContextMenu);
-
-function generateContextMenuLinks(lat, lng) {
+function generateContextMenuLinks(lat, lng) { // #context-menu
     const googleMapsLink = document.getElementById('google-maps-link');
     googleMapsLink.href = `https://www.google.com/maps/?ll=${lat},${lng}&z=${map.getZoom()}&t=k`;
 
@@ -196,7 +199,7 @@ function generateContextMenuLinks(lat, lng) {
     hereWegoLink.href = `https://wego.here.com/?map=${lat},${lng},${map.getZoom()},satellite`;
 }
 
-function showContextMenu(point) {
+function showContextMenu(point) { // #context-menu
     const contextMenu = document.getElementById('context-menu');
     const latLng = map.unproject([point.x, point.y]);
     const lat = latLng.lat;
@@ -212,9 +215,9 @@ function showContextMenu(point) {
     map.once('mousedown', hideContextMenu);
 }
 
-function hideContextMenu() { document.getElementById('context-menu').style.display = 'none'; }
+function hideContextMenu() { document.getElementById('context-menu').style.display = 'none'; } // #context-menu
 
-function hoverPopupOn(e) {
+function hoverPopupOn(e) { // #map
     let html = '';
     if (e.features.length == 1) { // one article
         if (e.features[0].properties.title != undefined) {
@@ -246,12 +249,13 @@ function hoverPopupOn(e) {
     map.getCanvas().style.cursor = 'pointer'; // changing mouse signaling the posibility to click
 }
 
-function hoverPopupOff() {
+function hoverPopupOff() { // #map
     map.getCanvas().style.cursor = '';
     hoverPopup.remove();
 }
 
-function popupOpen(e) { // bad name, needs to be changed. This function is called when user clicks on map
+// bad name, needs to be changed. This function is called when user clicks on map
+function popupOpen(e) { // #map #article-list
     console.log(e.features[0].properties);
     if (e.features.length > 1) createListPopup(e.features); // more than one article under click
     if (e.features[0].properties.cluster) {// a cluster under click
@@ -263,7 +267,7 @@ function popupOpen(e) { // bad name, needs to be changed. This function is calle
     } else openInfoPanel(e.features[0].properties); // one article under click
 }
 
-function createListPopup(features) {
+function createListPopup(features) { // #article-list
 
     const html = `
     <ul class="articleDropdown">
@@ -299,7 +303,7 @@ function createListPopup(features) {
     });
 }
 
-function fetchArticlesInBoundingBox() {
+function fetchArticlesInBoundingBox() { //#geo-api
     const bounds = map.getBounds();
     const boundsArray = [ // bounding box
         bounds['_ne'].lat,
@@ -315,7 +319,7 @@ function fetchArticlesInBoundingBox() {
         .then(data => processArticles(data));
 }
 
-function processArticles(jsonData) {
+function processArticles(jsonData) { // #geo-api #map
     console.log(`Found ${jsonData.query.geosearch.length} articles`);
     $.each(jsonData.query.geosearch, function (index, value) {
         let article = {
@@ -336,7 +340,7 @@ function processArticles(jsonData) {
     $('#loadingBox').hide();
 }
 
-function addArticlesToGoejson(article) { // add article to geojson
+function addArticlesToGoejson(article) { // #map
     if (isArticleInGeojson(article)) return; // check if article is already in geojson
     let feature = {
         'type': 'Feature',
@@ -350,12 +354,12 @@ function addArticlesToGoejson(article) { // add article to geojson
 
 }
 
-function isArticleInGeojson(article) {
+function isArticleInGeojson(article) { // #map #helper
     if (!article || !article.pageId) throw new Error('Invalid input');
     return articlesGeojson.features.some(feature => feature.properties.pageId === article.pageId);
 }
 
-function openInfoPanel(poiProperties) {
+function openInfoPanel(poiProperties) { // #panel
     console.log(poiProperties);
     infoPanel = {}; // reset
     infoPanel.Map_title = poiProperties.title; // title
@@ -370,7 +374,7 @@ function openInfoPanel(poiProperties) {
     wikipediaApiRequestDetails(infoPanel.wikipediaID);
 }
 
-async function wikipediaApiRequestDetails(pageID) {
+async function wikipediaApiRequestDetails(pageID) { // #wiki-api
     console.log(`Fetching details for article with pageID: ${pageID}`);
     // API sandbox link: https://en.wikipedia.org/wiki/Special:ApiSandbox#action=query&format=json&origin=*&prop=extracts%7Cpageprops%7Cpageimages%7Ccategories&pageids=58387057&utf8=1&formatversion=latest&exintro=1
     const requestURL = `https://en.wikipedia.org/w/api.php?action=query&origin=*&format=json&prop=extracts%7Cpageprops%7Cpageimages%7Ccategories&pageids=${pageID}&utf8=1&formatversion=latest&exintro=1`;
