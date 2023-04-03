@@ -173,6 +173,7 @@ const contextMenuHTML = `
       <li><a id="here-wego-link" href="#" target="_blank">HERE WeGo</a></li>
       <li><a id="openstreetmap-link" href="#" target="_blank">OpenStreetMap</a></li>
       <li><a id="wikishootme-link" href="#" target="_blank">WikiShootMe</a></li>
+      <li><a id="mapillary-link" href="#" target="_blank">Mapillary</a></li>
     </ul>
   </div>
 `;
@@ -197,6 +198,9 @@ function generateContextMenuLinks(lat, lng) { // #context-menu
 
     const hereWegoLink = document.getElementById('here-wego-link');
     hereWegoLink.href = `https://wego.here.com/?map=${lat},${lng},${map.getZoom()},satellite`;
+
+    const mapillaryLink = document.getElementById('mapillary-link');
+    mapillaryLink.href = `https://www.mapillary.com/app?lat=${lat}&lng=${lng}&z=${map.getZoom()}`;
 }
 
 function showContextMenu(point) { // #context-menu
