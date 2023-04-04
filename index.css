@@ -221,15 +221,31 @@ p {
     justify-content: center;
     align-items: center;
     cursor: pointer; /* added for mouse pointer on hover */
-  }
-  
-  .image-container img {
+    }
+    
+    .image-container img {
     max-height: 100%;
     max-width: 100%;
     object-fit: contain;
-  }
-  
-  .image-container.fullscreen {
+    }
+    
+    .image-container .close-icon {
+        display: none;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 30px;
+    color: #fff;
+    cursor: pointer;
+    z-index: 999;
+    }
+
+    .image-container.fullscreen .close-icon {
+        display: block;
+        z-index: 9999;
+    }
+    
+    .image-container.fullscreen {
     position: fixed;
     top: 0;
     left: 0;
@@ -237,21 +253,12 @@ p {
     width: 100%;
     background-color: rgba(0, 0, 0, 0.8);
     z-index: 999;
-  }
-  
-  .image-container.fullscreen img {
+    }
+    
+    .image-container.fullscreen img {
     max-height: 95%;
     max-width: 95%;
-  }
-  
-  .image-container.fullscreen .close-icon {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    font-size: 30px;
-    color: #fff;
-    cursor: pointer;
-  }
+    }
 
   
 
