@@ -49,8 +49,8 @@ function infoFullscreen() {
 }
 
 
-const closeButton = document.querySelector(".info-close");
+const infocloseButton = document.querySelector(".info-close");
 
-closeButton.addEventListener("click", () => {
+infocloseButton.addEventListener("click", () => {
     hideInfopanel()
 });
