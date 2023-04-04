@@ -25,9 +25,6 @@ const map = new mapboxgl.Map(mapConfig); // #map
 // Zoom and rotation constroles.
 map.addControl(new mapboxgl.NavigationControl(), 'bottom-right'); // #map
 
-// Fullscreen constroles.
-map.addControl(new mapboxgl.FullscreenControl(), 'bottom-right'); // #map
-
 // eslint-disable-next-line no-unused-vars
 function newRandomLocation() { map.flyTo({ center: startingLocation }); } // #random-location
 
