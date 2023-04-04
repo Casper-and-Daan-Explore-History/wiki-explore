@@ -10,7 +10,6 @@ function showInfopanel() {
     }
 }
 
-
 function hideInfopanel() {
     infoHidden();
 }
@@ -48,3 +47,10 @@ function infoFullscreen() {
         $(".enlargeMapIcon").hide()
     });
 }
+
+
+const closeButton = document.querySelector(".info-close");
+
+closeButton.addEventListener("click", () => {
+    hideInfopanel()
+});

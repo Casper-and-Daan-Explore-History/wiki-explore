@@ -170,6 +170,13 @@ p {
     width: 0%;
 }
 
+.info-close {
+    position: absolute;
+    right: 32px;
+    top: 32px;
+    cursor: pointer;
+}
+
 
 /* ----------- MAP ---------- */
 
@@ -228,9 +235,19 @@ p {
     max-width: 100%;
     object-fit: contain;
     }
+
+    .grow {
+        transition: all .2s ease-in-out; 
+
+    }
+
+    .grow:hover {
+        transform: scale(1.1); 
+    }
     
+
     .image-container .close-icon {
-        display: none;
+    display: none;
     position: absolute;
     top: 10px;
     right: 10px;
