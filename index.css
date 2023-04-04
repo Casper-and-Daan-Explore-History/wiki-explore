@@ -131,6 +131,8 @@ p {
     max-width: 32px;
     width: auto;
     height: auto;
+    fill: var(--prim2);
+
 }
 
 .listitemlabel {
