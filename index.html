@@ -27,11 +27,12 @@
     <script src="https://cdn.jsdelivr.net/npm/es6-promise@4/dist/es6-promise.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/es6-promise@4/dist/es6-promise.auto.min.js"></script>
 
+
     <!-- Google Font -->
     <script src="https://kit.fontawesome.com/c258b31bf5.js" crossorigin="anonymous"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Caudex:wght@400;700&family=Inter:wght@500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Bitter:wght@400;500;600;700&family=Inter:wght@500&display=swap" rel="stylesheet">
 
 </head>
 
@@ -71,31 +72,38 @@
         </div>
     </div>
 
-    <div class="WelcomeDiv dn w-100 mw-100 vh-100 cf overflow-hidden z-999 absolute top-0">
-        <div class="bgimage w-100 h-100">
-            <div class="WelcomeDivContent2 w-60-l w-100 h-100 flex flex-column justify-between-l justify-center">
-                <div class="welcomeheader pa4-ns pa3">
-                    <img class="logo" src="./img/logo.png">
+    <div class="WelcomeDiv w-100 mw-100 vh-100 overflow-hidden z-999 absolute top-0 flex flex-column justify-between">
+        <div class="flex justify-between  pt4-ns ph4-ns">
+            <div class="welcomeheader">
+                <img class="logo" src="./img/logo.png">
+            </div>
+            <div>
+                <p class="mv0 f6 tr">Pont Alexandre</p>
+                <p class="mv0 f6 tr">Paris</p>
+                <p class="mv0 f6 tr">Wikipedia</p>
+            </div>
+        </div>
+        <div class="WelcomeDivContent center w-40-l pb5 w-100 flex flex-column">
+            <div class="welcomecontent items-center">
+                <div class="mb3">
+                    <h1 class="mw-100 tc f1 mb0">Wiki explore</h1>
+                    <p class="tc">Search for a location and see all Wikipedia articles on the map</p>
                 </div>
-                <div class="welcomecontent ph6-l pa5-m pa3">
-                    <div class="mb5">
-                        <h1 class="mw-100 f1 mb0 tracked-tight">Wiki map that has no name yet</h1>
-                        <p>Very interesting subtitle</p>
+                <div class=" flex flex-row items-center">
+                    <div id="geocoderWelcome" class="geocoder v-mid w-75 mr3">
                     </div>
-                    <div class="mb5">
-                        <div id="geocoderWelcome" class="geocoder dib v-mid w-100 mr3 mb2">
-                        </div>
-                        <div class="dib startButton tc w-100 w-100 f6 link grow br3 pointer center">
-                            <p class="white fw4">Search</p>
-                        </div>
+                    <div class="startButton tc w-25 f6 link grow br3 pointer flex items-center justify-center">
+                        <p class="white fw4 mv0 ">Search</p>
                     </div>
                 </div>
-                <div class="welcomefooter ph6-l pa5-m pa3">
-                    <p class="link" onclick="openAboutpanel()">About Wiki data map</p>
+                <div class="dib startButton tc w-100 w-100 f6 link grow br3 pointer center mt3">
+                    <p class="white fw4">Random location</p>
                 </div>
             </div>
         </div>
-
+        <div class="welcomefooter ph6-l pa5-m pa3">
+            <p class="link" onclick="openAboutpanel()">About Wiki data map</p>
+        </div>
     </div>
 
     <div id="loadingBox" class="loadingBox">
@@ -103,48 +111,36 @@
     </div>
 
     <div class="hamburger dn w-100 pa2 absolute min-h-100 z-999" id="hamburgermenu">
-        <div class="closebutton" onclick="closeHamburger()">
-            <img src="./img/close.svg" alt="Close" class="closeicon">
-        </div>
         <div class="tc f3 pv3 mt5 bt bb pointer" onclick="openAboutpanel(); closeHamburger()">About</div>
         <div class="tc f4 pv3 mt5">Other info</div>
     </div>
 
 
     <div class="maincontent">
+        <button onclick="newRandomLocation()" style="z-index: 999;"></button>
+
         <div class="info hide overflow-y-scroll hidescrollbars dn" id="info">
-            <div class="closebutton" onclick="hideInfopanel()">close</div>
+            <span class="info-close dn-l">&times;</span>
+
             <div class="title ph3">
                 <h1 class="fw7 mb3 mt2 lh-title" id="article-title"></h1>
-                <!-- <div class="w-100 flex flex-row">
-                    <p class="mv1 f5 lh-copy" id="article-description">Museum of the decorative arts and design located
-                        in the Louvre's northwest wing</p>
-                </div> -->
                 <div>
-                    <!-- <p class="item dib">From</p> -->
                     <p class="item f5 dib" id="article-year">1905</p>
                 </div>
 
             </div>
 
-            <div class="infocontent flex flex-wrap">
-
-                <div class="article-image mv3 hide shadow" id="articleimage" onclick="toggleBigimage()">
-                    <div class="enlargeIcon">
-                        <i class="fas fa-expand-alt"></i>
-                    </div>
-                    <img class="pointer" id="article-image" src="https://upload.wikimedia.org/wikipedia/commons/3/3a/Louvre_aile_Richelieu.jpg" alt="louvre">
-                    <!-- <img id="article-image-loader" src="img/loading.gif" alt="louvre"> -->
+            <div class="infocontent flex flex-wrap pv3">
+                <div class="image-container grow" id="articleimage">
+                  <img class="" id="article-image" src="https://upload.wikimedia.org/wikipedia/commons/3/3a/Louvre_aile_Richelieu.jpg" alt="louvre">
+                  <span class="close-icon">&times;</span>
                 </div>
 
-                <div class="wiki-intro mv3 hide pointer shadow" id="wiki-intro" onclick="toggleBigtext()">
-                    <div class="enlargeIcon shadow">
-                        <i class="fas fa-expand-alt"></i>
-                    </div>
-                    <div class="enlargeIcon" id="closeicon"></div>
+
+                <div class="wiki-intro hide ph3" id="wiki-intro" onclick="">
                     <div class="wiki-intro-content flex flex-column">
-                        <div class="wiki-intro-content-text overflow-hidden" id="wiki-intro-content-text">
-                            <p class="mv0" id="article-intro">The Musée des Arts Décoratifs (Museum of Decorative Arts) is a museum dedicated to the exhibition and preservation of the decorative arts. Located at 107 Rue de Rivoli in the city’s 1st arrondissement, the museum occupies the
+                        <div class="" id="wiki-intro-content-text">
+                            <p class="mt4 mb3" id="article-intro">The Musée des Arts Décoratifs (Museum of Decorative Arts) is a museum dedicated to the exhibition and preservation of the decorative arts. Located at 107 Rue de Rivoli in the city’s 1st arrondissement, the museum occupies the
                                 most north-western wing of the Palais du Louvre, known as the Pavillon de Marsan (Marsan Pavilion). With over one million objects in its collection, the Musée des Arts Décoratifs is the largest museum of decorative arts
                                 in continental Europe.</p>
                         </div>
@@ -221,6 +217,8 @@
     <script type="text/javascript" src="data.js"></script> <!-- js file containing an array of city objects used as random starting locations -->
     <script type="text/javascript" src="index.js"></script>
     <script type="text/javascript" src="buttons.js"></script>
+    <script src="./image.js"></script>
+
 
     <script async defer src="https://scripts.simpleanalyticscdn.com/latest.js"></script>
     <noscript><img src="https://queue.simpleanalyticscdn.com/noscript.gif" alt="" referrerpolicy="no-referrer-when-downgrade" /></noscript>

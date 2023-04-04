@@ -21,7 +21,7 @@ body {
     margin: 0;
     box-sizing: border-box;
     overflow: hidden;
-    background-color: var(--prim2);
+    background-color: var(--white);
     /* background-image: url("./img/asfalt-dark.png"); */
     background-size: 128px 128px;
 }
@@ -29,12 +29,12 @@ body {
 h1,
 h2 {
     /* font-family: 'Karla', sans-serif; */
-    font-family: 'Caudex', serif;
+    font-family: 'Bitter', serif;
 }
 
 p {
     font-family: 'Inter', sans-serif;
-    font-size: 16px;
+    font-size: 18px;
     line-height: 1.7;
     font-weight: 500;
 }
@@ -104,11 +104,11 @@ p {
 .wikilinks {
     width: 100%;
     margin-top: 16px;
-    color: var(--white);
+    color: var(--black);
 }
 
 .listitem {
-    border-top: 0.5px solid white;
+    border-top: 0.5px solid black;
     width: 100%;
     padding: 0px 8px;
     transition: 0.2s;
@@ -134,7 +134,7 @@ p {
 }
 
 .listitemlabel {
-    color: var(--white);
+    color: var(--black);
     margin-left: 24px;
     text-decoration: none;
     line-height: 1.2;
@@ -171,6 +171,13 @@ p {
     display: flex;
     flex-direction: column;
     width: 0%;
+}
+
+.info-close {
+    position: absolute;
+    right: 32px;
+    top: 32px;
+    cursor: pointer;
 }
 
 
@@ -233,7 +240,7 @@ p {
 /* ----------- INFO DIV ---------- */
 
 .title {
-    color: var(--white)
+    color: var(--black)
 }
 
 .hidescrollbars::-webkit-scrollbar {
@@ -250,17 +257,65 @@ p {
     /* Firefox */
 }
 
-.article-image {
-    border-radius: 16px;
-    object-fit: cover;
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+.image-container {
     height: 300px;
     width: 100%;
-    background-color: var(--black);
-}
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer; /* added for mouse pointer on hover */
+    }
+    
+    .image-container img {
+    max-height: 100%;
+    max-width: 100%;
+    object-fit: contain;
+    }
+
+    .grow {
+        transition: all .2s ease-in-out; 
+
+    }
+
+    .grow:hover {
+        transform: scale(1.1); 
+    }
+    
+
+    .image-container .close-icon {
+    display: none;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 30px;
+    color: #fff;
+    cursor: pointer;
+    z-index: 999;
+    }
+
+    .image-container.fullscreen .close-icon {
+        display: block;
+        z-index: 9999;
+    }
+    
+    .image-container.fullscreen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    z-index: 999;
+    }
+    
+    .image-container.fullscreen img {
+    max-height: 95%;
+    max-width: 95%;
+    }
+
+  
+
 
 #article-image-loader {
     display: none;
@@ -308,12 +363,7 @@ img[src^=loading] {
     outline: none;
 }
 
-.article-image img {
-    object-fit: cover;
-    height: 100%;
-    width: 100%;
-    border-radius: 16px;
-}
+
 
 .searchbox {
     padding: 16px;
@@ -336,7 +386,7 @@ img[src^=loading] {
     object-fit: cover;
 }
 
-.article-image:hover .enlargeIcon {
+.article-image-small:hover .enlargeIcon {
     display: block;
 }
 
@@ -362,19 +412,11 @@ img[src^=loading] {
 
 .wiki-intro {
     position: relative;
-    background-color: var(--white);
-    border-radius: 16px;
-    max-height: 300px;
     /* overflow: hidden; */
-    padding: 24px;
 }
 
 .wiki-intro:hover .enlargeIcon {
     display: block;
-}
-
-.wiki-intro-content-text {
-    max-height: 276px;
 }
 
 #article-intro p:first-child {
@@ -386,7 +428,7 @@ img[src^=loading] {
 }
 
 .wiki-intro-content-footer {
-    position: absolute;
+    /* position: absolute; */
     bottom: 0px;
     width: 100%;
     padding-bottom: 16px;
@@ -405,7 +447,7 @@ img[src^=loading] {
 
 .item {
     margin-top: 0px;
-    color: var(--white);
+    color: var(--black);
     line-height: 1.2;
 }
 
@@ -498,20 +540,26 @@ img[src^=loading] {
 ---------------------------------------------
 */
 
-.WelcomeDiv {
-    font-family: 'Karla', sans-serif;
+.mapboxgl-ctrl-geocoder {
+    border-radius: .5rem!important;
 }
 
 .WelcomeDiv .mapboxgl-ctrl-geocoder {
     text-align: left;
+    width: 100%;
+    max-width: none;
+   
 }
 
-.WelcomeDivContent {
-    background: rgba(248, 250, 252, 0.65);
-    -webkit-backdrop-filter: blur(100px);
-    backdrop-filter: blur(100px);
-    opacity: 0.5;
-    /* Note: backdrop-filter has minimal browser support */
+.WelcomeDiv .mapboxgl-ctrl-geocoder input{
+    text-align: left;
+    width: 100%;
+    max-width: none;
+    height: 60px;
+    vertical-align: middle;
+    font-size: 16px;
+    font-family: 'Inter', sans-serif;
+    font-weight: 400;
 }
 
 .logo {
@@ -519,12 +567,10 @@ img[src^=loading] {
     height: 75px;
 }
 
-.WelcomeDivContent2 {
-    background: rgba(244, 233, 211, 1);
-    -webkit-backdrop-filter: blur(100px);
-    backdrop-filter: blur(100px);
-    background-image: url("./img/asfalt-dark.png");
-    background-size: 128px 128px;
+.WelcomeDiv {
+    background-image: url("./img/bg.jpg");
+    background-size: cover;
+    color: white;
 }
 
 .bgimage {
@@ -534,10 +580,10 @@ img[src^=loading] {
 }
 
 .startButton {
-    background-color: var(--prim2);
+    height: 60px;
+    background-color: var(--black);
     text-decoration: none;
     color: var(--prim1);
-    box-shadow: 0 1.9px 2.2px rgba(0, 0, 0, 0.009), 0 4.6px 5.3px rgba(0, 0, 0, 0.014), 0 8.5px 10px rgba(0, 0, 0, 0.02), 0 14.8px 17.9px rgba(0, 0, 0, 0.028), 0 26.9px 33.4px rgba(0, 0, 0, 0.044), 0 62px 80px rgba(0, 0, 0, 0.09);
 }
 
 .startButton:hover {
