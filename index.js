@@ -10,13 +10,17 @@ let infoPanel = {}; // #panel
 
 // cities is an array from the data.js file. It consists of objects with
 // the keys: "n" for name, "c" for coordinates and q for the Q number.
-const randCity = cities[Math.floor(Math.random() * cities.length)]; // #map
+function randCity() {
+    let randIndex = Math.floor(Math.random() * cities.length);
+    return cities[randIndex];
+}
 
+const srtartLocation = randCity(); // #welcome
 mapboxgl.accessToken = 'pk.eyJ1IjoiY2Fza2VzIiwiYSI6ImNsZGtwdGRrdzA4dWMzb3BoMWdxM3Zib2UifQ.2q2xfShG5nmDHTxg7n_ZhQ'; // #map
 const mapConfig = { // #map
     container: 'map', // container element id
     style: 'mapbox://styles/caskes/cldkq0ha9000r01n3hjgwtkrn', // stylesheet location
-    center: randCity.c, // "c" stands for coordinates. Random city of more than 100k people.
+    center: srtartLocation.c, // "c" stands for coordinates. Random city of more than 100k people.
     zoom: 15,
     hash: true // hash location in url
 };
@@ -26,7 +30,10 @@ const map = new mapboxgl.Map(mapConfig); // #map
 map.addControl(new mapboxgl.NavigationControl(), 'bottom-right'); // #map
 
 // eslint-disable-next-line no-unused-vars
-function newRandomLocation() { map.flyTo({ center: startingLocation }); } // #random-location
+function newRandomLocation() {
+    const location = randCity();
+    map.flyTo({ center: location.c });
+} // #random-location
 
 $('.startButton').click( // #welcome
     hideWelcomCoverPage()
@@ -316,7 +323,8 @@ function fetchArticlesInBoundingBox() { //#geo-api
     console.log('Searching articles in new map locations');
     fetch(requestURL)
         .then(response => response.json())
-        .then(data => processArticles(data));
+        .then(data => processArticles(data))
+        .catch(error => console.log(error));
 }
 
 function processArticles(jsonData) { // #geo-api #map
