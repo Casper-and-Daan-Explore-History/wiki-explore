@@ -122,7 +122,7 @@
             <span class="info-close dn-l">&times;</span>
 
             <div class="title ph3">
-                <h1 class="fw7 mb3 mt2 lh-title" id="article-title"></h1>
+                <h1 class="fw7 mb3 mt2" id="article-title"></h1>
                 <div>
                     <p class="item f5 dib" id="article-year">1905</p>
                 </div>
@@ -151,7 +151,7 @@
 
 
                 <div class="wikilinks" id="wikilinks">
-                    <h2>More information</h2>
+                    <h2 class="ph3">More information</h2>
 
                     <div class="listitem">
                         <a id="article-wikipedia" class="listitemlink" target="_blank">
@@ -199,11 +199,15 @@
         </div>
 
         <div class="mapcontainer mapshadow">
-            <div class="absolute w-30 flex flew-row searchbox">
+            <div class="absolute w-30 flex flew-row gap searchbox">
                 <div class="enlargeMapIcon pointer" onclick="hideInfopanel()" style="display: none;">
                     <i class="fas fa-expand-alt icon"></i>
                 </div>
                 <div id="geocoderMap" class="geocoder v-mid"></div>
+                <div class="randomButton w-100 w-100 f6 br3 pointer">
+                    <p class="fw4 f6 mv0">Random location</p>
+                </div>
+                
             </div>
             <div id="map" class="map"></div>
         </div>

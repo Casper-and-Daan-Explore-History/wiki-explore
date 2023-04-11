@@ -30,6 +30,8 @@ h1,
 h2 {
     font-family: 'Anuphan', serif;
     letter-spacing: -0.5px;
+    line-height: 1.2;
+
 }
 
 p {
@@ -367,6 +369,7 @@ img[src^=loading] {
 
 .searchbox {
     padding: 16px;
+    gap: 16px;
 }
 
 .enlargeIcon {
@@ -394,7 +397,6 @@ img[src^=loading] {
     background-color: var(--white);
     color: var(--black);
     min-width: 36px;
-    margin-right: 16px;
     /* height: auto; */
     height: 36px;
     text-align: center;
@@ -404,6 +406,24 @@ img[src^=loading] {
     justify-content: center;
     align-items: center;
     /* display: none; */
+}
+
+.randomButton {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 36px;
+    margin-top: 0;
+    min-width: 200px;
+    background-color: var(--white);
+    text-decoration: none;
+    color: var(--black);
+    z-index: 1; /*make it appear on top of map*/
+}
+
+.randomButton:hover, .enlargeMapIcon:hover{
+    background-color: #e5e5e5;
+
 }
 
 #closeicon {
@@ -584,8 +604,10 @@ img[src^=loading] {
     background-color: var(--black);
     text-decoration: none;
     color: var(--prim1);
+    z-index: 1; /*make it appear on top of map*/
 }
 
 .startButton:hover {
     text-decoration: none !important;
 }
+
