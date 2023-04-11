@@ -138,7 +138,6 @@ map.on('load', function () {
     map.on('click', 'unclustered-point', popupOpen); // #info-panel
     map.on('click', 'cluster-count', popupOpen); // #article-list
 
-
     // Map panning ends
     map.on('moveend', function () { // #geo-api
         fetchArticlesInBoundingBox();
@@ -290,7 +289,7 @@ function createListPopup(features) { // #article-list
         item.addEventListener('click', function () {
             let listNbr = $(this).attr('data-list-nbr');
             listNbr = Number(listNbr);
-            console.log("createListPopup");
+            console.log('createListPopup');
             console.log(features[listNbr].properties);
             openInfoPanel(features[listNbr].properties);
             listPopup.remove();
