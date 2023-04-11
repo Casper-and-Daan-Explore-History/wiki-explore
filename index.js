@@ -35,6 +35,8 @@ function newRandomLocation() {
     map.flyTo({ center: location.c });
 } // #random-location
 
+document.getElementById('randomButton').addEventListener('click', newRandomLocation); // #random-location
+
 $('.startButton').click( // #welcome
     hideWelcomCoverPage()
 );
