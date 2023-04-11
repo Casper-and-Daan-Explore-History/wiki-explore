@@ -322,6 +322,7 @@ function fetchArticlesInBoundingBox() { //#geo-api
 function processArticles(jsonData) { // #geo-api #map
     console.log(`Found ${jsonData.query.geosearch.length} articles`);
     $.each(jsonData.query.geosearch, function (index, value) {
+        if (value.title.startsWith('List of')) return; // ignore wikipedia list articles
         let article = {
             'pageId': value.pageid,
             'title': value.title,
