@@ -138,7 +138,6 @@ map.on('load', function () {
     map.on('click', 'unclustered-point', popupOpen); // #info-panel
     map.on('click', 'cluster-count', popupOpen); // #article-list
 
-
     // Map panning ends
     map.on('moveend', function () { // #geo-api
         fetchArticlesInBoundingBox();
@@ -290,7 +289,7 @@ function createListPopup(features) { // #article-list
         item.addEventListener('click', function () {
             let listNbr = $(this).attr('data-list-nbr');
             listNbr = Number(listNbr);
-            console.log("createListPopup");
+            console.log('createListPopup');
             console.log(features[listNbr].properties);
             openInfoPanel(features[listNbr].properties);
             listPopup.remove();
@@ -323,6 +322,7 @@ function fetchArticlesInBoundingBox() { //#geo-api
 function processArticles(jsonData) { // #geo-api #map
     console.log(`Found ${jsonData.query.geosearch.length} articles`);
     $.each(jsonData.query.geosearch, function (index, value) {
+        if (value.title.startsWith('List of')) return; // ignore wikipedia list articles
         let article = {
             'pageId': value.pageid,
             'title': value.title,
