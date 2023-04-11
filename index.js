@@ -32,7 +32,10 @@ map.addControl(new mapboxgl.NavigationControl(), 'bottom-right'); // #map
 // eslint-disable-next-line no-unused-vars
 function newRandomLocation() {
     const location = randCity();
-    map.flyTo({ center: location.c });
+    map.flyTo({
+        center: location.c,
+        zoom: 15
+    });
 } // #random-location
 
 document.getElementById('randomButton').addEventListener('click', newRandomLocation); // #random-location
