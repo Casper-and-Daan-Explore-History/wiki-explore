@@ -197,6 +197,11 @@ p {
 }
 
 .mapboxgl-ctrl-geocoder {
+    background-color: var(--white)!important;
+
+}
+
+.mapboxgl-ctrl-geocoder {
     border-radius: 16px !important;
 }
 
@@ -406,6 +411,8 @@ img[src^=loading] {
     justify-content: center;
     align-items: center;
     /* display: none; */
+    transition: all 0.2s ease-out;
+
 }
 
 .randomButton {
@@ -419,11 +426,12 @@ img[src^=loading] {
     text-decoration: none;
     color: var(--black);
     z-index: 1; /*make it appear on top of map*/
+    transition: all 0.2s ease-out;
+
 }
 
 .randomButton:hover, .enlargeMapIcon:hover{
     background-color: #e5e5e5;
-
 }
 
 #closeicon {
@@ -567,8 +575,7 @@ img[src^=loading] {
 .WelcomeDiv .mapboxgl-ctrl-geocoder {
     text-align: left;
     width: 100%;
-    max-width: none;
-   
+    max-width: none;   
 }
 
 .WelcomeDiv .mapboxgl-ctrl-geocoder input{
