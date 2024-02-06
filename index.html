@@ -30,9 +30,11 @@
 
     <!-- Google Font -->
     <script src="https://kit.fontawesome.com/c258b31bf5.js" crossorigin="anonymous"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <!-- <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Anuphan:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Anuphan:wght@300;400;500;600;700&display=swap" rel="stylesheet"> -->
+
+    <link href="https://api.fontshare.com/v2/css?f[]=supreme@400,300,500&display=swap" rel="stylesheet">
 
 </head>
 
@@ -101,17 +103,19 @@
                 </div>
             </div>
         </div>
+        <a href="./about.html">
         <div class="welcomefooter ph6-l pa5-m pa3">
             <p class="link" onclick="openAboutpanel()">About Wiki data map</p>
         </div>
+    </a>
     </div>
 
     <div id="loadingBox" class="loadingBox">
-        <h1 class="ma0 ">Loading content from wikidata...</h1>
+        <h1 class="ma0 tracked-tight">Loading content from wikidata...</h1>
     </div>
 
     <div class="hamburger dn w-100 pa2 absolute min-h-100 z-999" id="hamburgermenu">
-        <div class="tc f3 pv3 mt5 bt bb pointer" onclick="openAboutpanel(); closeHamburger()">About</div>
+        <div class="tc f3 pv3 mt5 bt bb pointer">About</div>
         <div class="tc f4 pv3 mt5">Other info</div>
     </div>
 
@@ -122,7 +126,7 @@
             <span class="info-close dn-l">&times;</span>
 
             <div class="title ph3">
-                <h1 class="fw7 mb3 mt2" id="article-title"></h1>
+                <h1 class="fw7 mb3 mt2 tracked-tight" id="article-title"></h1>
                 <div>
                     <p class="item f5 dib" id="article-year">1905</p>
                 </div>

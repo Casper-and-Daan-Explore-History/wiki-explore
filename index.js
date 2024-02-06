@@ -50,6 +50,7 @@ $('.startButton').click( // #welcome
 function hideWelcomCoverPage() { // #welcome
     $('.WelcomeDiv').toggleClass('transparent');
     $('#coverContainer').toggleClass('transparent');
+    
 
     // setTimeout(function () {
     //     $('.WelcomeDiv').hide();
