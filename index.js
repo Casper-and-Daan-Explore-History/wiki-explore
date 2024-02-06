@@ -40,21 +40,13 @@ function newRandomLocation() {
 
 document.getElementById('randomButton').addEventListener('click', newRandomLocation); // #random-location
 
-$('.startButton').click( // #welcome
-    hideWelcomCoverPage()
-);
-// $("#coverContainer").click(
-//     hideWelcomCoverPage
-// );
+document.querySelectorAll('.startButton').forEach(button => {
+    button.addEventListener('click', hideWelcomCoverPage);
+});
 
 function hideWelcomCoverPage() { // #welcome
-    $('.WelcomeDiv').toggleClass('transparent');
-    $('#coverContainer').toggleClass('transparent');
-
-    setTimeout(function () {
-        $('.WelcomeDiv').hide();
-        $('#coverContainer').hide();
-    }, 500);
+    $('.WelcomeDiv').hide();
+    $('#coverContainer').hide();
 }
 
 //Create a popup to display when hovering over a marker.
