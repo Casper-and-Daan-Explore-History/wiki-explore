@@ -52,10 +52,10 @@ function hideWelcomCoverPage() { // #welcome
     $('#coverContainer').toggleClass('transparent');
     
 
-    // setTimeout(function () {
-    //     $('.WelcomeDiv').hide();
-    //     $('#coverContainer').hide();
-    // }, 500);
+    setTimeout(function () {
+        $('.WelcomeDiv').hide();
+        $('#coverContainer').hide();
+    }, 500);
 }
 
 //Create a popup to display when hovering over a marker.
