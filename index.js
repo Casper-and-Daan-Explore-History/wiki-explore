@@ -637,22 +637,22 @@ function updateInfoPanel(data) {
         $('#article-image').attr('src', 'img/kutgif.gif');
         // $('#article-instance-of').html('-');
 
-        $('#article-wikidata').hide();
+        $('#article-wikidata').parent('.listitem').hide();
         $('#article-wikidata').attr('href', '');
 
-        $('#article-wikipedia').hide();
+        $('#article-wikipedia').parent('.listitem').hide();
         $('#article-wikipedia').attr('href', '');
 
-        $('#article-wikicommons').hide();
+        $('#article-wikicommons').parent('.listitem').hide();
         $('#article-wikicommons').attr('href', '');
 
-        $('#article-google-search').hide();
+        $('#article-google-search').parent('.listitem').hide();
         $('#article-google-search').attr('href', '');
 
-        $('#article-google-maps').hide();
+        $('#article-google-maps').parent('.listitem').hide();
         $('#article-google-maps').attr('href', '');
 
-        $('#article-official-website').hide();
+        $('#article-official-website').parent('.listitem').hide();
         $('#article-official-website').attr('href', '');
     }
 
@@ -676,38 +676,38 @@ function updateInfoPanel(data) {
 
     if (data.Wikidata_item != undefined) { // Wikidata
         $('#article-wikidata').attr('href', data.Wikidata_item);
-        $('#article-wikidata').show();
+        $('#article-wikidata').parent('.listitem').show();
     }
 
     if (data.Wikidata_WikipediaLink != undefined) { // Wikipedia
         $('#article-wikipedia').attr('href', data.Wikidata_WikipediaLink);
-        $('#article-wikipedia').show();
+        $('#article-wikipedia').parent('.listitem').show();
     }
 
     if (data.Wikidata_CommonsCategory != undefined) { // Wikimedia Commons album
         $('#article-wikicommons').attr('href', data.Wikidata_CommonsCategory);
-        $('#article-wikicommons').show();
+        $('#article-wikicommons').parent('.listitem').show();
     }
 
     if (data.Wikidata_FreebaseIdGoogleSearch != undefined) { // Google Search
         $('#article-google-search').attr('href', data.Wikidata_FreebaseIdGoogleSearch);
-        $('#article-google-search').show();
+        $('#article-google-search').parent('.listitem').show();
     }
 
     let lonlat = data.Map_lonLat || (data.Wikidata_LonLat && data.Wikidata_LonLat[0]);
     if (lonlat && lonlat.length == 2) { // Google Maps based on coordinates
         $('#article-google-maps').attr('href', `https://www.google.com/maps/search/?api=1&query=${lonlat[1]},${lonlat[0]}`);
-        $('#article-google-maps').show();
+        $('#article-google-maps').parent('.listitem').show();
     }
 
     if (data.Wikidata_GoogleMapsCustomerId != undefined) { // Google Maps based on Google Maps ID (overwrites coordinates)
         $('#article-google-maps').attr('href', data.Wikidata_GoogleMapsCustomerId);
-        $('#article-google-maps').show();
+        $('#article-google-maps').parent('.listitem').show();
     }
 
     if (data.Wikidata_officialWebsite != undefined) { // Google Maps
         $('#article-official-website').attr('href', data.Wikidata_officialWebsite);
-        $('#article-official-website').show();
+        $('#article-official-website').parent('.listitem').show();
     }
 
     function formatingInseption() { return data.Wikidata_inception != undefined ? `From  ${data.Wikidata_inception}` : undefined; }
