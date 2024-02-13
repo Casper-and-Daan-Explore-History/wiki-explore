@@ -30,47 +30,15 @@
 
     <!-- Google Font -->
     <script src="https://kit.fontawesome.com/c258b31bf5.js" crossorigin="anonymous"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <!-- <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Anuphan:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Anuphan:wght@300;400;500;600;700&display=swap" rel="stylesheet"> -->
+
+    <link href="https://api.fontshare.com/v2/css?f[]=supreme@400,300,500&display=swap" rel="stylesheet">
 
 </head>
 
 <body onresize="hideInfopanel()">
-    <div class="about absolute dn w-100 h-100 pa4-l z-9999 border-box cf lh-copy" id="about">
-        <div class="aboutcontainer relative flex flex-row-l flex-column bg-white w-100 min-h-100 center cf v-mid">
-            <div class="closebutton" onclick="hideAboutpanel()">
-                <img src="./img/close.svg" alt="Close" class="closeicon">
-            </div>
-            <div class="aboutcontent w-two-thirds-l w-100 tc pv4 ph0-l ph4 flex flex-column">
-                <h1>About Wiki Map</h1>
-                <div class="flex-auto items-center content-center tl w-50-l center">
-
-                    <p>I like car design. I struggle to place the right designer at the right studio. I wanted to create this data vizualization to show that, and celebrate and give an insight in the evolution of car design.
-                    </p>
-                    <h3 class="lh-title mb0">Where the data comes from</h3>
-                    <p class="mt1">Wikipedia</p>
-                    <h3 class="lh-title mb0">Roadmap</h3>
-                    <p class="mt1">Next on my list is to add cars from 1975 - 1980. Reach out if you have more ideas!
-                    </p>
-
-                </div>
-            </div>
-            <div class="aboutcontact flex-auto w-third-l w-100 tc pa4">
-                <h1>About Us</h1>
-                <div class="ph3">
-                    <h3 class="lh-title mb0">Check out my other projects too:</h3>
-                    <p class="mt1">The Turn Signal Blog, a blog about automotive UX design</p>
-                    <p>Wiki map thing, Wikipedia meets Google Earth</p>
-                    <h3 class="lh-title mb0">Contact</h3>
-                    <p class="mt1">Twitter</p>
-                    <p>Email</p>
-                    <p>LinkedIn</p>
-                    <p>Design Portfolio</p>
-                </div>
-            </div>
-        </div>
-    </div>
 
     <div class="WelcomeDiv w-100 mw-100 vh-100 overflow-hidden z-999 absolute top-0 flex flex-column justify-between">
         <div class="flex justify-between  pt4-ns ph4-ns">
@@ -97,21 +65,23 @@
                     </div>
                 </div>
                 <div class="dib startButton tc w-100 w-100 f6 link grow br3 pointer center mt3">
-                    <p class="white fw4">Random location</p>
+                    <p class="white fw4">Take me to a random location</p>
                 </div>
             </div>
         </div>
+        <a href="./about.html">
         <div class="welcomefooter ph6-l pa5-m pa3">
             <p class="link" onclick="openAboutpanel()">About Wiki data map</p>
         </div>
+    </a>
     </div>
 
     <div id="loadingBox" class="loadingBox">
-        <h1 class="ma0 ">Loading content from wikidata...</h1>
+        <h1 class="ma0 tracked-tight">Loading content from wikidata...</h1>
     </div>
 
     <div class="hamburger dn w-100 pa2 absolute min-h-100 z-999" id="hamburgermenu">
-        <div class="tc f3 pv3 mt5 bt bb pointer" onclick="openAboutpanel(); closeHamburger()">About</div>
+        <div class="tc f3 pv3 mt5 bt bb pointer">About</div>
         <div class="tc f4 pv3 mt5">Other info</div>
     </div>
 
@@ -122,7 +92,7 @@
             <span class="info-close dn-l">&times;</span>
 
             <div class="title ph3">
-                <h1 class="fw7 mb3 mt2" id="article-title"></h1>
+                <h1 class="fw7 mb3 mt2 tracked-tight" id="article-title"></h1>
                 <div>
                     <p class="item f5 dib" id="article-year">1905</p>
                 </div>

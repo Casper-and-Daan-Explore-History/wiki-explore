@@ -15,7 +15,7 @@ img[src*="loading.gif"] {
 
 html,
 body {
-    font-family: 'Anuphan', sans-serif;
+    font-family: 'Supreme', sans-serif;
     font-size: 100%;
     height: 100%;
     margin: 0;
@@ -28,14 +28,14 @@ body {
 
 h1,
 h2 {
-    font-family: 'Anuphan', serif;
+    font-family: 'Supreme', sans-serif;
     letter-spacing: -0.5px;
     line-height: 1.2;
 
 }
 
 p {
-    font-family: 'Anuphan', sans-serif;
+    font-family: 'Supreme', sans-serif;
     font-size: 18px;
     line-height: 1.7;
     font-weight: 400;
@@ -394,6 +394,10 @@ img[src^=loading] {
     object-fit: cover;
 }
 
+#article-image {
+    border-radius: 16px;
+}
+
 .article-image-small:hover .enlargeIcon {
     display: block;
 }
@@ -570,7 +574,23 @@ img[src^=loading] {
 
 .mapboxgl-ctrl-geocoder {
     border-radius: .5rem!important;
+
 }
+
+.mapboxgl-ctrl-geocoder--input {
+    height: 36px;
+    padding: 6px 16px!important;
+    font-family: 'Supreme', sans-serif!important;
+    font-size: .875rem!important;
+}
+
+.mapboxgl-ctrl-geocoder--suggestion {
+    font-family: 'Supreme', sans-serif!important;
+}
+
+.mapboxgl-ctrl-geocoder--suggestion-title {
+    font-weight: 500!important;
+    }
 
 .WelcomeDiv .mapboxgl-ctrl-geocoder {
     text-align: left;
@@ -585,9 +605,13 @@ img[src^=loading] {
     height: 60px;
     vertical-align: middle;
     font-size: 16px;
-    font-family: 'Inter', sans-serif;
+    font-family: 'Supreme', sans-serif;
     font-weight: 400;
+    padding: 6px 16px!important;
+    font-size: 1rem!important;
 }
+
+
 
 .logo {
     width: 75px;
@@ -618,3 +642,42 @@ img[src^=loading] {
     text-decoration: none !important;
 }
 
+ /* ----------- ABOUT ----------- */
+ .aboutbody {
+	width: 100%;
+	height: 100%;
+	display: flex;
+	justify-content: center;
+}
+
+ .aboutcontent {
+	margin-top: 6em;
+	margin-bottom: 6em;
+	max-width: 600px;
+	padding: 0px 16px;
+ }
+
+ .aboutbody p{
+	margin-top: 8px;
+ }
+
+ .backbutton {
+	width: 200px;
+	display: flex;
+	flex-direction: row;
+	cursor: pointer;
+	margin-bottom: 3em;
+ }
+
+.backbuttontext {
+	width: 80%;
+	display: flex;
+	align-items: center;
+  }
+
+  .aboutsubtitle {
+	margin-bottom: 2px;
+	margin-top: 24px;
+	font-weight: 600;
+	font-size: 18px
+  }
