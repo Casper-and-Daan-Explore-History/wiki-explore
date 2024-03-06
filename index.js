@@ -717,6 +717,54 @@ function updateInfoPanel(data) {
 
 function bigNumberFormatter(num) { return num >= 1000000 ? `${(num / 1000000).toFixed(0)} M` : num >= 1000 ? `${(num / 1000).toFixed(0)} k` : num; }
 
+
+
+function updateWelcomeDivBackground() {
+    const landingPageBackgroundUrls = [
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/d/dd/Vintage_car_meets_world_heritage_site.jpg/2560px-Vintage_car_meets_world_heritage_site.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/1/14/L%27Umbracle%2C_Valencia%2C_Spain_-_Jan_2007.jpg/2560px-L%27Umbracle%2C_Valencia%2C_Spain_-_Jan_2007.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7b/Mont_Blanc_from_Les_Arcs_1950.jpg/2560px-Mont_Blanc_from_Les_Arcs_1950.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/f/ff/Ana_rosa_metro_station%2C_S%C3%A3o_Paulo%2C_Brazil.jpg/2560px-Ana_rosa_metro_station%2C_S%C3%A3o_Paulo%2C_Brazil.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ab/Esztergom_by_night_01_-_Simor_J%C3%A1nos_utca.jpg/2560px-Esztergom_by_night_01_-_Simor_J%C3%A1nos_utca.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c4/Edinburgh_Castle_from_Grass_Market.jpg/2560px-Edinburgh_Castle_from_Grass_Market.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9c/Catedral_de_Salzburgo%2C_Salzburgo%2C_Austria%2C_2019-05-19%2C_DD_30-32_HDR.jpg/2560px-Catedral_de_Salzburgo%2C_Salzburgo%2C_Austria%2C_2019-05-19%2C_DD_30-32_HDR.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/3/39/Neues_Rathaus_Hannover%2C_Innenansicht.jpg/2560px-Neues_Rathaus_Hannover%2C_Innenansicht.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/5/52/Katharinenkirche%2C_Mellenbach%2C_2022-05-27.jpg/2560px-Katharinenkirche%2C_Mellenbach%2C_2022-05-27.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/2/21/Mariakerk_%28Wierum%29_10-07-2023._%28d.j.b%29_04.jpg/2560px-Mariakerk_%28Wierum%29_10-07-2023._%28d.j.b%29_04.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Canary_Wharf_from_Limehouse_London_June_2016_HDR.jpg/2560px-Canary_Wharf_from_Limehouse_London_June_2016_HDR.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/Schloss_Sigmaringen_2022.jpg/2560px-Schloss_Sigmaringen_2022.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/3/31/Casa_hist%C3%B3rica_de_Boroujerdi%2C_Kashan%2C_Ir%C3%A1n%2C_2016-09-19%2C_DD_32.jpg/2560px-Casa_hist%C3%B3rica_de_Boroujerdi%2C_Kashan%2C_Ir%C3%A1n%2C_2016-09-19%2C_DD_32.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fb/D%C3%BClmen%2C_Kirchspiel%2C_St.-Jakobus-Kirche%2C_Chor_und_Altar_--_2022_--_4184-8.jpg/2560px-D%C3%BClmen%2C_Kirchspiel%2C_St.-Jakobus-Kirche%2C_Chor_und_Altar_--_2022_--_4184-8.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/0/08/Ratusz_w_Kolobrzegu.jpg/2560px-Ratusz_w_Kolobrzegu.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/2/27/Keylong_West_Lahaul_Himachal_Oct22_A7C_03375_panorama.jpg/2560px-Keylong_West_Lahaul_Himachal_Oct22_A7C_03375_panorama.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1d/Mekong_bank_with_stilt_dwellings_and_clouds_at_golden_hour_in_Don_Det_Laos.jpg/2560px-Mekong_bank_with_stilt_dwellings_and_clouds_at_golden_hour_in_Don_Det_Laos.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Puente_de_Don_Luis_I%2C_Oporto%2C_Portugal%2C_2019-06-02%2C_DD_29-31_HDR.jpg/2560px-Puente_de_Don_Luis_I%2C_Oporto%2C_Portugal%2C_2019-06-02%2C_DD_29-31_HDR.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/3/38/%EC%97%AC%EC%A3%BC_%EC%98%81%EB%A6%89%EA%B3%BC_%EC%98%81%EB%A6%89_%EC%84%B8%EC%A2%85_%EC%98%81%EB%A6%89_%EC%9E%AC%EC%8B%A4.jpg/2560px-%EC%97%AC%EC%A3%BC_%EC%98%81%EB%A6%89%EA%B3%BC_%EC%98%81%EB%A6%89_%EC%84%B8%EC%A2%85_%EC%98%81%EB%A6%89_%EC%9E%AC%EC%8B%A4.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4c/160322-066_View_from_Thiri.jpg/2560px-160322-066_View_from_Thiri.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/1/13/Abbotsford_House_Study_Room.jpg/2560px-Abbotsford_House_Study_Room.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/6/68/Himalayas%2C_Cholatse%2C_Nepal.jpg/2560px-Himalayas%2C_Cholatse%2C_Nepal.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Guarda-corpo_da_Avenida_Portugal_-_Rio_de_Janeiro_-_20220923024517.jpg/2560px-Guarda-corpo_da_Avenida_Portugal_-_Rio_de_Janeiro_-_20220923024517.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9f/D%C3%B6rzbach_-_Hohebach_-_J%C3%BCdischer_Friedhof_-_Ansicht_1.jpg/2560px-D%C3%B6rzbach_-_Hohebach_-_J%C3%BCdischer_Friedhof_-_Ansicht_1.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/2/22/Town_hall_of_Leuven_%287%29.jpg/2390px-Town_hall_of_Leuven_%287%29.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/9/90/Everest%2C_Himalayas.jpg/2560px-Everest%2C_Himalayas.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b0/Rottenburg_a.N._-_Wurmlingen_-_Kapellenberg_-_Ansicht_von_OSO_im_April_mit_Gegenlicht.jpg/2560px-Rottenburg_a.N._-_Wurmlingen_-_Kapellenberg_-_Ansicht_von_OSO_im_April_mit_Gegenlicht.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4a/Church_of_St._John_at_Kaneo_6.jpg/2560px-Church_of_St._John_at_Kaneo_6.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/3/32/Hohenloher_Freilandmuseum_-_Baugruppe_Hohenloher_Dorf_-_Bauerngarten_-_Ansicht_von_Osten_im_Juni.jpg/2560px-Hohenloher_Freilandmuseum_-_Baugruppe_Hohenloher_Dorf_-_Bauerngarten_-_Ansicht_von_Osten_im_Juni.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/CargoNet_185_Vindeln_-_Tv%C3%A4r%C3%A5lund.jpg/2560px-CargoNet_185_Vindeln_-_Tv%C3%A4r%C3%A5lund.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8f/Rani_ki_vav_-_Patan_-_Gujarat_-_Wall_Decorations.jpg/2560px-Rani_ki_vav_-_Patan_-_Gujarat_-_Wall_Decorations.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/TR_Yedig%C3%B6ller_asv2021-10_img16.jpg/2560px-TR_Yedig%C3%B6ller_asv2021-10_img16.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d0/Kungstr%C3%A4dg%C3%A5rden_Metro_station_May_2014_08.jpg/2560px-Kungstr%C3%A4dg%C3%A5rden_Metro_station_May_2014_08.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8e/Ch%C3%A2teau_de_Val%C3%A8re_et_Haut_de_Cry_-_juillet_2022.jpg/2560px-Ch%C3%A2teau_de_Val%C3%A8re_et_Haut_de_Cry_-_juillet_2022.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d9/Iglesia_parroquial%2C_Geiranger%2C_Noruega%2C_2019-09-07%2C_DD_84-97_PAN.jpg/2560px-Iglesia_parroquial%2C_Geiranger%2C_Noruega%2C_2019-09-07%2C_DD_84-97_PAN.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7d/Sydney_%28AU%29%2C_Darling_Harbour_--_2019_--_3193-5.jpg/2560px-Sydney_%28AU%29%2C_Darling_Harbour_--_2019_--_3193-5.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fb/E-burg_asv2019-05_img54_Chkalovskaya_metro_station.jpg/2560px-E-burg_asv2019-05_img54_Chkalovskaya_metro_station.jpg"
+    ]
+    const randomUrl = landingPageBackgroundUrls[Math.floor(Math.random() * landingPageBackgroundUrls.length)];
+    const element = document.querySelector('.WelcomeDiv');
+    if (element) { element.style.backgroundImage = `url("${randomUrl}")`; }
+}
+updateWelcomeDivBackground();
+
 // Ideas for future:
 // - on map movement queries: wikipedia API, Wikidata query, Wiki commons API (toggle for all 3)
 // - plaatje, title, intro, Wikipedia link, Wikidata link, mini discription, (list of related categories: quality?)
