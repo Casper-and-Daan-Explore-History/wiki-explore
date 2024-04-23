@@ -41,39 +41,37 @@
 <body onresize="hideInfopanel()">
 
     <div class="WelcomeDiv w-100 mw-100 vh-100 overflow-hidden z-999 absolute top-0 flex flex-column justify-between">
-        <div class="flex justify-between  pt4-ns ph4-ns">
-            <div class="welcomeheader">
-                <img class="logo" src="./img/logo.png">
-            </div>
-            <div>
-                <p class="mv0 f6 tr">Pont Alexandre</p>
-                <p class="mv0 f6 tr">Paris</p>
-                <p class="mv0 f6 tr">Wikipedia</p>
-            </div>
-        </div>
-        <div class="WelcomeDivContent center w-40-l pb5 w-100 flex flex-column">
-            <div class="welcomecontent items-center">
-                <div class="mb3">
-                    <h1 class="mw-100 tc f1 mb0">Wiki explore</h1>
-                    <p class="tc">Search for a location and see all Wikipedia articles on the map</p>
-                </div>
-                <div class=" flex flex-row items-center">
-                    <div id="geocoderWelcome" class="geocoder v-mid w-75 mr3">
+        <div class="WelcomeDivContent h-100 center flex flex-column justify-center">
+            <div class="welcomecontent items-center ">
+
+                <div class="welcomebox ">
+                    <div class="mb3">
+                        <h1 class="mw-100 f2 mv0">Wiki explore</h1>
+                        <p class="">Browse the world for interesting wiki data</p>
                     </div>
-                    <div class="startButton tc w-25 f6 link grow br3 pointer flex items-center justify-center">
-                        <p class="white fw4 mv0 ">Search</p>
+                    <div class="welcomesearch flex flex-row items-center">
+                        <div id="geocoderWelcome" class="geocoder v-mid w-75 mr3">
+                        </div>
+                        <div class="startButton tc w-25 f6 link grow br3 pointer flex items-center justify-center">
+                            <p class="black fw4 mv0 ">Search</p>
+                        </div>
                     </div>
-                </div>
-                <div class="dib startButton tc w-100 w-100 f6 link grow br3 pointer center mt3 flex items-center justify-center">
-                    <p class="white fw4 v-mid">Take me to a random location</p>
+                    <div class="dib startButton tc w-100 w-100 f6 link grow br3 pointer center mt3 flex items-center justify-center">
+                        <p class="black fw4 v-mid">Take me to a random location</p>
+                    </div>
+                    <a href="./about.html" >
+                        <p class="link" onclick="openAboutpanel()">About</p>
+                    </a>
                 </div>
             </div>
+
+
+
+
+
+                
         </div>
-        <a href="./about.html">
-        <div class="welcomefooter ph6-l pa5-m pa3">
-            <p class="link" onclick="openAboutpanel()">About Wiki data map</p>
-        </div>
-    </a>
+        
     </div>
 
     <div id="loadingBox" class="loadingBox">

@@ -41,6 +41,15 @@ p {
     font-weight: 400;
 }
 
+a {
+    text-decoration: none;
+}
+
+a:visited {
+    text-decoration: none;
+    color: black;
+}
+
 @media only screen and (max-width: 599px) {
     .mapcontainer {
         margin: 0px;
@@ -78,6 +87,8 @@ p {
     text-decoration: none;
     cursor: pointer;
 }
+
+
 
 .link:hover {
     text-decoration: underline;
@@ -602,20 +613,13 @@ img[src^=loading] {
     text-align: left;
     width: 100%;
     max-width: none;
-    height: 60px;
+    height: 48px;
     vertical-align: middle;
     font-size: 16px;
     font-family: 'Supreme', sans-serif;
     font-weight: 400;
     padding: 6px 16px!important;
     font-size: 1rem!important;
-}
-
-
-
-.logo {
-    width: 75px;
-    height: 75px;
 }
 
 .WelcomeDiv {
@@ -630,12 +634,42 @@ img[src^=loading] {
     background-repeat: no-repeat;
 }
 
+.welcomebox {
+    background-color: rgba(255,255,255,0.8);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    color: #000;
+    border-radius: 24px;
+    text-align: left;
+    box-shadow: 0px 8px 16px rgb(0 0 0 / 60%);
+}
+
+
+
+@media only screen and (max-width: 599px) {
+    .welcomebox {
+        width: 100%;
+        height: auto;
+        padding: 24px;
+    }
+}
+
+@media only screen and (min-width: 500px) {
+    .welcomebox {
+        width: 480px;
+        height: auto;
+        padding: 48px 48px 24px 48px;
+    }
+}
+
+
 .startButton {
-    height: 60px;
-    background-color: var(--black);
+    height: 48px;
+    background-color: var(--white);
     text-decoration: none;
     color: var(--prim1);
     z-index: 1; /*make it appear on top of map*/
+    box-shadow: 0 0 10px 2px rgba(0,0,0,.1);
 }
 
 .startButton:hover {
