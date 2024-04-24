@@ -561,6 +561,14 @@ img[src^=loading] {
     background-color: var(--black);
 }
 
+.aboutcontent {
+    overflow-y: scroll;
+}
+
+.aboutcontent a {
+    text-decoration: underline;
+}
+
 .aboutbutton {
     box-shadow: 0 0 10px 2px rgba(0, 0, 0, .1);
 }
