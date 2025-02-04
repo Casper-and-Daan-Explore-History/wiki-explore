@@ -1,42 +1,80 @@
 <!DOCTYPE html>
 <html>
-
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta charset="utf-8" />
-    <title>Wiki Map</title>
-    <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no" />
-
-    <!-- CSS -->
-    <link rel="stylesheet" type="text/css" href="index.css">
-    <link rel="stylesheet" href="https://unpkg.com/tachyons@4.12.0/css/tachyons.min.css" />
-
-    <!-- jQuery -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-
-    <!-- Mapbox -->
-    <script src="https://api.mapbox.com/mapbox-gl-js/v1.7.0/mapbox-gl.js"></script>
-    <link href="https://api.mapbox.com/mapbox-gl-js/v1.7.0/mapbox-gl.css" rel="stylesheet" />
-
-    <!-- geocoder from mapbox -->
-    <script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.4.2/mapbox-gl-geocoder.min.js"></script>
-    <link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.4.2/mapbox-gl-geocoder.css" type="text/css" />
-
-    <!-- required to use Mapbox Geocoder in IE 11 -->
-    <script src="https://cdn.jsdelivr.net/npm/es6-promise@4/dist/es6-promise.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/es6-promise@4/dist/es6-promise.auto.min.js"></script>
-
-
-    <!-- Google Font -->
-    <script src="https://kit.fontawesome.com/c258b31bf5.js" crossorigin="anonymous"></script>
-    <!-- <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Anuphan:wght@300;400;500;600;700&display=swap" rel="stylesheet"> -->
-
-    <link href="https://api.fontshare.com/v2/css?f[]=supreme@400,300,500&display=swap" rel="stylesheet">
-
-</head>
+    <head>
+        <!-- Basic Meta Tags -->
+        <meta charset="utf-8">
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5">
+        <title>Wiki Explore - Discover Wikipedia Articles on an Interactive Map</title>
+        <meta name="description" content="Explore Wikipedia articles geospatially on an interactive map. Discover historical sites, landmarks, and interesting places around the world through Wikipedia's vast knowledge base.">
+        <meta name="keywords" content="wikipedia map, interactive map, geographic wikipedia, wiki exploration, educational map, location-based articles, wiki visualization, geographic knowledge base">
+        
+        <!-- Language and Locale -->
+        <meta name="language" content="en">
+        <link rel="alternate" href="https://wikiexplore.org" hreflang="x-default">
+        <link rel="alternate" href="https://wikiexplore.org" hreflang="en">
+        
+        <!-- Open Graph / Facebook -->
+        <meta property="og:type" content="website">
+        <meta property="og:url" content="https://wikiexplore.org/">
+        <meta property="og:title" content="Wiki Explore - Interactive Wikipedia Map">
+        <meta property="og:description" content="Discover the world through Wikipedia articles placed on an interactive map. Explore history, culture, and knowledge geographically.">
+        <meta property="og:image" content="https://wikiexplore.org/img/socialshare.png">
+        <meta property="og:image:width" content="1200">
+        <meta property="og:image:height" content="630">
+        <meta property="og:site_name" content="Wiki Explore">
+        
+        <!-- Twitter -->
+        <meta name="twitter:card" content="summary_large_image">
+        <meta name="twitter:url" content="https://wikiexplore.org/">
+        <meta name="twitter:title" content="Wiki Explore - Interactive Wikipedia Map">
+        <meta name="twitter:description" content="Discover the world through Wikipedia articles placed on an interactive map. Explore history, culture, and knowledge geographically.">
+        <meta name="twitter:image" content="https://wikiexplore.org/img/socialshare.png">
+        
+        <!-- Additional SEO -->
+        <meta name="robots" content="index, follow, max-image-preview:large">
+        <meta name="author" content="Casper Kessels, Daan van Ramshorst">
+        <meta name="copyright" content="Wiki Explore">
+        <meta name="theme-color" content="#ffffff">
+        <meta name="application-name" content="Wiki Explore">
+        <link rel="canonical" href="https://wikiexplore.org/">
+        
+        <!-- Preconnect to External Domains -->
+        <link rel="preconnect" href="https://api.mapbox.com">
+        <link rel="preconnect" href="https://unpkg.com">
+        <link rel="preconnect" href="https://ajax.googleapis.com">
+        
+        <!-- Favicon -->
+        <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+        <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+        <link rel="manifest" href="site.webmanifest">
+        
+        <!-- CSS -->
+        <link rel="stylesheet" type="text/css" href="index.css">
+        <link rel="stylesheet" href="https://unpkg.com/tachyons@4.12.0/css/tachyons.min.css">
+        
+        <!-- jQuery -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js" defer></script>
+        
+        <!-- Mapbox -->
+        <script src="https://api.mapbox.com/mapbox-gl-js/v1.7.0/mapbox-gl.js"></script>
+        <link href="https://api.mapbox.com/mapbox-gl-js/v1.7.0/mapbox-gl.css" rel="stylesheet" />
+        
+        <!-- Mapbox Geocoder -->
+        <script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.4.2/mapbox-gl-geocoder.min.js"></script>
+        <link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.4.2/mapbox-gl-geocoder.css" type="text/css" />
+        
+        <!-- IE11 Support -->
+        <script src="https://cdn.jsdelivr.net/npm/es6-promise@4/dist/es6-promise.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/es6-promise@4/dist/es6-promise.auto.min.js"></script>
+        
+        <!-- Icons -->
+        <script src="https://kit.fontawesome.com/c258b31bf5.js" crossorigin="anonymous" defer></script>
+        
+        <!-- Typography -->
+        <link href="https://api.fontshare.com/v2/css?f[]=supreme@400,300,500&display=swap" rel="stylesheet">
+    </head>
 
 <body onresize="hideInfopanel()">
 
