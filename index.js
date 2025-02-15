@@ -634,7 +634,7 @@ function updateInfoPanel(data) {
         $('#article-intro').html('');
         $('#article-year').hide();
         $('#articleimage').hide();
-        $('#article-image').attr('src', 'img/kutgif.gif');
+        $('#article-image').attr('src', 'img/loading.gif');
         // $('#article-instance-of').html('-');
 
         $('#article-wikidata').parent('.listitem').hide();
