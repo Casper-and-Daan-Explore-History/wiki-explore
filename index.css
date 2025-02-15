@@ -51,36 +51,6 @@ a:visited {
     color: black;
 }
 
-@media only screen and (max-width: 599px) {
-    .mapcontainer {
-        margin: 0px;
-    }
-
-    .info {
-        padding: 40px 16px 40px 16px;
-    }
-}
-
-@media only screen and (min-width: 600px) {
-    .mapcontainer {
-        margin: 0px;
-    }
-
-    .info {
-        padding: 40px 80px 40px 80px;
-    }
-}
-
-@media only screen and (min-width: 900px) {
-    .mapcontainer {
-        margin: 16px;
-    }
-
-    .info {
-        padding: 40px 16px 40px 32px;
-    }
-}
-
 
 /* ----------- B U T T O N S ---------- */
 
@@ -89,6 +59,9 @@ a:visited {
     cursor: pointer;
 }
 
+.gap {
+    gap: 8px;
+}
 
 
 .link:hover {
@@ -178,7 +151,39 @@ a:visited {
     overflow: hidden;
     box-sizing: border-box;
     flex-grow: 1;
-    border-radius: 16px;
+    border-radius: 0px;
+}
+
+@media only screen and (max-width: 599px) {
+    .mapcontainer {
+        margin: 0px;
+        border-radius:0;
+    }
+
+    .info {
+        padding: 40px 16px 40px 16px;
+    }
+}
+
+@media only screen and (min-width: 600px) {
+    .mapcontainer {
+        margin: 0px;
+    }
+
+    .info {
+        padding: 40px 80px 40px 80px;
+    }
+}
+
+@media only screen and (min-width: 900px) {
+    .mapcontainer {
+        margin: 16px;
+        border-radius: 16px;
+    }
+
+    .info {
+        padding: 40px 16px 40px 32px;
+    }
 }
 
 .info {
@@ -189,8 +194,8 @@ a:visited {
 
 .info-close {
     position: absolute;
-    right: 32px;
-    top: 32px;
+    right: 24px;
+    top: 24px;
     cursor: pointer;
 }
 
@@ -256,6 +261,8 @@ a:visited {
 
 
 
+
+
 /* ----------- INFO DIV ---------- */
 
 .title {
@@ -284,6 +291,12 @@ a:visited {
     justify-content: center;
     align-items: center;
     cursor: pointer; /* added for mouse pointer on hover */
+    }
+
+    @media only screen and (max-width: 599px) {
+        .image-container {
+            height: 240px;
+        }
     }
     
     .image-container img {
@@ -450,17 +463,41 @@ img[src^=loading] {
     background-color: #e5e5e5;
 }
 
+.random-label {
+    display: block;
+}
+
+@media only screen and (max-width: 639px) {
+    .random-label {
+        display: none;
+    }
+
+    .randomButton {
+        height: 50px;
+        min-width: 50px;
+    }
+}
+
 #closeicon {
     display: none;
 }
 
 .wiki-intro {
     position: relative;
-    /* overflow: hidden; */
+}
+
+.text-padding {
+    padding: 0rem 1rem;
 }
 
 .wiki-intro:hover .enlargeIcon {
     display: block;
+}
+
+@media only screen and (max-width: 599px) {
+    .text-padding {
+        padding: 0rem;
+    }
 }
 
 #article-intro p:first-child {
@@ -590,7 +627,8 @@ img[src^=loading] {
 }
 
 .WelcomeDiv {
-    background-image: url("./img/bg.jpg");
+    background-color: var(--prim3);
+    /* background-image: url("./img/bg.jpg"); */
     background-size: cover;
     color: white;
 }
@@ -603,12 +641,12 @@ img[src^=loading] {
 
 .welcomebox {
     background-color: rgba(255,255,255,0.65);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
+    backdrop-filter: blur(80px);
+    -webkit-backdrop-filter: blur(80px);
     color: #000;
     border-radius: 24px;
     text-align: left;
-    box-shadow: 0px 8px 16px rgb(0 0 0 / 60%);
+    box-shadow: 0px 8px 16px rgb(0 0 0 / 30%);
     display: flex;
     flex-direction: column;
     gap: 32px;
@@ -620,33 +658,20 @@ img[src^=loading] {
     gap: 16px;
 }
 
-
-
-@media only screen and (max-width: 599px) {
-    .welcomebox {
-        width: 100%;
-        height: auto;
-        padding: 24px;
-    }
+.welcomesearch {
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+    align-items: center;
 }
 
-@media only screen and (min-width: 500px) {
-    .welcomebox {
-        width: 480px;
-        height: auto;
-        padding: 48px 48px 24px 48px;
-    }
+#geocoderWelcome {
+    width: 75%;
 }
-
-.line {
-    background-color: white;
-    width: 100%;
-    height: 1px;
-}
-
 
 .startButton {
     height: 48px;
+    width: 25%;
     background-color: var(--white);
     text-decoration: none;
     color: var(--prim1);
@@ -656,6 +681,44 @@ img[src^=loading] {
 
 .startButton:hover {
     text-decoration: none !important;
+}
+
+@media only screen and (max-width: 599px) {
+    .welcomebox {
+        width: calc(100%-24px);
+        /* width: 100%; */
+        height: auto;
+        padding: 24px;
+        margin: 12px;
+    }
+
+    .welcomesearch {
+        flex-direction: column;
+    }
+
+    #geocoderWelcome {
+        width: 100%;
+    }
+
+    .startButton {
+        width: 100%;
+    }
+}
+
+@media only screen and (min-width: 600px) {
+    .welcomebox {
+        width: 480px;
+        height: auto;
+        padding: 48px 48px 24px 48px;
+    }
+}
+
+
+
+.line {
+    background-color: white;
+    width: 100%;
+    height: 1px;
 }
 
  /* ----------- ABOUT ----------- */
@@ -675,8 +738,21 @@ img[src^=loading] {
     display: block;
  }
 
+ .aboutbody h1 {
+    margin-bottom:0;
+ }
+
+ .aboutbody h2 {
+    margin-top: 32px;
+    margin-bottom:0;
+ }
+
  .aboutbody p{
 	margin-top: 8px;
+ }
+
+ .aboutbody a{
+	color: var(--prim2);
  }
 
  .backbutton {

@@ -125,18 +125,19 @@
                 <div class="welcomebox ">
                     <div class="">
                         <h1 class="mw-100 f2 mv0">Wiki explore</h1>
-                        <p class="mv0">Browse the world for interesting wiki data</p>
+                        <p class="mv0">Discover Wikipedia articles around the world</p>
                     </div>
                     <div class="welcomesearchcontent">
-                    <div class="welcomesearch flex flex-row items-center">
-                        <div id="geocoderWelcome" class="geocoder v-mid w-75 mr3">
+                    <div class="welcomesearch">
+                        <div id="geocoderWelcome" class="geocoder v-mid">
                         </div>
-                        <div class="startButton tc w-25 f6 link dim br3 pointer flex items-center justify-center">
+                        <div class="startButton tc f6 link dim br3 pointer flex items-center justify-center gap">
                             <p class="black fw4 mv0 ">Search</p>
                         </div>
                     </div>
                     <div class="line"></div>
-                    <div class="dib startButton secondarybutton tc w-100 w-100 f6 link dim br3 pointer center flex items-center justify-center">
+                    <div class="dib startButton secondarybutton tc w-100 w-100 f6 link dim br3 pointer center flex items-center gap justify-center">
+                        <img src="./img/random.svg" alt="Random" width="16" height="16">
                         <p class="black fw4 v-mid">Take me to a random location</p>
                     </div>
                     </div>
@@ -168,9 +169,11 @@
     <div class="maincontent">
         
         <div class="info hide overflow-y-scroll hidescrollbars dn" id="info">
-            <span class="info-close dn-l">&times;</span>
+            <span class="info-close dn-l">
+                <img src="./img/close.svg" alt="Close panel" width="24" height="24">
+            </span>
 
-            <div class="title ph3">
+            <div class="title text-padding">
                 <h1 class="fw7 mb3 mt2 tracked-tight" id="article-title"></h1>
                 <div>
                     <p class="item f5 dib" id="article-year">1905</p>
@@ -185,7 +188,7 @@
                 </div>
 
 
-                <div class="wiki-intro hide ph3" id="wiki-intro" onclick="">
+                <div class="wiki-intro hide text-padding" id="wiki-intro" onclick="">
                     <div class="wiki-intro-content flex flex-column">
                         <div class="" id="wiki-intro-content-text">
                             <p class="mt4 mb3" id="article-intro">The Musée des Arts Décoratifs (Museum of Decorative Arts) is a museum dedicated to the exhibition and preservation of the decorative arts. Located at 107 Rue de Rivoli in the city’s 1st arrondissement, the museum occupies the
@@ -200,7 +203,7 @@
 
 
                 <div class="wikilinks" id="wikilinks">
-                    <h2 class="ph3">More information</h2>
+                    <h2 class="text-padding">More information</h2>
 
                     <div class="listitem">
                         <a id="article-wikipedia" class="listitemlink" target="_blank">
@@ -253,8 +256,9 @@
                     <i class="fas fa-expand-alt icon"></i>
                 </div>
                 <div id="geocoderMap" class="geocoder v-mid"></div>
-                <div class="randomButton w-100 w-100 f6 br3 pointer" id="randomButton">
-                    <p class="fw4 f6 mv0">Random location</p>
+                <div class="randomButton w-100 w-100 f6 br3 pointer gap" id="randomButton">
+                    <img src="./img/random.svg" alt="Random" width="16" height="16">
+                    <p class="fw4 f6 mv0 random-label">Random location</p>
                 </div>
                 
             </div>

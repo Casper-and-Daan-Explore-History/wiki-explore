@@ -1,93 +1,112 @@
 <!DOCTYPE html>
-<html class="overflow-visible">
+<html lang="en-GB" class="overflow-visible">
+    <head>
+        <!-- Basic Meta Tags -->
+        <meta charset="utf-8">
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5">
+        <title>About Wiki Explore - Discover History Through Interactive Maps</title>
+        <meta name="description" content="Learn about Wiki Explore, an interactive map that brings Wikipedia articles to life. Discover how we're making historical exploration more intuitive and engaging.">
+        <meta name="keywords" content="wiki explore about, wikipedia map project, interactive history map, historical cartography, geographic wikipedia exploration">
+        
+        <!-- Language and Locale -->
+        <meta name="language" content="en">
+        <link rel="alternate" href="https://wikiexplore.org/about" hreflang="x-default">
+        <link rel="alternate" href="https://wikiexplore.org/about" hreflang="en">
+        
+        <!-- Open Graph / Facebook -->
+        <meta property="og:type" content="website">
+        <meta property="og:url" content="https://wikiexplore.org/about">
+        <meta property="og:title" content="About Wiki Explore - Interactive Wikipedia Map">
+        <meta property="og:description" content="Discover how Wiki Explore brings Wikipedia articles to life on an interactive historical map. Learn about our mission to make local history exploration more engaging.">
+        <meta property="og:image" content="https://wikiexplore.org/img/socialshare.png">
+        <meta property="og:image:width" content="1200">
+        <meta property="og:image:height" content="630">
+        <meta property="og:site_name" content="Wiki Explore">
+        
+        <!-- Twitter -->
+        <meta name="twitter:card" content="summary_large_image">
+        <meta name="twitter:url" content="https://wikiexplore.org/about">
+        <meta name="twitter:title" content="About Wiki Explore - Interactive Wikipedia Map">
+        <meta name="twitter:description" content="Discover how Wiki Explore brings Wikipedia articles to life on an interactive historical map. Learn about our mission to make local history exploration more engaging.">
+        <meta name="twitter:image" content="https://wikiexplore.org/img/socialshare.png">
+        
+        <!-- Additional SEO -->
+        <meta name="robots" content="index, follow">
+        <meta name="author" content="Casper Kessels, Daan van Ramshorst">
+        <meta name="copyright" content="Wiki Explore">
+        <meta name="theme-color" content="#ffffff">
+        <link rel="canonical" href="https://wikiexplore.org/about">
+        
+        <!-- Favicon -->
+        <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+        <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+        <link rel="manifest" href="site.webmanifest">
+        
+        <!-- CSS -->
+        <link rel="stylesheet" type="text/css" href="index.css">
+        <link rel="stylesheet" href="https://unpkg.com/tachyons@4.12.0/css/tachyons.min.css">
+        
+        <!-- Typography -->
+        <link href="https://api.fontshare.com/v2/css?f[]=supreme@400,300,500&display=swap" rel="stylesheet">
 
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta charset="utf-8" />
-    <title>Wiki Map</title>
-    <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no" />
+        <!-- Schema.org JSON-LD -->
+        <script type="application/ld+json">
+            {
+              "@context": "https://schema.org",
+              "@type": "AboutPage",
+              "mainEntity": {
+                "@type": "WebApplication",
+                "name": "Wiki Explore",
+                "description": "Interactive map-based exploration of Wikipedia articles worldwide",
+                "url": "https://wikiexplore.org",
+                "applicationCategory": "EducationalApplication",
+                "offers": {
+                  "@type": "Offer",
+                  "price": "0",
+                  "priceCurrency": "USD"
+                },
+                "author": [{
+                  "@type": "Person",
+                  "name": "Casper Kessels",
+                  "url": "https://www.casperkessels.com/"
+                }, {
+                  "@type": "Person",
+                  "name": "Daan van Ramshorst",
+                  "url": "https://daan.vanramshor.st/"
+                }]
+              }
+            }
+        </script>
+    </head>
+    
+    <body class="aboutbody">
+        <div class="aboutcontent">
+            <a href="./index.html">
+                <div class="backbutton">
+                    <div class="backbuttontext">← Back</div>
+                </div>
+            </a>
+            
+            <h1 class="abouth1">About Wiki Explore</h1>
+            <p>Wiki Explore places Wikipedia articles on an antique-style map, allowing you to discover the history around you. Each point on the map represents a Wikipedia article about that location, helping you explore historical events, landmarks, and stories from anywhere in the world.</p>
+            
+            <h2 class="abouth1">How It Works</h2>
+            <p>The map uses Mapbox for its base layer, with a custom design inspired by historical cartography. When you click a location, you'll see photos and excerpts from the relevant Wikipedia articles. For areas with multiple points of interest, we use clustering to keep the map readable and a dropdown menu to browse all articles in that location.</p>
+            
+            <h2 class="abouth1">Why We Built It</h2>
+            <p>We created Wiki Explore to make learning about local history more intuitive and engaging. Instead of searching through text-based lists, you can simply explore the map to discover what happened around you.</p>
+            
+            <h2 class="abouth1">Technical Details</h2>
+            <p>Wiki Explore is built with Mapbox GL JS and pulls data directly from Wikipedia's API. The project is open source, and you can find our code on <a href="https://github.com/Casper-and-Daan-Explore-History/wiki-explore" target="_blank">GitHub</a>.</p>
+            
+            <h2 class="abouth1">Drop Us a Line</h2>
+            <p>Got questions or just want to chat about maps and history? Hit up <a href="https://daan.vanramshor.st/" target="_blank">Daan van Ramshorst</a> or <a href="https://www.casperkessels.com/" target="_blank">Casper Kessels</a>, or check out our <a href="https://github.com/Casper-and-Daan-Explore-History/wiki-explore" target="_blank">Github</a>.</p>
+        </div>
 
-    <!-- CSS -->
-    <link rel="stylesheet" type="text/css" href="index.css">
-    <link rel="stylesheet" href="https://unpkg.com/tachyons@4.12.0/css/tachyons.min.css" />
-
-    <!-- jQuery -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-
-    <!-- Mapbox -->
-    <script src="https://api.mapbox.com/mapbox-gl-js/v1.7.0/mapbox-gl.js"></script>
-    <link href="https://api.mapbox.com/mapbox-gl-js/v1.7.0/mapbox-gl.css" rel="stylesheet" />
-
-    <!-- geocoder from mapbox -->
-    <script
-        src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.4.2/mapbox-gl-geocoder.min.js"></script>
-    <link rel="stylesheet"
-        href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.4.2/mapbox-gl-geocoder.css"
-        type="text/css" />
-
-    <!-- required to use Mapbox Geocoder in IE 11 -->
-    <script src="https://cdn.jsdelivr.net/npm/es6-promise@4/dist/es6-promise.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/es6-promise@4/dist/es6-promise.auto.min.js"></script>
-
-
-    <!-- Google Font -->
-    <script src="https://kit.fontawesome.com/c258b31bf5.js" crossorigin="anonymous"></script>
-    <!-- <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Anuphan:wght@300;400;500;600;700&display=swap" rel="stylesheet"> -->
-
-    <link href="https://api.fontshare.com/v2/css?f[]=supreme@400,300,500&display=swap" rel="stylesheet">
-
-</head>
-
-<body class="aboutbody">
-    <div class="aboutcontent">
-        <a href="./index.html">
-            <div class="backbutton">
-                <div class="backbuttontext">← Back</div>
-
-            </div>
-        </a>
-
-        <h1>What's Wiki Explore?</h1>
-        <p>Ever wondered what stories are hidden in the streets you walk down every day, or what historical events
-            unfolded in the places you visit? Wiki Explore puts Wikipedia on the map—quite literally! We’re here to
-            switch
-            up how you discover information by linking Wikipedia articles to locations on a beautifully crafted map.
-            It’s a
-            whole new way to explore, whether you're far from home or in your own backyard.</p>
-        <h1>Technology and Features</h1>
-        <p>Imagine a map that's more than just directions. With Wiki Explore, every pin on the map is a gateway to
-            stories and images from Wikipedia, all presented with an old-world charm that feels both new and
-            familiar.
-            Our
-            map, powered by Mapbox, lets you click on locations to pop up photos, a sneak peek of the Wikipedia
-            article,
-            and
-            links to dive deeper if you wish. We’ve got clustering to keep things tidy and a neat dropdown to
-            explore
-            multiple articles in one spot.</p>
-        <h1>Design With a Dash of Nostalgia</h1>
-        <p>Our design mimics a map spread out on a table, with enough space to shuffle around and make room for
-            discoveries. It's about capturing the thrill of tracing the routes on an old, tactile map but in a
-            digital
-            form
-            that brings global knowledge to your fingertips.</p>
-        <h1>Get Involved</h1>
-        <p>Wiki Explore is a living project, growing and improving with contributions from folks like you. Whether
-            you’ve spotted a glitch, have a feature idea, or just want to help out, we’d love to see you on our
-            GitHub.
-            No
-            formalities, just jump in and start making a difference.</p>
-        <h1>What’s Next?</h1>
-        <p>We're dreaming big—more languages, more articles, and more maps. We're working towards making Wiki
-            Explore accessible to everyone, no matter where you are or what language you speak.</p>
-        <h1>Drop Us a Line</h1>
-        <p>Got questions or just want to chat about maps and history? Hit up <a href="https://daan.vanramshor.st/">Daan van Ramshorst</a> or 
-            <a href="https://www.casperkessels.com/">Casper Kessels</a> directly on our <a href="https://github.com/Casper-and-Daan-Explore-History/wiki-explore">Github</a>, or join the conversation there. We’re all ears!</p>
-
-    </div>
-</body>
-
+        <!-- Analytics -->
+        <script async defer src="https://scripts.simpleanalyticscdn.com/latest.js"></script>
+        <noscript><img src="https://queue.simpleanalyticscdn.com/noscript.gif" alt="" referrerpolicy="no-referrer-when-downgrade" /></noscript>
+    </body>
 </html>
