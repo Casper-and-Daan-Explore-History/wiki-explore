@@ -290,6 +290,10 @@ a:visited {
 .WelcomeDiv {
     background-color: var(--prim3);
     color: white;
+    background-image: url('./img/background.jpg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 
 .welcomebox {
@@ -581,4 +585,13 @@ a:visited {
     .menubar {
         width: calc(100% - 32px);
     }
+}
+
+.mapboxgl-ctrl-geocoder--suggestion-title,
+.mapboxgl-ctrl-geocoder--suggestion {
+    z-index: 2;
+}
+
+.welcomesearch .mapboxgl-ctrl-geocoder {
+    z-index: 2;
 }
