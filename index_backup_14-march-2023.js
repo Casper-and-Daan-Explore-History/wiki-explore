@@ -1450,7 +1450,7 @@ function updateDetailsPannel() {
         $("#article-year").hide();
         $("#articleimage").hide();
         // $("#article-image-loader").attr("display", "block");
-        $("#article-image").attr("src", "img/kutgif.gif");
+        $("#article-image").attr("src", "img/loading.gif");
         // $("#article-image").attr("alt", "loading");
         // $("#article-description").html("no discription");
         $("#article-visitors").text("-");

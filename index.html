@@ -1,42 +1,120 @@
 <!DOCTYPE html>
-<html>
+<html lang="en-GB">
+    <head>
+        <!-- Basic Meta Tags -->
+        <meta charset="utf-8">
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5">
+        <title>Wiki Explore - Discover Wikipedia Articles on an Interactive Map</title>
+        <meta name="description" content="Explore Wikipedia articles geospatially on an interactive map. Discover historical sites, landmarks, and interesting places around the world through Wikipedia's vast knowledge base.">
+        <meta name="keywords" content="wikipedia map, interactive map, geographic wikipedia, wiki exploration, educational map, location-based articles, wiki visualization, geographic knowledge base">
+        
+        <!-- Language and Locale -->
+        <meta name="language" content="en">
+        <link rel="alternate" href="https://wikiexplore.org" hreflang="x-default">
+        <link rel="alternate" href="https://wikiexplore.org" hreflang="en">
+        
+        <!-- Open Graph / Facebook -->
+        <meta property="og:type" content="website">
+        <meta property="og:url" content="https://wikiexplore.org/">
+        <meta property="og:title" content="Wiki Explore - Interactive Wikipedia Map">
+        <meta property="og:description" content="Discover the world through Wikipedia articles placed on an interactive map. Explore history, culture, and knowledge geographically.">
+        <meta property="og:image" content="https://wikiexplore.org/img/socialshare.png">
+        <meta property="og:image:width" content="1200">
+        <meta property="og:image:height" content="630">
+        <meta property="og:site_name" content="Wiki Explore">
+        
+        <!-- Twitter -->
+        <meta name="twitter:card" content="summary_large_image">
+        <meta name="twitter:url" content="https://wikiexplore.org/">
+        <meta name="twitter:title" content="Wiki Explore - Interactive Wikipedia Map">
+        <meta name="twitter:description" content="Discover the world through Wikipedia articles placed on an interactive map. Explore history, culture, and knowledge geographically.">
+        <meta name="twitter:image" content="https://wikiexplore.org/img/socialshare.png">
+        
+        <!-- Additional SEO -->
+        <meta name="robots" content="index, follow, max-image-preview:large">
+        <meta name="author" content="Casper Kessels, Daan van Ramshorst">
+        <meta name="copyright" content="Wiki Explore">
+        <meta name="theme-color" content="#ffffff">
+        <meta name="application-name" content="Wiki Explore">
+        <link rel="canonical" href="https://wikiexplore.org/">
+        
+        <!-- Preconnect to External Domains -->
+        <link rel="preconnect" href="https://api.mapbox.com">
+        <link rel="preconnect" href="https://unpkg.com">
+        <link rel="preconnect" href="https://ajax.googleapis.com">
+        
+        <!-- Favicon -->
+        <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+        <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+        <link rel="manifest" href="site.webmanifest">
+        
+        <!-- CSS -->
+        <link rel="stylesheet" type="text/css" href="index.css">
+        <link rel="stylesheet" href="https://unpkg.com/tachyons@4.12.0/css/tachyons.min.css">
+        
+        <!-- jQuery -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js" defer></script>
+        
+        <!-- Mapbox -->
+        <script src="https://api.mapbox.com/mapbox-gl-js/v1.7.0/mapbox-gl.js"></script>
+        <link href="https://api.mapbox.com/mapbox-gl-js/v1.7.0/mapbox-gl.css" rel="stylesheet" />
+        
+        <!-- Mapbox Geocoder -->
+        <script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.4.2/mapbox-gl-geocoder.min.js"></script>
+        <link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.4.2/mapbox-gl-geocoder.css" type="text/css" />
+        
+        <!-- IE11 Support -->
+        <script src="https://cdn.jsdelivr.net/npm/es6-promise@4/dist/es6-promise.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/es6-promise@4/dist/es6-promise.auto.min.js"></script>
+        
+        <!-- Icons -->
+        <script src="https://kit.fontawesome.com/c258b31bf5.js" crossorigin="anonymous" defer></script>
+        
+        <!-- Typography -->
+        <link href="https://api.fontshare.com/v2/css?f[]=supreme@400,300,500&display=swap" rel="stylesheet">
 
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta charset="utf-8" />
-    <title>Wiki Map</title>
-    <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no" />
 
-    <!-- CSS -->
-    <link rel="stylesheet" type="text/css" href="index.css">
-    <link rel="stylesheet" href="https://unpkg.com/tachyons@4.12.0/css/tachyons.min.css" />
+        <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
+        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+        <link rel="shortcut icon" href="/favicon.ico" />
+        <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+        <meta name="apple-mobile-web-app-title" content="Wiki Explore" />
+        <link rel="manifest" href="/site.webmanifest" />
 
-    <!-- jQuery -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-
-    <!-- Mapbox -->
-    <script src="https://api.mapbox.com/mapbox-gl-js/v1.7.0/mapbox-gl.js"></script>
-    <link href="https://api.mapbox.com/mapbox-gl-js/v1.7.0/mapbox-gl.css" rel="stylesheet" />
-
-    <!-- geocoder from mapbox -->
-    <script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.4.2/mapbox-gl-geocoder.min.js"></script>
-    <link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.4.2/mapbox-gl-geocoder.css" type="text/css" />
-
-    <!-- required to use Mapbox Geocoder in IE 11 -->
-    <script src="https://cdn.jsdelivr.net/npm/es6-promise@4/dist/es6-promise.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/es6-promise@4/dist/es6-promise.auto.min.js"></script>
-
-
-    <!-- Google Font -->
-    <script src="https://kit.fontawesome.com/c258b31bf5.js" crossorigin="anonymous"></script>
-    <!-- <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Anuphan:wght@300;400;500;600;700&display=swap" rel="stylesheet"> -->
-
-    <link href="https://api.fontshare.com/v2/css?f[]=supreme@400,300,500&display=swap" rel="stylesheet">
-
-</head>
+        <script type="application/ld+json">
+            {
+              "@context": "https://schema.org",
+              "@type": "WebApplication",
+              "name": "Wiki Explore",
+              "description": "Interactive map-based exploration of Wikipedia articles worldwide",
+              "url": "https://wikiexplore.org",
+              "applicationCategory": "EducationalApplication",
+              "offers": {
+                "@type": "Offer",
+                "price": "0",
+                "priceCurrency": "USD"
+              },
+              "author": [{
+                "@type": "Person",
+                "name": "Casper Kessels"
+              }, {
+                "@type": "Person",
+                "name": "Daan van Ramshorst"
+              }],
+              "browserRequirements": "Requires JavaScript. Best viewed in modern browsers.",
+              "softwareVersion": "1.0",
+              "screenshot": "https://wikiexplore.org/img/socialshare.png",
+              "featureList": [
+                "Interactive world map",
+                "Wikipedia article integration",
+                "Geospatial article discovery",
+                "Random location exploration"
+              ]
+            }
+        </script>
+    </head>
 
 <body onresize="hideInfopanel()">
 
@@ -47,18 +125,19 @@
                 <div class="welcomebox ">
                     <div class="">
                         <h1 class="mw-100 f2 mv0">Wiki explore</h1>
-                        <p class="mv0">Browse the world for interesting wiki data</p>
+                        <p class="mv0">Discover Wikipedia articles around the world</p>
                     </div>
                     <div class="welcomesearchcontent">
-                    <div class="welcomesearch flex flex-row items-center">
-                        <div id="geocoderWelcome" class="geocoder v-mid w-75 mr3">
+                    <div class="welcomesearch">
+                        <div id="geocoderWelcome" class="geocoder v-mid">
                         </div>
-                        <div class="startButton tc w-25 f6 link dim br3 pointer flex items-center justify-center">
+                        <div class="startButton tc f6 link dim br3 pointer flex items-center justify-center gap">
                             <p class="black fw4 mv0 ">Search</p>
                         </div>
                     </div>
                     <div class="line"></div>
-                    <div class="dib startButton secondarybutton tc w-100 w-100 f6 link dim br3 pointer center flex items-center justify-center">
+                    <div class="dib startButton secondarybutton tc w-100 w-100 f6 link dim br3 pointer center flex items-center gap justify-center relative">
+                        <img src="./img/random.svg" alt="Random" width="16" height="16">
                         <p class="black fw4 v-mid">Take me to a random location</p>
                     </div>
                     </div>
@@ -90,12 +169,14 @@
     <div class="maincontent">
         
         <div class="info hide overflow-y-scroll hidescrollbars dn" id="info">
-            <span class="info-close dn-l">&times;</span>
+            <span class="info-close dn-l">
+                <img src="./img/close.svg" alt="Close panel" width="24" height="24">
+            </span>
 
-            <div class="title ph3">
+            <div class="title text-padding">
                 <h1 class="fw7 mb3 mt2 tracked-tight" id="article-title"></h1>
                 <div>
-                    <p class="item f5 dib" id="article-year">1905</p>
+                    <p class="item f5 dib mt0" id="article-year">1905</p>
                 </div>
 
             </div>
@@ -107,10 +188,10 @@
                 </div>
 
 
-                <div class="wiki-intro hide ph3" id="wiki-intro" onclick="">
+                <div class="wiki-intro hide text-padding" id="wiki-intro" onclick="">
                     <div class="wiki-intro-content flex flex-column">
                         <div class="" id="wiki-intro-content-text">
-                            <p class="mt4 mb3" id="article-intro">The Musée des Arts Décoratifs (Museum of Decorative Arts) is a museum dedicated to the exhibition and preservation of the decorative arts. Located at 107 Rue de Rivoli in the city’s 1st arrondissement, the museum occupies the
+                            <p class="mt4 mb3" id="article-intro">The Musée des Arts Décoratifs (Museum of Decorative Arts) is a museum dedicated to the exhibition and preservation of the decorative arts. Located at 107 Rue de Rivoli in the city's 1st arrondissement, the museum occupies the
                                 most north-western wing of the Palais du Louvre, known as the Pavillon de Marsan (Marsan Pavilion). With over one million objects in its collection, the Musée des Arts Décoratifs is the largest museum of decorative arts
                                 in continental Europe.</p>
                         </div>
@@ -122,7 +203,7 @@
 
 
                 <div class="wikilinks" id="wikilinks">
-                    <h2 class="ph3">More information</h2>
+                    <h2 class="text-padding">More information</h2>
 
                     <div class="listitem">
                         <a id="article-wikipedia" class="listitemlink" target="_blank">
@@ -170,14 +251,22 @@
         </div>
 
         <div class="mapcontainer mapshadow">
-            <div class="absolute w-30 flex flew-row gap searchbox">
-                <div class="enlargeMapIcon pointer" onclick="hideInfopanel()" style="display: none;">
-                    <i class="fas fa-expand-alt icon"></i>
+            <div class="menubar">
+                <div class="flex flew-row gap searchbox">
+                    <div class="enlargeMapIcon pointer" onclick="hideInfopanel()" style="display: none;">
+                        <i class="fas fa-expand-alt icon"></i>
+                    </div>
+                    <div id="geocoderMap" class="geocoder v-mid"></div>
+                    <div class="randomButton f6 br3 pointer gap" id="randomButton">
+                        <img src="./img/random.svg" alt="Random" width="16" height="16">
+                        <p class="fw4 f6 mv0 random-label">Random location</p>
+                    </div>
                 </div>
-                <div id="geocoderMap" class="geocoder v-mid"></div>
-                <div class="randomButton w-100 w-100 f6 br3 pointer" id="randomButton">
-                    <p class="fw4 f6 mv0">Random location</p>
-                </div>
+
+                <a href="./about.html" class="randomButton f6 br3 pointer gap">
+                    <img src="./img/info.svg" alt="Info" width="16" height="16">
+                    <p class="fw4 f6 mv0 random-label">About</p>
+                </a>
                 
             </div>
             <div id="map" class="map"></div>
