@@ -175,6 +175,7 @@
 
             <div class="title text-padding">
                 <h1 class="fw7 mb3 mt2 tracked-tight" id="article-title"></h1>
+                <div id="info-lang-badges" class="info-lang-badges" style="display:none;"></div>
                 <div>
                     <p class="item f5 dib mt0" id="article-year">1905</p>
                 </div>
@@ -195,9 +196,6 @@
                                 most north-western wing of the Palais du Louvre, known as the Pavillon de Marsan (Marsan Pavilion). With over one million objects in its collection, the Musée des Arts Décoratifs is the largest museum of decorative arts
                                 in continental Europe.</p>
                         </div>
-                        <!-- <div class="wiki-intro-content-footer ph3">
-                            <p class="textlink" id="readmore">Read more</p>
-                        </div> -->
                     </div>
                 </div>
 
@@ -247,6 +245,12 @@
                         </a>
                     </div>
                 </div>
+
+                <div class="wikisources" id="wikisources" style="display: none;">
+                    <h2 class="text-padding">Sources from Wikipedia</h2>
+                    <ul class="sources-list" id="sources-list">
+                    </ul>
+                </div>
             </div>
         </div>
 
@@ -270,6 +274,7 @@
                 
             </div>
             <div id="map" class="map"></div>
+            <div id="lang-badge-container" class="lang-badge-container"></div>
         </div>
 
     </div>
@@ -278,6 +283,7 @@
 
     <!-- Javascript file -->
     <script type="text/javascript" src="data.js"></script> <!-- js file containing an array of city objects used as random starting locations -->
+    <script type="text/javascript" src="multilingual.js"></script>
     <script type="text/javascript" src="index.js"></script>
     <script type="text/javascript" src="buttons.js"></script>
     <script src="./image.js"></script>

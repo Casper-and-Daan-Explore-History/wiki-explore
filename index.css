@@ -595,3 +595,159 @@ a:visited {
 .welcomesearch .mapboxgl-ctrl-geocoder {
     z-index: 2;
 }
+
+/* Sources from Wikipedia */
+.wikisources {
+    width: 100%;
+    margin-top: 16px;
+    color: var(--black);
+}
+
+.sources-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.sources-list li {
+    border-top: 0.5px solid rgba(0, 0, 0, 0.15);
+    padding: 6px 8px;
+}
+
+.sources-list li a {
+    font-size: 13px;
+    line-height: 1.4;
+    color: var(--black);
+    text-decoration: none;
+    word-break: break-all;
+    display: block;
+}
+
+.sources-list li a strong {
+    color: var(--prim1);
+}
+
+.sources-list li a:hover {
+    color: var(--prim2);
+}
+
+.sources-list li:hover {
+    background-color: rgba(0, 0, 0, 0.03);
+}
+
+/* Language Badge Container (map overlay) */
+.lang-badge-container {
+    position: absolute;
+    bottom: 16px;
+    left: 16px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    z-index: 5;
+    max-width: calc(100% - 32px);
+}
+
+.lang-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 4px 10px;
+    border-radius: 16px;
+    font-size: 12px;
+    font-weight: 500;
+    font-family: 'Supreme', sans-serif;
+    background-color: rgba(255, 255, 255, 0.85);
+    color: var(--black);
+    cursor: pointer;
+    user-select: none;
+    transition: background-color 0.15s, color 0.15s;
+    border: 1.5px solid transparent;
+    white-space: nowrap;
+}
+
+.lang-badge:hover {
+    background-color: rgba(255, 255, 255, 1);
+    border-color: var(--prim2);
+}
+
+.lang-badge.active {
+    background-color: var(--prim2);
+    color: #fff;
+    border-color: var(--prim2);
+}
+
+.lang-badge.active:hover {
+    background-color: var(--prim1);
+    border-color: var(--prim1);
+}
+
+.lang-badge.dragging {
+    opacity: 0.5;
+}
+
+.lang-badge.drag-over {
+    border-color: var(--prim1);
+    border-style: dashed;
+}
+
+/* Info Panel Language Badges */
+.info-lang-badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 8px;
+}
+
+.info-lang-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2px 8px;
+    border-radius: 12px;
+    font-size: 11px;
+    font-weight: 500;
+    font-family: 'Supreme', sans-serif;
+    background-color: var(--prim4);
+    color: var(--black);
+    cursor: pointer;
+    transition: background-color 0.15s;
+}
+
+.info-lang-badge:hover {
+    background-color: var(--primx);
+}
+
+.info-lang-badge.active {
+    background-color: var(--prim2);
+    color: #fff;
+}
+
+/* Hover Popup Language Badges */
+.hover-lang-badges {
+    display: inline-flex;
+    gap: 3px;
+    margin-left: 6px;
+}
+
+.hover-lang-badge {
+    font-size: 10px;
+    font-weight: 500;
+    padding: 1px 4px;
+    border-radius: 3px;
+    background-color: var(--prim4);
+    color: var(--prim1);
+}
+
+/* Mobile adjustments for language badges */
+@media only screen and (max-width: 599px) {
+    .lang-badge-container {
+        bottom: 8px;
+        left: 8px;
+        max-width: calc(100% - 16px);
+    }
+
+    .lang-badge {
+        padding: 3px 7px;
+        font-size: 10px;
+    }
+}

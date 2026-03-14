@@ -70,6 +70,11 @@ document.getElementById('geocoderWelcome').appendChild(geocoder.onAdd(map));
 
 map.on('load', function () {
 
+    // Initialize multilingual language state and badges
+    if (typeof initLanguageState === 'function') {
+        initLanguageState();
+    }
+
     // initial API call to get data on the map
     fetchArticlesInBoundingBox(); // #geo-api
 
@@ -133,10 +138,6 @@ map.on('load', function () {
 
     map.on('mouseleave', 'cluster-count', function () { // #map
         map.getCanvas().style.cursor = '';
-    });
-
-    map.on('click', function () {
-        // hideInfopanel()
     });
 
     map.on('click', 'unclustered-point', popupOpen); // #info-panel
@@ -226,7 +227,8 @@ function hoverPopupOn(e) { // #map
     if (e.features.length == 1) { // one article
         if (e.features[0].properties.title != undefined) {
             let articleTitle = e.features[0].properties.title; // getting article title
-            html = `<ul class="articleDropdown"><li id="">${articleTitle}</li></ul>`;
+            let langBadges = e.features[0].properties.langs ? buildHoverLangIndicator(e.features[0].properties.langs) : '';
+            html = `<ul class="articleDropdown"><li id="">${articleTitle}${langBadges}</li></ul>`;
         } else {
             html = '<ul class="articleDropdown"><li id="">Multiple articles</li></ul>'; // generate html for one article using artile title
         }
@@ -316,53 +318,8 @@ function fetchArticlesInBoundingBox() { //#geo-api
         bounds['_ne'].lng
     ];
 
-    const requestURL = `https://en.wikipedia.org/w/api.php?action=query&format=json&list=geosearch&origin=*&utf8=1&gsbbox=${boundsArray.join('|')}&gslimit=500&gsprimary=all`;
     console.log('Searching articles in new map locations');
-    fetch(requestURL)
-        .then(response => response.json())
-        .then(data => processArticles(data))
-        .catch(error => console.log(error));
-}
-
-function processArticles(jsonData) { // #geo-api #map
-    console.log(`Found ${jsonData.query.geosearch.length} articles`);
-    $.each(jsonData.query.geosearch, function (index, value) {
-        if (value.title.startsWith('List of')) return; // ignore wikipedia list articles
-        let article = {
-            'pageId': value.pageid,
-            'title': value.title,
-            'lonLat': [value.lon, value.lat]
-        };
-
-        if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
-            article.url = `https://en.m.wikipedia.org/?curid=${value.pageid}`;
-        } else {
-            article.url = `https://en.wikipedia.org/?curid=${value.pageid}`;
-        }
-
-        addArticlesToGoejson(article);
-    });
-    map.getSource('wikipediaSource').setData(articlesGeojson);
-    $('#loadingBox').hide();
-}
-
-function addArticlesToGoejson(article) { // #map
-    if (isArticleInGeojson(article)) return; // check if article is already in geojson
-    let feature = {
-        'type': 'Feature',
-        'properties': article,
-        'geometry': {
-            'type': 'Point',
-            'coordinates': article.lonLat
-        }
-    };
-    articlesGeojson.features.push(feature);
-
-}
-
-function isArticleInGeojson(article) { // #map #helper
-    if (!article || !article.pageId) throw new Error('Invalid input');
-    return articlesGeojson.features.some(feature => feature.properties.pageId === article.pageId);
+    fetchArticlesMultilingual(boundsArray);
 }
 
 function openInfoPanel(poiProperties) { // #panel
@@ -375,15 +332,29 @@ function openInfoPanel(poiProperties) { // #panel
     } else {
         infoPanel.Map_lonLat = poiProperties.lonLat;
     }
+
+    // Parse multilingual data if available
+    let langs = null;
+    if (poiProperties.langs) {
+        try {
+            langs = typeof poiProperties.langs === 'string' ? JSON.parse(poiProperties.langs) : poiProperties.langs;
+        } catch (e) {
+            langs = null;
+        }
+    }
+    infoPanel._langs = langs;
+    infoPanel.currentLang = poiProperties.primaryLang || 'en';
+
     console.log(`openInfoPanel: ${infoPanel}`);
     console.log(infoPanel);
-    wikipediaApiRequestDetails(infoPanel.wikipediaID);
+    wikipediaApiRequestDetails(infoPanel.wikipediaID, infoPanel.currentLang);
 }
 
-async function wikipediaApiRequestDetails(pageID) { // #wiki-api
-    console.log(`Fetching details for article with pageID: ${pageID}`);
+async function wikipediaApiRequestDetails(pageID, lang) { // #wiki-api
+    lang = lang || 'en';
+    console.log(`Fetching details for article with pageID: ${pageID} (${lang})`);
     // API sandbox link: https://en.wikipedia.org/wiki/Special:ApiSandbox#action=query&format=json&origin=*&prop=extracts%7Cpageprops%7Cpageimages%7Ccategories&pageids=58387057&utf8=1&formatversion=latest&exintro=1
-    const requestURL = `https://en.wikipedia.org/w/api.php?action=query&origin=*&format=json&prop=extracts%7Cpageprops%7Cpageimages%7Ccategories&pageids=${pageID}&utf8=1&formatversion=latest&exintro=1`;
+    const requestURL = `https://${lang}.wikipedia.org/w/api.php?action=query&origin=*&format=json&prop=extracts%7Cpageprops%7Cpageimages%7Ccategories%7Cextlinks&pageids=${pageID}&utf8=1&formatversion=latest&exintro=1&ellimit=500`;
     fetch(requestURL)
         .then(response => response.json())
         .then(data => parseWikipediaApiResponseDetails(data))
@@ -404,6 +375,11 @@ function parseWikipediaApiResponseDetails(jsonData) {
 
     for (const i in wikipediaApiRespons.categories) {
         infoPanel.wikipedia_Categories.push(wikipediaApiRespons.categories[i].title); // adding all wikipediaApiRespons cathegories.
+    }
+
+    infoPanel.wikipedia_ExtLinks = [];
+    if (wikipediaApiRespons.extlinks) {
+        infoPanel.wikipedia_ExtLinks = wikipediaApiRespons.extlinks.map(link => link.url);
     }
 
     updateInfoPanel(infoPanel);
@@ -477,7 +453,7 @@ function WikidataApiRequestDetails() {
           OPTIONAL { ?item  wdt:P4702 ?GoogleArtsCulturePartnerId. }
           OPTIONAL {
             ?WikipediaLink schema:about ?item;
-              schema:isPartOf <https://en.wikipedia.org/>.
+              schema:isPartOf <https://${infoPanel.currentLang || 'en'}.wikipedia.org/>.
           }
           OPTIONAL { SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". } }
           OPTIONAL {
@@ -523,17 +499,7 @@ function WikidataApiRequestDetails() {
                             value = value.replace(')', '');
                             value = value.split(' ');
                             value = [Number(value[0]), Number(value[1])];
-                            // if (value.length == 1) value = value[0];
                             break;
-
-                        // this changes the img url  to the img page
-                        // case "img":
-                        //     value = data[key][v];
-                        //     value = value.replace(
-                        //         "https://commons.wikimedia.org/wiki/Special:FilePath/",
-                        //         "https://commons.wikimedia.org/wiki/File:"
-                        //     )
-                        //     break;
 
                         case 'TwitterUsername':
                             value = `https://twitter.com/${data[key][v]}`;
@@ -635,7 +601,6 @@ function updateInfoPanel(data) {
         $('#article-year').hide();
         $('#articleimage').hide();
         $('#article-image').attr('src', 'img/loading.gif');
-        // $('#article-instance-of').html('-');
 
         $('#article-wikidata').parent('.listitem').hide();
         $('#article-wikidata').attr('href', '');
@@ -654,6 +619,9 @@ function updateInfoPanel(data) {
 
         $('#article-official-website').parent('.listitem').hide();
         $('#article-official-website').attr('href', '');
+
+        $('#wikisources').hide();
+        $('#sources-list').empty();
     }
 
     $('#article-title').text(data.Map_title);
@@ -671,8 +639,6 @@ function updateInfoPanel(data) {
         $('#article-image').attr('src', data.wikipedia_ImgUrl);
         $('#article-image').attr('alt', data.wikipedia_ImgTitle);
     }
-
-    // $('#article-instance-of').html(formatingInstanceOfList());
 
     if (data.Wikidata_item != undefined) { // Wikidata
         $('#article-wikidata').attr('href', data.Wikidata_item);
@@ -710,12 +676,64 @@ function updateInfoPanel(data) {
         $('#article-official-website').parent('.listitem').show();
     }
 
+    // Render sources from Wikipedia
+    if (data.wikipedia_ExtLinks && data.wikipedia_ExtLinks.length > 0) {
+        let filtered = filterExtLinks(data.wikipedia_ExtLinks);
+        if (filtered.length > 0) {
+            let listHtml = filtered.map(function (url) {
+                return `<li><a href="${url}" target="_blank" rel="noopener">${formatExtLink(url)}</a></li>`;
+            }).join('');
+            $('#sources-list').html(listHtml);
+            $('#wikisources').show();
+        }
+    }
+
     function formatingInseption() { return data.Wikidata_inception != undefined ? `From  ${data.Wikidata_inception}` : undefined; }
+
+    // Render info panel language badges
+    if (data._langs && typeof renderInfoPanelLangBadges === 'function') {
+        renderInfoPanelLangBadges(data._langs, data.currentLang);
+    }
 
     showInfopanel(); // function from buttons.js
 }
 
 function bigNumberFormatter(num) { return num >= 1000000 ? `${(num / 1000000).toFixed(0)} M` : num >= 1000 ? `${(num / 1000).toFixed(0)} k` : num; }
+
+function formatExtLink(url) {
+    try {
+        let parsed = new URL(url);
+        let domain = parsed.hostname.replace(/^www\./, '');
+        let path = parsed.pathname + parsed.search;
+        if (path === '/') path = '';
+        if (path.length > 40) path = path.substring(0, 40) + '…';
+        return `<strong>${domain}</strong>${path}`;
+    } catch (e) {
+        return url;
+    }
+}
+
+const FILTERED_DOMAINS = [
+    'web.archive.org', 'archive.org', 'ghostarchive.org',
+    'books.google.com', 'news.google.com',
+    'viaf.org', 'catalogue.bnf.fr', 'd-nb.info', 'id.loc.gov',
+    'musicbrainz.org', 'isni.org', 'worldcat.org',
+    'geohack.toolforge.org', 'doi.org'
+];
+
+function filterExtLinks(urls) {
+    let seen = new Set();
+    return urls.filter(function (url) {
+        if (seen.has(url)) return false;
+        seen.add(url);
+        try {
+            let hostname = new URL(url).hostname;
+            return !FILTERED_DOMAINS.some(d => hostname === d || hostname.endsWith('.' + d));
+        } catch (e) {
+            return true;
+        }
+    });
+}
 
 
 
@@ -764,12 +782,3 @@ function updateWelcomeDivBackground() {
     if (element) { element.style.backgroundImage = `url("${randomUrl}")`; }
 }
 updateWelcomeDivBackground();
-
-// Ideas for future:
-// - on map movement queries: wikipedia API, Wikidata query, Wiki commons API (toggle for all 3)
-// - plaatje, title, intro, Wikipedia link, Wikidata link, mini discription, (list of related categories: quality?)
-// - extra from wikidata's Qnbr: instance of, official website, inception, part of, pronunciation audio, date of official opening, commons ategorie, significant event,
-// audio, visitors per year, height, area, Google Maps Customer ID, Insta Location, Mapillary ID, Facebook ID, Freebase ID (Google Search), Instagram username, Twitter username
-// - extra from LonLat: Google maps link, Bing maps, WikiShootMe
-// - extra form commons: photo album, hi qualit images, image locator tool link
-// options: see images arround this location
