@@ -389,6 +389,7 @@ function updateBadgeCounts() {
 
 /**
  * Render the language badge UI on the map overlay.
+ * Active languages appear first (in langState.order), then inactive ones.
  */
 function renderLanguageBadges() {
     let container = document.getElementById('lang-badge-container');
@@ -396,15 +397,26 @@ function renderLanguageBadges() {
 
     container.innerHTML = '';
 
-    SUPPORTED_LANGUAGES.forEach(function (langDef) {
+    // Build ordered list: active langs in order first, then inactive
+    let ordered = [];
+    langState.order.forEach(function (code) {
+        let def = SUPPORTED_LANGUAGES.find(l => l.code === code);
+        if (def && langState.active.includes(code)) ordered.push(def);
+    });
+    SUPPORTED_LANGUAGES.forEach(function (def) {
+        if (!ordered.some(o => o.code === def.code)) ordered.push(def);
+    });
+
+    ordered.forEach(function (langDef) {
+        let isActive = langState.active.includes(langDef.code);
         let badge = document.createElement('div');
-        badge.className = 'lang-badge' + (langState.active.includes(langDef.code) ? ' active' : '');
+        badge.className = 'lang-badge' + (isActive ? ' active' : '');
         badge.setAttribute('data-lang', langDef.code);
         badge.setAttribute('draggable', 'true');
         badge.setAttribute('title', langDef.name);
 
         let count = langState.counts[langDef.code] || 0;
-        let countStr = langState.active.includes(langDef.code) && count > 0 ? ' ' + count : '';
+        let countStr = isActive && count > 0 ? ' ' + count : '';
         badge.textContent = langDef.label + countStr;
 
         badge.addEventListener('click', function () {
@@ -419,6 +431,7 @@ function renderLanguageBadges() {
 
 /**
  * Toggle a language active/inactive. Rebuild geojson and re-render.
+ * When activating: puts language at position 0, English at position 1.
  */
 function toggleLanguage(lang) {
     let idx = langState.active.indexOf(lang);
@@ -430,10 +443,21 @@ function toggleLanguage(lang) {
         let orderIdx = langState.order.indexOf(lang);
         if (orderIdx >= 0) langState.order.splice(orderIdx, 1);
     } else {
-        langState.active.push(lang);
-        // Add to order if not present
-        if (!langState.order.includes(lang)) {
-            langState.order.push(lang);
+        // Activate: put at front of order, English second
+        langState.active.unshift(lang);
+
+        // Remove from order if already there, then prepend
+        let orderIdx = langState.order.indexOf(lang);
+        if (orderIdx >= 0) langState.order.splice(orderIdx, 1);
+        langState.order.unshift(lang);
+
+        // Ensure English is second (if active and not the one being added)
+        if (lang !== 'en' && langState.active.includes('en')) {
+            let enIdx = langState.order.indexOf('en');
+            if (enIdx > 1) {
+                langState.order.splice(enIdx, 1);
+                langState.order.splice(1, 0, 'en');
+            }
         }
     }
 
@@ -480,19 +504,17 @@ function initBadgeDragAndDrop() {
             let srcLang = e.dataTransfer.getData('text/plain');
             let targetLang = this.getAttribute('data-lang');
 
-            // Reorder: move srcLang to targetLang's position in order
-            let srcIdx = langState.order.indexOf(srcLang);
-            let targetIdx = langState.order.indexOf(targetLang);
+            // Only allow reordering among active languages
+            if (!langState.active.includes(srcLang) || !langState.active.includes(targetLang)) return;
 
-            if (srcIdx < 0) {
-                // Source not in order yet, add it
-                if (!langState.active.includes(srcLang)) return;
-                langState.order.splice(targetIdx, 0, srcLang);
-            } else {
-                langState.order.splice(srcIdx, 1);
-                targetIdx = langState.order.indexOf(targetLang);
-                langState.order.splice(targetIdx, 0, srcLang);
-            }
+            // Remove src from order
+            let srcIdx = langState.order.indexOf(srcLang);
+            if (srcIdx >= 0) langState.order.splice(srcIdx, 1);
+
+            // Insert before target
+            let targetIdx = langState.order.indexOf(targetLang);
+            if (targetIdx < 0) targetIdx = langState.order.length;
+            langState.order.splice(targetIdx, 0, srcLang);
 
             saveLanguagePrefs();
             let geojson = buildFilteredGeojson();

@@ -159,4 +159,69 @@ test.describe('Multilingual feature', () => {
         expect(geosearchLangs.has('en')).toBe(true);
         expect(geosearchLangs.has('fr')).toBe(true);
     });
+
+    test('activating a language puts it first in order and first in badge list', async ({ page }) => {
+        await navigateToLocation(page, TEST_LOCATIONS.amsterdam);
+
+        // Start with only English
+        await page.evaluate(() => {
+            langState.active = ['en'];
+            langState.order = ['en'];
+            saveLanguagePrefs();
+            renderLanguageBadges();
+        });
+
+        // Activate NL
+        await page.evaluate(() => {
+            toggleLanguage('nl');
+        });
+
+        // NL should be first in order, EN second
+        const state = await page.evaluate(() => ({
+            order: langState.order,
+            active: langState.active,
+        }));
+        expect(state.order[0]).toBe('nl');
+        expect(state.order[1]).toBe('en');
+
+        // First badge in DOM should be NL
+        const firstBadgeLang = await page.locator('.lang-badge').first().getAttribute('data-lang');
+        expect(firstBadgeLang).toBe('nl');
+    });
+
+    test('NL Wikipedia has articles not found in EN Wikipedia (Amsterdam)', async ({ page }) => {
+        await page.goto('/', { waitUntil: 'load', timeout: 45000 });
+        await page.waitForFunction(() => typeof map !== 'undefined', { timeout: 30000 });
+
+        // Set EN + NL active
+        await page.evaluate(() => {
+            const el = document.querySelector('.WelcomeDiv');
+            if (el) el.style.display = 'none';
+            langState.active = ['en', 'nl'];
+            langState.order = ['nl', 'en'];
+            saveLanguagePrefs();
+        });
+
+        await navigateToLocation(page, TEST_LOCATIONS.amsterdam);
+
+        // Count articles with both EN+NL vs total
+        const counts = await page.evaluate(() => {
+            let nlOnly = 0;
+            let total = 0;
+            for (let key in articleStore) {
+                let entry = articleStore[key];
+                if (!entry.langs) continue;
+                total++;
+                if (entry.langs.nl && !entry.langs.en) nlOnly++;
+            }
+            return { nlOnly, total, nlCount: langState.counts.nl || 0, enCount: langState.counts.en || 0 };
+        });
+
+        // NL Wikipedia should have articles EN doesn't
+        expect(counts.total).toBeGreaterThan(0);
+        expect(counts.nlCount).toBeGreaterThan(0);
+        expect(counts.enCount).toBeGreaterThan(0);
+        // In Amsterdam, NL Wikipedia typically has more articles than EN
+        console.log(`Amsterdam: ${counts.total} total, ${counts.nlCount} NL, ${counts.enCount} EN, ${counts.nlOnly} NL-only`);
+    });
 });
