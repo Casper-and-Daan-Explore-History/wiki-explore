@@ -11,6 +11,8 @@ function showInfopanel() {
 }
 
 function hideInfopanel() {
+    infoPanel = {};
+    if (typeof updateUrlState === 'function') updateUrlState();
     infoHidden();
 }
 

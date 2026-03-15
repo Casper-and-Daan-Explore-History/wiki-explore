@@ -8,6 +8,11 @@ let articlesGeojson = { // #map
 
 let infoPanel = {}; // #panel
 
+// Map style constants
+const MAP_STYLE_DEFAULT = 'mapbox://styles/caskes/cldkq0ha9000r01n3hjgwtkrn';
+const MAP_STYLE_SATELLITE = 'mapbox://styles/mapbox/satellite-streets-v12';
+let isSatelliteView = false;
+
 // cities is an array from the data.js file. It consists of objects with
 // the keys: "n" for name, "c" for coordinates and q for the Q number.
 function randCity() {
@@ -15,16 +20,181 @@ function randCity() {
     return cities[randIndex];
 }
 
+// #url-state — Parse URL for initial state
+const _urlParams = new URLSearchParams(window.location.search);
+const _hashMatch = window.location.hash.match(/^#(\d+\.?\d*)\/([-\d.]+)\/([-\d.]+)/);
+const _hasUrlCoords = !!_hashMatch;
+const _urlArticle = _urlParams.get('article');
+const _urlSatellite = _urlParams.get('satellite') === '1';
+const _urlLangs = _urlParams.get('langs');
+
 const srtartLocation = randCity(); // #welcome
 mapboxgl.accessToken = 'pk.eyJ1IjoiY2Fza2VzIiwiYSI6ImNsZGtwdGRrdzA4dWMzb3BoMWdxM3Zib2UifQ.2q2xfShG5nmDHTxg7n_ZhQ'; // #map
+
+// If URL has coordinates, use them; otherwise random city
+let _initialCenter = srtartLocation.c;
+let _initialZoom = 15;
+if (_hasUrlCoords) {
+    _initialCenter = [parseFloat(_hashMatch[3]), parseFloat(_hashMatch[2])];
+    _initialZoom = parseFloat(_hashMatch[1]);
+}
+
 const mapConfig = { // #map
     container: 'map', // container element id
-    style: 'mapbox://styles/caskes/cldkq0ha9000r01n3hjgwtkrn', // stylesheet location
-    center: srtartLocation.c, // "c" stands for coordinates. Random city of more than 100k people.
-    zoom: 15,
+    style: _urlSatellite ? MAP_STYLE_SATELLITE : MAP_STYLE_DEFAULT, // stylesheet location
+    center: _initialCenter,
+    zoom: _initialZoom,
     hash: true // hash location in url
 };
 const map = new mapboxgl.Map(mapConfig); // #map
+
+// Skip welcome screen if URL has coordinates (vanilla JS since jQuery may not be loaded yet)
+if (_hasUrlCoords) {
+    let _welcomeDiv = document.querySelector('.WelcomeDiv');
+    if (_welcomeDiv) _welcomeDiv.style.display = 'none';
+    let _coverDiv = document.getElementById('coverContainer');
+    if (_coverDiv) _coverDiv.style.display = 'none';
+}
+
+// Apply satellite state from URL
+if (_urlSatellite) {
+    isSatelliteView = true;
+}
+
+// #url-state — Article restore flag and function
+let _urlArticleRestored = false;
+
+function restoreArticleFromUrl(qNumber) {
+    if (!qNumber) return;
+    // Look up article in the store by Q-number
+    let entry = (typeof articleStore !== 'undefined') ? articleStore[qNumber] : null;
+    if (entry && entry.langs) {
+        // Build properties to open the info panel
+        let activeLangs = langState.active;
+        let order = langState.order;
+        let primaryLang = null;
+        let displayTitle = null;
+        let displayPageId = null;
+
+        for (let i = 0; i < order.length; i++) {
+            if (entry.langs[order[i]] && activeLangs.includes(order[i])) {
+                primaryLang = order[i];
+                displayTitle = entry.langs[order[i]].title;
+                displayPageId = entry.langs[order[i]].pageId;
+                break;
+            }
+        }
+        if (!displayTitle) {
+            for (let lang in entry.langs) {
+                primaryLang = lang;
+                displayTitle = entry.langs[lang].title;
+                displayPageId = entry.langs[lang].pageId;
+                break;
+            }
+        }
+        if (displayTitle) {
+            openInfoPanel({
+                key: qNumber,
+                title: displayTitle,
+                pageId: displayPageId,
+                lonLat: entry.lonLat,
+                langs: JSON.stringify(entry.langs),
+                primaryLang: primaryLang
+            });
+        }
+    } else {
+        // Article not in store yet — fetch via Wikidata to get coordinates and title
+        fetchArticleByQNumber(qNumber);
+    }
+}
+
+function fetchArticleByQNumber(qNumber) {
+    let lang = langState.active[0] || 'en';
+    let sparql = `SELECT ?sitelink ?coord WHERE {
+        OPTIONAL { wd:${qNumber} wdt:P625 ?coord. }
+        OPTIONAL {
+            ?sitelink schema:about wd:${qNumber};
+            schema:isPartOf <https://${lang}.wikipedia.org/>.
+        }
+    } LIMIT 1`;
+
+    let headers = new Headers({ Accept: 'application/sparql-results+json', ...WIKIMEDIA_HEADERS });
+    let body = new URLSearchParams({ query: sparql });
+
+    fetch('https://query.wikidata.org/sparql', { method: 'POST', headers, body })
+        .then(r => r.json())
+        .then(function (data) {
+            if (!data.results || !data.results.bindings || data.results.bindings.length === 0) return;
+            let row = data.results.bindings[0];
+
+            // Get the Wikipedia page URL to extract the page ID
+            if (row.sitelink) {
+                let wikiUrl = row.sitelink.value;
+                let titleMatch = wikiUrl.match(/\/wiki\/(.+)$/);
+                if (titleMatch) {
+                    let title = decodeURIComponent(titleMatch[1].replace(/_/g, ' '));
+                    // Resolve page ID via Wikipedia API
+                    fetch(`https://${lang}.wikipedia.org/w/api.php?action=query&format=json&origin=*&titles=${encodeURIComponent(title)}&formatversion=latest`, { headers: WIKIMEDIA_HEADERS })
+                        .then(r => r.json())
+                        .then(function (wikiData) {
+                            if (!wikiData.query || !wikiData.query.pages) return;
+                            let page = wikiData.query.pages[0];
+                            if (!page || page.missing) return;
+
+                            let lonLat = null;
+                            if (row.coord) {
+                                let coordStr = row.coord.value.replace('Point(', '').replace(')', '');
+                                let parts = coordStr.split(' ');
+                                lonLat = [parseFloat(parts[0]), parseFloat(parts[1])];
+                            }
+
+                            let langs = {};
+                            langs[lang] = { pageId: page.pageid, title: page.title };
+
+                            openInfoPanel({
+                                key: qNumber,
+                                title: page.title,
+                                pageId: page.pageid,
+                                lonLat: lonLat,
+                                langs: JSON.stringify(langs),
+                                primaryLang: lang
+                            });
+                        })
+                        .catch(e => console.error('Failed to resolve article from URL', e));
+                }
+            }
+        })
+        .catch(e => console.error('Failed to fetch article by Q-number', e));
+}
+
+// #url-state — Sync app state to URL query parameters
+let _urlUpdateTimer = null;
+function updateUrlState() {
+    // Debounce to avoid fighting with Mapbox's hash updates
+    clearTimeout(_urlUpdateTimer);
+    _urlUpdateTimer = setTimeout(function () {
+        let params = new URLSearchParams();
+
+        // Languages in order
+        if (typeof langState !== 'undefined' && langState.active && langState.active.length > 0) {
+            params.set('langs', langState.order.filter(l => langState.active.includes(l)).join(','));
+        }
+
+        // Selected article
+        if (infoPanel && infoPanel.qNumber) {
+            params.set('article', infoPanel.qNumber);
+        }
+
+        // Satellite mode
+        if (isSatelliteView) {
+            params.set('satellite', '1');
+        }
+
+        let paramStr = params.toString();
+        let newUrl = window.location.pathname + (paramStr ? '?' + paramStr : '') + window.location.hash;
+        history.replaceState(null, '', newUrl);
+    }, 100);
+}
 
 // Zoom and rotation constroles.
 map.addControl(new mapboxgl.NavigationControl(), 'bottom-right'); // #map
@@ -68,12 +238,24 @@ let geocoder = new MapboxGeocoder({ // #welcome
 });
 document.getElementById('geocoderWelcome').appendChild(geocoder.onAdd(map));
 
+// Debounce utility: delays calling fn until wait ms after the last invocation
+let _moveendTimer = null;
+function debouncedFetchArticles() {
+    clearTimeout(_moveendTimer);
+    _moveendTimer = setTimeout(function () {
+        fetchArticlesInBoundingBox();
+    }, 500);
+}
+
 map.on('load', function () {
 
     // Initialize multilingual language state and badges
     if (typeof initLanguageState === 'function') {
         initLanguageState();
     }
+
+    // Ensure source and layers exist before first data fetch (race condition fix)
+    addWikipediaSourceAndLayers();
 
     // initial API call to get data on the map
     fetchArticlesInBoundingBox(); // #geo-api
@@ -85,46 +267,7 @@ map.on('load', function () {
     });
     document.getElementById('geocoderMap').appendChild(geocoder2.onAdd(map)); // #map
 
-    map.addSource('wikipediaSource', { // #map
-        'type': 'geojson',
-        'data': {
-            'type': 'FeatureCollection',
-            'features': []
-        },
-        cluster: true,
-        clusterMaxZoom: 14, // Max zoom to cluster points on
-        clusterRadius: 16
-    });
-
-    // draw both points and clusters
-    map.addLayer({ // #map
-        id: 'unclustered-point',
-        type: 'circle',
-        source: 'wikipediaSource',
-        paint: {
-            'circle-color': '#4B7982',
-            'circle-opacity': 0.8,
-            'circle-radius': 10,
-            'circle-stroke-width': 1,
-            'circle-stroke-color': '#fff'
-        }
-    });
-
-    // add cluster counter value
-    map.addLayer({ // #map
-        id: 'cluster-count',
-        type: 'symbol',
-        source: 'wikipediaSource',
-        filter: ['has', 'point_count'],
-        layout: {
-            'text-field': '{point_count_abbreviated}',
-            'text-font': ['DIN Offc Pro Medium', 'Arial Unicode MS Bold'],
-            'text-size': 12
-        },
-        paint: {
-            'text-color': '#ffffff'
-        }
-    });
+    // Source and layers are added via style.load → addWikipediaSourceAndLayers()
 
     // hover popup Wikipedia Layer
     map.on('mousemove', 'unclustered-point', hoverPopupOn); // #map
@@ -143,9 +286,10 @@ map.on('load', function () {
     map.on('click', 'unclustered-point', popupOpen); // #info-panel
     map.on('click', 'cluster-count', popupOpen); // #article-list
 
-    // Map panning ends
+    // Map panning ends — debounced to prevent request storms
     map.on('moveend', function () { // #geo-api
-        fetchArticlesInBoundingBox();
+        debouncedFetchArticles();
+        updateUrlState();
     });
 
     // Show the contextual menu on right-click
@@ -162,6 +306,80 @@ map.on('load', function () {
     map.on('dragstart', hideContextMenu);
     map.on('touchstart', hideContextMenu);
 
+});
+
+// #satellite-toggle (constants and isSatelliteView declared at top of file)
+
+function addWikipediaSourceAndLayers() {
+    if (map.getSource('wikipediaSource')) return;
+
+    map.addSource('wikipediaSource', {
+        'type': 'geojson',
+        'data': articlesGeojson,
+        cluster: true,
+        clusterMaxZoom: 14,
+        clusterRadius: 16
+    });
+
+    map.addLayer({
+        id: 'unclustered-point',
+        type: 'circle',
+        source: 'wikipediaSource',
+        paint: {
+            'circle-color': '#4B7982',
+            'circle-opacity': 0.8,
+            'circle-radius': 10,
+            'circle-stroke-width': 1,
+            'circle-stroke-color': '#fff'
+        }
+    });
+
+    map.addLayer({
+        id: 'cluster-count',
+        type: 'symbol',
+        source: 'wikipediaSource',
+        filter: ['has', 'point_count'],
+        layout: {
+            'text-field': '{point_count_abbreviated}',
+            'text-font': ['DIN Offc Pro Medium', 'Arial Unicode MS Bold'],
+            'text-size': 12
+        },
+        paint: {
+            'text-color': '#ffffff'
+        }
+    });
+}
+
+document.getElementById('satelliteToggle').addEventListener('click', function () {
+    isSatelliteView = !isSatelliteView;
+    let newStyle = isSatelliteView ? MAP_STYLE_SATELLITE : MAP_STYLE_DEFAULT;
+    let btn = document.getElementById('satelliteToggle');
+    let label = btn.querySelector('.random-label');
+    let icon = btn.querySelector('.icon');
+
+    if (isSatelliteView) {
+        if (label) label.textContent = 'Map';
+        if (icon) icon.className = 'fas fa-map icon';
+    } else {
+        if (label) label.textContent = 'Satellite';
+        if (icon) icon.className = 'fas fa-satellite icon';
+    }
+
+    map.setStyle(newStyle);
+    updateUrlState();
+});
+
+// Update satellite button label if loaded from URL in satellite mode
+if (_urlSatellite) {
+    let _btn = document.getElementById('satelliteToggle');
+    let _label = _btn ? _btn.querySelector('.random-label') : null;
+    let _icon = _btn ? _btn.querySelector('.icon') : null;
+    if (_label) _label.textContent = 'Map';
+    if (_icon) _icon.className = 'fas fa-map icon';
+}
+
+map.on('style.load', function () {
+    addWikipediaSourceAndLayers();
 });
 
 // #context-menu
@@ -345,6 +563,12 @@ function openInfoPanel(poiProperties) { // #panel
     infoPanel._langs = langs;
     infoPanel.currentLang = poiProperties.primaryLang || 'en';
 
+    // Immediately reset the visual state to prevent old content flashing
+    resetInfoPanelVisuals();
+
+    // Store the key (Q-number or temp) for URL state
+    infoPanel._articleKey = poiProperties.key || null;
+
     console.log(`openInfoPanel: ${infoPanel}`);
     console.log(infoPanel);
     wikipediaApiRequestDetails(infoPanel.wikipediaID, infoPanel.currentLang);
@@ -355,7 +579,7 @@ async function wikipediaApiRequestDetails(pageID, lang) { // #wiki-api
     console.log(`Fetching details for article with pageID: ${pageID} (${lang})`);
     // API sandbox link: https://en.wikipedia.org/wiki/Special:ApiSandbox#action=query&format=json&origin=*&prop=extracts%7Cpageprops%7Cpageimages%7Ccategories&pageids=58387057&utf8=1&formatversion=latest&exintro=1
     const requestURL = `https://${lang}.wikipedia.org/w/api.php?action=query&origin=*&format=json&prop=extracts%7Cpageprops%7Cpageimages%7Ccategories%7Cextlinks&pageids=${pageID}&utf8=1&formatversion=latest&exintro=1&ellimit=500`;
-    fetch(requestURL)
+    fetch(requestURL, { headers: WIKIMEDIA_HEADERS })
         .then(response => response.json())
         .then(data => parseWikipediaApiResponseDetails(data))
         .catch(error => console.error(error));
@@ -367,7 +591,10 @@ function parseWikipediaApiResponseDetails(jsonData) {
     infoPanel.wikipedia_Intro = wikipediaApiRespons.extract;
     infoPanel.wikipedia_ImgTitle = wikipediaApiRespons.pageimage;
     infoPanel.qNumber = wikipediaApiRespons.pageprops.wikibase_item;
-    if (infoPanel.qNumber) WikidataApiRequestDetails();
+    if (infoPanel.qNumber) {
+        updateUrlState();
+        WikidataApiRequestDetails();
+    }
     if (wikipediaApiRespons.pageimage != undefined) {
         infoPanel.wikipedia_ImgUrl = `https://commons.wikimedia.org/wiki/Special:FilePath/${wikipediaApiRespons.pageimage}?width=800`;
     }
@@ -388,7 +615,7 @@ function parseWikipediaApiResponseDetails(jsonData) {
 function WikidataApiRequestDetails() {
 
     async function fetchWikidataData(endpointUrl, sparqlQuery, doneCallback) {
-        const headers = new Headers({ Accept: 'application/sparql-results+json' });
+        const headers = new Headers({ Accept: 'application/sparql-results+json', ...WIKIMEDIA_HEADERS });
         const body = new URLSearchParams({ query: sparqlQuery });
 
         try {
@@ -594,34 +821,34 @@ function WikidataApiRequestDetails() {
     //infoPanel.qNumber
 }
 
+function resetInfoPanelVisuals() {
+    $('#article-title').text('');
+    $('#article-intro').html('');
+    $('#article-year').text('').hide();
+    $('#articleimage').hide();
+    $('#article-image').attr('src', 'img/loading.gif');
+    $('#info-lang-badges').hide().empty();
+
+    $('#article-wikidata').parent('.listitem').hide();
+    $('#article-wikidata').attr('href', '');
+    $('#article-wikipedia').parent('.listitem').hide();
+    $('#article-wikipedia').attr('href', '');
+    $('#article-wikicommons').parent('.listitem').hide();
+    $('#article-wikicommons').attr('href', '');
+    $('#article-google-search').parent('.listitem').hide();
+    $('#article-google-search').attr('href', '');
+    $('#article-google-maps').parent('.listitem').hide();
+    $('#article-google-maps').attr('href', '');
+    $('#article-google-maps-hint').remove();
+    $('#article-official-website').parent('.listitem').hide();
+    $('#article-official-website').attr('href', '');
+    $('#wikisources').hide();
+    $('#sources-list').empty();
+}
+
 function updateInfoPanel(data) {
     { // reset all fields
-        $('#article-title').text('no title');
-        $('#article-intro').html('');
-        $('#article-year').hide();
-        $('#articleimage').hide();
-        $('#article-image').attr('src', 'img/loading.gif');
-
-        $('#article-wikidata').parent('.listitem').hide();
-        $('#article-wikidata').attr('href', '');
-
-        $('#article-wikipedia').parent('.listitem').hide();
-        $('#article-wikipedia').attr('href', '');
-
-        $('#article-wikicommons').parent('.listitem').hide();
-        $('#article-wikicommons').attr('href', '');
-
-        $('#article-google-search').parent('.listitem').hide();
-        $('#article-google-search').attr('href', '');
-
-        $('#article-google-maps').parent('.listitem').hide();
-        $('#article-google-maps').attr('href', '');
-
-        $('#article-official-website').parent('.listitem').hide();
-        $('#article-official-website').attr('href', '');
-
-        $('#wikisources').hide();
-        $('#sources-list').empty();
+        resetInfoPanelVisuals();
     }
 
     $('#article-title').text(data.Map_title);
@@ -661,14 +888,19 @@ function updateInfoPanel(data) {
     }
 
     let lonlat = data.Map_lonLat || (data.Wikidata_LonLat && data.Wikidata_LonLat[0]);
+    $('#article-google-maps-hint').remove();
     if (lonlat && lonlat.length == 2) { // Google Maps based on coordinates
         $('#article-google-maps').attr('href', `https://www.google.com/maps/search/?api=1&query=${lonlat[1]},${lonlat[0]}`);
         $('#article-google-maps').parent('.listitem').show();
+        $('#article-google-maps').find('.listitemlabel').text('Google Maps');
+        $('<span id="article-google-maps-hint" style="font-size:10px;color:#999;margin-left:4px;">(coordinates)</span>').appendTo($('#article-google-maps').find('.listitemlabel'));
     }
 
     if (data.Wikidata_GoogleMapsCustomerId != undefined) { // Google Maps based on Google Maps ID (overwrites coordinates)
         $('#article-google-maps').attr('href', data.Wikidata_GoogleMapsCustomerId);
         $('#article-google-maps').parent('.listitem').show();
+        $('#article-google-maps-hint').remove();
+        $('#article-google-maps').find('.listitemlabel').text('Google Maps');
     }
 
     if (data.Wikidata_officialWebsite != undefined) { // Google Maps

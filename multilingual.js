@@ -1,6 +1,11 @@
 /* eslint-disable no-undef */
 /* eslint-disable indent */
 
+// Wikimedia API etiquette: identify the app via Api-User-Agent header
+const WIKIMEDIA_HEADERS = {
+    'Api-User-Agent': 'WikiExplore/1.0 (https://wikiexplore.org; info@wikiexplore.org)'
+};
+
 // Supported Wikipedia language editions
 const SUPPORTED_LANGUAGES = [
     { code: 'en', label: 'EN', name: 'English' },
@@ -33,13 +38,29 @@ let articleStore = {};
 // Track pending Q-number resolution to avoid double-resolving
 let _pendingQResolution = {};
 
-// Max concurrent language fetches
-const MAX_CONCURRENT_FETCHES = 6;
+// Max concurrent language fetches (Wikimedia guideline: max 3 concurrent requests)
+const MAX_CONCURRENT_FETCHES = 3;
 
 /**
  * Initialize language state from localStorage or defaults.
  */
 function initLanguageState() {
+    // URL langs parameter takes priority (for shared links)
+    let urlLangs = (typeof _urlLangs !== 'undefined') ? _urlLangs : null;
+    let supported = SUPPORTED_LANGUAGES.map(l => l.code);
+
+    if (urlLangs) {
+        let codes = urlLangs.split(',').filter(c => supported.includes(c));
+        if (codes.length > 0) {
+            langState.active = codes.slice();
+            langState.order = codes.slice();
+            langState.counts = {};
+            saveLanguagePrefs();
+            renderLanguageBadges();
+            return;
+        }
+    }
+
     let prefs = loadLanguagePrefs();
     if (prefs && prefs.active && prefs.active.length > 0) {
         langState.active = prefs.active;
@@ -47,7 +68,6 @@ function initLanguageState() {
     } else {
         // Default: browser language + English
         let browserLang = (navigator.language || 'en').split('-')[0].toLowerCase();
-        let supported = SUPPORTED_LANGUAGES.map(l => l.code);
         if (!supported.includes(browserLang)) browserLang = null;
 
         if (browserLang && browserLang !== 'en') {
@@ -102,7 +122,7 @@ async function fetchArticlesMultilingual(boundsArray) {
         let batch = activeLangs.slice(i, i + MAX_CONCURRENT_FETCHES);
         let promises = batch.map(lang => {
             let requestURL = `https://${lang}.wikipedia.org/w/api.php?action=query&format=json&list=geosearch&origin=*&utf8=1&gsbbox=${boundsArray.join('|')}&gslimit=500&gsprimary=all`;
-            return fetch(requestURL)
+            return fetch(requestURL, { headers: WIKIMEDIA_HEADERS })
                 .then(r => r.json())
                 .then(data => ({ lang: lang, data: data, error: null }))
                 .catch(error => ({ lang: lang, data: null, error: error }));
@@ -132,6 +152,12 @@ async function fetchArticlesMultilingual(boundsArray) {
     updateBadgeCounts();
     renderLanguageBadges();
     $('#loadingBox').hide();
+
+    // Restore article from URL on first load
+    if (typeof _urlArticle !== 'undefined' && _urlArticle && !_urlArticleRestored) {
+        _urlArticleRestored = true;
+        restoreArticleFromUrl(_urlArticle);
+    }
 }
 
 /**
@@ -212,7 +238,7 @@ async function resolveQNumbers(lang, pageIds) {
         let requestURL = `https://${lang}.wikipedia.org/w/api.php?action=query&format=json&origin=*&prop=pageprops&ppprop=wikibase_item&pageids=${batch.join('|')}&formatversion=latest`;
 
         try {
-            let response = await fetch(requestURL);
+            let response = await fetch(requestURL, { headers: WIKIMEDIA_HEADERS });
             let data = await response.json();
             if (data && data.query && data.query.pages) {
                 data.query.pages.forEach(function (page) {
@@ -467,6 +493,12 @@ function toggleLanguage(lang) {
     let geojson = buildFilteredGeojson();
     updateMapSource(geojson);
     renderLanguageBadges();
+    if (typeof updateUrlState === 'function') updateUrlState();
+
+    // If a language was activated, fetch articles for it in the current viewport
+    if (idx < 0) {
+        fetchArticlesInBoundingBox();
+    }
 }
 
 /**
@@ -520,6 +552,7 @@ function initBadgeDragAndDrop() {
             let geojson = buildFilteredGeojson();
             updateMapSource(geojson);
             renderLanguageBadges();
+            if (typeof updateUrlState === 'function') updateUrlState();
         });
 
         badge.addEventListener('dragend', function () {
@@ -534,6 +567,8 @@ function initBadgeDragAndDrop() {
 /**
  * Render language badges in the info panel header.
  * Shows which languages are available for the current article.
+ * Shows a single-language indicator when multiple languages are active on the map
+ * but the article is only available in one.
  */
 function renderInfoPanelLangBadges(langsObj, currentLang) {
     let container = document.getElementById('info-lang-badges');
@@ -541,11 +576,24 @@ function renderInfoPanelLangBadges(langsObj, currentLang) {
 
     container.innerHTML = '';
     let langCodes = Object.keys(langsObj);
-    if (langCodes.length <= 1) {
+    let multipleMapLangs = langState.active.length > 1;
+
+    // Hide badges when only 1 language on map and article has 1 language
+    if (langCodes.length <= 1 && !multipleMapLangs) {
         container.style.display = 'none';
         return;
     }
     container.style.display = 'flex';
+
+    if (langCodes.length <= 1 && multipleMapLangs) {
+        // Article only available in one language — show indicator
+        let label = document.createElement('span');
+        label.className = 'info-lang-badge active';
+        label.textContent = langCodes[0].toUpperCase() + ' only';
+        label.style.cursor = 'default';
+        container.appendChild(label);
+        return;
+    }
 
     langCodes.forEach(function (code) {
         let badge = document.createElement('span');
@@ -570,6 +618,15 @@ function switchInfoPanelLanguage(lang) {
     infoPanel.Map_title = langData.title;
     infoPanel.wikipediaID = langData.pageId;
 
+    // Clear all Wikidata and Wikipedia properties to prevent accumulation
+    let keysToDelete = Object.keys(infoPanel).filter(k => k.startsWith('Wikidata_') || k.startsWith('wikipedia_'));
+    keysToDelete.forEach(k => delete infoPanel[k]);
+
+    // Reset visuals immediately to prevent old content flashing
+    if (typeof resetInfoPanelVisuals === 'function') {
+        resetInfoPanelVisuals();
+    }
+
     // Re-fetch article details in the new language
     wikipediaApiRequestDetails(langData.pageId, lang);
     renderInfoPanelLangBadges(infoPanel._langs, lang);
@@ -577,12 +634,18 @@ function switchInfoPanelLanguage(lang) {
 
 /**
  * Build hover popup language indicator string.
+ * Shows available languages, or "XX only" when article has one language
+ * but multiple are active on the map.
  */
 function buildHoverLangIndicator(langsStr) {
     try {
         let langs = typeof langsStr === 'string' ? JSON.parse(langsStr) : langsStr;
         let codes = Object.keys(langs);
-        if (codes.length <= 1) return '';
+        let multipleMapLangs = langState.active.length > 1;
+        if (codes.length <= 1 && !multipleMapLangs) return '';
+        if (codes.length <= 1 && multipleMapLangs) {
+            return '<span class="hover-lang-badges"><span class="hover-lang-badge" style="opacity:0.7;">' + codes[0].toUpperCase() + ' only</span></span>';
+        }
         return '<span class="hover-lang-badges">' +
             codes.map(function (c) { return '<span class="hover-lang-badge">' + c.toUpperCase() + '</span>'; }).join(' ') +
             '</span>';
